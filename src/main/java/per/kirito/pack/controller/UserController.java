@@ -51,7 +51,7 @@ public class UserController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@RequestParam(value = "card") String card,
 	                        @RequestParam(value = "password") String password) {
-		String encrypt = TypeConversion.base64Encode(password.getBytes());
+		String encrypt = TypeConversion.stringToMD5(password);
 		User user = new User();
 		user.setCard(card);
 		user.setPassword(encrypt);
@@ -89,7 +89,7 @@ public class UserController {
 	@RequestMapping(value = "/addUser")
 	public String addUser(@RequestBody User user) {
 		String pwd = user.getPassword();
-		String encrypt = TypeConversion.base64Encode(pwd.getBytes());
+		String encrypt = TypeConversion.stringToMD5(pwd);
 		user.setPassword(encrypt);
 		int flag = userService.addUser(user);
 		if (flag == REGISTER_CODE) {
@@ -106,16 +106,13 @@ public class UserController {
 	public Map<String, String> forgetPwd(@RequestParam(value = "card") String card,
 	                                     @RequestParam(value = "phone") String phone,
 	                                     @RequestParam(value = "password") String password) {
-		System.out.println("card: " + card);
-		System.out.println("phone: " + phone);
-		System.out.println("password: " + password);
 		User user = new User();
 		user.setCard(card);
 		user.setPhone(phone);
 		int ifExit = userService.findUserByCardAndPhone(user);
 		Map<String, String> map = new HashMap<>();
 		if (ifExit == EXIST_CODE) {
-			String encrypt = TypeConversion.base64Encode(password.getBytes());
+			String encrypt = TypeConversion.stringToMD5(password);
 			user = userService.getUser(card);
 			user.setPassword(encrypt);
 			int flag = userService.updateUser(user);

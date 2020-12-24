@@ -2,6 +2,9 @@ package per.kirito.pack.util;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -71,10 +74,33 @@ public class TypeConversion {
 		return result;
 	}
 
+	/**
+	 * @Description: MD5加密字符串，不可逆
+	 * @Param: [plainText]
+	 * @Return: java.lang.String
+	 **/
+	public static String stringToMD5(String plainText) {
+		byte[] secretBytes = null;
+		int length = 32;
+		String meta = "0";
+		try {
+			secretBytes = MessageDigest.getInstance("md5").digest(plainText.getBytes());
+		} catch (NoSuchAlgorithmException e) {
+			throw new RuntimeException("没有这个md5算法！");
+		}
+		String md5code = new BigInteger(1, secretBytes).toString(16);
+		for (int i = 0; i < length - md5code.length(); i++) {
+			md5code = meta + md5code;
+		}
+		return md5code;
+	}
+
 	public static void main(String[] args) throws ParseException {
 		String time = TypeConversion.getTime();
 		System.out.println("现在时间：" + time);
 		System.out.println(base64Encode("123456".getBytes()));
 		System.out.println(base64Encode("admin".getBytes()));
+		System.out.println(stringToMD5("123456"));
+		System.out.println(stringToMD5("admin"));
 	}
 }

@@ -59,6 +59,7 @@ public class PackController {
 	private static final String DO_SUCCESS = Status.DO_SUCCESS.getMsg();
 	private static final String DO_FAIL = Status.DO_FAIL.getMsg();
 
+	// 根据快递单号获取快递信息
 	@CrossOrigin
 	@RequestMapping(value = "/getPackById")
 	public Object getPackById(@RequestParam(value = "id") String id) {
@@ -70,6 +71,7 @@ public class PackController {
 		}
 	}
 
+	// 管理员添加快递入站
 	@CrossOrigin
 	@RequestMapping(value = "/addPack")
 	public String addPack(@RequestParam(value = "id") String id) {           // TODO: 改成添加参数，其余自动生成

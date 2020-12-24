@@ -44,7 +44,7 @@ public class AdminController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String adminLogin(@RequestParam(value = "card") String card,
 	                        @RequestParam(value = "password") String password) {
-		String encrypt = TypeConversion.base64Encode(password.getBytes());
+		String encrypt = TypeConversion.stringToMD5(password);
 		Admin admin = new Admin();
 		admin.setCard(card);
 		admin.setPassword(encrypt);
