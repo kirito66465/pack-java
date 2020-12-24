@@ -15,7 +15,9 @@ public interface UserMapper {
 
 	int findUserByCardAndPhone(User user);
 
-	User getUser(String card);
+	User getUserById(String card);
+
+	User getUserByPhone(String phone);
 
 	int addUser(User user);
 

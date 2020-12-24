@@ -6,6 +6,8 @@ import per.kirito.pack.mapper.PackMapper;
 import per.kirito.pack.pojo.Pack;
 import per.kirito.pack.service.inter.PackService;
 
+import java.util.List;
+
 /**
  * @version 1.0
  * @Author: kirito
@@ -31,5 +33,15 @@ public class PackServiceImpl implements PackService {
 	@Override
 	public int updatePack(Pack pack) {
 		return packMapper.updatePack(pack);
+	}
+
+	@Override
+	public List<Pack> getPackSByPhone(String phone) {
+		return packMapper.getPackSByPhone(phone);
+	}
+
+	@Override
+	public List<Pack> getPacksByAddr(String addr) {
+		return packMapper.getPacksByAddr(addr);
 	}
 }

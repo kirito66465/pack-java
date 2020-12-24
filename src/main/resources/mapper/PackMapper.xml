@@ -14,6 +14,22 @@
 		WHERE id = #{id}
 	</select>
 
+	<select id="getPackSByPhone" parameterType="String" resultType="ArrayList">
+		SELECT id, org, per_name
+			, per_tel, per_addr, addr
+			, code, cont_name, cont_tel, status
+		FROM t_pack
+		WHERE per_tel = #{per_tel}
+	</select>
+
+	<select id="getPacksByAddr" parameterType="String" resultType="ArrayList">
+		SELECT id, org, per_name
+			, per_tel, per_addr, addr
+			, code, cont_name, cont_tel, status
+		FROM t_pack
+		WHERE addr = #{addr}
+	</select>
+
 	<insert id="addPack" parameterType="Pack">
 		INSERT INTO t_pack (
 			id, org, per_name, per_tel

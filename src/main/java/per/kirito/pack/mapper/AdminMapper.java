@@ -13,7 +13,9 @@ import per.kirito.pack.pojo.Admin;
 public interface AdminMapper {
 	int findAdminByCardAndPwd(Admin admin);
 
-	Admin getAdmin(String card);
+	Admin getAdminById(String card);
+
+	Admin getAdminByAddr(String addr);
 
 	int updateAdmin(Admin admin);
 }

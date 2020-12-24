@@ -50,7 +50,10 @@ public class AdminController {
 		admin.setPassword(encrypt);
 		int flag = adminService.findAdminByCardAndPwd(admin);
 		if (flag == LOGIN_CODE) {
-			stringRedisTemplate.opsForValue().set("card", card);
+			admin = adminService.getAdminById(card);
+			String addr = admin.getAddr();
+			stringRedisTemplate.opsForValue().set("admin-addr", addr);
+			stringRedisTemplate.opsForValue().set("admin-card", card);
 			return LOGIN_SUCCESS;
 		} else {
 			return LOGIN_FAIL;
@@ -60,19 +63,19 @@ public class AdminController {
 	@CrossOrigin
 	@RequestMapping(value = "/exit", method = RequestMethod.POST)
 	public String adminExit() {
-		stringRedisTemplate.delete("card");
-		return stringRedisTemplate.hasKey("card") ? EXIT_FAIL : EXIT_SUCCESS;
+		stringRedisTemplate.delete("admin-card");
+		return stringRedisTemplate.hasKey("admin-card") ? EXIT_FAIL : EXIT_SUCCESS;
 	}
 
 	@CrossOrigin
 	@RequestMapping(value = "/getInfo", method = RequestMethod.POST)
 	public Map<String, Object> getAdminInfo() {
-		String card = stringRedisTemplate.opsForValue().get("card");
+		String card = stringRedisTemplate.opsForValue().get("admin-card");
 		Map<String, Object> map = new HashMap<>();
 		if (card == null || card == "") {
 			map.put("result", INFO_FAIL);
 		} else {
-			Admin admin = adminService.getAdmin(card);
+			Admin admin = adminService.getAdminById(card);
 			map.put("result", admin);
 		}
 		return map;

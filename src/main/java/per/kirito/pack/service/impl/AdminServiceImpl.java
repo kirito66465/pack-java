@@ -23,8 +23,13 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Admin getAdmin(String card) {
-		return adminMapper.getAdmin(card);
+	public Admin getAdminById(String card) {
+		return adminMapper.getAdminById(card);
+	}
+
+	@Override
+	public Admin getAdminByAddr(String addr) {
+		return adminMapper.getAdminByAddr(addr);
 	}
 
 	@Override

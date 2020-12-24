@@ -15,7 +15,9 @@ public interface UserService {
 
 	int addUser(User user);
 
-	User getUser(String card);
+	User getUserById(String card);
+
+	User getUserByPhone(String phone);
 
 	int updateUser(User user);
 }

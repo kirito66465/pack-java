@@ -13,10 +13,16 @@
 		AND password = #{password}
 	</select>
 
-	<select id="getAdmin" parameterType="String" resultType="Admin">
+	<select id="getAdminById" parameterType="String" resultType="Admin">
 		SELECT t.card, t.password, t.phone, t.name, t.addr, t.count
 		FROM t_admin t
 		WHERE card = #{card}
+	</select>
+
+	<select id="getAdminByAddr" parameterType="String" resultType="Admin">
+		SELECT t.card, t.password, t.phone, t.name, t.addr, t.count
+		FROM t_admin t
+		WHERE addr = #{addr}
 	</select>
 
 	<update id="updateAdmin" parameterType="Admin">

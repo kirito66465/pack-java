@@ -57,7 +57,7 @@ public class UserController {
 		user.setPassword(encrypt);
 		int flag = userService.findUserByCardAndPwd(user);
 		if (flag == LOGIN_CODE) {
-			stringRedisTemplate.opsForValue().set("card", card);
+			stringRedisTemplate.opsForValue().set("user-card", card);
 			return LOGIN_SUCCESS;
 		} else {
 			return LOGIN_FAIL;
@@ -67,19 +67,19 @@ public class UserController {
 	@CrossOrigin
 	@RequestMapping(value = "/exit", method = RequestMethod.POST)
 	public String userExit() {
-		stringRedisTemplate.delete("card");
-		return stringRedisTemplate.hasKey("card") ? EXIT_FAIL : EXIT_SUCCESS;
+		stringRedisTemplate.delete("user-card");
+		return stringRedisTemplate.hasKey("user-card") ? EXIT_FAIL : EXIT_SUCCESS;
 	}
 
 	@CrossOrigin
 	@RequestMapping(value = "/getInfo", method = RequestMethod.POST)
 	public Map<String, Object> getUserInfo() {
-		String card = stringRedisTemplate.opsForValue().get("card");
+		String card = stringRedisTemplate.opsForValue().get("user-card");
 		Map<String, Object> map = new HashMap<>();
 		if (card == null || card == "") {
 			map.put("result", INFO_FAIL);
 		} else {
-			User user = userService.getUser(card);
+			User user = userService.getUserById(card);
 			map.put("user", user);
 		}
 		return map;
@@ -94,7 +94,7 @@ public class UserController {
 		int flag = userService.addUser(user);
 		if (flag == REGISTER_CODE) {
 			String card = user.getCard();
-			stringRedisTemplate.opsForValue().set("card", card);
+			stringRedisTemplate.opsForValue().set("user-card", card);
 			return REGISTER_SUCCESS;
 		} else {
 			return REGISTER_FAIL;
@@ -113,12 +113,12 @@ public class UserController {
 		Map<String, String> map = new HashMap<>();
 		if (ifExit == EXIST_CODE) {
 			String encrypt = TypeConversion.stringToMD5(password);
-			user = userService.getUser(card);
+			user = userService.getUserById(card);
 			user.setPassword(encrypt);
 			int flag = userService.updateUser(user);
 			if (flag == PWD_CODE) {
 				map.put("flag", PWD_SUCCESS);
-				stringRedisTemplate.opsForValue().set("card", card);
+				stringRedisTemplate.opsForValue().set("user-card", card);
 			} else {
 				map.put("flag", PWD_FAIL);
 			}

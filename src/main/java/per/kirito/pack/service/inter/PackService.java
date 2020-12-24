@@ -2,6 +2,8 @@ package per.kirito.pack.service.inter;
 
 import per.kirito.pack.pojo.Pack;
 
+import java.util.List;
+
 /**
  * @version 1.0
  * @Author: kirito
@@ -15,4 +17,8 @@ public interface PackService {
 	int addPack(Pack pack);
 
 	int updatePack(Pack pack);
+
+	List<Pack> getPackSByPhone(String phone);
+
+	List<Pack> getPacksByAddr(String addr);
 }
