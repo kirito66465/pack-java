@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="per.kirito.pack.mapper.UserMapper">
+
+	<sql id="FIELDS">
+        card, password, phone, name, addr, count
+    </sql>
+
+	<select id="findUserByCardAndPwd" parameterType="User" resultType="Integer">
+		SELECT count(*)
+		FROM t_user
+		WHERE card = #{card}
+		AND password = #{password}
+	</select>
+
+	<select id="findUserByCardAndPhone" parameterType="User" resultType="Integer">
+		SELECT count(*)
+		FROM t_user
+		WHERE card = #{card}
+		AND phone = #{phone}
+	</select>
+
+	<select id="getUser" parameterType="String" resultType="User">
+		SELECT t.card, t.password, t.phone, t.name, t.addr, t.count
+		FROM t_user t
+		WHERE card = #{card}
+	</select>
+
+	<insert id="addUser" parameterType="User">
+		INSERT INTO t_user (
+			card, password, phone, name, addr, count
+		) VALUES (
+			#{card}, #{password}, #{phone}, #{name}, #{addr}, #{count}
+		)
+	</insert>
+
+	<update id="updateUser" parameterType="User">
+		UPDATE t_user t
+		SET t.password = #{password}
+			, t.count = #{count}
+			, t.phone = #{phone}
+			, t.name = #{name}
+			, t.addr = #{addr}
+		WHERE t.card = #{card}
+	</update>
+</mapper>

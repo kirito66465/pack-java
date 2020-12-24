@@ -1,0 +1,54 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/package_manage?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: 054417@nufe
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      idle-timeout: 60000
+      maximum-pool-size: 30
+      minimum-idle: 10
+
+#  thymeleaf:
+#    mode: LEGACYHTML5
+#    encoding: UTF-8
+#    servlet:
+#      content-type: text/html
+#    # 开发时关闭缓存，不然没法看到实时页面
+#    cache: false
+#    prefix: classpath:/templates/
+#    suffix: .html
+
+  jpa:
+    open-in-view: false
+    database: MySQL
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+
+mvc:
+  static-path-pattern: /**
+
+resources:
+  static-locations: classpath:/static/,classpath:/templates/
+
+logging:
+  level:
+    root: debug
+
+mybatis:
+  config-location: classpath:conf/mybatis-config.xml    # MyBatis配置文件路径
+  mapper-locations: classpath:mapper/*.xml              # Mapper.xml地址
+  type-aliases-package: per.kirito.pack.pojo            # 数据库实体类包路径
+#  configuration:
+#    # 开启驼峰命名转换
+#    map-underscore-to-camel-case: false

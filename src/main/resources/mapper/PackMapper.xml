@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="per.kirito.pack.mapper.PackMapper">
+
+	<sql id="FIELDS">
+        id, org, per_name, per_tel, per_addr, addr, code, cont_name, cont_tel, status, start, end
+    </sql>
+
+	<select id="getPackById" parameterType="String" resultType="Pack">
+		SELECT id, org, per_name
+			, per_tel, per_addr, addr
+			, code, cont_name, cont_tel, status
+		FROM t_pack
+		WHERE id = #{id}
+	</select>
+
+	<insert id="addPack" parameterType="Pack">
+		INSERT INTO t_pack (
+			id, org, per_name, per_tel
+			, per_addr, addr, code, cont_name
+			, cont_tel, status, start, end
+		) VALUES (
+			#{id}, #{org}, #{per_name}, #{per_tel}
+			, #{per_addr}, #{addr}, #{code}, #{cont_name}
+			, #{cont_tel}, #{status}, #{start}, #{end}
+		)
+	</insert>
+
+	<update id="updatePack" parameterType="Pack">
+		UPDATE t_pack
+		SET org = #{org}, per_name = #{per_name}, per_tel = #{per_tel}, per_addr = #{per_addr}
+			, addr = #{addr}, code = #{code}, cont_name = #{cont_name}, cont_tel = #{cont_tel}
+			, status = #{status}, start = #{start}, end = #{end}
+		WHERE id = #{id}
+	</update>
+</mapper>

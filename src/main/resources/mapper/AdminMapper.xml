@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="per.kirito.pack.mapper.AdminMapper">
+
+	<sql id="FIELDS">
+        card, password, phone, name, addr, count
+    </sql>
+
+	<select id="findAdminByCardAndPwd" parameterType="Admin" resultType="Integer">
+		SELECT count(*)
+		FROM t_admin
+		WHERE card = #{card}
+		AND password = #{password}
+	</select>
+
+	<select id="getAdmin" parameterType="String" resultType="Admin">
+		SELECT t.card, t.password, t.phone, t.name, t.addr, t.count
+		FROM t_admin t
+		WHERE card = #{card}
+	</select>
+
+	<update id="updateAdmin" parameterType="Admin">
+		UPDATE t_admin t
+		SET t.password = #{password}
+			, t.count = #{count}
+			, t.phone = #{phone}
+			, t.name = #{name}
+			, t.addr = #{addr}
+		WHERE t.card = #{card}
+	</update>
+</mapper>
