@@ -1,4 +1,4 @@
-package per.kirito.pack.util;
+package per.kirito.pack.other.util;
 
 import java.util.Calendar;
 import java.util.Date;

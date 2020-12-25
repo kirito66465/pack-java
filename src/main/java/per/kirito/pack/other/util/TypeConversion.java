@@ -1,4 +1,4 @@
-package per.kirito.pack.util;
+package per.kirito.pack.other.util;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

@@ -3,10 +3,10 @@ package per.kirito.pack.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
-import per.kirito.pack.myEnum.Status;
+import per.kirito.pack.other.myEnum.Status;
 import per.kirito.pack.pojo.Admin;
 import per.kirito.pack.service.inter.AdminService;
-import per.kirito.pack.util.TypeConversion;
+import per.kirito.pack.other.util.TypeConversion;
 
 import java.util.HashMap;
 import java.util.Map;

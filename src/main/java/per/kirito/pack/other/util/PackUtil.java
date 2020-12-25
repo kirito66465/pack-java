@@ -1,9 +1,7 @@
-package per.kirito.pack.util;
+package per.kirito.pack.other.util;
 
-import per.kirito.pack.myEnum.Express;
+import per.kirito.pack.other.myEnum.Express;
 import per.kirito.pack.pojo.Pack;
-
-import java.util.Date;
 
 /**
  * @version 1.0

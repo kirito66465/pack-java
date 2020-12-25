@@ -1,8 +1,7 @@
 package per.kirito.pack;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import per.kirito.pack.myEnum.Express;
+import per.kirito.pack.other.myEnum.Express;
 
 // @SpringBootTest
 class PackApplicationTests {

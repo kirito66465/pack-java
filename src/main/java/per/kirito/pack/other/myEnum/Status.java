@@ -1,8 +1,4 @@
-package per.kirito.pack.myEnum;
-
-import org.springframework.context.i18n.LocaleContextHolder;
-
-import java.util.Locale;
+package per.kirito.pack.other.myEnum;
 
 /**
  * @version 1.0

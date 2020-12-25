@@ -3,13 +3,14 @@ package per.kirito.pack.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
-import per.kirito.pack.myEnum.Status;
+import per.kirito.pack.other.myEnum.Status;
 import per.kirito.pack.pojo.User;
 import per.kirito.pack.service.inter.UserService;
-import per.kirito.pack.util.TypeConversion;
+import per.kirito.pack.other.util.TypeConversion;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author kirito
@@ -57,7 +58,11 @@ public class UserController {
 		user.setPassword(encrypt);
 		int flag = userService.findUserByCardAndPwd(user);
 		if (flag == LOGIN_CODE) {
-			stringRedisTemplate.opsForValue().set("user-card", card);
+			// 如果Redis中已存储，则先删除此键
+			if (stringRedisTemplate.hasKey("user-card")) {
+				stringRedisTemplate.delete("user-card");
+			}
+			stringRedisTemplate.opsForValue().set("user-card", card, 30, TimeUnit.MINUTES);
 			return LOGIN_SUCCESS;
 		} else {
 			return LOGIN_FAIL;
@@ -80,7 +85,7 @@ public class UserController {
 			map.put("result", INFO_FAIL);
 		} else {
 			User user = userService.getUserById(card);
-			map.put("user", user);
+			map.put("result", user);
 		}
 		return map;
 	}
@@ -94,6 +99,10 @@ public class UserController {
 		int flag = userService.addUser(user);
 		if (flag == REGISTER_CODE) {
 			String card = user.getCard();
+			// 如果Redis中已存储，则先删除此键
+			if (stringRedisTemplate.hasKey("user-card")) {
+				stringRedisTemplate.delete("user-card");
+			}
 			stringRedisTemplate.opsForValue().set("user-card", card);
 			return REGISTER_SUCCESS;
 		} else {
@@ -118,6 +127,10 @@ public class UserController {
 			int flag = userService.updateUser(user);
 			if (flag == PWD_CODE) {
 				map.put("flag", PWD_SUCCESS);
+				// 如果Redis中已存储，则先删除此键
+				if (stringRedisTemplate.hasKey("user-card")) {
+					stringRedisTemplate.delete("user-card");
+				}
 				stringRedisTemplate.opsForValue().set("user-card", card);
 			} else {
 				map.put("flag", PWD_FAIL);

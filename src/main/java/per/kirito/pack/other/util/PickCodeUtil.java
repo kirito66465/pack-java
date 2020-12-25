@@ -1,4 +1,4 @@
-package per.kirito.pack.util;
+package per.kirito.pack.other.util;
 
 /**
  * @version 1.0
