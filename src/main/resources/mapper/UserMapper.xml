@@ -49,4 +49,10 @@
 			, t.addr = #{addr}
 		WHERE t.card = #{card}
 	</update>
+
+	<select id="selectUser" parameterType="String" resultType="Integer">
+		SELECT count(*)
+		FROM t_user
+		WHERE card = #{card}
+	</select>
 </mapper>

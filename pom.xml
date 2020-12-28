@@ -17,6 +17,14 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<mysql-connector-java.version>8.0.21</mysql-connector-java.version>
+		<mybatis-spring-boot-starter.version>2.1.3</mybatis-spring-boot-starter.version>
+		<mapper-spring-boot-starter.version>2.1.5</mapper-spring-boot-starter.version>
+		<pagehelper-spring-boot-starter.version>1.3.0</pagehelper-spring-boot-starter.version>
+		<pagehelper.version>5.2.0</pagehelper.version>
+		<druid.version>1.2.4</druid.version>
+		<druid-spring-boot-starter.version>1.1.17</druid-spring-boot-starter.version>
+		<spring-boot-maven-plugin.version>2.4.1</spring-boot-maven-plugin.version>
 	</properties>
 
 	<dependencies>
@@ -44,7 +52,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.21</version>
+			<version>${mysql-connector-java.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -63,29 +71,34 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- springmvc的启动器 -->
+		<!-- Spring MVC启动器 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<!-- mybatis启动器 -->
+		<!-- MyBatis启动器 -->
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
-			<version>2.1.3</version>
+			<version>${mybatis-spring-boot-starter.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>tk.mybatis</groupId>
 			<artifactId>mapper-spring-boot-starter</artifactId>
-			<version>2.1.5</version>
+			<version>${mapper-spring-boot-starter.version}</version>
 		</dependency>
-		<!--分页依赖-->
+		<!-- 分页依赖 -->
 		<dependency>
 			<groupId>com.github.pagehelper</groupId>
 			<artifactId>pagehelper-spring-boot-starter</artifactId>
-			<version>1.3.0</version>
+			<version>${pagehelper-spring-boot-starter.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper</artifactId>
+			<version>${pagehelper.version}</version>
+		</dependency>
+		<!-- Redis启动器 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
@@ -95,12 +108,12 @@
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
-			<version>1.2.4</version>
+			<version>${druid.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid-spring-boot-starter</artifactId>
-			<version>1.1.17</version>
+			<version>${druid-spring-boot-starter.version}</version>
 		</dependency>
 	</dependencies>
 
@@ -109,7 +122,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>2.4.1</version>
+				<version>${spring-boot-maven-plugin.version}</version>
 			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -118,30 +131,6 @@
 					<target>${java.version}</target>
 				</configuration>
 			</plugin>
-<!--			<plugin>-->
-<!--				<groupId>org.mybatis.generator</groupId>-->
-<!--				<artifactId>mybatis-generator-maven-plugin</artifactId>-->
-<!--				<version>1.3.6</version>-->
-<!--				<configuration>-->
-<!--					<configurationFile>-->
-<!--						${basedir}/src/main/resources/generator/generatorConfig.xml-->
-<!--					</configurationFile>-->
-<!--					<overwrite>true</overwrite>-->
-<!--					<verbose>true</verbose>-->
-<!--				</configuration>-->
-<!--				<dependencies>-->
-<!--					<dependency>-->
-<!--						<groupId>mysql</groupId>-->
-<!--						<artifactId>mysql-connector-java</artifactId>-->
-<!--						<version>5.1.29</version>-->
-<!--					</dependency>-->
-<!--					<dependency>-->
-<!--						<groupId>tk.mybatis</groupId>-->
-<!--						<artifactId>mapper</artifactId>-->
-<!--						<version>4.0.0</version>-->
-<!--					</dependency>-->
-<!--				</dependencies>-->
-<!--			</plugin>-->
 		</plugins>
 	</build>
 	<pluginRepositories>

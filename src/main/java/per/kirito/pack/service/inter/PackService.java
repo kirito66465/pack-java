@@ -1,6 +1,12 @@
 package per.kirito.pack.service.inter;
 
+import org.springframework.web.bind.annotation.RequestParam;
+import per.kirito.pack.other.util.PackUtil;
+import per.kirito.pack.other.util.TypeConversion;
+import per.kirito.pack.pojo.Admin;
 import per.kirito.pack.pojo.Pack;
+import per.kirito.pack.pojo.Page;
+import per.kirito.pack.pojo.User;
 
 import java.util.List;
 
@@ -12,13 +18,15 @@ import java.util.List;
  * @description:
  */
 public interface PackService {
-	Pack getPackById(String id);
+	Object getPackById(String id);
 
-	int addPack(Pack pack);
+	String addPack(String id);
 
-	int updatePack(Pack pack);
+	String pickPack(String id, String code);
 
-	List<Pack> getPackSByPhone(String phone);
+	List<Pack> getPacksByUser(String card);
 
-	List<Pack> getPacksByAddr(String addr);
+	List<Pack> getPacksByAdmin(String card);
+
+	per.kirito.pack.pojo.Page<Pack> getAdminPackByPage(int currentPage, int pageSize);
 }

@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : MySQL5.7.30
+ Source Server         : MySQL-阿里云
  Source Server Type    : MySQL
- Source Server Version : 50730
- Source Host           : localhost:3306
+ Source Server Version : 50729
+ Source Host           : 139.196.28.154:3306
  Source Schema         : package_manage
 
  Target Server Type    : MySQL
- Target Server Version : 50730
+ Target Server Version : 50729
  File Encoding         : 65001
 
- Date: 24/12/2020 18:40:20
+ Date: 28/12/2020 17:27:27
 */
 
 SET NAMES utf8mb4;
@@ -47,7 +47,7 @@ CREATE TABLE `t_code`  (
   `addr` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '地址',
   `status` int(1) NULL DEFAULT NULL COMMENT '使用状态',
   PRIMARY KEY (`code`, `addr`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_code
@@ -7335,7 +7335,9 @@ CREATE TABLE `t_user`  (
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
+INSERT INTO `t_user` VALUES ('2120172167', 'e10adc3949ba59abbe56e057f20f883e', '12345678901', '陈致远', '江苏省南京市栖霞区仙林街道文苑路3号南京财经大学', 0);
 INSERT INTO `t_user` VALUES ('2120172171', 'e10adc3949ba59abbe56e057f20f883e', '13305193691', '严晨', '中苑', 0);
 INSERT INTO `t_user` VALUES ('2120172172', 'e10adc3949ba59abbe56e057f20f883e', '13382053583', '杨成', '中苑', NULL);
+INSERT INTO `t_user` VALUES ('2120173738', '202cb962ac59075b964b07152d234b70', '17751773079', '王杰', '中苑', 0);
 
 SET FOREIGN_KEY_CHECKS = 1;

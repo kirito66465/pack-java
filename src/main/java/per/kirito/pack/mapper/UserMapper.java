@@ -22,4 +22,6 @@ public interface UserMapper {
 	int addUser(User user);
 
 	int updateUser(User user);
+
+	int selectUser(String card);
 }

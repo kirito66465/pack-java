@@ -1,14 +1,13 @@
 package per.kirito.pack.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import per.kirito.pack.other.myEnum.Status;
 import per.kirito.pack.pojo.Admin;
-import per.kirito.pack.service.inter.AdminService;
-import per.kirito.pack.other.util.TypeConversion;
+import per.kirito.pack.service.inter.AccountService;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -20,8 +19,10 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/admin")
 public class AdminController {
+
+	@Qualifier("adminServiceImpl")
 	@Autowired
-	private AdminService adminService;
+	private AccountService<Admin> accountService;
 
 	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
@@ -41,43 +42,21 @@ public class AdminController {
 	private static final String NOT_EXIST = Status.NOT_EXIST.getMsg();
 
 	@CrossOrigin
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/login")
 	public String adminLogin(@RequestParam(value = "card") String card,
 	                        @RequestParam(value = "password") String password) {
-		String encrypt = TypeConversion.stringToMD5(password);
-		Admin admin = new Admin();
-		admin.setCard(card);
-		admin.setPassword(encrypt);
-		int flag = adminService.findAdminByCardAndPwd(admin);
-		if (flag == LOGIN_CODE) {
-			admin = adminService.getAdminById(card);
-			String addr = admin.getAddr();
-			stringRedisTemplate.opsForValue().set("admin-addr", addr);
-			stringRedisTemplate.opsForValue().set("admin-card", card);
-			return LOGIN_SUCCESS;
-		} else {
-			return LOGIN_FAIL;
-		}
+		return accountService.login(card, password);
 	}
 
 	@CrossOrigin
-	@RequestMapping(value = "/exit", method = RequestMethod.POST)
+	@RequestMapping(value = "/exit")
 	public String adminExit() {
-		stringRedisTemplate.delete("admin-card");
-		return stringRedisTemplate.hasKey("admin-card") ? EXIT_FAIL : EXIT_SUCCESS;
+		return accountService.exit();
 	}
 
 	@CrossOrigin
-	@RequestMapping(value = "/getInfo", method = RequestMethod.POST)
+	@RequestMapping(value = "/getInfo")
 	public Map<String, Object> getAdminInfo() {
-		String card = stringRedisTemplate.opsForValue().get("admin-card");
-		Map<String, Object> map = new HashMap<>();
-		if (card == null || card == "") {
-			map.put("result", INFO_FAIL);
-		} else {
-			Admin admin = adminService.getAdminById(card);
-			map.put("result", admin);
-		}
-		return map;
+		return accountService.getInfo();
 	}
 }

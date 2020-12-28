@@ -49,4 +49,23 @@
 			, status = #{status}, start = #{start}, end = #{end}
 		WHERE id = #{id}
 	</update>
+
+	<select id="getAllPacks" resultType="List">
+		SELECT id, org, per_name
+			, per_tel, per_addr, addr
+			, code, cont_name, cont_tel, status
+		FROM t_pack
+	</select>
+
+	<select id="getTotalByAddr" parameterType="String" resultType="Integer">
+		SELECT count(*)
+		FROM t_pack
+		WHERE addr = #{addr}
+	</select>
+
+	<select id="getTotalByTel" parameterType="String" resultType="Integer">
+		SELECT count(*)
+		FROM t_pack
+		WHERE per_tel = #{tel}
+	</select>
 </mapper>

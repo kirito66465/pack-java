@@ -19,4 +19,9 @@
 		WHERE code = #{code}
 		AND addr = #{addr}
 	</update>
+
+	<select id="getAllCodes" resultType="List">
+		SELECT code, addr, status
+		FROM t_code
+	</select>
 </mapper>

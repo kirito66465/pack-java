@@ -23,4 +23,10 @@ public interface PackMapper {
 	List<Pack> getPackSByPhone(String phone);
 
 	List<Pack> getPacksByAddr(String addr);
+
+	List<Pack> getAllPacks();
+
+	int getTotalByAddr(String addr);
+
+	int getTotalByTel(String tel);
 }
