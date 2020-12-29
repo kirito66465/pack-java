@@ -13,19 +13,22 @@ import per.kirito.pack.other.myEnum.Status;
 import per.kirito.pack.other.util.PackUtil;
 import per.kirito.pack.other.util.TypeConversion;
 import per.kirito.pack.pojo.*;
+import per.kirito.pack.pojo.utilPojo.PackResult;
+import per.kirito.pack.pojo.utilPojo.Page;
 import per.kirito.pack.service.inter.PackService;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * @version 1.0
  * @Author: kirito
  * @Date: 2020/12/23
  * @Time: 15:36
- * @description:
+ * @description: Pack的Service层，PackService接口的实现类
  */
 @Service
 public class PackServiceImpl implements PackService {
+
 	@Autowired
 	private PackMapper packMapper;
 
@@ -58,26 +61,44 @@ public class PackServiceImpl implements PackService {
 	private static final int DO_CODE = Status.DO_SUCCESS.getCode();
 	private static final int IS_USE = Status.IS_USE.getCode();
 	private static final int NOT_USE = Status.NOT_USE.getCode();
+	private static final int PACK_CODE_1 = Status.PACK_STATUS_1.getCode();
+	private static final int PACK_CODE_0 = Status.PACK_STATUS_0.getCode();
+	private static final int PACK_CODE__1 = Status.PACK_STATUS__1.getCode();
 
-	private static final String INTO_SUCCESS = Status.INTO_SUCCESS.getMsg();
-	private static final String INTO_FAIL = Status.INTO_FAIL.getMsg();
-	private static final String PICK_SUCCESS = Status.PICK_SUCCESS.getMsg();
-	private static final String PICK_FAIL = Status.PICK_FAIL.getMsg();
-	private static final String INFO_SUCCESS = Status.INFO_SUCCESS.getMsg();
-	private static final String INFO_FAIL = Status.INFO_FAIL.getMsg();
-	private static final String DO_SUCCESS = Status.DO_SUCCESS.getMsg();
-	private static final String DO_FAIL = Status.DO_FAIL.getMsg();
+	private static final String INTO_SUCCESS = Status.INTO_SUCCESS.getEnMsg();
+	private static final String INTO_FAIL = Status.INTO_FAIL.getEnMsg();
+	private static final String PICK_SUCCESS = Status.PICK_SUCCESS.getEnMsg();
+	private static final String PICK_FAIL = Status.PICK_FAIL.getEnMsg();
+	private static final String INFO_SUCCESS = Status.INFO_SUCCESS.getEnMsg();
+	private static final String INFO_FAIL = Status.INFO_FAIL.getEnMsg();
+	private static final String DO_SUCCESS = Status.DO_SUCCESS.getEnMsg();
+	private static final String DO_FAIL = Status.DO_FAIL.getEnMsg();
 
+	private static final String PACK_STATUS_1 = Status.PACK_STATUS_1.getZhMsg();
+	private static final String PACK_STATUS_0 = Status.PACK_STATUS_0.getZhMsg();
+	private static final String PACK_STATUS__1 = Status.PACK_STATUS__1.getZhMsg();
+
+	/**
+	 * @Description: 根据快递单号获取快递信息，如果查询不出则返回String
+	 * @Param: [id]
+	 * @Return: java.lang.Object
+	 **/
 	@Override
 	public Object getPackById(String id) {
 		Pack pack = packMapper.getPackById(id);
 		if (pack == null) {
+			// 查询不出则返回"get info fail"
 			return INFO_FAIL;
 		} else {
 			return pack;
 		}
 	}
 
+	/**
+	 * @Description: 驿站管理员添加快递入站
+	 * @Param: [id]
+	 * @Return: java.lang.String
+	 **/
 	@Override
 	public String addPack(String id) {
 		// 取出登录的管理员的编号、驿站地址
@@ -113,6 +134,11 @@ public class PackServiceImpl implements PackService {
 		}
 	}
 
+	/**
+	 * @Description: User或Admin进行取件
+	 * @Param: [id, code]
+	 * @Return: java.lang.String
+	 **/
 	@Override
 	public String pickPack(@RequestParam(value = "id") String id,
 	                       @RequestParam(value = "code") String code) {
@@ -165,7 +191,7 @@ public class PackServiceImpl implements PackService {
 					msg = DO_FAIL;
 					return msg;
 				}
-				pack.setStatus(PICK_CODE);
+				pack.setStatus(PACK_CODE_0);
 				String time = TypeConversion.getTime();
 				pack.setEnd(time);
 				// 更新包裹状态、取件时间
@@ -183,31 +209,103 @@ public class PackServiceImpl implements PackService {
 		return msg;
 	}
 
+	/**
+	 * -----------------------------------------------------------------------------------------------------------------
+	 * 抽取出来的方法
+	 **/
+
+	/**
+	 * @Description: 抽取出来的获取结果集方法，主要对status进行类型转换：jdbcType/Integer -> java/String
+	 * @Param: [packList]
+	 * @Return: java.util.List<per.kirito.pack.pojo.utilPojo.PackResult>
+	 **/
+	public static List<PackResult> getPackResult(List<Pack> packList) {
+		List<PackResult> packResultList = new ArrayList<>();
+		PackResult packResult;
+		for (Pack pack : packList) {
+			packResult = new PackResult(pack);
+			packResultList.add(packResult);
+		}
+		return packResultList;
+	}
+
+	/**
+	 * @Description: 抽取出来的分页方法，仅需传入当前页码、每页条数、快递结果集
+	 * @Param: [currentPage, pageSize, packResultList]
+	 * @Return: per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.utilPojo.PackResult>
+	 **/
+	public static Page<PackResult> getPackByPage(int currentPage, int pageSize, List<PackResult> packResultList) {
+		Page<PackResult> resultPage = new Page<>();
+		resultPage.setCurrentPage(currentPage);
+		resultPage.setPageSize(pageSize);
+		List<PackResult> resultList = new ArrayList<>();
+		PackResult packResult;
+		int index = (currentPage - 1) * pageSize;
+		int end = currentPage * pageSize;
+		int size = packResultList.size();
+		// 当最后一页记录条数不足每页记录条数时，end置为结果集的长度
+		if (end > size) {
+			end = size;
+		}
+		// 遍历结果集，获取到当前页数下的数据集
+		for (int i = index; i < end; i++) {
+			packResult = packResultList.get(i);
+			resultList.add(packResult);
+		}
+		resultPage.setList(resultList);
+		return resultPage;
+	}
+
+	/**
+	 * -----------------------------------------------------------------------------------------------------------------
+	 * User相关
+	 **/
+
+	/**
+	 * @Description: 分页获取User所有的快递，包括已取出和未取出的快递
+	 * @Param: [currentPage, pageSize]
+	 * @Return: per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.utilPojo.PackResult>
+	 **/
 	@Override
-	public List<Pack> getPacksByUser(String card) {
+	public Page<PackResult> getUserPackByPage(int currentPage, int pageSize) {
+		String card = stringRedisTemplate.opsForValue().get("user-card");
 		User user = userMapper.getUserById(card);
 		String phone = user.getPhone();
+		// 根据用户手机号查找出所有的快递信息，包括已取出和未取出的快递
 		List<Pack> packs = packMapper.getPackSByPhone(phone);
-		return packs;
+		List<PackResult> packResultList = getPackResult(packs);
+		// 获取分页方式的结果集
+		Page<PackResult> resultPage = getPackByPage(currentPage, pageSize, packResultList);
+		// 获取查询到的所有结果总数
+		int total = packMapper.getTotalByTel(phone);
+		resultPage.setTotal(total);
+		return resultPage;
 	}
 
+	/**
+	 * -----------------------------------------------------------------------------------------------------------------
+	 * Admin相关
+	 **/
+
+	/**
+	 * @Description: 分页获取Admin所有的快递，包括已取出和未取出的快递
+	 * @Param: [currentPage, pageSize]
+	 * @Return: per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.utilPojo.PackResult>
+	 **/
 	@Override
-	public List<Pack> getPacksByAdmin(String card) {
+	public Page<PackResult> getAdminPackByPage(int currentPage, int pageSize) {
+		String card = stringRedisTemplate.opsForValue().get("admin-card");
 		Admin admin = adminMapper.getAdminById(card);
 		String addr = admin.getAddr();
+		// 根据管理员所在驿站查找出所有的快递信息，包括已取出和未取出的快递
 		List<Pack> packs = packMapper.getPacksByAddr(addr);
-		return packs;
+		List<PackResult> packResultList = getPackResult(packs);
+		// 获取分页方式的结果集
+		Page<PackResult> resultPage = getPackByPage(currentPage, pageSize, packResultList);
+		// 获取查询到的所有结果总数
+		int total = packMapper.getTotalByAddr(addr);
+		resultPage.setTotal(total);
+		return resultPage;
 	}
 
-	@Override
-	public Page<Pack> getAdminPackByPage(int currentPage, int pageSize) {
-		Page<Pack> page = new Page<>();
-		page.setCurrentPage(currentPage);
-		page.setPageSize(pageSize);
-		String addr = stringRedisTemplate.opsForValue().get("admin-addr");
-		int total = packMapper.getTotalByAddr(addr);
-		List<Pack> packs = packMapper.getPacksByAddr(addr);
-		page.setList(packs);
-		return page;
-	}
 }

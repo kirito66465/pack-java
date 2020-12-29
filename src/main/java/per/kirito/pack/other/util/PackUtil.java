@@ -1,6 +1,7 @@
 package per.kirito.pack.other.util;
 
 import per.kirito.pack.other.myEnum.Express;
+import per.kirito.pack.other.myEnum.Status;
 import per.kirito.pack.pojo.Pack;
 
 /**
@@ -11,12 +12,17 @@ import per.kirito.pack.pojo.Pack;
  * @description: 包裹信息完善:自动生成取件码、更新取件状态、添加地址信息
  */
 public class PackUtil {
+
 	// 快递已取出
-	private static final int HAS_TAKEN = 1;
+	private static final String HAS_TAKEN = "已取出";
 	// 快递未取出
-	private static final int NOT_TAKEN = 0;
+	private static final String NOT_TAKEN = "未取出";
 	// 快递未取出且无取件码
-	private static final int NO_CODE = -1;
+	private static final String NO_CODE = "未有取件码";
+
+	private static final int PACK_CODE_1 = Status.PACK_STATUS_1.getCode();
+	private static final int PACK_CODE_0 = Status.PACK_STATUS_0.getCode();
+	private static final int PACK_CODE__1 = Status.PACK_STATUS__1.getCode();
 
 	// 快递公司的中文名与英文名
 	private static final String ZTO = String.valueOf(Express.中通);
@@ -48,9 +54,6 @@ public class PackUtil {
 
 	// 添加入站信息(入站时只有快递单号这一条信息)
 	public static Pack addCode(Pack pack, int count) {
-		// TODO: 用户在取件窗口输入驿站地址、取件码进行取件，无取件码无法取件
-		// TODO: controller层先判断最大取件码有无被使用，如未被使用，则添加取件码，反之不添加
-		// TODO: 此时count未+1，等工具类返回pack之后再+1/-1
 		String id = pack.getId().substring(0, 2);
 		String org = "";
 		String addr = "";
@@ -115,25 +118,28 @@ public class PackUtil {
 		pack.setCont_name(cont_per);
 		// 添加驿站联系方式信息
 		pack.setCont_tel(cont_tel);
+		// 添加快递状态信息
+		pack = updateStatus(pack, "入站");
 		// 驿站现存快递数量大于能有取件码的快递数量
 		if (count >= MAX_PACKS) {
-			pack.setStatus(NO_CODE);
+			pack.setStatus(PACK_CODE__1);
 		} else {
 			// 此入站快递能有取件码
-			pack.setStatus(NOT_TAKEN);
+			pack.setStatus(PACK_CODE_1);
 		}
 		String time = TypeConversion.getTime();
+		// 添加快递入站时间
 		pack.setStart(time);
 		return pack;
 	}
 
-	// 更新快递状态
-	public static Pack updateStatus(Pack pack) {
+	// 仅更新快递状态
+	public static Pack updateStatus(Pack pack, String operate) {
 		int status = pack.getStatus();
-		if (status == NOT_TAKEN) {
-			pack.setStatus(HAS_TAKEN);
-			String time = TypeConversion.getTime();     // TODO: 包裹表日期类型的字段，字段类型改为字符串
-			pack.setEnd(time);
+		if ("取件".equals(operate)) {
+			pack.setStatus(PACK_CODE_0);
+		} else if ("入站".equals(operate)) {
+			pack.setStatus(PACK_CODE__1);
 		}
 		return pack;
 	}
@@ -141,10 +147,11 @@ public class PackUtil {
 	public static void main(String[] args) {
 		Pack pack = new Pack();
 		pack.setId("1234567890");
-		pack.setStatus(NOT_TAKEN);
-		pack = updateStatus(pack);
+		// pack.setStatus(NOT_TAKEN);
+		// pack = updateStatus(pack);
 		System.out.println(pack.getEnd());
 		System.out.println(pack.getStatus());
 		System.out.println(pack.getId().substring(0, 2));
 	}
+
 }

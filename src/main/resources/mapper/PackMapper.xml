@@ -9,25 +9,29 @@
 	<select id="getPackById" parameterType="String" resultType="Pack">
 		SELECT id, org, per_name
 			, per_tel, per_addr, addr
-			, code, cont_name, cont_tel, status
+			, code, cont_name, cont_tel
+			, status, start, end
 		FROM t_pack
 		WHERE id = #{id}
 	</select>
 
-	<select id="getPackSByPhone" parameterType="String" resultType="ArrayList">
+	<select id="getPackSByPhone" parameterType="String" resultType="Pack">
 		SELECT id, org, per_name
 			, per_tel, per_addr, addr
-			, code, cont_name, cont_tel, status
+			, code, cont_name, cont_tel
+			, status, start, end
 		FROM t_pack
-		WHERE per_tel = #{per_tel}
+		WHERE per_tel = #{tel}
 	</select>
 
-	<select id="getPacksByAddr" parameterType="String" resultType="ArrayList">
+	<select id="getPacksByAddr" parameterType="String" resultType="Pack">
 		SELECT id, org, per_name
 			, per_tel, per_addr, addr
-			, code, cont_name, cont_tel, status
+			, code, cont_name, cont_tel
+			, status, start, end
 		FROM t_pack
 		WHERE addr = #{addr}
+		ORDER BY code ASC, start DESC
 	</select>
 
 	<insert id="addPack" parameterType="Pack">
@@ -49,13 +53,6 @@
 			, status = #{status}, start = #{start}, end = #{end}
 		WHERE id = #{id}
 	</update>
-
-	<select id="getAllPacks" resultType="List">
-		SELECT id, org, per_name
-			, per_tel, per_addr, addr
-			, code, cont_name, cont_tel, status
-		FROM t_pack
-	</select>
 
 	<select id="getTotalByAddr" parameterType="String" resultType="Integer">
 		SELECT count(*)

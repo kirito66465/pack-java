@@ -24,13 +24,13 @@ spring:
       validation-query: SELECT 1 FROM DUAL
       validation-query-timeout: 60
 
-  jpa:
-    open-in-view: false
-    database: MySQL
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    show-sql: true
-    hibernate:
-      ddl-auto: update
+#  jpa:
+#    open-in-view: false
+#    database: MySQL
+#    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: update
 
   redis:
     host: 139.196.28.154

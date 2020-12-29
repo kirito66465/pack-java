@@ -20,7 +20,9 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Table(name = "t_code")
 public class Code {
+
 	private String code;        // 取件码
 	private String addr;        // 所在驿站
 	private int status;         // 状态，0：未被使用，1：已被使用
+
 }

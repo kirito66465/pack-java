@@ -12,7 +12,7 @@ import java.util.Map;
  * @author kirito
  * @version 1.0
  * @date 2020/12/4 21:04
- * @description:
+ * @description: User的Controller层
  */
 @RestController
 @RequestMapping(value = "/user")
@@ -22,6 +22,11 @@ public class UserController {
 	@Autowired
 	private AccountService<User> accountService;
 
+	/**
+	 * @Description: User登录请求
+	 * @Param: [card, password]
+	 * @Return: java.lang.String
+	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/login")
 	public String login(@RequestParam(value = "card") String card,
@@ -29,24 +34,44 @@ public class UserController {
 		return accountService.login(card, password);
 	}
 
+	/**
+	 * @Description: User退出登录请求
+	 * @Param: []
+	 * @Return: java.lang.String
+	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/exit")
 	public String userExit() {
 		return accountService.exit();
 	}
 
+	/**
+	 * @Description: 获取User信息请求
+	 * @Param: []
+	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/getInfo")
 	public Map<String, Object> getUserInfo() {
 		return accountService.getInfo();
 	}
 
+	/**
+	 * @Description: User注册请求
+	 * @Param: [user]
+	 * @Return: java.lang.String
+	 **/
 	@CrossOrigin
-	@RequestMapping(value = "/addUser")
-	public String addUser(@RequestBody User user) {
+	@RequestMapping(value = "/register")
+	public String register(@RequestBody User user) {
 		return accountService.register(user);
 	}
 
+	/**
+	 * @Description: User忘记密码请求
+	 * @Param: [card, phone, password]
+	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/forgetPwd")
 	public Map<String, String> forgetPwd(@RequestParam(value = "card") String card,
@@ -54,4 +79,5 @@ public class UserController {
 	                                     @RequestParam(value = "password") String password) {
 		return accountService.forgetPwd(card, phone, password);
 	}
+
 }

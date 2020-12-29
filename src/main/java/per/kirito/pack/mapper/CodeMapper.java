@@ -14,9 +14,21 @@ import java.util.List;
  */
 @Repository
 public interface CodeMapper {
+
+	/**
+	 * @Description: 查找该Code
+	 * @Param: [code]
+	 * @Return: int
+	 **/
 	int findCode(Code code);
 
+	/**
+	 * @Description: 更新Code
+	 * @Param: [code]
+	 * @Return: int
+	 **/
 	int updateCode(Code code);
 
 	List<Code> getAllCodes();
+
 }

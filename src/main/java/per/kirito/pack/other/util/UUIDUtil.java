@@ -14,6 +14,7 @@ import java.util.Date;
  * 北苑：天天、EMS
  */
 public class UUIDUtil {
+
 	// 中通单号由14位数字组成，以7542开头，再生成10位数字
 	private static final String ZTO = "7542";
 	// 申通单号由15位数字组成，以77307开头，再生成10位数字
@@ -99,9 +100,11 @@ public class UUIDUtil {
 		System.out.println("中通: " + zto);
 		System.out.println("申通: " + sto);
 		System.out.println("圆通: " + yto);
+		System.out.println("京东: " + jd);
 		System.out.println("顺丰: " + sf);
 		System.out.println("韵达: " + yd);
 		System.out.println("天天: " + tt);
 		System.out.println("EMS: " + ems);
 	}
+
 }

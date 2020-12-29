@@ -22,6 +22,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Table(name = "t_msg")
 public class Message {
+
 	private int id;                                 // 序号
 	private String sender;                          // 发信人
 	private String receiver;                        // 收信人
@@ -29,4 +30,5 @@ public class Message {
 	private String to_reply;                        // 回复内容
 	private String send;                            // 发信时间
 	private String reply;                           // 回复时间
+
 }

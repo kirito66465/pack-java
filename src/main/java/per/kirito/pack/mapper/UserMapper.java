@@ -11,6 +11,7 @@ import per.kirito.pack.pojo.User;
  */
 @Repository
 public interface UserMapper {
+
 	int findUserByCardAndPwd(User user);
 
 	int findUserByCardAndPhone(User user);
@@ -24,4 +25,5 @@ public interface UserMapper {
 	int updateUser(User user);
 
 	int selectUser(String card);
+
 }

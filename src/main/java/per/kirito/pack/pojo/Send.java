@@ -22,6 +22,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Table(name = "t_send")
 public class Send {
+
 	private String from_name;
 	private String from_tel;
 	private String from_addr;
@@ -30,7 +31,7 @@ public class Send {
 	private String to_addr;
 	private String id;
 	private String org;
-	private int status;
+	private String status;
 	private String dt;
 
 }

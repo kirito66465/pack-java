@@ -1,32 +1,25 @@
 package per.kirito.pack.service.inter;
 
-import org.springframework.web.bind.annotation.RequestParam;
-import per.kirito.pack.other.util.PackUtil;
-import per.kirito.pack.other.util.TypeConversion;
-import per.kirito.pack.pojo.Admin;
-import per.kirito.pack.pojo.Pack;
-import per.kirito.pack.pojo.Page;
-import per.kirito.pack.pojo.User;
-
-import java.util.List;
+import per.kirito.pack.pojo.utilPojo.PackResult;
+import per.kirito.pack.pojo.utilPojo.Page;
 
 /**
  * @version 1.0
  * @Author: kirito
  * @Date: 2020/12/23
  * @Time: 15:35
- * @description:
+ * @description: Pack的Service层接口
  */
 public interface PackService {
+
 	Object getPackById(String id);
 
 	String addPack(String id);
 
 	String pickPack(String id, String code);
 
-	List<Pack> getPacksByUser(String card);
+	Page<PackResult> getUserPackByPage(int currentPage, int pageSize);
 
-	List<Pack> getPacksByAdmin(String card);
+	Page<PackResult> getAdminPackByPage(int currentPage, int pageSize);
 
-	per.kirito.pack.pojo.Page<Pack> getAdminPackByPage(int currentPage, int pageSize);
 }

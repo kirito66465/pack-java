@@ -8,6 +8,7 @@ package per.kirito.pack.other.myEnum;
  * @description: 快递名字枚举类型
  */
 public enum Express {
+
 	// 中通：中文名/英文名
 	中通("ZTO"),
 	// 申通：中文名/英文名
@@ -34,4 +35,5 @@ public enum Express {
 	public String getExpressEngName() {
 		return expressEngName;
 	}
+
 }

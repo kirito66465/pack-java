@@ -28,8 +28,15 @@ public enum Status {
 	DO_SUCCESS(1, "do success", "操作成功！"),
 	DO_FAIL(0, "do fail", "操作失败！"),
 	IS_USE(1, "has been used", "已被使用"),
-	NOT_USE(0, "has not been used", "已被使用");
-
+	NOT_USE(0, "has not been used", "已被使用"),
+	PACK_STATUS_1(1, "未取出", "未取出"),
+	PACK_STATUS_0(0, "已取出", "已取出"),
+	PACK_STATUS__1(-1, "未有取件码", "未有取件码"),
+	SEND_STATUS_0(0, "已提交", "已提交"),
+	SEND_STATUS_1(1, "已取件", "已取件"),
+	SEND_STATUS_2(2, "已发出", "已发出"),
+	CODE_STATUS_1(1, "已被使用过", "已被使用过"),
+	CODE_STATUS_0(0, "未被使用过", "未被使用过");
 
 	private final int code;
 	private final String enMsg;
@@ -45,12 +52,12 @@ public enum Status {
 		return this.code;
 	}
 
-	public String getMsg() {
+	public String getEnMsg() {
 		return this.enMsg;
-		// if (Locale.SIMPLIFIED_CHINESE.getLanguage().equals(LocaleContextHolder.getLocale().getLanguage())) {
-		// 	return this.zhMsg;
-		// } else {
-		// 	return this.enMsg;
-		// }
 	}
+
+	public String getZhMsg() {
+		return this.zhMsg;
+	}
+
 }

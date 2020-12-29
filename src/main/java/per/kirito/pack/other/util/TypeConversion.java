@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
  * @description:
  */
 public class TypeConversion {
+
 	/**
 	 * @Description: 获取当前时间
 	 * @Param: []
@@ -103,4 +104,5 @@ public class TypeConversion {
 		System.out.println(stringToMD5("123456"));
 		System.out.println(stringToMD5("admin"));
 	}
+
 }
