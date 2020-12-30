@@ -71,9 +71,29 @@ public class PackController {
 		return packService.getUserPackByPage(currentPage, pageSize);
 	}
 
-	// 分页获取User的已取出快递
+	/**
+	 * @Description: 分页获取User的已取出快递
+	 * @Param: [currentPage, pageSize]
+	 * @Return: per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.utilPojo.PackResult>
+	 **/
+	@CrossOrigin
+	@RequestMapping(value = "/getUserIsPick")
+	public Page<PackResult> getUserIsPick(@RequestParam(defaultValue = "1") int currentPage,
+	                                         @RequestParam(value = "pageSize") int pageSize) {
+		return packService.getUserIsPick(currentPage, pageSize);
+	}
 
-	// 分页获取User的未取出快递，无论其有无取件码
+	/**
+	 * @Description: 分页获取User的未取出快递，无论其有无取件码
+	 * @Param: [currentPage, pageSize]
+	 * @Return: per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.utilPojo.PackResult>
+	 **/
+	@CrossOrigin
+	@RequestMapping(value = "/getUserNoPick")
+	public Page<PackResult> getUserNoPick(@RequestParam(defaultValue = "1") int currentPage,
+	                                        @RequestParam(value = "pageSize") int pageSize) {
+		return packService.getUserNoPick(currentPage, pageSize);
+	}
 
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
@@ -92,8 +112,27 @@ public class PackController {
 		return packService.getAdminPackByPage(currentPage, pageSize);
 	}
 
-	// 分页获取Admin的已取出快递
+	/**
+	 * @Description: 分页获取Admin的已取出快递
+	 * @Param: [currentPage, pageSize]
+	 * @Return: per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.utilPojo.PackResult>
+	 **/
+	@CrossOrigin
+	@RequestMapping(value = "/getAdminIsPick")
+	public Page<PackResult> getAdminIsPick(@RequestParam(defaultValue = "1") int currentPage,
+	                                          @RequestParam(value = "pageSize") int pageSize) {
+		return packService.getAdminIsPick(currentPage, pageSize);
+	}
 
-	// 分页获取Admin的未取出快递，无论其有无取件码
-
+	/**
+	 * @Description: 分页获取Admin的未取出快递，无论其有无取件码
+	 * @Param: [currentPage, pageSize]
+	 * @Return: per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.utilPojo.PackResult>
+	 **/
+	@CrossOrigin
+	@RequestMapping(value = "/getAdminNoPick")
+	public Page<PackResult> getAdminNoPick(@RequestParam(defaultValue = "1") int currentPage,
+	                                       @RequestParam(value = "pageSize") int pageSize) {
+		return packService.getAdminNoPick(currentPage, pageSize);
+	}
 }

@@ -3,6 +3,7 @@ package per.kirito.pack.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 import per.kirito.pack.mapper.AdminMapper;
 import per.kirito.pack.mapper.CodeMapper;
@@ -11,6 +12,7 @@ import per.kirito.pack.mapper.UserMapper;
 import per.kirito.pack.other.myEnum.Express;
 import per.kirito.pack.other.myEnum.Status;
 import per.kirito.pack.other.util.PackUtil;
+import per.kirito.pack.other.util.PickCodeUtil;
 import per.kirito.pack.other.util.TypeConversion;
 import per.kirito.pack.pojo.*;
 import per.kirito.pack.pojo.utilPojo.PackResult;
@@ -44,8 +46,6 @@ public class PackServiceImpl implements PackService {
 	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
 
-	private static Code MAX_CODE_UNUSED = new Code("20-6-20", "", 0);
-
 	private static final String ZTO = String.valueOf(Express.中通);
 	private static final String STO = String.valueOf(Express.申通);
 	private static final String YTO = String.valueOf(Express.圆通);
@@ -78,6 +78,10 @@ public class PackServiceImpl implements PackService {
 	private static final String PACK_STATUS_0 = Status.PACK_STATUS_0.getZhMsg();
 	private static final String PACK_STATUS__1 = Status.PACK_STATUS__1.getZhMsg();
 
+	// 驿站已有取件码的最大快递数量
+	private static final int MAX_PACKS = 2400;
+
+	private static Code MAX_CODE_UNUSED = new Code("20-6-20", "", NOT_USE);
 	/**
 	 * @Description: 根据快递单号获取快递信息，如果查询不出则返回String
 	 * @Param: [id]
@@ -99,38 +103,54 @@ public class PackServiceImpl implements PackService {
 	 * @Param: [id]
 	 * @Return: java.lang.String
 	 **/
+	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public String addPack(String id) {
-		// 取出登录的管理员的编号、驿站地址
-		String card = stringRedisTemplate.opsForValue().get("admin-card");
-		String addr = stringRedisTemplate.opsForValue().get("admin-addr");
-		Pack pack = new Pack();
-		pack.setId(id);
-		Admin admin = adminMapper.getAdminById(card);
-		int count = admin.getCount();
-		// 查询最大取件码有无被使用
-		MAX_CODE_UNUSED.setAddr(addr);
-		// TODO: 添加取件码
-		int isUse = codeMapper.findCode(MAX_CODE_UNUSED);
-		// 判断取件码有无被使用
-		if (isUse == NOT_USE) {
-			// 最大取件码未被使用，此时按照取件码的排列顺序赋予取件码
-		} else {
-			// 最大取件码已被使用，根据已被使用的取件码释放先后赋予取件码
-		}
-		pack = PackUtil.addCode(pack, count);
-		int flag = packMapper.addPack(pack);
-		if (flag == INFO_CODE) {
+	public String addPack(Pack pack) {          // 已有快递单号、收件人信息
+		try {
+			// 根据快递单号id获取驿站相关信息
+			pack = PackUtil.addCode(pack);
+			String addr = pack.getAddr();
+			String phone = pack.getPer_tel();
+			// 取出目前驿站信息
+			Admin admin = adminMapper.getAdminByAddr(addr);
+			int count = admin.getCount();
+			// 驿站现存快递数量大于能有取件码的快递数量
+			if (count >= MAX_PACKS) {
+				pack.setStatus(PACK_CODE__1);
+			} else {
+				// 此入站快递能有取件码
+				pack.setStatus(PACK_CODE_1);
+			}
+			// 查询最大取件码有无被使用
+			MAX_CODE_UNUSED.setAddr(addr);
+			int isUse = codeMapper.findCode(MAX_CODE_UNUSED);
+			// 判断取件码有无被使用
+			if (isUse == NOT_USE) {
+				// 最大取件码未被使用，此时按照取件码的排列顺序赋予取件码
+				String code = PickCodeUtil.generate(count);
+				pack.setCode(code);
+			} else {
+				// 最大取件码已被使用，根据已被使用的取件码释放先后赋予取件码
+
+
+
+
+			}
+			packMapper.addPack(pack);
 			count = count + 1;
 			admin.setCount(count);
-			flag = adminMapper.updateAdmin(admin);
-			if (flag == DO_CODE) {
-				return INTO_SUCCESS;
-			} else {
-				return DO_FAIL;
-			}
-		} else {
-			return INFO_FAIL;
+			// 更新Admin的count数
+			adminMapper.updateAdmin(admin);
+			// 更新User的count数
+			User user = userMapper.getUserByPhone(phone);
+			count = user.getCount() + 1;
+			user.setCount(count);
+			userMapper.updateUser(user);
+			return INTO_SUCCESS;
+		} catch (Exception e) {
+			// 有异常，返回入站失败
+			e.printStackTrace();
+			return INTO_FAIL;
 		}
 	}
 
@@ -253,6 +273,9 @@ public class PackServiceImpl implements PackService {
 			resultList.add(packResult);
 		}
 		resultPage.setList(resultList);
+		// 获取结果集数量
+		int total = packResultList.size();
+		resultPage.setTotal(total);
 		return resultPage;
 	}
 
@@ -268,17 +291,47 @@ public class PackServiceImpl implements PackService {
 	 **/
 	@Override
 	public Page<PackResult> getUserPackByPage(int currentPage, int pageSize) {
+		// 取出User登录的card
 		String card = stringRedisTemplate.opsForValue().get("user-card");
-		User user = userMapper.getUserById(card);
-		String phone = user.getPhone();
-		// 根据用户手机号查找出所有的快递信息，包括已取出和未取出的快递
-		List<Pack> packs = packMapper.getPackSByPhone(phone);
+		// 根据card查询出该User已取快递集合
+		List<Pack> packs = packMapper.getUserPacks(card);
 		List<PackResult> packResultList = getPackResult(packs);
 		// 获取分页方式的结果集
 		Page<PackResult> resultPage = getPackByPage(currentPage, pageSize, packResultList);
-		// 获取查询到的所有结果总数
-		int total = packMapper.getTotalByTel(phone);
-		resultPage.setTotal(total);
+		return resultPage;
+	}
+
+	/**
+	 * @Description: 分页获取User已取出的快递
+	 * @Param: [currentPage, pageSize]
+	 * @Return: per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.utilPojo.PackResult>
+	 **/
+	@Override
+	public Page<PackResult> getUserIsPick(int currentPage, int pageSize) {
+		// 取出User登录的card
+		String card = stringRedisTemplate.opsForValue().get("user-card");
+		// 根据card查询出该User已取快递集合
+		List<Pack> packs = packMapper.getUserIsPick(card);
+		List<PackResult> packResultList = getPackResult(packs);
+		// 获取分页方式的结果集
+		Page<PackResult> resultPage = getPackByPage(currentPage, pageSize, packResultList);
+		return resultPage;
+	}
+
+	/**
+	 * @Description: 分页获取User所未取出的快递， 无论有无取件码
+	 * @Param: [currentPage, pageSize]
+	 * @Return: per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.utilPojo.PackResult>
+	 **/
+	@Override
+	public Page<PackResult> getUserNoPick(int currentPage, int pageSize) {
+		// 取出User登录的card
+		String card = stringRedisTemplate.opsForValue().get("user-card");
+		// 根据card查询出该User已取快递集合
+		List<Pack> packs = packMapper.getUserNoPick(card);
+		List<PackResult> packResultList = getPackResult(packs);
+		// 获取分页方式的结果集
+		Page<PackResult> resultPage = getPackByPage(currentPage, pageSize, packResultList);
 		return resultPage;
 	}
 
@@ -294,17 +347,47 @@ public class PackServiceImpl implements PackService {
 	 **/
 	@Override
 	public Page<PackResult> getAdminPackByPage(int currentPage, int pageSize) {
+		// 取出Admin登录的card
 		String card = stringRedisTemplate.opsForValue().get("admin-card");
-		Admin admin = adminMapper.getAdminById(card);
-		String addr = admin.getAddr();
-		// 根据管理员所在驿站查找出所有的快递信息，包括已取出和未取出的快递
-		List<Pack> packs = packMapper.getPacksByAddr(addr);
+		// 根据card查询出该Admin已取快递集合
+		List<Pack> packs = packMapper.getAdminPacks(card);
 		List<PackResult> packResultList = getPackResult(packs);
 		// 获取分页方式的结果集
 		Page<PackResult> resultPage = getPackByPage(currentPage, pageSize, packResultList);
-		// 获取查询到的所有结果总数
-		int total = packMapper.getTotalByAddr(addr);
-		resultPage.setTotal(total);
+		return resultPage;
+	}
+
+	/**
+	 * @Description: 分页获取当前驿站的已取出快递
+	 * @Param: [currentPage, pageSize]
+	 * @Return: per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.utilPojo.PackResult>
+	 **/
+	@Override
+	public Page<PackResult> getAdminIsPick(int currentPage, int pageSize) {
+		// 取出Admin登录的card
+		String card = stringRedisTemplate.opsForValue().get("admin-card");
+		// 根据card查询出该Admin已取快递集合
+		List<Pack> packs = packMapper.getAdminIsPick(card);
+		List<PackResult> packResultList = getPackResult(packs);
+		// 获取分页方式的结果集
+		Page<PackResult> resultPage = getPackByPage(currentPage, pageSize, packResultList);
+		return resultPage;
+	}
+
+	/**
+	 * @Description: 分页获取当前驿站的未取出快递，无论有无取件码
+	 * @Param: [currentPage, pageSize]
+	 * @Return: per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.utilPojo.PackResult>
+	 **/
+	@Override
+	public Page<PackResult> getAdminNoPick(int currentPage, int pageSize) {
+		// 取出Admin登录的card
+		String card = stringRedisTemplate.opsForValue().get("admin-card");
+		// 根据card查询出该Admin未取快递集合
+		List<Pack> packs = packMapper.getAdminNoPick(card);
+		List<PackResult> packResultList = getPackResult(packs);
+		// 获取分页方式结果集
+		Page<PackResult> resultPage = getPackByPage(currentPage, pageSize, packResultList);
 		return resultPage;
 	}
 

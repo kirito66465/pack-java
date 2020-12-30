@@ -37,49 +37,55 @@ public interface PackMapper {
 	int updatePack(Pack pack);
 
 	/**
-	 * @Description: 根据手机号查找出手机号对应User的所有快递，包括已取出和未取出的快递
-	 * @Param: [tel]
+	 * -----------------------------------------------------------------------------------------------------------------
+	 * User相关
+	 **/
+
+	/**
+	 * @Description: 根据User学号查询出该User所有快递集合
+	 * @Param: [card]
 	 * @Return: java.util.List<per.kirito.pack.pojo.Pack>
 	 **/
-	List<Pack> getPackSByPhone(String tel);
+	List<Pack> getUserPacks(String card);
 
 	/**
-	 * @Description: 根据驿站地址查找出该驿站的所有快递，包括已取出和未取出的快递
-	 * @Param: [addr]
+	 * @Description: 根据User学号查询出该User已取快递集合
+	 * @Param: [card]
 	 * @Return: java.util.List<per.kirito.pack.pojo.Pack>
 	 **/
-	List<Pack> getPacksByAddr(String addr);
+	List<Pack> getUserIsPick(String card);
 
 	/**
-	 * @Description: 根据驿站地址获取该驿站的快递总数，包括已取出和未取出的快递
-	 * @Param: [addr]
-	 * @Return: int
+	 * @Description: 根据User学号查询出该User未取快递集合
+	 * @Param: [card]
+	 * @Return: java.util.List<per.kirito.pack.pojo.Pack>
 	 **/
-	int getTotalByAddr(String addr);
+	List<Pack> getUserNoPick(String card);
 
 	/**
-	 * @Description: 根据手机号查找出手机号对应User的快递总数，包括已取出和未取出的快递
-	 * @Param: [tel]
-	 * @Return: int
+	 * -----------------------------------------------------------------------------------------------------------------
+	 * Admin相关
 	 **/
-	int getTotalByTel(String tel);
 
-	// TODO 待完成Mapper.xml
+	/**
+	 * @Description: 根据Admin编号查询出所在驿站的快递集合
+	 * @Param: [card]
+	 * @Return: java.util.List<per.kirito.pack.pojo.Pack>
+	 **/
+	List<Pack> getAdminPacks(String card);
 
-	int getUserHaveCount(String tel, int status);
+	/**
+	 * @Description: 根据Admin编号查询出所在驿站已取快递集合
+	 * @Param: [card]
+	 * @Return: java.util.List<per.kirito.pack.pojo.Pack>
+	 **/
+	List<Pack> getAdminIsPick(String card);
 
-	List<Pack> getUserHavePacks(String tel, int status);
-
-	int getUserNotCount(String tel, int status);
-
-	List<Pack> getUserNotPacks(String tel, int status);
-
-	int getAdminHaveCount(String tel, int status);
-
-	List<Pack> getAdminHavePacks(String tel, int status);
-
-	int getAdminNotCount(String tel, int status);
-
-	List<Pack> getAdminNotPacks(String tel, int status);
+	/**
+	 * @Description: 根据Admin编号查询出所在驿站未取快递集合
+	 * @Param: [card]
+	 * @Return: java.util.List<per.kirito.pack.pojo.Pack>
+	 **/
+	List<Pack> getAdminNoPick(String card);
 
 }

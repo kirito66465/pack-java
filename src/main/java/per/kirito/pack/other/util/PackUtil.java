@@ -53,8 +53,9 @@ public class PackUtil {
 	private static final int MAX_PACKS = 2400;
 
 	// 添加入站信息(入站时只有快递单号这一条信息)
-	public static Pack addCode(Pack pack, int count) {
-		String id = pack.getId().substring(0, 2);
+	public static Pack addCode(Pack pack) {
+		String idAll = pack.getId();
+		String id = idAll.substring(0, 2);
 		String org = "";
 		String addr = "";
 		String cont_per = "";
@@ -120,13 +121,6 @@ public class PackUtil {
 		pack.setCont_tel(cont_tel);
 		// 添加快递状态信息
 		pack = updateStatus(pack, "入站");
-		// 驿站现存快递数量大于能有取件码的快递数量
-		if (count >= MAX_PACKS) {
-			pack.setStatus(PACK_CODE__1);
-		} else {
-			// 此入站快递能有取件码
-			pack.setStatus(PACK_CODE_1);
-		}
 		String time = TypeConversion.getTime();
 		// 添加快递入站时间
 		pack.setStart(time);

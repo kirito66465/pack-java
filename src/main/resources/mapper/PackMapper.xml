@@ -6,6 +6,7 @@
         id, org, per_name, per_tel, per_addr, addr, code, cont_name, cont_tel, status, start, end
     </sql>
 
+	<!-- 根据单号获取到该快递信息 -->
 	<select id="getPackById" parameterType="String" resultType="Pack">
 		SELECT id, org, per_name
 			, per_tel, per_addr, addr
@@ -15,37 +16,22 @@
 		WHERE id = #{id}
 	</select>
 
-	<select id="getPackSByPhone" parameterType="String" resultType="Pack">
-		SELECT id, org, per_name
-			, per_tel, per_addr, addr
-			, code, cont_name, cont_tel
-			, status, start, end
-		FROM t_pack
-		WHERE per_tel = #{tel}
-	</select>
-
-	<select id="getPacksByAddr" parameterType="String" resultType="Pack">
-		SELECT id, org, per_name
-			, per_tel, per_addr, addr
-			, code, cont_name, cont_tel
-			, status, start, end
-		FROM t_pack
-		WHERE addr = #{addr}
-		ORDER BY code ASC, start DESC
-	</select>
-
+	<!-- 快递入站 -->
 	<insert id="addPack" parameterType="Pack">
 		INSERT INTO t_pack (
-			id, org, per_name, per_tel
-			, per_addr, addr, code, cont_name
-			, cont_tel, status, start, end
+    		id, org, per_name
+			, per_tel, per_addr, addr
+			, code, cont_name, cont_tel
+			, status, start, end
 		) VALUES (
-			#{id}, #{org}, #{per_name}, #{per_tel}
-			, #{per_addr}, #{addr}, #{code}, #{cont_name}
-			, #{cont_tel}, #{status}, #{start}, #{end}
+    		#{id}, #{org}, #{per_name}
+			, #{per_tel}, #{per_addr}, #{addr}
+			, #{code}, #{cont_name}, #{cont_tel}
+			, #{status}, #{start}, #{end}
 		)
 	</insert>
 
+	<!-- 更新快递信息 -->
 	<update id="updatePack" parameterType="Pack">
 		UPDATE t_pack
 		SET org = #{org}, per_name = #{per_name}, per_tel = #{per_tel}, per_addr = #{per_addr}
@@ -54,15 +40,91 @@
 		WHERE id = #{id}
 	</update>
 
-	<select id="getTotalByAddr" parameterType="String" resultType="Integer">
-		SELECT count(*)
+	<!-- 根据User学号查询出该User所有快递集合 -->
+	<select id="getUserPacks" parameterType="String" resultType="Pack">
+		SELECT id, org, per_name
+			, per_tel, per_addr, addr
+			, code, cont_name, cont_tel
+			, status, start, end
 		FROM t_pack
-		WHERE addr = #{addr}
+		WHERE per_tel IN (
+			SELECT phone
+			FROM t_user
+			WHERE card = #{card}
+		)
 	</select>
 
-	<select id="getTotalByTel" parameterType="String" resultType="Integer">
-		SELECT count(*)
+	<!-- 根据User学号查询出该User已取快递集合 -->
+	<select id="getUserIsPick" parameterType="String" resultType="Pack">
+		SELECT id, org, per_name
+			, per_tel, per_addr, addr
+			, code, cont_name, cont_tel
+			, status, start, end
 		FROM t_pack
-		WHERE per_tel = #{tel}
+		WHERE status = 0
+		AND per_tel IN (
+			SELECT phone
+			FROM t_user
+			WHERE card = #{card}
+		)
+	</select>
+
+	<!-- 根据User学号查询出该User未取快递集合 -->
+	<select id="getUserNoPick" parameterType="String" resultType="Pack">
+		SELECT id, org, per_name
+			, per_tel, per_addr, addr
+			, code, cont_name, cont_tel
+			, status, start, end
+		FROM t_pack
+		WHERE (status = 1 OR status = -1)
+		AND per_tel IN (
+			SELECT phone
+			FROM t_user
+			WHERE card = #{card}
+		)
+	</select>
+
+	<!-- 根据Admin编号查询出所在驿站的快递集合 -->
+	<select id="getAdminPacks" parameterType="String" resultType="Pack">
+		SELECT id, org, per_name
+			, per_tel, per_addr, addr
+			, code, cont_name, cont_tel
+			, status, start, end
+		FROM t_pack
+		WHERE addr IN (
+			SELECT addr
+			FROM t_admin
+			WHERE card = #{card}
+		)
+	</select>
+
+	<!-- 根据Admin编号查询出所在驿站已取快递集合 -->
+	<select id="getAdminIsPick" parameterType="String" resultType="Pack">
+		SELECT id, org, per_name
+			, per_tel, per_addr, addr
+			, code, cont_name, cont_tel
+			, status, start, end
+		FROM t_pack
+		WHERE status = 0
+		AND addr IN (
+			SELECT addr
+			FROM t_admin
+			WHERE card = #{card}
+		)
+	</select>
+
+	<!-- 根据Admin编号查询出所在驿站未取快递集合 -->
+	<select id="getAdminNoPick" parameterType="String" resultType="Pack">
+		SELECT id, org, per_name
+			, per_tel, per_addr, addr
+			, code, cont_name, cont_tel
+			, status, start, end
+		FROM t_pack
+		WHERE (status = 1 OR status = -1)
+		AND addr IN (
+			SELECT addr
+			FROM t_admin
+			WHERE card = #{card}
+		)
 	</select>
 </mapper>
