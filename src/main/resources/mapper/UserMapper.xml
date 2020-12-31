@@ -6,6 +6,12 @@
         card, password, phone, name, addr, count
     </sql>
 
+	<select id="findUserByCard" parameterType="String" resultType="Integer">
+		SELECT count(*)
+		FROM t_user
+		WHERE card = #{card}
+	</select>
+
 	<select id="findUserByCardAndPwd" parameterType="User" resultType="Integer">
 		SELECT count(*)
 		FROM t_user
@@ -50,9 +56,10 @@
 		WHERE t.card = #{card}
 	</update>
 
-	<select id="selectUser" parameterType="String" resultType="Integer">
-		SELECT count(*)
+	<select id="getUserByRand" resultType="User">
+		SELECT card, password, phone, name, addr, count
 		FROM t_user
-		WHERE card = #{card}
+		ORDER BY RAND()
+		LIMIT 1
 	</select>
 </mapper>

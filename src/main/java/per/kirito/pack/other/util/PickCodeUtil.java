@@ -54,7 +54,7 @@ public class PickCodeUtil {
 	}
 
 	public static void main(String[] args) {
-		String code = generate(496);
+		String code = generate(2399);
 		System.out.println(code);
 	}
 

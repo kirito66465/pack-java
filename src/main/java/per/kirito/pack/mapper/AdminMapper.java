@@ -7,7 +7,7 @@ import per.kirito.pack.pojo.Admin;
  * @author kirito
  * @version 1.0
  * @date 2020/12/11 19:54
- * @description:
+ * @description: Admin的Mapper层接口
  */
 @Repository
 public interface AdminMapper {

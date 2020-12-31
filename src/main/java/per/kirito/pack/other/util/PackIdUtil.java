@@ -13,7 +13,7 @@ import java.util.Date;
  * 西苑：京东、顺丰、韵达
  * 北苑：天天、EMS
  */
-public class UUIDUtil {
+public class PackIdUtil {
 
 	// 中通单号由14位数字组成，以7542开头，再生成10位数字
 	private static final String ZTO = "7542";

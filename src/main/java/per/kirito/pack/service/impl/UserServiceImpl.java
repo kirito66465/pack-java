@@ -11,6 +11,7 @@ import per.kirito.pack.service.inter.AccountService;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @version 1.0
@@ -54,7 +55,8 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 	 * @Return: java.lang.String
 	 **/
 	@Override
-	public String login(String card, String password) {
+	public Map<String, String> login(String card, String password) {
+		Map<String, String> map = new HashMap<>();
 		String result = "";
 		// 对传入的password进行加密
 		String encrypt = TypeConversion.stringToMD5(password);
@@ -64,16 +66,20 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 		// 根据card和password查询出该User是否存在
 		int flag = userMapper.findUserByCardAndPwd(user);
 		if (flag == LOGIN_CODE) {
+			// 生成唯一令牌token
+			String token = UUID.randomUUID().toString();
 			// 如果Redis中已存储，则先删除此键
-			if (stringRedisTemplate.hasKey("user-card")) {
-				stringRedisTemplate.delete("user-card");
+			if (stringRedisTemplate.hasKey(token)) {
+				stringRedisTemplate.delete(token);
 			}
-			stringRedisTemplate.opsForValue().set("user-card", card);
+			stringRedisTemplate.opsForValue().set(token, card);
+			map.put("token", token);
 			result = LOGIN_SUCCESS;
 		} else {
 			result = LOGIN_FAIL;
 		}
-		return result;
+		map.put("login_result", result);
+		return map;
 	}
 
 	/**
@@ -82,10 +88,10 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 	 * @Return: java.lang.String
 	 **/
 	@Override
-	public String exit() {
+	public String exit(String token) {
 		// 退出登录时，删除Redis中存储的相关键值
-		stringRedisTemplate.delete("user-card");
-		return stringRedisTemplate.hasKey("user-card") ? EXIT_FAIL : EXIT_SUCCESS;
+		stringRedisTemplate.delete(token);
+		return stringRedisTemplate.hasKey(token) ? EXIT_FAIL : EXIT_SUCCESS;
 	}
 
 	/**
@@ -94,17 +100,19 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
-	public Map<String, Object> getInfo() {
-		String card = stringRedisTemplate.opsForValue().get("user-card");
+	public Map<String, Object> getInfo(String token) {
 		Map<String, Object> map = new HashMap<>();
-		if (card == null || card == "") {
-			// 从Redis中获取card失败，即获取信息失败
-			map.put("result", INFO_FAIL);
-		} else {
-			// card不为空，即根据card查询出该User的信息
+		String result = "";
+		boolean isLogin = stringRedisTemplate.hasKey(token);
+		if (isLogin) {
+			String card = stringRedisTemplate.opsForValue().get(token);
 			User user = userMapper.getUserById(card);
-			map.put("result", user);
+			map.put("user", user);
+			result = INFO_SUCCESS;
+		} else {
+			result = INFO_FAIL;
 		}
+		map.put("info_result", result);
 		return map;
 	}
 
@@ -114,29 +122,35 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 	 * @Return: java.lang.String
 	 **/
 	@Override
-	public String register(E entity) {
+	public Map<String, String> register(E entity) {
+		Map map = new HashMap();
+		String result = "";
 		String pwd = entity.getPassword();
 		// 对传入的password进行加密
 		String encrypt = TypeConversion.stringToMD5(pwd);
 		entity.setPassword(encrypt);
 		String card = entity.getCard();
-		int count = userMapper.selectUser(card);
+		int count = userMapper.findUserByCard(card);
 		// 如果查询出此学号相关记录不为1，则可以注册
 		if (count != 1) {
 			int flag = userMapper.addUser(entity);
 			if (flag == REGISTER_CODE) {
+				// 生成唯一令牌token
+				String token = UUID.randomUUID().toString();
 				// 如果Redis中已存储，则先删除此键
-				if (stringRedisTemplate.hasKey("user-card")) {
-					stringRedisTemplate.delete("user-card");
+				if (stringRedisTemplate.hasKey(token)) {
+					stringRedisTemplate.delete(token);
 				}
-				stringRedisTemplate.opsForValue().set("user-card", card);
-				return REGISTER_SUCCESS;
+				stringRedisTemplate.opsForValue().set(token, card);
+				result = REGISTER_SUCCESS;
 			} else {
-				return REGISTER_FAIL;
+				result = REGISTER_FAIL;
 			}
 		} else {
-			return IS_EXIST;
+			result = IS_EXIST;
 		}
+		map.put("register_result", result);
+		return map;
 	}
 
 	/**
@@ -146,6 +160,7 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 	 **/
 	@Override
 	public Map<String, String> forgetPwd(String card, String phone, String password) {
+		String result = "";
 		User user = new User();
 		user.setCard(card);
 		user.setPhone(phone);
@@ -159,18 +174,22 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 			user.setPassword(encrypt);
 			int flag = userMapper.updateUser(user);
 			if (flag == PWD_CODE) {
-				map.put("flag", PWD_SUCCESS);
+				// 生成唯一令牌token
+				String token = UUID.randomUUID().toString();
 				// 如果Redis中已存储，则先删除此键
-				if (stringRedisTemplate.hasKey("user-card")) {
-					stringRedisTemplate.delete("user-card");
+				if (stringRedisTemplate.hasKey(token)) {
+					stringRedisTemplate.delete(token);
 				}
-				stringRedisTemplate.opsForValue().set("user-card", card);
+				stringRedisTemplate.opsForValue().set(token, card);
+				map.put("token", token);
+				result = PWD_SUCCESS;
 			} else {
-				map.put("flag", PWD_FAIL);
+				result = PWD_FAIL;
 			}
 		} else {
-			map.put("flag", NOT_EXIST);
+			result = NOT_EXIST;
 		}
+		map.put("pwd_result", result);
 		return map;
 	}
 

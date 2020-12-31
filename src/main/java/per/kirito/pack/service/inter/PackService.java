@@ -25,7 +25,7 @@ public interface PackService {
 	 * @Param: [id]
 	 * @Return: java.lang.String
 	 **/
-	String addPack(Pack pack);
+	String addPack(String id);
 
 	/**
 	 * @Description: User或Admin进行取件
@@ -44,21 +44,21 @@ public interface PackService {
 	 * @Param: [currentPage, pageSize]
 	 * @Return: per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.utilPojo.PackResult>
 	 **/
-	Page<PackResult> getUserPackByPage(int currentPage, int pageSize);
+	Page<PackResult> getUserPackByPage(int currentPage, int pageSize, String token);
 
 	/**
 	 * @Description: 分页获取User已取出的快递
 	 * @Param: [currentPage, pageSize]
 	 * @Return: per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.utilPojo.PackResult>
 	 **/
-	Page<PackResult> getUserIsPick(int currentPage, int pageSize);
+	Page<PackResult> getUserIsPick(int currentPage, int pageSize, String token);
 
 	/**
 	 * @Description: 分页获取User所未取出的快递， 无论有无取件码
 	 * @Param: [currentPage, pageSize]
 	 * @Return: per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.utilPojo.PackResult>
 	 **/
-	Page<PackResult> getUserNoPick(int currentPage, int pageSize);
+	Page<PackResult> getUserNoPick(int currentPage, int pageSize, String token);
 
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
@@ -70,20 +70,20 @@ public interface PackService {
 	 * @Param: [currentPage, pageSize]
 	 * @Return: per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.utilPojo.PackResult>
 	 **/
-	Page<PackResult> getAdminPackByPage(int currentPage, int pageSize);
+	Page<PackResult> getAdminPackByPage(int currentPage, int pageSize, String token);
 
 	/**
 	 * @Description: 分页获取当前驿站的已取出快递
 	 * @Param: [currentPage, pageSize]
 	 * @Return: per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.utilPojo.PackResult>
 	 **/
-	Page<PackResult> getAdminIsPick(int currentPage, int pageSize);
+	Page<PackResult> getAdminIsPick(int currentPage, int pageSize, String token);
 
 	/**
 	 * @Description: 分页获取当前驿站的未取出快递，无论有无取件码
 	 * @Param: [currentPage, pageSize]
 	 * @Return: per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.utilPojo.PackResult>
 	 **/
-	Page<PackResult> getAdminNoPick(int currentPage, int pageSize);
+	Page<PackResult> getAdminNoPick(int currentPage, int pageSize, String token);
 
 }

@@ -29,8 +29,8 @@ public class UserController {
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/login")
-	public String login(@RequestParam(value = "card") String card,
-	                        @RequestParam(value = "password") String password) {
+	public Map<String, String> login(@RequestParam(value = "card") String card,
+	                                 @RequestParam(value = "password") String password) {
 		return accountService.login(card, password);
 	}
 
@@ -41,8 +41,8 @@ public class UserController {
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/exit")
-	public String userExit() {
-		return accountService.exit();
+	public String userExit(@RequestParam(value = "token") String token) {
+		return accountService.exit(token);
 	}
 
 	/**
@@ -52,8 +52,8 @@ public class UserController {
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/getInfo")
-	public Map<String, Object> getUserInfo() {
-		return accountService.getInfo();
+	public Map<String, Object> getUserInfo(@RequestParam(value = "token") String token) {
+		return accountService.getInfo(token);
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class UserController {
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/register")
-	public String register(@RequestBody User user) {
+	public Map<String, String> register(@RequestBody User user) {
 		return accountService.register(user);
 	}
 

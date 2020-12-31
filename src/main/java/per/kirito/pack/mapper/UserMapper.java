@@ -7,10 +7,12 @@ import per.kirito.pack.pojo.User;
  * @author kirito
  * @version 1.0
  * @date 2020/12/4 21:00
- * @description:
+ * @description: User的Mapper层接口
  */
 @Repository
 public interface UserMapper {
+
+	int findUserByCard(String card);
 
 	int findUserByCardAndPwd(User user);
 
@@ -24,6 +26,6 @@ public interface UserMapper {
 
 	int updateUser(User user);
 
-	int selectUser(String card);
+	User getUserByRand();
 
 }

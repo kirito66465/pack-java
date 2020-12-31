@@ -3,6 +3,11 @@ package per.kirito.pack.other.util;
 import per.kirito.pack.other.myEnum.Express;
 import per.kirito.pack.other.myEnum.Status;
 import per.kirito.pack.pojo.Pack;
+import per.kirito.pack.pojo.utilPojo.PackResult;
+import per.kirito.pack.pojo.utilPojo.Page;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @version 1.0
@@ -49,17 +54,15 @@ public class PackUtil {
 	private static final String TEL_XY = "13300000002";
 	private static final String TEL_BY = "13300000003";
 
-	// 驿站已有取件码的最大快递数量
-	private static final int MAX_PACKS = 2400;
-
 	// 添加入站信息(入站时只有快递单号这一条信息)
-	public static Pack addCode(Pack pack) {
+	public static Pack addInfo(Pack pack) {
 		String idAll = pack.getId();
 		String id = idAll.substring(0, 2);
 		String org = "";
 		String addr = "";
 		String cont_per = "";
 		String cont_tel = "";
+		// 根据快递单号前2位获取快递公司和驿站相关信息
 		switch (id) {
 			case "75":
 				org = ZTO;
@@ -138,14 +141,49 @@ public class PackUtil {
 		return pack;
 	}
 
-	public static void main(String[] args) {
-		Pack pack = new Pack();
-		pack.setId("1234567890");
-		// pack.setStatus(NOT_TAKEN);
-		// pack = updateStatus(pack);
-		System.out.println(pack.getEnd());
-		System.out.println(pack.getStatus());
-		System.out.println(pack.getId().substring(0, 2));
+	/**
+	 * @Description: 抽取出来的获取结果集方法，主要对status进行类型转换：jdbcType/Integer -> java/String
+	 * @Param: [packList]
+	 * @Return: java.util.List<per.kirito.pack.pojo.utilPojo.PackResult>
+	 **/
+	public static List<PackResult> getPackResult(List<Pack> packList) {
+		List<PackResult> packResultList = new ArrayList<>();
+		PackResult packResult;
+		for (Pack pack : packList) {
+			packResult = new PackResult(pack);
+			packResultList.add(packResult);
+		}
+		return packResultList;
+	}
+
+	/**
+	 * @Description: 抽取出来的分页方法，仅需传入当前页码、每页条数、快递结果集
+	 * @Param: [currentPage, pageSize, packResultList]
+	 * @Return: per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.utilPojo.PackResult>
+	 **/
+	public static Page<PackResult> getPackByPage(int currentPage, int pageSize, List<PackResult> packResultList) {
+		Page<PackResult> resultPage = new Page<>();
+		resultPage.setCurrentPage(currentPage);
+		resultPage.setPageSize(pageSize);
+		List<PackResult> resultList = new ArrayList<>();
+		PackResult packResult;
+		int index = (currentPage - 1) * pageSize;
+		int end = currentPage * pageSize;
+		int size = packResultList.size();
+		// 当最后一页记录条数不足每页记录条数时，end置为结果集的长度
+		if (end > size) {
+			end = size;
+		}
+		// 遍历结果集，获取到当前页数下的数据集
+		for (int i = index; i < end; i++) {
+			packResult = packResultList.get(i);
+			resultList.add(packResult);
+		}
+		resultPage.setList(resultList);
+		// 获取结果集数量
+		int total = packResultList.size();
+		resultPage.setTotal(total);
+		return resultPage;
 	}
 
 }

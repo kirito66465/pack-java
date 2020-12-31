@@ -29,7 +29,7 @@ public class AdminController {
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/login")
-	public String adminLogin(@RequestParam(value = "card") String card,
+	public Map<String, String> adminLogin(@RequestParam(value = "card") String card,
 	                        @RequestParam(value = "password") String password) {
 		return accountService.login(card, password);
 	}
@@ -41,8 +41,8 @@ public class AdminController {
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/exit")
-	public String adminExit() {
-		return accountService.exit();
+	public String adminExit(@RequestParam(value = "token") String token) {
+		return accountService.exit(token);
 	}
 
 	/**
@@ -52,8 +52,8 @@ public class AdminController {
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/getInfo")
-	public Map<String, Object> getAdminInfo() {
-		return accountService.getInfo();
+	public Map<String, Object> getAdminInfo(@RequestParam(value = "token") String token) {
+		return accountService.getInfo(token);
 	}
 
 }

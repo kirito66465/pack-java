@@ -11,6 +11,7 @@ import per.kirito.pack.service.inter.AccountService;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @version 1.0
@@ -54,7 +55,8 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 	 * @Return: java.lang.String
 	 **/
 	@Override
-	public String login(String card, String password) {
+	public Map<String, String> login(String card, String password) {
+		Map<String, String> map = new HashMap<>();
 		String result = "";
 		// 对传入的password进行加密
 		String encrypt = TypeConversion.stringToMD5(password);
@@ -64,16 +66,20 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 		// 根据card和password查询出该Admin是否存在
 		int flag = adminMapper.findAdminByCardAndPwd(admin);
 		if (flag == LOGIN_CODE) {
+			// 生成唯一令牌token
+			String token = UUID.randomUUID().toString();
 			// 如果Redis中已存储，则先删除此键
-			if (stringRedisTemplate.hasKey("admin-card")) {
-				stringRedisTemplate.delete("admin-card");
+			if (stringRedisTemplate.hasKey(token)) {
+				stringRedisTemplate.delete(token);
 			}
-			stringRedisTemplate.opsForValue().set("admin-card", card);
+			stringRedisTemplate.opsForValue().set(token, card);
+			map.put("token", token);
 			result = LOGIN_SUCCESS;
 		} else {
 			result = LOGIN_FAIL;
 		}
-		return result;
+		map.put("login_result", result);
+		return map;
 	}
 
 	/**
@@ -82,10 +88,10 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 	 * @Return: java.lang.String
 	 **/
 	@Override
-	public String exit() {
+	public String exit(String token) {
 		// 退出登录时，删除Redis中存储的相关键值
-		stringRedisTemplate.delete("admin-card");
-		return stringRedisTemplate.hasKey("admin-card") ? EXIT_FAIL : EXIT_SUCCESS;
+		stringRedisTemplate.delete(token);
+		return stringRedisTemplate.hasKey(token) ? EXIT_FAIL : EXIT_SUCCESS;
 	}
 
 	/**
@@ -94,17 +100,19 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
-	public Map<String, Object> getInfo() {
-		String card = stringRedisTemplate.opsForValue().get("admin-card");
+	public Map<String, Object> getInfo(String token) {
 		Map<String, Object> map = new HashMap<>();
-		if (card == null || card == "") {
-			// 从Redis中获取card失败，即获取信息失败
-			map.put("result", INFO_FAIL);
-		} else {
-			// card不为空，即根据card查询出该Admin的信息
+		String result = "";
+		boolean isLogin = stringRedisTemplate.hasKey(token);
+		if (isLogin) {
+			String card = stringRedisTemplate.opsForValue().get(token);
 			Admin admin = adminMapper.getAdminById(card);
-			map.put("result", admin);
+			map.put("admin", admin);
+			result = INFO_SUCCESS;
+		} else {
+			result = INFO_FAIL;
 		}
+		map.put("info_result", result);
 		return map;
 	}
 
@@ -114,7 +122,7 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 	 * @Return:
 	 **/
 	@Override
-	public String register(E entity) {
+	public Map<String, String> register(E entity) {
 		// 不实现该功能
 		return null;
 	}

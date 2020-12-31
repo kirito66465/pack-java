@@ -67,8 +67,9 @@ public class PackController {
 	@CrossOrigin
 	@RequestMapping(value = "/getUserPackByPage")
 	public Page<PackResult> getUserPackByPage(@RequestParam(defaultValue = "1") int currentPage,
-	                                          @RequestParam(value = "pageSize") int pageSize) {
-		return packService.getUserPackByPage(currentPage, pageSize);
+	                                          @RequestParam(value = "pageSize") int pageSize,
+	                                          @RequestParam(value = "token") String token) {
+		return packService.getUserPackByPage(currentPage, pageSize, token);
 	}
 
 	/**
@@ -79,8 +80,9 @@ public class PackController {
 	@CrossOrigin
 	@RequestMapping(value = "/getUserIsPick")
 	public Page<PackResult> getUserIsPick(@RequestParam(defaultValue = "1") int currentPage,
-	                                         @RequestParam(value = "pageSize") int pageSize) {
-		return packService.getUserIsPick(currentPage, pageSize);
+	                                      @RequestParam(value = "pageSize") int pageSize,
+	                                      @RequestParam(value = "token") String token) {
+		return packService.getUserIsPick(currentPage, pageSize, token);
 	}
 
 	/**
@@ -91,8 +93,9 @@ public class PackController {
 	@CrossOrigin
 	@RequestMapping(value = "/getUserNoPick")
 	public Page<PackResult> getUserNoPick(@RequestParam(defaultValue = "1") int currentPage,
-	                                        @RequestParam(value = "pageSize") int pageSize) {
-		return packService.getUserNoPick(currentPage, pageSize);
+	                                      @RequestParam(value = "pageSize") int pageSize,
+	                                      @RequestParam(value = "token") String token) {
+		return packService.getUserNoPick(currentPage, pageSize, token);
 	}
 
 	/**
@@ -108,8 +111,9 @@ public class PackController {
 	@CrossOrigin
 	@RequestMapping(value = "/getAdminPacksByPage")
 	public Page<PackResult> getAdminPackByPage(@RequestParam(defaultValue = "1") int currentPage,
-	                                              @RequestParam(value = "pageSize") int pageSize) {
-		return packService.getAdminPackByPage(currentPage, pageSize);
+	                                           @RequestParam(value = "pageSize") int pageSize,
+	                                           @RequestParam(value = "token") String token) {
+		return packService.getAdminPackByPage(currentPage, pageSize, token);
 	}
 
 	/**
@@ -120,8 +124,9 @@ public class PackController {
 	@CrossOrigin
 	@RequestMapping(value = "/getAdminIsPick")
 	public Page<PackResult> getAdminIsPick(@RequestParam(defaultValue = "1") int currentPage,
-	                                          @RequestParam(value = "pageSize") int pageSize) {
-		return packService.getAdminIsPick(currentPage, pageSize);
+	                                       @RequestParam(value = "pageSize") int pageSize,
+	                                       @RequestParam(value = "token") String token) {
+		return packService.getAdminIsPick(currentPage, pageSize, token);
 	}
 
 	/**
@@ -132,7 +137,8 @@ public class PackController {
 	@CrossOrigin
 	@RequestMapping(value = "/getAdminNoPick")
 	public Page<PackResult> getAdminNoPick(@RequestParam(defaultValue = "1") int currentPage,
-	                                       @RequestParam(value = "pageSize") int pageSize) {
-		return packService.getAdminNoPick(currentPage, pageSize);
+	                                       @RequestParam(value = "pageSize") int pageSize,
+	                                       @RequestParam(value = "token") String token) {
+		return packService.getAdminNoPick(currentPage, pageSize, token);
 	}
 }

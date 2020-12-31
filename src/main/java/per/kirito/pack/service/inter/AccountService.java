@@ -16,28 +16,28 @@ public interface AccountService<E> {
 	 * @Param: [card, password]
 	 * @Return: java.lang.String
 	 **/
-	String login(String card, String password);
+	Map<String, String> login(String card, String password);
 
 	/**
 	 * @Description: 退出登录
 	 * @Param: []
 	 * @Return: java.lang.String
 	 **/
-	String exit();
+	String exit(String token);
 
 	/**
 	 * @Description: 获取账户信息
 	 * @Param: []
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
-	Map<String, Object> getInfo();
+	Map<String, Object> getInfo(String token);
 
 	/**
 	 * @Description: 账户注册
 	 * @Param: [entity]
 	 * @Return: java.lang.String
 	 **/
-	String register(E entity);
+	Map<String, String> register(E entity);
 
 	/**
 	 * @Description: 账户重置密码

@@ -3,25 +3,36 @@
 <mapper namespace="per.kirito.pack.mapper.CodeMapper">
 
 	<sql id="FIELDS">
-        code, addr, status
+        code, addr, status, free
     </sql>
 
-	<select id="findCode" parameterType="Code" resultType="ArrayList">
-		SELECT code, addr, status
+	<select id="findCode" parameterType="String" resultType="String">
+		SELECT code
 		FROM t_code
 		WHERE addr = #{addr}
-		AND status = #{status}
+		AND status = 0
+		AND free IN (
+			SELECT MIN(free)
+			FROM t_code
+			WHERE addr = #{addr}
+			AND status = 0
+		)
+	</select>
+
+	<select id="findMaxCode" parameterType="Code" resultType="Integer">
+		SELECT count(*)
+		FROM t_code
+		WHERE code = #{code}
+		AND addr = #{addr}
+		AND free IS NULL
 	</select>
 
 	<update id="updateCode" parameterType="Code">
 		UPDATE t_code
 		SET status = #{status}
+			, free = #{free}
 		WHERE code = #{code}
 		AND addr = #{addr}
+		AND free = #{free}
 	</update>
-
-	<select id="getAllCodes" resultType="List">
-		SELECT code, addr, status
-		FROM t_code
-	</select>
 </mapper>
