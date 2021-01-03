@@ -32,5 +32,6 @@ public class Pack {
 	private int status;                             // 快递状态
 	private String start;                           // 入站时间
 	private String end;                             // 取件时间
+	private String pick;                            // 取件人
 
 }

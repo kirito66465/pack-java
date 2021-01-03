@@ -62,11 +62,14 @@ public class PackServiceImpl implements PackService {
 	private static final int DO_CODE = Status.DO_SUCCESS.getCode();
 	private static final int IS_USE = Status.IS_USE.getCode();
 	private static final int NOT_USE = Status.NOT_USE.getCode();
-	// 取件码使用状态，注意：这里1为count(*)，即1才是未使用
+	// 快递状态
 	private static final int USE_CODE = Status.IS_USE.getCode();
 	private static final int PACK_CODE_1 = Status.PACK_STATUS_1.getCode();
 	private static final int PACK_CODE_0 = Status.PACK_STATUS_0.getCode();
 	private static final int PACK_CODE__1 = Status.PACK_STATUS__1.getCode();
+	// 取件码使用状态
+	private static final int CODE_STATUS_1 = Status.CODE_STATUS_1.getCode();
+	private static final int CODE_STATUS_0 = Status.CODE_STATUS_0.getCode();
 
 	private static final String INTO_SUCCESS = Status.INTO_SUCCESS.getEnMsg();
 	private static final String INTO_FAIL = Status.INTO_FAIL.getEnMsg();
@@ -76,6 +79,9 @@ public class PackServiceImpl implements PackService {
 	private static final String INFO_FAIL = Status.INFO_FAIL.getEnMsg();
 	private static final String DO_SUCCESS = Status.DO_SUCCESS.getEnMsg();
 	private static final String DO_FAIL = Status.DO_FAIL.getEnMsg();
+	private static final String NOT_EXIST = Status.NOT_EXIST.getEnMsg();
+	private static final String TAKE_SUCCESS = Status.TAKE_SUCCESS.getEnMsg();
+	private static final String LOGIN_TO_DO = Status.LOGIN_TO_DO.getEnMsg();
 
 	private static final String PACK_STATUS_1 = Status.PACK_STATUS_1.getZhMsg();
 	private static final String PACK_STATUS_0 = Status.PACK_STATUS_0.getZhMsg();
@@ -85,21 +91,6 @@ public class PackServiceImpl implements PackService {
 	private static final int MAX_PACKS = 2400;
 
 	private static Code MAX_CODE_UNUSED = new Code("20-6-20", "", NOT_USE, "");
-	/**
-	 * @Description: 根据快递单号获取快递信息，如果查询不出则返回String
-	 * @Param: [id]
-	 * @Return: java.lang.Object
-	 **/
-	@Override
-	public Object getPackById(String id) {
-		Pack pack = packMapper.getPackById(id);
-		if (pack == null) {
-			// 查询不出则返回"get info fail"
-			return INFO_FAIL;
-		} else {
-			return pack;
-		}
-	}
 
 	/**
 	 * @Description: 驿站管理员添加快递入站
@@ -162,46 +153,56 @@ public class PackServiceImpl implements PackService {
 	}
 
 	/**
-	 * @Description: User或Admin进行取件
+	 * @Description: User进行取件，必须传入驿站地址和取件码
 	 * @Param: [id, code]
 	 * @Return: java.lang.String
 	 **/
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public String pickPack(@RequestParam(value = "id") String id,
-	                       @RequestParam(value = "code") String code) {
+	public String pickPackByUser(String addr, String code, String token) {
 		String msg = PICK_FAIL;
 		try {
-			Pack pack = packMapper.getPackById(id);
-			// 查询不到包裹信息
-			if (pack == null) {
-				// 没有该快递
-				msg = INFO_FAIL;
-			} else {
-				// 如果取件码正确，则取件
-				if (code.equals(pack.getCode())) {
+			// 如果token令牌存在
+			if (stringRedisTemplate.hasKey(token)) {
+				Pack pack = packMapper.getPackByAddrAndCode(addr, code);
+				String card = stringRedisTemplate.opsForValue().get(token);
+				User user = userMapper.getUserById(card);
+				String name = user.getName();
+				if (pack != null) {
 					// 更新管理员信息
-					String addr = pack.getAddr();
 					Admin admin = adminMapper.getAdminByAddr(addr);
 					int count = admin.getCount() - 1;
 					admin.setCount(count);
 					adminMapper.updateAdmin(admin);
+					// 如果为本人签收
+					if (pack.getPer_tel().equals(user.getPhone())) {
+						// 本人签收
+						msg = PICK_SUCCESS;
+					} else {
+						// 他人代取
+						user = userMapper.getUserByPhone(pack.getPer_tel());
+						msg = TAKE_SUCCESS;
+					}
 					// 更新用户信息
-					String phone = pack.getPer_tel();
-					User user = userMapper.getUserByPhone(phone);
 					count = user.getCount() - 1;
 					user.setCount(count);
 					userMapper.updateUser(user);
 					pack.setStatus(PACK_CODE_0);
 					String time = TypeConversion.getTime();
 					pack.setEnd(time);
+					// 更新签收人
+					pack.setPick(name);
 					// 更新包裹状态、取件时间
 					packMapper.updatePack(pack);
-					msg = PICK_SUCCESS;
+					// 更新取件码使用状态与释放时间
+					Code coder = new Code(code, addr, CODE_STATUS_0, time);
 				} else {
-					// 如果取件码不正确，则不能取件
-					msg = PICK_FAIL;
+					// 该快递不存在
+					msg = NOT_EXIST;
 				}
+			} else {
+				// 请登录再操作
+				msg = LOGIN_TO_DO;
 			}
 			return msg;
 		} catch (Exception e) {
@@ -212,59 +213,134 @@ public class PackServiceImpl implements PackService {
 	}
 
 	/**
+	 * @Description: Admin进行取件，仅传入快递单号即可
+	 * @Param: [id]
+	 * @Return: java.lang.String
+	 **/
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public String pickPackByAdmin(String id) {
+		String msg = PICK_FAIL;
+		try {
+			Pack pack = packMapper.getPackById(id);
+			if (pack == null) {
+				// 没有该快递
+				msg = INFO_FAIL;
+			} else {
+				// 更新管理员信息
+				String addr = pack.getAddr();
+				Admin admin = adminMapper.getAdminByAddr(addr);
+				int count = admin.getCount() - 1;
+				admin.setCount(count);
+				adminMapper.updateAdmin(admin);
+				// 更新用户信息
+				String phone = pack.getPer_tel();
+				User user = userMapper.getUserByPhone(phone);
+				count = user.getCount() - 1;
+				user.setCount(count);
+				userMapper.updateUser(user);
+				pack.setStatus(PACK_CODE_0);
+				String time = TypeConversion.getTime();
+				pack.setEnd(time);
+				// 更新包裹状态、取件时间
+				packMapper.updatePack(pack);
+				msg = PICK_SUCCESS;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return msg;
+		}
+		return msg;
+	}
+
+	/**
 	 * -----------------------------------------------------------------------------------------------------------------
 	 * User相关
 	 **/
 
 	/**
-	 * @Description: 分页获取User所有的快递，包括已取出和未取出的快递
-	 * @Param: [currentPage, pageSize]
-	 * @Return: per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.utilPojo.PackResult>
+	 * @Description: 分页获取User所有的快递，包括已取出和未取出的快递；如果没有token令牌，则返回获取信息失败
+	 * @Param: [currentPage, pageSize, token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
-	public Page<PackResult> getUserPackByPage(int currentPage, int pageSize, String token) {
-		// 取出User登录的card
-		String card = stringRedisTemplate.opsForValue().get(token);
-		// 根据card查询出该User已取快递集合
-		List<Pack> packs = packMapper.getUserPacks(card);
-		List<PackResult> packResultList = PackUtil.getPackResult(packs);
-		// 获取分页方式的结果集
-		Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
-		return resultPage;
+	public Map<String, Object> getUserPackByPage(int currentPage, int pageSize, String token) {
+		Map<String, Object> map = new HashMap<>();
+		if (stringRedisTemplate.hasKey(token)) {
+			// 取出User登录的card
+			String card = stringRedisTemplate.opsForValue().get(token);
+			// 根据card查询出该User已取快递集合
+			List<Pack> packs = packMapper.getUserPacks(card);
+			List<PackResult> packResultList = PackUtil.getPackResult(packs);
+			// 获取分页方式的结果集
+			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
+			map.put("pack_result", resultPage);
+		} else {
+			map.put("fail", INFO_FAIL);
+		}
+		return map;
 	}
 
 	/**
-	 * @Description: 分页获取User已取出的快递
-	 * @Param: [currentPage, pageSize]
-	 * @Return: per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.utilPojo.PackResult>
+	 * @Description: 分页获取User已取出的快递；如果没有token令牌，则返回获取信息失败
+	 * @Param: [currentPage, pageSize, token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
-	public Page<PackResult> getUserIsPick(int currentPage, int pageSize, String token) {
-		// 取出User登录的card
-		String card = stringRedisTemplate.opsForValue().get(token);
-		// 根据card查询出该User已取快递集合
-		List<Pack> packs = packMapper.getUserIsPick(card);
-		List<PackResult> packResultList = PackUtil.getPackResult(packs);
-		// 获取分页方式的结果集
-		Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
-		return resultPage;
+	public Map<String, Object> getUserIsPick(int currentPage, int pageSize, String token) {
+		Map<String, Object> map = new HashMap<>();
+		if (stringRedisTemplate.hasKey(token)) {
+			// 取出User登录的card
+			String card = stringRedisTemplate.opsForValue().get(token);
+			// 根据card查询出该User已取快递集合
+			List<Pack> packs = packMapper.getUserIsPick(card);
+			List<PackResult> packResultList = PackUtil.getPackResult(packs);
+			// 获取分页方式的结果集
+			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
+			map.put("pack_result", resultPage);
+		} else {
+			map.put("fail", INFO_FAIL);
+		}
+		return map;
 	}
 
 	/**
-	 * @Description: 分页获取User所未取出的快递， 无论有无取件码
-	 * @Param: [currentPage, pageSize]
-	 * @Return: per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.utilPojo.PackResult>
+	 * @Description: 分页获取User所未取出的快递， 无论有无取件码；如果没有token令牌，则返回获取信息失败
+	 * @Param: [currentPage, pageSize, token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
-	public Page<PackResult> getUserNoPick(int currentPage, int pageSize, String token) {
-		// 取出User登录的card
-		String card = stringRedisTemplate.opsForValue().get(token);
-		// 根据card查询出该User已取快递集合
-		List<Pack> packs = packMapper.getUserNoPick(card);
-		List<PackResult> packResultList = PackUtil.getPackResult(packs);
-		// 获取分页方式的结果集
-		Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
-		return resultPage;
+	public Map<String, Object> getUserNoPick(int currentPage, int pageSize, String token) {
+		Map<String, Object> map = new HashMap<>();
+		if (stringRedisTemplate.hasKey(token)) {
+			// 取出User登录的card
+			String card = stringRedisTemplate.opsForValue().get(token);
+			// 根据card查询出该User已取快递集合
+			List<Pack> packs = packMapper.getUserNoPick(card);
+			List<PackResult> packResultList = PackUtil.getPackResult(packs);
+			// 获取分页方式的结果集
+			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
+			map.put("pack_result", resultPage);
+		} else {
+			map.put("fail", INFO_FAIL);
+		}
+		return map;
+	}
+
+	@Override
+	public Map<String, Integer> getUserTotalNum(String token) {
+		Map<String, Integer> map = new HashMap<>();
+		// 所有快递数量，包括已取出和未取出的快递
+		map.put("allTotal", 100);
+		// 已取出的快递数量
+		map.put("isTotal", 20);
+		// 未取出的快递数量
+		map.put("notTotal", 80);
+		// 寄件的快递数量
+		map.put("sendTotal", 0);
+		// 百分比
+		map.put("percentage", 20);
+		return map;
 	}
 
 	/**
@@ -273,54 +349,77 @@ public class PackServiceImpl implements PackService {
 	 **/
 
 	/**
-	 * @Description: 分页获取Admin所有的快递，包括已取出和未取出的快递
-	 * @Param: [currentPage, pageSize]
-	 * @Return: per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.utilPojo.PackResult>
+	 * @Description: 分页获取Admin所有的快递，包括已取出和未取出的快递；如果没有token令牌，则返回获取信息失败
+	 * @Param: [currentPage, pageSize, token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
-	public Page<PackResult> getAdminPackByPage(int currentPage, int pageSize, String token) {
-		// 取出Admin登录的card
-		String card = stringRedisTemplate.opsForValue().get(token);
-		// 根据card查询出该Admin已取快递集合
-		List<Pack> packs = packMapper.getAdminPacks(card);
-		List<PackResult> packResultList = PackUtil.getPackResult(packs);
-		// 获取分页方式的结果集
-		Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
-		return resultPage;
+	public Map<String, Object> getAdminPackByPage(int currentPage, int pageSize, String token) {
+		Map<String, Object> map = new HashMap<>();
+		if (stringRedisTemplate.hasKey(token)) {
+			// 取出Admin登录的card
+			String card = stringRedisTemplate.opsForValue().get(token);
+			// 根据card查询出该Admin已取快递集合
+			List<Pack> packs = packMapper.getAdminPacks(card);
+			List<PackResult> packResultList = PackUtil.getPackResult(packs);
+			// 获取分页方式的结果集
+			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
+			map.put("pack_result", resultPage);
+		} else {
+			map.put("fail", INFO_FAIL);
+		}
+		return map;
 	}
 
 	/**
-	 * @Description: 分页获取当前驿站的已取出快递
-	 * @Param: [currentPage, pageSize]
-	 * @Return: per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.utilPojo.PackResult>
+	 * @Description: 分页获取当前驿站的已取出快递；如果没有token令牌，则返回获取信息失败
+	 * @Param: [currentPage, pageSize, token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
-	public Page<PackResult> getAdminIsPick(int currentPage, int pageSize, String token) {
-		// 取出Admin登录的card
-		String card = stringRedisTemplate.opsForValue().get(token);
-		// 根据card查询出该Admin已取快递集合
-		List<Pack> packs = packMapper.getAdminIsPick(card);
-		List<PackResult> packResultList = PackUtil.getPackResult(packs);
-		// 获取分页方式的结果集
-		Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
-		return resultPage;
+	public Map<String, Object> getAdminIsPick(int currentPage, int pageSize, String token) {
+		Map<String, Object> map = new HashMap<>();
+		if (stringRedisTemplate.hasKey(token)) {
+			// 取出Admin登录的card
+			String card = stringRedisTemplate.opsForValue().get(token);
+			// 根据card查询出该Admin已取快递集合
+			List<Pack> packs = packMapper.getAdminIsPick(card);
+			List<PackResult> packResultList = PackUtil.getPackResult(packs);
+			// 获取分页方式的结果集
+			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
+			map.put("pack_result", resultPage);
+		} else {
+			map.put("fail", INFO_FAIL);
+		}
+		return map;
 	}
 
 	/**
-	 * @Description: 分页获取当前驿站的未取出快递，无论有无取件码
-	 * @Param: [currentPage, pageSize]
-	 * @Return: per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.utilPojo.PackResult>
+	 * @Description: 分页获取当前驿站的未取出快递，无论有无取件码；如果没有token令牌，则返回获取信息失败
+	 * @Param: [currentPage, pageSize, token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
-	public Page<PackResult> getAdminNoPick(int currentPage, int pageSize, String token) {
-		// 取出Admin登录的card
-		String card = stringRedisTemplate.opsForValue().get(token);
-		// 根据card查询出该Admin未取快递集合
-		List<Pack> packs = packMapper.getAdminNoPick(card);
-		List<PackResult> packResultList = PackUtil.getPackResult(packs);
-		// 获取分页方式结果集
-		Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
-		return resultPage;
+	public Map<String, Object> getAdminNoPick(int currentPage, int pageSize, String token) {
+		Map<String, Object> map = new HashMap<>();
+		if (stringRedisTemplate.hasKey(token)) {
+			// 取出Admin登录的card
+			String card = stringRedisTemplate.opsForValue().get(token);
+			// 根据card查询出该Admin未取快递集合
+			List<Pack> packs = packMapper.getAdminNoPick(card);
+			List<PackResult> packResultList = PackUtil.getPackResult(packs);
+			// 获取分页方式结果集
+			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
+			map.put("pack_result", resultPage);
+		} else {
+			map.put("fail", INFO_FAIL);
+		}
+		return map;
+	}
+
+	@Override
+	public Map<String, Integer> getAdminTotalNum(String token) {
+		return null;
 	}
 
 }

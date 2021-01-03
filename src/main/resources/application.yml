@@ -3,8 +3,13 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://139.196.28.154:3306/package_manage?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
-    username: kirito
+    # 阿里云服务器
+    # url: jdbc:mysql://139.196.28.154:3306/package_manage?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+    # username: kirito
+
+    # 本地
+    url: jdbc:mysql://localhost:3306/package_manage?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+    username: root
     password: 054417@nufe
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
@@ -33,7 +38,11 @@ spring:
 #      ddl-auto: update
 
   redis:
-    host: 139.196.28.154
+    # 阿里云服务器
+    # host: 139.196.28.154
+
+    # 本地
+    host: localhost
     port: 6379
     database: 0
 

@@ -47,7 +47,9 @@ public enum Status {
 	SEND_STATUS_1(1, "已取件", "已取件"),
 	SEND_STATUS_2(2, "已发出", "已发出"),
 	CODE_STATUS_1(1, "已被使用过", "已被使用过"),
-	CODE_STATUS_0(0, "未被使用过", "未被使用过");
+	CODE_STATUS_0(0, "未被使用过", "未被使用过"),
+	TAKE_SUCCESS(1, "take over", "代取成功"),
+	LOGIN_TO_DO(-1, "please login to operate", "请登录再操作");
 
 	private final int code;
 	private final String enMsg;

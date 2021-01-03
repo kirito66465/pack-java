@@ -3,7 +3,7 @@
 <mapper namespace="per.kirito.pack.mapper.PackMapper">
 
 	<sql id="FIELDS">
-        id, org, per_name, per_tel, per_addr, addr, code, cont_name, cont_tel, status, start, end
+        id, org, per_name, per_tel, per_addr, addr, code, cont_name, cont_tel, status, start, end, pick
     </sql>
 
 	<!-- 根据单号获取到该快递信息 -->
@@ -11,9 +11,21 @@
 		SELECT id, org, per_name
 			, per_tel, per_addr, addr
 			, code, cont_name, cont_tel
-			, status, start, end
+			, status, start, end, pick
 		FROM t_pack
 		WHERE id = #{id}
+	</select>
+
+	<!-- 根据驿站地址和取件码查询出快递信息 -->
+	<select id="getPackByAddrAndCode" resultType="Pack">
+		SELECT id, org, per_name
+			, per_tel, per_addr, addr
+			, code, cont_name, cont_tel
+			, status, start, end, pick
+		FROM t_pack
+		WHERE addr = #{addr}
+		AND code = #{code}
+		AND status = 1
 	</select>
 
 	<!-- 快递入站 -->
@@ -22,12 +34,12 @@
     		id, org, per_name
 			, per_tel, per_addr, addr
 			, code, cont_name, cont_tel
-			, status, start, end
+			, status, start, end, pick
 		) VALUES (
     		#{id}, #{org}, #{per_name}
 			, #{per_tel}, #{per_addr}, #{addr}
 			, #{code}, #{cont_name}, #{cont_tel}
-			, #{status}, #{start}, #{end}
+			, #{status}, #{start}, #{end}, #{pick}
 		)
 	</insert>
 
@@ -36,7 +48,7 @@
 		UPDATE t_pack
 		SET org = #{org}, per_name = #{per_name}, per_tel = #{per_tel}, per_addr = #{per_addr}
 			, addr = #{addr}, code = #{code}, cont_name = #{cont_name}, cont_tel = #{cont_tel}
-			, status = #{status}, start = #{start}, end = #{end}
+			, status = #{status}, start = #{start}, end = #{end}, pick = #{pick}
 		WHERE id = #{id}
 	</update>
 
@@ -45,7 +57,7 @@
 		SELECT id, org, per_name
 			, per_tel, per_addr, addr
 			, code, cont_name, cont_tel
-			, status, start, end
+			, status, start, end, pick
 		FROM t_pack
 		WHERE per_tel IN (
 			SELECT phone
@@ -59,7 +71,7 @@
 		SELECT id, org, per_name
 			, per_tel, per_addr, addr
 			, code, cont_name, cont_tel
-			, status, start, end
+			, status, start, end, pick
 		FROM t_pack
 		WHERE status = 0
 		AND per_tel IN (
@@ -74,7 +86,7 @@
 		SELECT id, org, per_name
 			, per_tel, per_addr, addr
 			, code, cont_name, cont_tel
-			, status, start, end
+			, status, start, end, pick
 		FROM t_pack
 		WHERE (status = 1 OR status = -1)
 		AND per_tel IN (
@@ -83,13 +95,23 @@
 			WHERE card = #{card}
 		)
 	</select>
+	
+<!--	<select id="getUserTotalNum" parameterType="String" resultMap="HashMap">-->
+<!--		SELECT addr 地址-->
+<!--			, count(*) allTotal 												&#45;&#45; 快递总数-->
+<!--			, count(case when status = 1 or status = -1 then '1' end) noTotal   &#45;&#45; 未取快递-->
+<!--			, count(case when status = 0 then '1' end) isTotal  				&#45;&#45; 已取快递-->
+<!--		FROM t_pack-->
+<!--		WHERE addr = #{addr}-->
+<!--		GROUP BY addr-->
+<!--	</select>-->
 
 	<!-- 根据Admin编号查询出所在驿站的快递集合 -->
 	<select id="getAdminPacks" parameterType="String" resultType="Pack">
 		SELECT id, org, per_name
 			, per_tel, per_addr, addr
 			, code, cont_name, cont_tel
-			, status, start, end
+			, status, start, end, pick
 		FROM t_pack
 		WHERE addr IN (
 			SELECT addr
@@ -103,7 +125,7 @@
 		SELECT id, org, per_name
 			, per_tel, per_addr, addr
 			, code, cont_name, cont_tel
-			, status, start, end
+			, status, start, end, pick
 		FROM t_pack
 		WHERE status = 0
 		AND addr IN (
@@ -118,7 +140,7 @@
 		SELECT id, org, per_name
 			, per_tel, per_addr, addr
 			, code, cont_name, cont_tel
-			, status, start, end
+			, status, start, end, pick
 		FROM t_pack
 		WHERE (status = 1 OR status = -1)
 		AND addr IN (

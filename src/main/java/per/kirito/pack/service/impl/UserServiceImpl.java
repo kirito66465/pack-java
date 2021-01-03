@@ -12,6 +12,7 @@ import per.kirito.pack.service.inter.AccountService;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @version 1.0
@@ -72,7 +73,7 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 			if (stringRedisTemplate.hasKey(token)) {
 				stringRedisTemplate.delete(token);
 			}
-			stringRedisTemplate.opsForValue().set(token, card);
+			stringRedisTemplate.opsForValue().set(token, card, 10, TimeUnit.MINUTES);
 			map.put("token", token);
 			result = LOGIN_SUCCESS;
 		} else {
@@ -141,7 +142,7 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 				if (stringRedisTemplate.hasKey(token)) {
 					stringRedisTemplate.delete(token);
 				}
-				stringRedisTemplate.opsForValue().set(token, card);
+				stringRedisTemplate.opsForValue().set(token, card, 10, TimeUnit.MINUTES);
 				result = REGISTER_SUCCESS;
 			} else {
 				result = REGISTER_FAIL;
@@ -180,7 +181,7 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 				if (stringRedisTemplate.hasKey(token)) {
 					stringRedisTemplate.delete(token);
 				}
-				stringRedisTemplate.opsForValue().set(token, card);
+				stringRedisTemplate.opsForValue().set(token, card, 10, TimeUnit.MINUTES);
 				map.put("token", token);
 				result = PWD_SUCCESS;
 			} else {

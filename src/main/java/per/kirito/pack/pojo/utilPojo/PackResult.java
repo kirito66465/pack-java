@@ -31,6 +31,7 @@ public class PackResult {
 	private String status;                          // 快递状态
 	private String start;                           // 入站时间
 	private String end;                             // 取件时间
+	private String pick;                            // 签收人
 
 	public PackResult(Pack pack) {
 		this.id = pack.getId();
@@ -44,6 +45,7 @@ public class PackResult {
 		this.cont_tel = pack.getCont_tel();
 		this.start = pack.getStart();
 		this.end = pack.getEnd();
+		this.pick = pack.getPick();
 		if (pack.getStatus() == 1) {
 			this.status = "未取出";
 		} else if (pack.getStatus() == 0) {

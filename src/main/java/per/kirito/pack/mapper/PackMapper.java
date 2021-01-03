@@ -1,5 +1,6 @@
 package per.kirito.pack.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import per.kirito.pack.pojo.Pack;
 
@@ -21,6 +22,13 @@ public interface PackMapper {
 	 * @Return: per.kirito.pack.pojo.Pack
 	 **/
 	Pack getPackById(String id);
+
+	/**
+	 * @Description: 根据驿站地址和取件码获取到当前未取件但已有取件码的该快递信息
+	 * @Param: [addr, code]
+	 * @Return: per.kirito.pack.pojo.Pack
+	 **/
+	Pack getPackByAddrAndCode(@Param("addr") String addr, @Param("code") String code);
 
 	/**
 	 * @Description: 快递入站
