@@ -11,7 +11,7 @@
 		FROM t_code
 		WHERE code = #{code}
 		AND addr = #{addr}
-		AND free IS NULL
+		AND free = ""
 	</select>
 
 	<update id="updateCode" parameterType="Code">
