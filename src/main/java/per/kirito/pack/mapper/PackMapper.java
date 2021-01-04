@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import per.kirito.pack.pojo.Pack;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @version 1.0
@@ -48,6 +49,27 @@ public interface PackMapper {
 	 * -----------------------------------------------------------------------------------------------------------------
 	 * User相关
 	 **/
+	
+	/**
+	 * @Description: 根据包裹手机号获取对应用户所有快递数
+	 * @Param: [phone]
+	 * @Return: int
+	 **/
+	int getUserAllTotalNum(String phone);
+	
+	/**
+	 * @Description: 根据包裹手机号获取对应用户已取快递数
+	 * @Param: [phone]
+	 * @Return: int
+	 **/
+	int getUserIsTotalNum(String phone);
+	
+	/**
+	 * @Description: 根据包裹手机号获取对应用户未取快递数
+	 * @Param: [phone]
+	 * @Return: int
+	 **/
+	int getUserNoTotalNum(String phone);
 
 	/**
 	 * @Description: 根据User学号查询出该User所有快递集合
@@ -76,6 +98,27 @@ public interface PackMapper {
 	 **/
 
 	/**
+	 * @Description: 根据驿站地址获取该驿站所有快递数
+	 * @Param: [addr]
+	 * @Return: int
+	 **/
+	int getAdminAllTotalNum(String addr);
+
+	/**
+	 * @Description: 根据驿站地址获取该驿站已取快递数
+	 * @Param: [addr]
+	 * @Return: int
+	 **/
+	int getAdminIsTotalNum(String addr);
+
+	/**
+	 * @Description: 根据驿站地址获取该驿站未取快递数
+	 * @Param: [addr]
+	 * @Return: int
+	 **/
+	int getAdminNoTotalNum(String addr);
+
+	/**
 	 * @Description: 根据Admin编号查询出所在驿站的快递集合
 	 * @Param: [card]
 	 * @Return: java.util.List<per.kirito.pack.pojo.Pack>
@@ -95,5 +138,12 @@ public interface PackMapper {
 	 * @Return: java.util.List<per.kirito.pack.pojo.Pack>
 	 **/
 	List<Pack> getAdminNoPick(String card);
+
+	/**
+	 * @Description: 根据驿站地址取出当前驿站未有取件码的快递中入站时间最早的快递
+	 * @Param: [addr]
+	 * @Return: per.kirito.pack.pojo.Pack
+	 **/
+	Pack getPackByStartMin(String addr);
 
 }

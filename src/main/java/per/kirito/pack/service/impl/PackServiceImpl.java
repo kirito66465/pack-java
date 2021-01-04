@@ -4,12 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 import per.kirito.pack.mapper.AdminMapper;
 import per.kirito.pack.mapper.CodeMapper;
 import per.kirito.pack.mapper.PackMapper;
 import per.kirito.pack.mapper.UserMapper;
-import per.kirito.pack.other.myEnum.Express;
 import per.kirito.pack.other.myEnum.Status;
 import per.kirito.pack.other.util.PackUtil;
 import per.kirito.pack.other.util.PickCodeUtil;
@@ -46,16 +44,6 @@ public class PackServiceImpl implements PackService {
 	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
 
-	// 快递公司中文名
-	private static final String ZTO = String.valueOf(Express.中通);
-	private static final String STO = String.valueOf(Express.申通);
-	private static final String YTO = String.valueOf(Express.圆通);
-	private static final String JD = String.valueOf(Express.京东);
-	private static final String SF = String.valueOf(Express.顺丰);
-	private static final String YD = String.valueOf(Express.韵达);
-	private static final String TT = String.valueOf(Express.天天);
-	private static final String EMS = String.valueOf(Express.EMS);
-
 	private static final int INTO_CODE = Status.INTO_SUCCESS.getCode();
 	private static final int PICK_CODE = Status.PICK_SUCCESS.getCode();
 	private static final int INFO_CODE = Status.INFO_SUCCESS.getCode();
@@ -83,10 +71,6 @@ public class PackServiceImpl implements PackService {
 	private static final String TAKE_SUCCESS = Status.TAKE_SUCCESS.getEnMsg();
 	private static final String LOGIN_TO_DO = Status.LOGIN_TO_DO.getEnMsg();
 
-	private static final String PACK_STATUS_1 = Status.PACK_STATUS_1.getZhMsg();
-	private static final String PACK_STATUS_0 = Status.PACK_STATUS_0.getZhMsg();
-	private static final String PACK_STATUS__1 = Status.PACK_STATUS__1.getZhMsg();
-
 	// 驿站已有取件码的最大快递数量
 	private static final int MAX_PACKS = 2400;
 
@@ -99,56 +83,69 @@ public class PackServiceImpl implements PackService {
 	 **/
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public String addPack(String id) {
-		try {
-			// 随机获取一个用户，用于绑定快递的收件信息
-			Pack pack = new Pack();
-			pack.setId(id);
-			User user = userMapper.getUserByRand();
-			pack.setPer_name(user.getName());
-			pack.setPer_tel(user.getPhone());
-			pack.setPer_addr(user.getAddr());
-			// 根据快递单号id获取驿站相关信息
-			pack = PackUtil.addInfo(pack);
-			String addr = pack.getAddr();
-			// 取出目前驿站信息
-			Admin admin = adminMapper.getAdminByAddr(addr);
-			int count = admin.getCount();
-			// 驿站现存快递数量小于能有取件码的快递数量
-			if (count < MAX_PACKS) {
-				// 此入站快递能有取件码
-				pack.setStatus(PACK_CODE_1);
+	public String addPack(String id, String token) {
+		if (stringRedisTemplate.hasKey(token)) {
+			try {
+				// 随机获取一个用户，用于绑定快递的收件信息
+				Pack pack = new Pack();
+				pack.setId(id);
+				User user = userMapper.getUserByRand();
+				pack.setPer_name(user.getName());
+				pack.setPer_tel(user.getPhone());
+				pack.setPer_addr(user.getAddr());
+				// 根据快递单号id获取驿站相关信息
+				pack = PackUtil.addInfo(pack);
+				String addr = pack.getAddr();
+				// 取出目前驿站信息
+				Admin admin = adminMapper.getAdminByAddr(addr);
+				int count = admin.getCount();
+				// 查询最大取件码有无被使用
+				MAX_CODE_UNUSED.setAddr(addr);
+				int isUse = codeMapper.findMaxCode(MAX_CODE_UNUSED);
+				String code = "";
+				// 驿站现存快递数量小于能有取件码的快递数量
+				if (count < MAX_PACKS) {
+					// 此入站快递能有取件码
+					Code coder = new Code();
+					pack.setStatus(PACK_CODE_1);
+					// 判断取件码有无被使用
+					if (isUse == USE_CODE) {
+						// 最大取件码未被使用，此时按照该驿站该快递未入站之前的快递数量生成取件码
+						code = PickCodeUtil.generate(count);
+						coder.setFree("");
+						coder.setAddr(addr);
+					} else {
+						// 最大取件码已被使用，根据已被使用的取件码释放先后赋予取件码
+						coder = codeMapper.findCodeFreeMin(addr);
+						code = coder.getCode();
+					}
+					coder.setCode(code);
+					coder.setStatus(IS_USE);
+					// 更新取件码信息
+					codeMapper.updateCode(coder);
+				} else {
+					// 该快递没法有取件码
+					pack.setStatus(PACK_CODE__1);
+					code = "";
+				}
+				pack.setCode(code);
+				packMapper.addPack(pack);
+				count = count + 1;
+				admin.setCount(count);
+				// 更新Admin的count数
+				adminMapper.updateAdmin(admin);
+				// 更新User的count数
+				count = user.getCount() + 1;
+				user.setCount(count);
+				userMapper.updateUser(user);
+				return INTO_SUCCESS;
+			} catch (Exception e) {
+				// 有异常，返回入站失败
+				e.printStackTrace();
+				return INTO_FAIL;
 			}
-			// 查询最大取件码有无被使用
-			MAX_CODE_UNUSED.setAddr(addr);
-			int isUse = codeMapper.findMaxCode(MAX_CODE_UNUSED);
-			String code = "";
-			// 判断取件码有无被使用
-			if (isUse == USE_CODE) {
-				// 最大取件码未被使用，此时按照该驿站该快递未入站之前的快递数量生成取件码
-				code = PickCodeUtil.generate(count);
-			} else {
-				// 最大取件码已被使用，根据已被使用的取件码释放先后赋予取件码
-				code = codeMapper.findCode(addr);
-			}
-			// 更新取件码信息
-			Code coder = new Code(code, addr, IS_USE, "");
-			codeMapper.updateCode(coder);
-			pack.setCode(code);
-			packMapper.addPack(pack);
-			count = count + 1;
-			admin.setCount(count);
-			// 更新Admin的count数
-			adminMapper.updateAdmin(admin);
-			// 更新User的count数
-			count = user.getCount() + 1;
-			user.setCount(count);
-			userMapper.updateUser(user);
-			return INTO_SUCCESS;
-		} catch (Exception e) {
-			// 有异常，返回入站失败
-			e.printStackTrace();
-			return INTO_FAIL;
+		} else {
+			return LOGIN_TO_DO;
 		}
 	}
 
@@ -196,6 +193,18 @@ public class PackServiceImpl implements PackService {
 					packMapper.updatePack(pack);
 					// 更新取件码使用状态与释放时间
 					Code coder = new Code(code, addr, CODE_STATUS_0, time);
+					codeMapper.updateCode(coder);
+					count = admin.getCount();
+					if (count >= MAX_PACKS) {
+						// 当前快递取出后，驿站剩余未取快递数大于等于2400，则需要为有取件码的快递根据最早入站时间赋予取件码
+						pack = packMapper.getPackByStartMin(addr);
+						pack.setCode(code);
+						pack.setStatus(PACK_CODE_1);
+						packMapper.updatePack(pack);
+						// 重新设置该code为使用状态
+						coder.setStatus(CODE_STATUS_1);
+						codeMapper.updateCode(coder);
+					}
 				} else {
 					// 该快递不存在
 					msg = NOT_EXIST;
@@ -244,6 +253,23 @@ public class PackServiceImpl implements PackService {
 				pack.setEnd(time);
 				// 更新包裹状态、取件时间
 				packMapper.updatePack(pack);
+				count = admin.getCount();
+				// 更新取件码使用状态与释放时间
+				String code = pack.getCode();
+				if (code != null && !"".equals(code)) {
+					Code coder = new Code(code, addr, CODE_STATUS_0, time);
+					codeMapper.updateCode(coder);
+					if (count >= MAX_PACKS) {
+						// 当前快递取出后，驿站剩余未取快递数大于等于2400，则需要为有取件码的快递根据最早入站时间赋予取件码
+						pack = packMapper.getPackByStartMin(addr);
+						pack.setCode(code);
+						pack.setStatus(PACK_CODE_1);
+						packMapper.updatePack(pack);
+						// 重新设置该code为使用状态
+						coder.setStatus(CODE_STATUS_1);
+						codeMapper.updateCode(coder);
+					}
+				}
 				msg = PICK_SUCCESS;
 			}
 		} catch (Exception e) {
@@ -328,18 +354,23 @@ public class PackServiceImpl implements PackService {
 	}
 
 	@Override
-	public Map<String, Integer> getUserTotalNum(String token) {
-		Map<String, Integer> map = new HashMap<>();
-		// 所有快递数量，包括已取出和未取出的快递
-		map.put("allTotal", 100);
-		// 已取出的快递数量
-		map.put("isTotal", 20);
-		// 未取出的快递数量
-		map.put("notTotal", 80);
-		// 寄件的快递数量
-		map.put("sendTotal", 0);
-		// 百分比
-		map.put("percentage", 20);
+	public Map<String, Object> getUserTotalNum(String token) {
+		Map<String, Object> map = new HashMap<>();
+		if (stringRedisTemplate.hasKey(token)) {
+			// 取出用户手机号
+			String card = stringRedisTemplate.opsForValue().get(token);
+			User user = userMapper.getUserById(card);
+			String phone = user.getPhone();
+			int allTotal = packMapper.getUserAllTotalNum(phone);
+			int isTotal = packMapper.getUserIsTotalNum(phone);
+			int noTotal = packMapper.getUserNoTotalNum(phone);
+			map.put("allTotal", allTotal);
+			map.put("isTotal", isTotal);
+			map.put("noTotal", noTotal);
+			map.put("result", INFO_SUCCESS);
+		} else {
+			map.put("result", INFO_FAIL);
+		}
 		return map;
 	}
 
@@ -418,8 +449,32 @@ public class PackServiceImpl implements PackService {
 	}
 
 	@Override
-	public Map<String, Integer> getAdminTotalNum(String token) {
-		return null;
+	public Map<String, Object> getAdminTotalNum(String token) {
+		Map<String, Object> map = new HashMap<>();
+		if (stringRedisTemplate.hasKey(token)) {
+			// 取出驿站地址
+			String card = stringRedisTemplate.opsForValue().get(token);
+			Admin admin = adminMapper.getAdminById(card);
+			String addr = admin.getAddr();
+			int allTotal = packMapper.getAdminAllTotalNum(addr);
+			int isTotal = packMapper.getAdminIsTotalNum(addr);
+			int noTotal = packMapper.getAdminNoTotalNum(addr);
+			float percentage = 100;
+			if (noTotal < MAX_PACKS) {
+				percentage = noTotal / (float) MAX_PACKS * 100;
+				if (percentage < 1) {
+					percentage = 1;
+				}
+			}
+			map.put("percentage", percentage);
+			map.put("allTotal", allTotal);
+			map.put("isTotal", isTotal);
+			map.put("noTotal", noTotal);
+			map.put("result", INFO_SUCCESS);
+		} else {
+			map.put("result", INFO_FAIL);
+		}
+		return map;
 	}
 
 }

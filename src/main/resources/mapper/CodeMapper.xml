@@ -6,19 +6,6 @@
         code, addr, status, free
     </sql>
 
-	<select id="findCode" parameterType="String" resultType="String">
-		SELECT code
-		FROM t_code
-		WHERE addr = #{addr}
-		AND status = 0
-		AND free IN (
-			SELECT MIN(free)
-			FROM t_code
-			WHERE addr = #{addr}
-			AND status = 0
-		)
-	</select>
-
 	<select id="findMaxCode" parameterType="Code" resultType="Integer">
 		SELECT count(*)
 		FROM t_code
@@ -33,6 +20,18 @@
 			, free = #{free}
 		WHERE code = #{code}
 		AND addr = #{addr}
-		AND free = #{free}
 	</update>
+
+	<select id="findCodeFreeMin" parameterType="String" resultType="Code">
+		SELECT code, addr, status, free
+		FROM t_code
+		WHERE addr = #{addr}
+		AND status = 0
+		AND free IN (
+			SELECT MIN(free)
+			FROM t_code
+			WHERE addr = #{addr}
+			AND status = 0
+		)
+	</select>
 </mapper>

@@ -20,7 +20,7 @@ public interface PackService {
 	 * @Param: [id]
 	 * @Return: java.lang.String
 	 **/
-	String addPack(String id);
+	String addPack(String id, String token);
 
 	/**
 	 * @Description: User进行取件，必须传入驿站地址和取件码
@@ -62,7 +62,7 @@ public interface PackService {
 	 **/
 	Map<String, Object> getUserNoPick(int currentPage, int pageSize, String token);
 
-	Map<String, Integer> getUserTotalNum(String token);
+	Map<String, Object> getUserTotalNum(String token);
 
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
@@ -90,6 +90,6 @@ public interface PackService {
 	 **/
 	Map<String, Object> getAdminNoPick(int currentPage, int pageSize, String token);
 
-	Map<String, Integer> getAdminTotalNum(String token);
+	Map<String, Object> getAdminTotalNum(String token);
 
 }

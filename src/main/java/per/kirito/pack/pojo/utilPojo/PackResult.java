@@ -11,7 +11,7 @@ import per.kirito.pack.pojo.Pack;
  * @Author: kirito
  * @Date: 2020/12/29
  * @Time: 10:32
- * @description:
+ * @description: 快递信息转换结果：jdbcType(Integer) -> javaType(String)
  */
 @Data
 @NonNull

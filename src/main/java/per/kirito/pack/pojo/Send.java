@@ -23,15 +23,15 @@ import java.util.Date;
 @Table(name = "t_send")
 public class Send {
 
-	private String from_name;
-	private String from_tel;
-	private String from_addr;
-	private String to_name;
-	private String to_tel;
-	private String to_addr;
-	private String id;
-	private String org;
-	private String status;
-	private String dt;
+	private String from_name;       // 寄件人姓名
+	private String from_tel;        // 寄件人手机号
+	private String from_addr;       // 寄件人地址
+	private String to_name;         // 收件人姓名
+	private String to_tel;          // 收件人手机号
+	private String to_addr;         // 收件人地址
+	private String id;              // 快递单号
+	private String org;             // 快递公司
+	private String status;          // 快递状态
+	private String dt;              // 时间戳
 
 }

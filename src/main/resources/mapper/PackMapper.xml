@@ -52,6 +52,30 @@
 		WHERE id = #{id}
 	</update>
 
+	<!-- 根据包裹手机号获取对应用户所有快递数 -->
+	<select id="getUserAllTotalNum" parameterType="String" resultType="Integer">
+		SELECT count(*)
+		FROM t_pack
+		WHERE per_tel = #{phone}
+	</select>
+
+	<!-- 根据包裹手机号获取对应用户已取快递数 -->
+	<select id="getUserIsTotalNum" parameterType="String" resultType="Integer">
+		SELECT count(*)
+		FROM t_pack
+		WHERE per_tel = #{phone}
+		AND status = 0
+	</select>
+
+	<!-- 根据包裹手机号获取对应用户未取快递数 -->
+	<select id="getUserNoTotalNum" parameterType="String" resultType="Integer">
+		SELECT count(*)
+		FROM t_pack
+		WHERE per_tel = #{phone}
+		AND status = 1
+		OR status = -1
+	</select>
+
 	<!-- 根据User学号查询出该User所有快递集合 -->
 	<select id="getUserPacks" parameterType="String" resultType="Pack">
 		SELECT id, org, per_name
@@ -95,16 +119,30 @@
 			WHERE card = #{card}
 		)
 	</select>
-	
-<!--	<select id="getUserTotalNum" parameterType="String" resultMap="HashMap">-->
-<!--		SELECT addr 地址-->
-<!--			, count(*) allTotal 												&#45;&#45; 快递总数-->
-<!--			, count(case when status = 1 or status = -1 then '1' end) noTotal   &#45;&#45; 未取快递-->
-<!--			, count(case when status = 0 then '1' end) isTotal  				&#45;&#45; 已取快递-->
-<!--		FROM t_pack-->
-<!--		WHERE addr = #{addr}-->
-<!--		GROUP BY addr-->
-<!--	</select>-->
+
+	<!-- 根据驿站地址获取该驿站所有快递数 -->
+	<select id="getAdminAllTotalNum" parameterType="String" resultType="Integer">
+		SELECT count(*)
+		FROM t_pack
+		WHERE addr = #{addr}
+	</select>
+
+	<!-- 根据驿站地址获取该驿站已取快递数 -->
+	<select id="getAdminIsTotalNum" parameterType="String" resultType="Integer">
+		SELECT count(*)
+		FROM t_pack
+		WHERE addr = #{addr}
+		AND status = 0
+	</select>
+
+	<!-- 根据驿站地址获取该驿站未取快递数 -->
+	<select id="getAdminNoTotalNum" parameterType="String" resultType="Integer">
+		SELECT count(*)
+		FROM t_pack
+		WHERE addr = #{addr}
+		AND status = 1
+		OR status = -1
+	</select>
 
 	<!-- 根据Admin编号查询出所在驿站的快递集合 -->
 	<select id="getAdminPacks" parameterType="String" resultType="Pack">
@@ -147,6 +185,23 @@
 			SELECT addr
 			FROM t_admin
 			WHERE card = #{card}
+		)
+	</select>
+
+	<!-- 根据驿站地址取出当前驿站未有取件码的快递中入站时间最早的快递 -->
+	<select id="getPackByStartMin" parameterType="String" resultType="Pack">
+		SELECT id, org, per_name
+			, per_tel, per_addr, addr
+			, code, cont_name, cont_tel
+			, status, start, end, pick
+		FROM t_pack
+		WHERE addr = #{addr}
+		AND status = -1
+		AND start IN (
+			SELECT MIN(start)
+			FROM t_pack
+			WHERE addr = #{addr}
+			AND status = -1
 		)
 	</select>
 </mapper>

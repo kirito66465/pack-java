@@ -18,13 +18,6 @@ import java.util.List;
  */
 public class PackUtil {
 
-	// 快递已取出
-	private static final String HAS_TAKEN = "已取出";
-	// 快递未取出
-	private static final String NOT_TAKEN = "未取出";
-	// 快递未取出且无取件码
-	private static final String NO_CODE = "未有取件码";
-
 	private static final int PACK_CODE_1 = Status.PACK_STATUS_1.getCode();
 	private static final int PACK_CODE_0 = Status.PACK_STATUS_0.getCode();
 	private static final int PACK_CODE__1 = Status.PACK_STATUS__1.getCode();

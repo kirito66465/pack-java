@@ -2,8 +2,6 @@ package per.kirito.pack.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import per.kirito.pack.pojo.utilPojo.PackResult;
-import per.kirito.pack.pojo.utilPojo.Page;
 import per.kirito.pack.service.inter.PackService;
 
 import java.util.Map;
@@ -40,8 +38,9 @@ public class PackController {
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/addPack")
-	public String addPack(@RequestParam(value = "id") String id) {
-		return packService.addPack(id);
+	public String addPack(@RequestParam(value = "id") String id,
+	                      @RequestParam(value = "token") String token) {
+		return packService.addPack(id, token);
 	}
 
 	/**
@@ -114,7 +113,7 @@ public class PackController {
 
 	@CrossOrigin
 	@RequestMapping(value = "/getUserTotalNum")
-	public Map<String, Integer> getUserTotalNum(@RequestParam(value = "token") String token) {
+	public Map<String, Object> getUserTotalNum(@RequestParam(value = "token") String token) {
 		return packService.getUserTotalNum(token);
 	}
 
@@ -164,7 +163,7 @@ public class PackController {
 
 	@CrossOrigin
 	@RequestMapping(value = "/getAdminTotalNum")
-	public Map<String, Integer> getAdminTotalNum(@RequestParam(value = "token") String token) {
+	public Map<String, Object> getAdminTotalNum(@RequestParam(value = "token") String token) {
 		return packService.getAdminTotalNum(token);
 	}
 }

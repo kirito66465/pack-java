@@ -3,6 +3,7 @@ package per.kirito.pack.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import per.kirito.pack.mapper.UserMapper;
 import per.kirito.pack.other.myEnum.Status;
 import per.kirito.pack.other.util.TypeConversion;
@@ -122,20 +123,21 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 	 * @Param: [entity]
 	 * @Return: java.lang.String
 	 **/
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public Map<String, String> register(E entity) {
 		Map map = new HashMap();
-		String result = "";
-		String pwd = entity.getPassword();
-		// 对传入的password进行加密
-		String encrypt = TypeConversion.stringToMD5(pwd);
-		entity.setPassword(encrypt);
-		String card = entity.getCard();
-		int count = userMapper.findUserByCard(card);
-		// 如果查询出此学号相关记录不为1，则可以注册
-		if (count != 1) {
-			int flag = userMapper.addUser(entity);
-			if (flag == REGISTER_CODE) {
+		try {
+			String result = "";
+			String pwd = entity.getPassword();
+			// 对传入的password进行加密
+			String encrypt = TypeConversion.stringToMD5(pwd);
+			entity.setPassword(encrypt);
+			String card = entity.getCard();
+			int count = userMapper.findUserByCard(card);
+			// 如果查询出此学号相关记录不为1，则可以注册
+			if (count != 1) {
+				userMapper.addUser(entity);
 				// 生成唯一令牌token
 				String token = UUID.randomUUID().toString();
 				// 如果Redis中已存储，则先删除此键
@@ -145,13 +147,15 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 				stringRedisTemplate.opsForValue().set(token, card, 10, TimeUnit.MINUTES);
 				result = REGISTER_SUCCESS;
 			} else {
-				result = REGISTER_FAIL;
+				result = IS_EXIST;
 			}
-		} else {
-			result = IS_EXIST;
+			map.put("register_result", result);
+			return map;
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("pwd_result", REGISTER_FAIL);
+			return map;
 		}
-		map.put("register_result", result);
-		return map;
 	}
 
 	/**
@@ -159,22 +163,24 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 	 * @Param: [card, phone, password]
 	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public Map<String, String> forgetPwd(String card, String phone, String password) {
-		String result = "";
-		User user = new User();
-		user.setCard(card);
-		user.setPhone(phone);
-		int ifExit = userMapper.findUserByCardAndPhone(user);
 		Map<String, String> map = new HashMap<>();
-		// 根据card和phone查询出的用户，只有其存在时才能执行相关操作
-		if (ifExit == EXIST_CODE) {
-			// 对传入的password进行加密
-			String encrypt = TypeConversion.stringToMD5(password);
-			user = userMapper.getUserById(card);
-			user.setPassword(encrypt);
-			int flag = userMapper.updateUser(user);
-			if (flag == PWD_CODE) {
+		try {
+			String result = "";
+			User user = new User();
+			user.setCard(card);
+			user.setPhone(phone);
+			int ifExit = userMapper.findUserByCardAndPhone(user);
+
+			// 根据card和phone查询出的用户，只有其存在时才能执行相关操作
+			if (ifExit == EXIST_CODE) {
+				// 对传入的password进行加密
+				String encrypt = TypeConversion.stringToMD5(password);
+				user = userMapper.getUserById(card);
+				user.setPassword(encrypt);
+				userMapper.updateUser(user);
 				// 生成唯一令牌token
 				String token = UUID.randomUUID().toString();
 				// 如果Redis中已存储，则先删除此键
@@ -185,13 +191,15 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 				map.put("token", token);
 				result = PWD_SUCCESS;
 			} else {
-				result = PWD_FAIL;
+				result = NOT_EXIST;
 			}
-		} else {
-			result = NOT_EXIST;
+			map.put("pwd_result", result);
+			return map;
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("pwd_result", PWD_FAIL);
+			return map;
 		}
-		map.put("pwd_result", result);
-		return map;
 	}
 
 }

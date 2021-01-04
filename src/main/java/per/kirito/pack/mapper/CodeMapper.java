@@ -14,13 +14,6 @@ import per.kirito.pack.pojo.Code;
 public interface CodeMapper {
 
 	/**
-	 * @Description: 查找出所在驿站未被使用的取件码中，释放时间最远的取件码
-	 * @Param: [code]
-	 * @Return: int
-	 **/
-	String findCode(String addr);
-
-	/**
 	 * @Description: 查询所在驿站最大取件码状态是否为未使用，且从未被使用过
 	 * @Param: [code]
 	 * @Return: int
@@ -33,5 +26,12 @@ public interface CodeMapper {
 	 * @Return: int
 	 **/
 	int updateCode(Code code);
+
+	/**
+	 * @Description: 根据驿站地址查询出当前
+	 * @Param: [addr]
+	 * @Return: per.kirito.pack.pojo.Code
+	 **/
+	Code findCodeFreeMin(String addr);
 
 }
