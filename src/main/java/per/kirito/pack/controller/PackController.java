@@ -111,6 +111,11 @@ public class PackController {
 		return packService.getUserNoPick(currentPage, pageSize, token);
 	}
 
+	/**
+	 * @Description: 获取User所有快递总数、已取快递数量、未取快递数量
+	 * @Param: [token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/getUserTotalNum")
 	public Map<String, Object> getUserTotalNum(@RequestParam(value = "token") String token) {
@@ -161,6 +166,11 @@ public class PackController {
 		return packService.getAdminNoPick(currentPage, pageSize, token);
 	}
 
+	/**
+	 * @Description: 获取Admin所有快递总数、已取快递数量、未取快递数量
+	 * @Param: [token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/getAdminTotalNum")
 	public Map<String, Object> getAdminTotalNum(@RequestParam(value = "token") String token) {

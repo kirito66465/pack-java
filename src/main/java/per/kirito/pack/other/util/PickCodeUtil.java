@@ -21,7 +21,11 @@ public class PickCodeUtil {
 	private static int code_2;
 	private static int code_3;
 
-	// 根据驿站已有包裹数生成取件码
+	/**
+	 * @Description: 根据驿站已有包裹数生成取件码
+	 * @Param: [count]
+	 * @Return: java.lang.String
+	 **/
 	public static String generate(int count) {
 		// 新入站的快递还未计算在count中
 		all = count + 1;

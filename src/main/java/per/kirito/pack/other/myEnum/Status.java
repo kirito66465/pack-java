@@ -5,7 +5,7 @@ package per.kirito.pack.other.myEnum;
  * @Author: kirito
  * @Date: 2020/12/24
  * @Time: 10:30
- * @description:
+ * @description: 状态码与值枚举类
  */
 public enum Status {
 

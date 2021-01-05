@@ -25,7 +25,7 @@ public class AdminController {
 	/**
 	 * @Description: Admin登录请求
 	 * @Param: [card, password]
-	 * @Return: java.lang.String
+	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/login")

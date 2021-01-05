@@ -119,8 +119,8 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 
 	/**
 	 * @Description: 注册
-	 * @Param:
-	 * @Return:
+	 * @Param: [entity]
+	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	@Override
 	public Map<String, String> register(E entity) {

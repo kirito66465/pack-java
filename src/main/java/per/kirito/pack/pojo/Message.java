@@ -14,7 +14,7 @@ import java.util.Date;
  * @author kirito
  * @version 1.0
  * @date 2020/12/6 16:04
- * @description:
+ * @description: 消息实体类
  */
 @Data
 @NonNull

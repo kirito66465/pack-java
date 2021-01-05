@@ -353,6 +353,11 @@ public class PackServiceImpl implements PackService {
 		return map;
 	}
 
+	/**
+	 * @Description: 获取User所有快递总数、已取快递数量、未取快递数量
+	 * @Param: [token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 **/
 	@Override
 	public Map<String, Object> getUserTotalNum(String token) {
 		Map<String, Object> map = new HashMap<>();
@@ -448,6 +453,11 @@ public class PackServiceImpl implements PackService {
 		return map;
 	}
 
+	/**
+	 * @Description: 获取Admin所有快递总数、已取快递数量、未取快递数量
+	 * @Param: [token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 **/
 	@Override
 	public Map<String, Object> getAdminTotalNum(String token) {
 		Map<String, Object> map = new HashMap<>();

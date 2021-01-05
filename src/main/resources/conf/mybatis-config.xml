@@ -21,5 +21,6 @@
 		<typeAlias alias="Pack" type="per.kirito.pack.pojo.Pack" />
 		<typeAlias alias="Send" type="per.kirito.pack.pojo.Send" />
 		<typeAlias alias="User" type="per.kirito.pack.pojo.User" />
+		<typeAlias alias="Send" type="per.kirito.pack.pojo.Send" />
 	</typeAliases>
 </configuration>

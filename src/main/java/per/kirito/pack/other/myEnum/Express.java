@@ -5,7 +5,7 @@ package per.kirito.pack.other.myEnum;
  * @Author: kirito
  * @Date: 2020/12/23
  * @Time: 15:13
- * @description: 快递名字枚举类型
+ * @description: 快递名字枚举类
  */
 public enum Express {
 
@@ -26,7 +26,7 @@ public enum Express {
 	// EMS：中文名/英文名
 	EMS("EMS");
 
-	private String expressEngName;
+	private final String expressEngName;
 
 	private Express(String expressEngName) {
 		this.expressEngName = expressEngName;

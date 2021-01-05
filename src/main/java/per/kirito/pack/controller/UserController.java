@@ -59,7 +59,7 @@ public class UserController {
 	/**
 	 * @Description: User注册请求
 	 * @Param: [user]
-	 * @Return: java.lang.String
+	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/register")

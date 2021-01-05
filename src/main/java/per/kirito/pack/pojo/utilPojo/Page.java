@@ -9,7 +9,7 @@ import java.util.List;
  * @Author: kirito
  * @Date: 2020/12/28
  * @Time: 14:48
- * @description:
+ * @description: 分页实体类
  */
 @Data
 public class Page<T> {

@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
  * @author kirito
  * @version 1.0
  * @date 2020/11/17 11:02
- * @description:
+ * @description: 类型转换
  */
 public class TypeConversion {
 

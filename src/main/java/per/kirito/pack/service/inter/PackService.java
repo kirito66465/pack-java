@@ -62,6 +62,11 @@ public interface PackService {
 	 **/
 	Map<String, Object> getUserNoPick(int currentPage, int pageSize, String token);
 
+	/**
+	 * @Description: 获取User所有快递总数、已取快递数量、未取快递数量
+	 * @Param: [token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 **/
 	Map<String, Object> getUserTotalNum(String token);
 
 	/**
@@ -90,6 +95,11 @@ public interface PackService {
 	 **/
 	Map<String, Object> getAdminNoPick(int currentPage, int pageSize, String token);
 
+	/**
+	 * @Description: 获取Admin所有快递总数、已取快递数量、未取快递数量
+	 * @Param: [token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 **/
 	Map<String, Object> getAdminTotalNum(String token);
 
 }

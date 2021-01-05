@@ -47,7 +47,11 @@ public class PackUtil {
 	private static final String TEL_XY = "13300000002";
 	private static final String TEL_BY = "13300000003";
 
-	// 添加入站信息(入站时只有快递单号这一条信息)
+	/**
+	 * @Description: 添加入站信息(入站时只有快递单号这一条信息)
+	 * @Param: [pack]
+	 * @Return: per.kirito.pack.pojo.Pack
+	 **/
 	public static Pack addInfo(Pack pack) {
 		String idAll = pack.getId();
 		String id = idAll.substring(0, 2);
@@ -123,7 +127,11 @@ public class PackUtil {
 		return pack;
 	}
 
-	// 仅更新快递状态
+	/**
+	 * @Description: 仅更新快递状态
+	 * @Param: [pack, operate]
+	 * @Return: per.kirito.pack.pojo.Pack
+	 **/
 	public static Pack updateStatus(Pack pack, String operate) {
 		int status = pack.getStatus();
 		if ("取件".equals(operate)) {

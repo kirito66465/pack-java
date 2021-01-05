@@ -11,7 +11,7 @@ import javax.persistence.Table;
  * @author kirito
  * @version 1.0
  * @date 2020/12/4 20:37
- * @description:
+ * @description: 用户实体类
  */
 @Data
 @NonNull

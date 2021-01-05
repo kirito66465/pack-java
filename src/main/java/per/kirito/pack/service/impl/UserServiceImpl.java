@@ -54,7 +54,7 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 	/**
 	 * @Description: 登录
 	 * @Param: [card, password]
-	 * @Return: java.lang.String
+	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	@Override
 	public Map<String, String> login(String card, String password) {
@@ -121,7 +121,7 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 	/**
 	 * @Description: 注册
 	 * @Param: [entity]
-	 * @Return: java.lang.String
+	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	@Transactional(rollbackFor = Exception.class)
 	@Override

@@ -38,20 +38,32 @@ public class PackIdUtil {
 	// 状态码：有错误，生成失败
 	private static final String STATUS_ERROR = "error";
 
-
-	// 根据当前日期获取前两位数字
+	/**
+	 * @Description: 根据当前日期获取前两位数字
+	 * @Param: [date]
+	 * @Return: java.lang.String
+	 **/
 	public static String getTwoId(Date date) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		return String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
 	}
 
-	// 根据索引值截取13位时间戳以获取剩余数字
+	/**
+	 * @Description: 根据索引值截取13位时间戳以获取剩余数字
+	 * @Param: [index]
+	 * @Return: java.lang.String
+	 **/
 	public static String getLeftId(int index) {
 		String timestamp = String.valueOf(System.currentTimeMillis());
 		return timestamp.substring(index);
 	}
 
+	/**
+	 * @Description: 传入快递类型生成取件码
+	 * @Param: [type]
+	 * @Return: java.lang.String
+	 **/
 	public static String generate(String type) {
 		String UUID = "";
 		Date date = new Date();
