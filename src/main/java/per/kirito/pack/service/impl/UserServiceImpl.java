@@ -114,7 +114,7 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 		} else {
 			result = INFO_FAIL;
 		}
-		map.put("info_result", result);
+		map.put("result", result);
 		return map;
 	}
 
@@ -159,7 +159,7 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 	}
 
 	/**
-	 * @Description: 重置密码
+	 * @Description: 忘记密码
 	 * @Param: [card, phone, password]
 	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/
