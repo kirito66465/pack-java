@@ -1,5 +1,6 @@
 package per.kirito.pack.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import per.kirito.pack.pojo.Admin;
 
@@ -19,5 +20,9 @@ public interface AdminMapper {
 	Admin getAdminByAddr(String addr);
 
 	int updateAdmin(Admin admin);
+
+	int resetPwd(@Param("card") String card, @Param("oldPwd") String oldPwd, @Param("newPwd") String newPwd);
+
+	int updateInfo(@Param("card") String card, @Param("name") String name, @Param("phone") String phone);
 
 }

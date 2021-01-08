@@ -1,5 +1,6 @@
 package per.kirito.pack.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import per.kirito.pack.pojo.User;
 
@@ -14,7 +15,7 @@ public interface UserMapper {
 
 	int findUserByCard(String card);
 
-	int findUserByCardAndPwd(User user);
+	int login(User user);
 
 	int findUserByCardAndPhone(User user);
 
@@ -22,9 +23,15 @@ public interface UserMapper {
 
 	User getUserByPhone(String phone);
 
-	int addUser(User user);
+	int register(User user);
 
 	int updateUser(User user);
+
+	int forgetPwd(User user);
+
+	int resetPwd(@Param("card") String card, @Param("oldPwd") String oldPwd, @Param("newPwd") String newPwd);
+
+	int updateInfo(@Param("card") String card, @Param("name") String name, @Param("addr") String addr);
 
 	User getUserByRand();
 

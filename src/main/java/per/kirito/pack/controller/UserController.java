@@ -80,4 +80,32 @@ public class UserController {
 		return accountService.forgetPwd(card, phone, password);
 	}
 
+	/**
+	 * @Description: 重置密码
+	 * @Param: [card, password, checkCode, token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 **/
+	@CrossOrigin
+	@RequestMapping(value = "/resetPwd")
+	public Map<String, String> resetPwd(@RequestParam(value = "card") String card,
+	                                    @RequestParam(value = "oldPwd") String oldPwd,
+	                                    @RequestParam(value = "newPwd") String newPwd,
+	                                    @RequestParam(value = "checkCode") String checkCode,
+	                                    @RequestParam(value = "token") String token) {
+		return accountService.resetPwd(card, oldPwd, newPwd, checkCode, token);
+	}
+
+	/**
+	 * @Description: 更新用户信息
+	 * @Param: [name, addr, token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 **/
+	@CrossOrigin
+	@RequestMapping(value = "/updateInfo")
+	public Map<String, String> updateInfo(@RequestParam(value = "name") String name,
+	                                      @RequestParam(value = "addr") String addr,
+	                                      @RequestParam(value = "token") String token) {
+		return accountService.updateInfo(name, addr, token);
+	}
+
 }

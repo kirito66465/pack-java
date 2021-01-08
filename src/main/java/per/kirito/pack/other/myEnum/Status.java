@@ -49,7 +49,9 @@ public enum Status {
 	CODE_STATUS_1(1, "已被使用过", "已被使用过"),
 	CODE_STATUS_0(0, "未被使用过", "未被使用过"),
 	TAKE_SUCCESS(1, "take over", "代取成功"),
-	LOGIN_TO_DO(-1, "please login to operate", "请登录再操作");
+	LOGIN_TO_DO(-1, "please login to operate", "请登录再操作"),
+	CODE_ERR(-1, "check code is wrong", "验证码输入错误"),
+	PWD_ERR(-1, "password not same", "原密码输入错误");
 
 	private final int code;
 	private final String enMsg;

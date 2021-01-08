@@ -34,4 +34,18 @@
 			, t.addr = #{addr}
 		WHERE t.card = #{card}
 	</update>
+
+	<update id="resetPwd">
+		UPDATE t_admin
+		SET password = #{newPwd}
+		WHERE card = #{card}
+		AND password = #{oldPwd}
+	</update>
+
+	<update id="updateInfo">
+		UPDATE t_admin
+		SET name = #{name}
+			, phone = #{phone}
+		WHERE card = #{card}
+	</update>
 </mapper>

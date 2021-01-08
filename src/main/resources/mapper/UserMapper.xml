@@ -12,7 +12,7 @@
 		WHERE card = #{card}
 	</select>
 
-	<select id="findUserByCardAndPwd" parameterType="User" resultType="Integer">
+	<select id="login" parameterType="User" resultType="Integer">
 		SELECT count(*)
 		FROM t_user
 		WHERE card = #{card}
@@ -38,7 +38,7 @@
 		WHERE phone = #{phone}
 	</select>
 
-	<insert id="addUser" parameterType="User">
+	<insert id="register" parameterType="User">
 		INSERT INTO t_user (
 			card, password, phone, name, addr, count
 		) VALUES (
@@ -54,6 +54,27 @@
 			, t.name = #{name}
 			, t.addr = #{addr}
 		WHERE t.card = #{card}
+	</update>
+
+	<update id="forgetPwd" parameterType="User">
+		UPDATE t_user
+		SET password = #{password}
+		WHERE card = #{card}
+		AND phone = #{phone}
+	</update>
+
+	<update id="resetPwd">
+		UPDATE t_user
+		SET password = #{newPwd}
+		WHERE card = #{card}
+		AND password = #{oldPwd}
+	</update>
+
+	<update id="updateInfo">
+		UPDATE t_user
+		SET name = #{name}
+			, addr = #{addr}
+		WHERE card = #{card}
 	</update>
 
 	<select id="getUserByRand" resultType="User">

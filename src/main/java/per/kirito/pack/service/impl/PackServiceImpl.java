@@ -217,7 +217,7 @@ public class PackServiceImpl implements PackService {
 		} catch (Exception e) {
 			e.printStackTrace();
 			// 取件失败
-			return msg;
+			return PICK_FAIL;
 		}
 	}
 
@@ -229,12 +229,11 @@ public class PackServiceImpl implements PackService {
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public String pickPackByAdmin(String id) {
-		String msg = PICK_FAIL;
 		try {
 			Pack pack = packMapper.getPackById(id);
 			if (pack == null) {
 				// 没有该快递
-				msg = INFO_FAIL;
+				return INFO_FAIL;
 			} else {
 				// 更新管理员信息
 				String addr = pack.getAddr();
@@ -270,13 +269,12 @@ public class PackServiceImpl implements PackService {
 						codeMapper.updateCode(coder);
 					}
 				}
-				msg = PICK_SUCCESS;
+				return PICK_SUCCESS;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return msg;
+			return PICK_FAIL;
 		}
-		return msg;
 	}
 
 	/**

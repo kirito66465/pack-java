@@ -3,9 +3,9 @@ package per.kirito.pack.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import per.kirito.pack.mapper.AdminMapper;
 import per.kirito.pack.other.myEnum.Status;
-import per.kirito.pack.other.util.TypeConversion;
 import per.kirito.pack.pojo.Admin;
 import per.kirito.pack.service.inter.AccountService;
 
@@ -49,6 +49,11 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 	private static final String NOT_EXIST = Status.NOT_EXIST.getEnMsg();
 	private static final String PWD_SUCCESS = Status.PWD_SUCCESS.getEnMsg();
 	private static final String PWD_FAIL = Status.PWD_FAIL.getEnMsg();
+	private static final String LOGIN_TO_DO = Status.LOGIN_TO_DO.getEnMsg();
+	private static final String DO_SUCCESS = Status.DO_SUCCESS.getEnMsg();
+	private static final String DO_FAIL = Status.DO_FAIL.getEnMsg();
+	private static final String CODE_ERR = Status.CODE_ERR.getEnMsg();
+	private static final String PWD_ERR = Status.PWD_ERR.getEnMsg();
 
 	/**
 	 * @Description: 登录
@@ -59,11 +64,9 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 	public Map<String, String> login(String card, String password) {
 		Map<String, String> map = new HashMap<>();
 		String result = "";
-		// 对传入的password进行加密
-		String encrypt = TypeConversion.stringToMD5(password);
 		Admin admin = new Admin();
 		admin.setCard(card);
-		admin.setPassword(encrypt);
+		admin.setPassword(password);
 		// 根据card和password查询出该Admin是否存在
 		int flag = adminMapper.findAdminByCardAndPwd(admin);
 		if (flag == LOGIN_CODE) {
@@ -79,7 +82,7 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 		} else {
 			result = LOGIN_FAIL;
 		}
-		map.put("login_result", result);
+		map.put("result", result);
 		return map;
 	}
 
@@ -113,7 +116,7 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 		} else {
 			result = INFO_FAIL;
 		}
-		map.put("info_result", result);
+		map.put("result", result);
 		return map;
 	}
 
@@ -129,7 +132,7 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 	}
 
 	/**
-	 * @Description: 重置密码
+	 * @Description: 忘记密码
 	 * @Param: [card, phone, password]
 	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/
@@ -137,6 +140,68 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 	public Map<String, String> forgetPwd(String card, String phone, String password) {
 		// 不实现该功能
 		return null;
+	}
+
+	/**
+	 * @Description: 重置密码
+	 * @Param: [card, password, token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 **/
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public Map<String, String> resetPwd(String card, String oldPwd, String newPwd, String checkCode, String token) {
+		Map<String, String> map = new HashMap<>();
+		try {
+			String code = stringRedisTemplate.opsForValue().get(token + "-code");
+			if (stringRedisTemplate.hasKey(token)) {
+				if (code.equals(checkCode)) {
+					int flag = adminMapper.resetPwd(card, oldPwd, newPwd);
+					if (flag == 1) {
+						map.put("result", PWD_SUCCESS);
+					} else {
+						// 原密码错误，导致成功执行条数不为1
+						map.put("result", PWD_ERR);
+					}
+				} else {
+					// 验证码不正确
+					map.put("result", CODE_ERR);
+				}
+			} else {
+				// 登录状态失效
+				map.put("result", LOGIN_TO_DO);
+			}
+			return map;
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("result", DO_FAIL);
+			return map;
+		}
+	}
+
+	/**
+	 * @Description: 更新Admin信息
+	 * @Param: [name, phone, token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 **/
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public Map<String, String> updateInfo(String name, String phone, String token) {
+		Map<String, String> map = new HashMap<>();
+		try {
+			if (stringRedisTemplate.hasKey(token)) {
+				String card = stringRedisTemplate.opsForValue().get(token);
+				adminMapper.updateInfo(card, name, phone);
+				map.put("result", DO_SUCCESS);
+			} else {
+				// 登录状态失效
+				map.put("result", LOGIN_TO_DO);
+			}
+			return map;
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("result", DO_FAIL);
+			return map;
+		}
 	}
 
 }

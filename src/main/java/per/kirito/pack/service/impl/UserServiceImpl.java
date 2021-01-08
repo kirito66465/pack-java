@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import per.kirito.pack.mapper.UserMapper;
 import per.kirito.pack.other.myEnum.Status;
-import per.kirito.pack.other.util.TypeConversion;
+import per.kirito.pack.other.util.CheckCodeUtil;
 import per.kirito.pack.pojo.User;
 import per.kirito.pack.service.inter.AccountService;
 
@@ -50,6 +50,11 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 	private static final String NOT_EXIST = Status.NOT_EXIST.getEnMsg();
 	private static final String PWD_SUCCESS = Status.PWD_SUCCESS.getEnMsg();
 	private static final String PWD_FAIL = Status.PWD_FAIL.getEnMsg();
+	private static final String LOGIN_TO_DO = Status.LOGIN_TO_DO.getEnMsg();
+	private static final String DO_SUCCESS = Status.DO_SUCCESS.getEnMsg();
+	private static final String DO_FAIL = Status.DO_FAIL.getEnMsg();
+	private static final String CODE_ERR = Status.CODE_ERR.getEnMsg();
+	private static final String PWD_ERR = Status.PWD_ERR.getEnMsg();
 
 	/**
 	 * @Description: 登录
@@ -60,13 +65,11 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 	public Map<String, String> login(String card, String password) {
 		Map<String, String> map = new HashMap<>();
 		String result = "";
-		// 对传入的password进行加密
-		String encrypt = TypeConversion.stringToMD5(password);
 		User user = new User();
 		user.setCard(card);
-		user.setPassword(encrypt);
+		user.setPassword(password);
 		// 根据card和password查询出该User是否存在
-		int flag = userMapper.findUserByCardAndPwd(user);
+		int flag = userMapper.login(user);
 		if (flag == LOGIN_CODE) {
 			// 生成唯一令牌token
 			String token = UUID.randomUUID().toString();
@@ -80,7 +83,7 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 		} else {
 			result = LOGIN_FAIL;
 		}
-		map.put("login_result", result);
+		map.put("result", result);
 		return map;
 	}
 
@@ -129,15 +132,9 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 		Map map = new HashMap();
 		try {
 			String result = "";
-			String pwd = entity.getPassword();
-			// 对传入的password进行加密
-			String encrypt = TypeConversion.stringToMD5(pwd);
-			entity.setPassword(encrypt);
 			String card = entity.getCard();
-			int count = userMapper.findUserByCard(card);
-			// 如果查询出此学号相关记录不为1，则可以注册
-			if (count != 1) {
-				userMapper.addUser(entity);
+			int isDo = userMapper.register(entity);
+			if (isDo == 1) {
 				// 生成唯一令牌token
 				String token = UUID.randomUUID().toString();
 				// 如果Redis中已存储，则先删除此键
@@ -145,15 +142,17 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 					stringRedisTemplate.delete(token);
 				}
 				stringRedisTemplate.opsForValue().set(token, card, 10, TimeUnit.MINUTES);
+				map.put("token", token);
+				map.put("name", entity.getName());
 				result = REGISTER_SUCCESS;
 			} else {
 				result = IS_EXIST;
 			}
-			map.put("register_result", result);
+			map.put("result", result);
 			return map;
 		} catch (Exception e) {
 			e.printStackTrace();
-			map.put("pwd_result", REGISTER_FAIL);
+			map.put("result", REGISTER_FAIL);
 			return map;
 		}
 	}
@@ -172,15 +171,10 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 			User user = new User();
 			user.setCard(card);
 			user.setPhone(phone);
-			int ifExit = userMapper.findUserByCardAndPhone(user);
-
-			// 根据card和phone查询出的用户，只有其存在时才能执行相关操作
-			if (ifExit == EXIST_CODE) {
-				// 对传入的password进行加密
-				String encrypt = TypeConversion.stringToMD5(password);
+			user.setPassword(password);
+			int isDo = userMapper.forgetPwd(user);
+			if (isDo == 1) {
 				user = userMapper.getUserById(card);
-				user.setPassword(encrypt);
-				userMapper.updateUser(user);
 				// 生成唯一令牌token
 				String token = UUID.randomUUID().toString();
 				// 如果Redis中已存储，则先删除此键
@@ -189,15 +183,78 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 				}
 				stringRedisTemplate.opsForValue().set(token, card, 10, TimeUnit.MINUTES);
 				map.put("token", token);
+				map.put("name", user.getName());
 				result = PWD_SUCCESS;
 			} else {
 				result = NOT_EXIST;
 			}
-			map.put("pwd_result", result);
+			map.put("result", result);
 			return map;
 		} catch (Exception e) {
 			e.printStackTrace();
-			map.put("pwd_result", PWD_FAIL);
+			map.put("result", PWD_FAIL);
+			return map;
+		}
+	}
+
+	/**
+	 * @Description: 重置密码
+	 * @Param: [card, password, token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 **/
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public Map<String, String> resetPwd(String card, String oldPwd, String newPwd, String checkCode, String token) {
+		Map<String, String> map = new HashMap<>();
+		try {
+			String code = stringRedisTemplate.opsForValue().get(token + "-code");
+			if (stringRedisTemplate.hasKey(token)) {
+				if (code.equals(checkCode)) {
+					int flag = userMapper.resetPwd(card, oldPwd, newPwd);
+					if (flag == 1) {
+						map.put("result", PWD_SUCCESS);
+					} else {
+						// 原密码错误，导致成功执行条数不为1
+						map.put("result", PWD_ERR);
+					}
+				} else {
+					// 验证码不正确
+					map.put("result", CODE_ERR);
+				}
+			} else {
+				// 登录状态失效
+				map.put("result", LOGIN_TO_DO);
+			}
+			return map;
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("result", DO_FAIL);
+			return map;
+		}
+	}
+
+	/**
+	 * @Description: 更新用户信息
+	 * @Param: [name, phone, token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 **/
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public Map<String, String> updateInfo(String name, String addr, String token) {
+		Map<String, String> map = new HashMap<>();
+		try {
+			if (stringRedisTemplate.hasKey(token)) {
+				String card = stringRedisTemplate.opsForValue().get(token);
+				userMapper.updateInfo(card, name, addr);
+				map.put("result", DO_SUCCESS);
+			} else {
+				// 登录状态失效
+				map.put("result", LOGIN_TO_DO);
+			}
+			return map;
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("result", DO_FAIL);
 			return map;
 		}
 	}

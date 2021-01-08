@@ -40,10 +40,24 @@ public interface AccountService<E> {
 	Map<String, String> register(E entity);
 
 	/**
-	 * @Description: 账户重置密码
+	 * @Description: 账户忘记密码
 	 * @Param: [card, phone, password]
 	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	Map<String, String> forgetPwd(String card, String phone, String password);
+
+	/**
+	 * @Description: 账户重置密码
+	 * @Param: [card, password, token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 **/
+	Map<String, String> resetPwd(String card, String oldPwd, String newPwd, String checkCode, String token);
+
+	/**
+	 * @Description: 更新用户信息
+	 * @Param: [name, phone, token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 **/
+	Map<String, String> updateInfo(String name, String addr, String token);
 
 }
