@@ -9,7 +9,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Random;
 
 /**
@@ -124,10 +123,10 @@ public class CheckCodeUtil {
 	}
 
 	/**
-	 * 生成指定长度的随机数字和字母
-	 * @param length
-	 * @return
-	 */
+	 * @Description: 生成指定长度的随机数字和字母
+	 * @Param: [length]
+	 * @Return: java.lang.String
+	 **/
 	public static String getStringRandom(int length) {
 		String val = "";
 		Random random = new Random();
@@ -149,13 +148,10 @@ public class CheckCodeUtil {
 	}
 
 	/**
-	 * Base64编码的验证码图片
-	 * @param w
-	 * @param h
-	 * @param code
-	 * @return
-	 * @throws Exception
-	 */
+	 * @Description: Base64编码的验证码图片
+	 * @Param: [w, h, code]
+	 * @Return: java.lang.String
+	 **/
 	public static String imageToBase64(int w, int h, String code) throws Exception {
 		int verifySize = code.length();
 		BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
@@ -172,16 +168,16 @@ public class CheckCodeUtil {
 		}
 		Arrays.sort(fractions);
 
-		g2.setColor(Color.GRAY);// 设置边框色
+		g2.setColor(Color.GRAY);    // 设置边框色
 		g2.fillRect(0, 0, w, h);
 
 		Color c = getRandColor(200, 250);
-		g2.setColor(c);// 设置背景色
+		g2.setColor(c); // 设置背景色
 		g2.fillRect(0, 2, w, h - 4);
 
 		// 绘制干扰线
 		Random random = new Random();
-		g2.setColor(getRandColor(160, 200));// 设置线条的颜色
+		g2.setColor(getRandColor(160, 200));    // 设置线条的颜色
 		for (int i = 0; i < 20; i++) {
 			int x = random.nextInt(w - 1);
 			int y = random.nextInt(h - 1);
@@ -191,7 +187,7 @@ public class CheckCodeUtil {
 		}
 
 		// 添加噪点
-		float yawpRate = 0.05f;// 噪声率
+		float yawpRate = 0.05f;     // 噪声率
 		int area = (int) (yawpRate * w * h);
 		for (int i = 0; i < area; i++) {
 			int x = random.nextInt(w);
@@ -200,7 +196,7 @@ public class CheckCodeUtil {
 			image.setRGB(x, y, rgb);
 		}
 
-		shear(g2, w, h, c);// 使图片扭曲
+		shear(g2, w, h, c);     // 使图片扭曲
 
 		g2.setColor(getRandColor(100, 160));
 		int fontSize = h - 4;
