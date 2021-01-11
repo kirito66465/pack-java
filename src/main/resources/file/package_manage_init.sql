@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : MySQL-本地
+ Source Server         : MySQL5.7.30
  Source Server Type    : MySQL
  Source Server Version : 50730
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 50730
  File Encoding         : 65001
 
- Date: 05/01/2021 20:56:16
+ Date: 11/01/2021 10:01:18
 */
 
 SET NAMES utf8mb4;
@@ -7255,25 +7255,6 @@ INSERT INTO `t_code` VALUES ('9-6-20', '北苑', 0, '');
 INSERT INTO `t_code` VALUES ('9-6-20', '西苑', 0, '');
 
 -- ----------------------------
--- Table structure for t_msg
--- ----------------------------
-DROP TABLE IF EXISTS `t_msg`;
-CREATE TABLE `t_msg`  (
-  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '序号',
-  `sender` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '发信人',
-  `receiver` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '收信人',
-  `from_msg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '消息内容',
-  `to_reply` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '回复内容',
-  `send` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '发信时间',
-  `reply` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '回复时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
-
--- ----------------------------
--- Records of t_msg
--- ----------------------------
-
--- ----------------------------
 -- Table structure for t_pack
 -- ----------------------------
 DROP TABLE IF EXISTS `t_pack`;
@@ -7349,6 +7330,7 @@ CREATE TABLE `t_send`  (
   `to_name` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '收件人',
   `to_tel` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '收件人手机号',
   `to_addr` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '收件地址',
+  `price` decimal(10, 2) NULL DEFAULT 0.00 COMMENT '运费',
   `id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '快递单号',
   `org` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '快递公司',
   `status` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '快递状态',

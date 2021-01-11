@@ -88,6 +88,7 @@
 			FROM t_user
 			WHERE card = #{card}
 		)
+		ORDER BY start DESC
 	</select>
 
 	<!-- 根据User学号查询出该User已取快递集合 -->
@@ -103,6 +104,7 @@
 			FROM t_user
 			WHERE card = #{card}
 		)
+		ORDER BY end DESC
 	</select>
 
 	<!-- 根据User学号查询出该User未取快递集合 -->
@@ -118,6 +120,7 @@
 			FROM t_user
 			WHERE card = #{card}
 		)
+		ORDER BY code
 	</select>
 
 	<!-- 根据驿站地址获取该驿站所有快递数 -->
@@ -156,6 +159,7 @@
 			FROM t_admin
 			WHERE card = #{card}
 		)
+		ORDER BY start DESC
 	</select>
 
 	<!-- 根据Admin编号查询出所在驿站已取快递集合 -->
@@ -171,6 +175,7 @@
 			FROM t_admin
 			WHERE card = #{card}
 		)
+		ORDER BY end DESC
 	</select>
 
 	<!-- 根据Admin编号查询出所在驿站未取快递集合 -->
@@ -186,6 +191,7 @@
 			FROM t_admin
 			WHERE card = #{card}
 		)
+		ORDER BY code
 	</select>
 
 	<!-- 根据驿站地址取出当前驿站未有取件码的快递中入站时间最早的快递 -->
@@ -203,5 +209,20 @@
 			WHERE addr = #{addr}
 			AND status = -1
 		)
+	</select>
+
+	<!-- 根据驿站地址和货架取出当前货架的所有快递 -->
+	<select id="getShelfPack" resultType="Pack">
+		SELECT id, org, per_name
+			, per_tel, code, start
+		FROM t_pack
+		WHERE addr IN (
+			SELECT addr
+			FROM t_admin
+			WHERE card = #{card}
+		)
+		AND status = 1
+		AND code LIKE CONCAT(#{shelf}, '%')
+		ORDER BY code
 	</select>
 </mapper>

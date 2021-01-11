@@ -176,4 +176,17 @@ public class PackController {
 	public Map<String, Object> getAdminTotalNum(@RequestParam(value = "token") String token) {
 		return packService.getAdminTotalNum(token);
 	}
+
+	/**
+	 * @Description: 根据驿站地址和货架取出当前货架的所有快递
+	 * @Param: [token, shelf]
+	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 **/
+	@CrossOrigin
+	@RequestMapping(value = "/getShelfPack")
+	public Map<String, Object> getShelfPack(@RequestParam(value = "token") String token,
+	                                        @RequestParam(value = "shelf") String shelf) {
+		return packService.getShelfPack(token, shelf);
+	}
+
 }

@@ -20,10 +20,38 @@ public interface SendService {
 
 	/**
 	 * @Description: User寄件下单
-	 * @Param: [request, token]
+	 * @Param: [request]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
-	Map<String, Object> sendPack(SendRequest request, String token);
+	Map<String, Object> sendPack(SendRequest request);
+	
+	/**
+	 * @Description: User支付寄件
+	 * @Param: [id, token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 **/
+	Map<String, String> sendPay(String id, String token);
+
+	/**
+	 * @Description: Admin确认寄件
+	 * @Param: [id, token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 **/
+	Map<String, String> sendConfirm(String id, String token);
+
+	/**
+	 * @Description: Admin发出寄件
+	 * @Param: [id, token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 **/
+	Map<String, String> sendOut(String id, String token);
+
+	/**
+	 * @Description: User取消寄件
+	 * @Param: [id, token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 **/
+	Map<String, String> sendCancel(String id, String token);
 
 	/**
 	 * @Description: 分页方式获取User寄件集合

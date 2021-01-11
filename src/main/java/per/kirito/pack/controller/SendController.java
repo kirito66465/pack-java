@@ -27,28 +27,62 @@ public class SendController {
 
 	/**
 	 * @Description: 接收寄件表单中的信息
-	 * @Param: [request, token]
+	 * @Param: [request]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 *     返回运费和成功与否消息
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/getSendInfo")
-	public Map<String, Object> getSendInfo(@RequestBody SendRequest request,
-	                                       @RequestParam(value = "token") String token) {
-		return sendService.sendPack(request, token);
+	public Map<String, Object> getSendInfo(@RequestBody SendRequest request) {
+		return sendService.sendPack(request);
 	}
 
+	/**
+	 * @Description: User支付寄件
+	 * @Param: [id, token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 **/
+	@CrossOrigin
+	@RequestMapping(value = "/pay")
+	public Map<String, String> pay(@RequestParam(value = "id") String id,
+	                               @RequestParam(value = "token") String token) {
+		return sendService.sendPay(id, token);
+	}
 
 	/**
-	 * @Description: TODO: User在接收到返回的运费后，点击确认，请求此方法
-	 * @Param: [isSend, id, token]
+	 * @Description: Admin确认寄件
+	 * @Param: [id, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.String>
-	 *     如果接收到确认，前端出现二维码以扫描，后则delete上一个方法的insert数据
 	 **/
-	public Map<String, String> isSend(@RequestParam(value = "isSend") boolean isSend,
-	                                  @RequestParam(value = "id") String id,
+	@CrossOrigin
+	@RequestMapping(value = "/confirm")
+	public Map<String, String> confirm(@RequestParam(value = "id") String id,
+	                                   @RequestParam(value = "token") String token) {
+		return sendService.sendConfirm(id, token);
+	}
+	
+	/**
+	 * @Description: Admin发出寄件
+	 * @Param: [id, token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 **/
+	@CrossOrigin
+	@RequestMapping(value = "/out")
+	public Map<String, String> out(@RequestParam(value = "id") String id,
+	                               @RequestParam(value = "token") String token) {
+		return sendService.sendOut(id, token);
+	}
+
+	/**
+	 * @Description: User取消寄件
+	 * @Param: [id, token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 **/
+	@CrossOrigin
+	@RequestMapping(value = "/cancel")
+	public Map<String, String> cancel(@RequestParam(value = "id") String id,
 	                                  @RequestParam(value = "token") String token) {
-		return null;
+		return sendService.sendCancel(id, token);
 	}
 
 	/**

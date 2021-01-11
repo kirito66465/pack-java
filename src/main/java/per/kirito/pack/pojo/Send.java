@@ -26,6 +26,7 @@ public class Send {
 	private String to_name;         // 收件人姓名
 	private String to_tel;          // 收件人手机号
 	private String to_addr;         // 收件人地址
+	private double price;           // 运费
 	private String id;              // 快递单号
 	private String org;             // 快递公司
 	private String status;          // 快递状态

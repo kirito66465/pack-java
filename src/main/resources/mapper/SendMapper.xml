@@ -3,36 +3,40 @@
 <mapper namespace="per.kirito.pack.mapper.SendMapper">
 
 	<sql id="FIELDS">
-        from_name, from_tel, from_addr, to_name, to_tel, to_addr, id, org, status, dt
+        from_name, from_tel, from_addr, to_name, to_tel, to_addr, price, id, org, status, dt
     </sql>
 
+	<!-- 添加寄件 -->
 	<insert id="addSend" parameterType="Send">
 		INSERT INTO t_send (
 			from_name, from_tel, from_addr
-			, to_name, to_tel, to_addr
+			, to_name, to_tel, to_addr, price
 			, id, org, status, dt
 		) VALUES (
 			#{from_name}, #{from_tel}, #{from_addr}
-			, #{to_name}, #{to_tel}, #{to_addr}
+			, #{to_name}, #{to_tel}, #{to_addr}, #{price}
 			, #{id}, #{org}, #{status}, #{dt}
 		)
 	</insert>
 
+	<!-- 删除寄件 -->
 	<delete id="deleteSend" parameterType="String">
 		DELETE FROM t_send
 		WHERE id = #{id}
 	</delete>
 
-	<update id="updateSend" parameterType="Send">
+	<!-- 更新寄件状态 -->
+	<update id="updateSend">
 		UPDATE t_send
 		SET status = #{status}
 			, dt = #{dt}
 		WHERE id = #{id}
 	</update>
 
+	<!-- 获取User的寄件集合 -->
 	<select id="getSendByUser" parameterType="String" resultType="Send">
 		SELECT from_name, from_tel, from_addr
-			, to_name, to_tel, to_addr
+			, to_name, to_tel, to_addr, price
 			, id, org, status, dt
 		FROM t_send
 		WHERE from_tel IN (
@@ -42,28 +46,33 @@
 		)
 	</select>
 
+	<!-- 获取Admin的寄件集合 -->
 	<select id="getSendByAdmin" parameterType="String" resultType="Send">
 		SELECT from_name, from_tel, from_addr
-			, to_name, to_tel, to_addr
+			, to_name, to_tel, to_addr, price
 			, id, org, status, dt
 		FROM t_send
 		WHERE org = #{org}
 	</select>
 
-	<select id="getTotalByUser" parameterType="String" resultType="Integer">
+	<!-- 传入状态，获取User的该状态寄件数量 -->
+	<select id="getUserTotal" resultType="Integer">
 		SELECT count(*)
 		FROM t_send
-		WHERE from_tel IN (
+		WHERE status = #{status}
+		AND from_tel IN (
 			SELECT phone
 			FROM t_user
 			WHERE card = #{card}
 		)
 	</select>
 
-	<select id="getTotalByAdmin" parameterType="String" resultType="Integer">
+	<!-- 传入状态，获取Admin的该状态寄件数量 -->
+	<select id="getAdminTotal" resultType="Integer">
 		SELECT count(*)
 		FROM t_send
-		WHERE org = #{org}
+		WHERE status = #{status}
+		AND org = #{org}
 	</select>
 
 </mapper>

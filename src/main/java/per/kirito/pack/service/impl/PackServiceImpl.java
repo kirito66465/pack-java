@@ -395,6 +395,7 @@ public class PackServiceImpl implements PackService {
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据card查询出该Admin已取快递集合
 			List<Pack> packs = packMapper.getAdminPacks(card);
+			// int -> String 转换
 			List<PackResult> packResultList = PackUtil.getPackResult(packs);
 			// 获取分页方式的结果集
 			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
@@ -478,6 +479,25 @@ public class PackServiceImpl implements PackService {
 			map.put("allTotal", allTotal);
 			map.put("isTotal", isTotal);
 			map.put("noTotal", noTotal);
+			map.put("result", INFO_SUCCESS);
+		} else {
+			map.put("result", INFO_FAIL);
+		}
+		return map;
+	}
+
+	/**
+	 * @Description: 根据驿站地址和货架取出当前货架的所有快递
+	 * @Param: [card, shelf]
+	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 **/
+	@Override
+	public Map<String, Object> getShelfPack(String token, String shelf) {
+		Map<String, Object> map = new HashMap<>();
+		if (stringRedisTemplate.hasKey(token)) {
+			String card = stringRedisTemplate.opsForValue().get(token);
+			List<Pack> packs = packMapper.getShelfPack(card, shelf);
+			map.put("packs", packs);
 			map.put("result", INFO_SUCCESS);
 		} else {
 			map.put("result", INFO_FAIL);

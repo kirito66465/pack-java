@@ -46,8 +46,9 @@ public class SendServiceImpl implements SendService {
 	private static final String NOT_EXIST = Status.NOT_EXIST.getEnMsg();
 
 	private static final String SEND_STATUS_0 = Status.SEND_STATUS_0.getEnMsg();        // 已提交
-	private static final String SEND_STATUS_1 = Status.SEND_STATUS_1.getEnMsg();        // 已取件
-	private static final String SEND_STATUS_2 = Status.SEND_STATUS_2.getEnMsg();        // 已发出
+	private static final String SEND_STATUS_1 = Status.SEND_STATUS_1.getEnMsg();        // 已支付
+	private static final String SEND_STATUS_2 = Status.SEND_STATUS_2.getEnMsg();        // 已确认
+	private static final String SEND_STATUS_3 = Status.SEND_STATUS_3.getEnMsg();        // 已发出
 
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
@@ -56,13 +57,14 @@ public class SendServiceImpl implements SendService {
 
 	/**
 	 * @Description: User寄件下单
-	 * @Param: [request, token]
+	 * @Param: [request]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public Map<String, Object> sendPack(SendRequest request, String token) {
+	public Map<String, Object> sendPack(SendRequest request) {
 		Map<String, Object> map = new HashMap<>();
+		String token = request.getToken();
 		if (stringRedisTemplate.hasKey(token)) {
 			try {
 				Send send = new Send();
@@ -76,10 +78,7 @@ public class SendServiceImpl implements SendService {
 				// 设置收件人信息
 				send.setTo_name(request.getName());
 				send.setTo_tel(request.getPhone());
-				String province = request.getAddr()[0];
-				String city = request.getAddr()[1];
-				String district = request.getAddr()[2];
-				String toAddr = province + city + district;
+				String toAddr = request.getAddr();
 				send.setTo_addr(toAddr);
 				// 生成快递单号和快递公司
 				String id = SendUtil.getSendIdAndOrg(postAddr).get("id");
@@ -89,8 +88,108 @@ public class SendServiceImpl implements SendService {
 				send.setStatus(SEND_STATUS_0);
 				String dt = TypeConversion.getTime();
 				send.setDt(dt);
+				send.setPrice(request.getPrice());
 				// 向t_send表中插入这条数据
 				sendMapper.addSend(send);
+				map.put("result", DO_SUCCESS);
+			} catch (Exception e) {
+				map.put("result", DO_FAIL);
+				e.printStackTrace();
+			}
+			return map;
+		} else {
+			map.put("result", LOGIN_TO_DO);
+			return map;
+		}
+	}
+
+	/**
+	 * @Description: User支付寄件
+	 * @Param: [id, token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 **/
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public Map<String, String> sendPay(String id, String token) {
+		Map<String, String> map = new HashMap<>();
+		if (stringRedisTemplate.hasKey(token)) {
+			try {
+				String dt = TypeConversion.getTime();
+				sendMapper.updateSend(id, SEND_STATUS_1, dt);
+				map.put("result", DO_SUCCESS);
+			} catch (Exception e) {
+				map.put("result", DO_FAIL);
+				e.printStackTrace();
+			}
+			return map;
+		} else {
+			map.put("result", LOGIN_TO_DO);
+			return map;
+		}
+	}
+
+	/**
+	 * @Description: Admin确认寄件
+	 * @Param: [id, token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 **/
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public Map<String, String> sendConfirm(String id, String token) {
+		Map<String, String> map = new HashMap<>();
+		if (stringRedisTemplate.hasKey(token)) {
+			try {
+				String dt = TypeConversion.getTime();
+				sendMapper.updateSend(id, SEND_STATUS_2, dt);
+				map.put("result", DO_SUCCESS);
+			} catch (Exception e) {
+				map.put("result", DO_FAIL);
+				e.printStackTrace();
+			}
+			return map;
+		} else {
+			map.put("result", LOGIN_TO_DO);
+			return map;
+		}
+	}
+
+	/**
+	 * @Description: Admin发出寄件
+	 * @Param: [id, token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 **/
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public Map<String, String> sendOut(String id, String token) {
+		Map<String, String> map = new HashMap<>();
+		if (stringRedisTemplate.hasKey(token)) {
+			try {
+				String dt = TypeConversion.getTime();
+				sendMapper.updateSend(id, SEND_STATUS_3, dt);
+				map.put("result", DO_SUCCESS);
+			} catch (Exception e) {
+				map.put("result", DO_FAIL);
+				e.printStackTrace();
+			}
+			return map;
+		} else {
+			map.put("result", LOGIN_TO_DO);
+			return map;
+		}
+	}
+
+	/**
+	 * @Description: User取消寄件
+	 * @Param: [id, token]
+	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 **/
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public Map<String, String> sendCancel(String id, String token) {
+		Map<String, String> map = new HashMap<>();
+		if (stringRedisTemplate.hasKey(token)) {
+			try {
+				sendMapper.deleteSend(id);
 				map.put("result", DO_SUCCESS);
 			} catch (Exception e) {
 				map.put("result", DO_FAIL);
@@ -138,8 +237,14 @@ public class SendServiceImpl implements SendService {
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
 			String card = stringRedisTemplate.opsForValue().get(token);
-			int total = sendMapper.getTotalByUser(card);
-			map.put("result", total);
+			int submit = sendMapper.getUserTotal(card, SEND_STATUS_0);
+			int pay = sendMapper.getUserTotal(card, SEND_STATUS_2);
+			int confirm = sendMapper.getUserTotal(card, SEND_STATUS_1);
+			int out = sendMapper.getUserTotal(card, SEND_STATUS_3);
+			map.put("sendSubmit", submit);
+			map.put("sendPay", pay);
+			map.put("sendConfirm", confirm);
+			map.put("sendOut", out);
 		} else {
 			map.put("result", INFO_FAIL);
 		}
@@ -190,8 +295,14 @@ public class SendServiceImpl implements SendService {
 			// 获取所在驿站的寄件快递种类/公司
 			String card = stringRedisTemplate.opsForValue().get(token);
 			String org = SendUtil.getSendOrg(card);
-			int total = sendMapper.getTotalByAdmin(org);
-			map.put("result", total);
+			int submit = sendMapper.getAdminTotal(org, SEND_STATUS_0);
+			int pay = sendMapper.getAdminTotal(org, SEND_STATUS_2);
+			int confirm = sendMapper.getAdminTotal(org, SEND_STATUS_1);
+			int out = sendMapper.getAdminTotal(org, SEND_STATUS_3);
+			map.put("sendSubmit", submit);
+			map.put("sendPay", pay);
+			map.put("sendConfirm", confirm);
+			map.put("sendOut", out);
 		} else {
 			map.put("result", INFO_FAIL);
 		}

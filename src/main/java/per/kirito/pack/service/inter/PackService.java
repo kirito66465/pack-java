@@ -102,4 +102,11 @@ public interface PackService {
 	 **/
 	Map<String, Object> getAdminTotalNum(String token);
 
+	/**
+	 * @Description: 根据驿站地址和货架取出当前货架的所有快递
+	 * @Param: [card, shelf]
+	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 **/
+	Map<String, Object> getShelfPack(String token, String shelf);
+
 }

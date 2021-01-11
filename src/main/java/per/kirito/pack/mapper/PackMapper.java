@@ -145,4 +145,11 @@ public interface PackMapper {
 	 **/
 	Pack getPackByStartMin(String addr);
 
+	/**
+	 * @Description: 根据驿站地址和货架取出当前货架的所有快递
+	 * @Param: [card, shelf]
+	 * @Return: java.util.List<per.kirito.pack.pojo.Pack>
+	 **/
+	List<Pack> getShelfPack(@Param("card") String card, @Param("shelf") String shelf);
+
 }
