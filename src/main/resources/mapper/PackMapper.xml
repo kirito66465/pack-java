@@ -225,4 +225,18 @@
 		AND code LIKE CONCAT(#{shelf}, '%')
 		ORDER BY code
 	</select>
+
+	<!-- 根据快递单号删除此快递 -->
+	<delete id="deletePackById" parameterType="String">
+		DELETE FROM t_pack
+		WHERE id = #{id}
+	</delete>
+
+	<!-- 根据快递单号查询出此快递状态 -->
+	<select id="getStatusById" parameterType="String" resultType="Integer">
+		SELECT status
+		FROM t_pack
+		WHERE id = #{id}
+	</select>
+
 </mapper>

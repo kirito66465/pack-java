@@ -63,12 +63,8 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 	@Override
 	public Map<String, String> login(String card, String password) {
 		Map<String, String> map = new HashMap<>();
-		String result = "";
-		Admin admin = new Admin();
-		admin.setCard(card);
-		admin.setPassword(password);
 		// 根据card和password查询出该Admin是否存在
-		int flag = adminMapper.findAdminByCardAndPwd(admin);
+		int flag = adminMapper.login(card, password);
 		if (flag == LOGIN_CODE) {
 			// 生成唯一令牌token
 			String token = UUID.randomUUID().toString();
@@ -78,11 +74,10 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 			}
 			stringRedisTemplate.opsForValue().set(token, card, 10, TimeUnit.MINUTES);
 			map.put("token", token);
-			result = LOGIN_SUCCESS;
+			map.put("result", LOGIN_SUCCESS);
 		} else {
-			result = LOGIN_FAIL;
+			map.put("result", LOGIN_FAIL);
 		}
-		map.put("result", result);
 		return map;
 	}
 
@@ -143,7 +138,7 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 	}
 
 	/**
-	 * @Description: 重置密码
+	 * @Description: 修改密码
 	 * @Param: [card, password, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/
@@ -180,12 +175,12 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 
 	/**
 	 * @Description: 更新Admin信息
-	 * @Param: [name, phone, token]
+	 * @Param: [name, phone, mail, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public Map<String, String> updateInfo(String name, String phone, String token) {
+	public Map<String, String> updateInfo(String name, String phone, String mail, String token) {
 		Map<String, String> map = new HashMap<>();
 		try {
 			if (stringRedisTemplate.hasKey(token)) {

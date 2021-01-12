@@ -10,6 +10,7 @@
 	<typeAliases>
 		<typeAlias alias="Integer" type="java.lang.Integer"/>
 		<typeAlias alias="Long" type="java.lang.Long"/>
+		<typeAlias alias="Map" type="java.util.Map"/>
 		<typeAlias alias="HashMap" type="java.util.HashMap"/>
 		<typeAlias alias="LinkedHashMap" type="java.util.LinkedHashMap"/>
 		<typeAlias alias="ArrayList" type="java.util.ArrayList"/>

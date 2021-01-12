@@ -1,9 +1,5 @@
 package per.kirito.pack.service.inter;
 
-import per.kirito.pack.pojo.Pack;
-import per.kirito.pack.pojo.utilPojo.PackResult;
-import per.kirito.pack.pojo.utilPojo.Page;
-
 import java.util.Map;
 
 /**
@@ -31,10 +27,17 @@ public interface PackService {
 
 	/**
 	 * @Description: Admin进行取件，仅传入快递单号即可
-	 * @Param: [id]
+	 * @Param: [id, token]
 	 * @Return: java.lang.String
 	 **/
-	String pickPackByAdmin(String id);
+	String pickPackByAdmin(String id, String token);
+
+	/**
+	 * @Description: 根据快递单号删除此快递
+	 * @Param: [id, token]
+	 * @Return: java.lang.String
+	 **/
+	String deletePackById(String id, String token);
 
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------

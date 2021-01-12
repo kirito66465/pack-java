@@ -25,6 +25,8 @@
 		<druid.version>1.2.4</druid.version>
 		<druid-spring-boot-starter.version>1.1.17</druid-spring-boot-starter.version>
 		<spring-boot-maven-plugin.version>2.4.1</spring-boot-maven-plugin.version>
+		<javax-mail.version>1.6.2</javax-mail.version>
+		<java-activation-framework.version>1.1.1</java-activation-framework.version>
 	</properties>
 
 	<dependencies>
@@ -115,6 +117,20 @@
 			<artifactId>druid-spring-boot-starter</artifactId>
 			<version>${druid-spring-boot-starter.version}</version>
 		</dependency>
+
+<!--		&lt;!&ndash; javax-mail &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>javax.mail</groupId>-->
+<!--			<artifactId>javax.mail-api</artifactId>-->
+<!--			<version>${javax-mail.version}</version>-->
+<!--		</dependency>-->
+
+<!--		&lt;!&ndash; Java Activation Framework(JAF) &ndash;&gt;-->
+<!--		<dependency>-->
+<!--			<groupId>javax.activation</groupId>-->
+<!--			<artifactId>activation</artifactId>-->
+<!--			<version>${java-activation-framework.version}</version>-->
+<!--		</dependency>-->
 	</dependencies>
 
 	<build>

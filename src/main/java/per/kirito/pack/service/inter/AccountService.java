@@ -55,9 +55,9 @@ public interface AccountService<E> {
 
 	/**
 	 * @Description: 更新用户信息
-	 * @Param: [name, phone, token]
+	 * @Param: [name, phone, mail, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/
-	Map<String, String> updateInfo(String name, String addr, String token);
+	Map<String, String> updateInfo(String name, String addr, String mail, String token);
 
 }

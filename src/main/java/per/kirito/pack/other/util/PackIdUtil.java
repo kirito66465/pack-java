@@ -100,23 +100,28 @@ public class PackIdUtil {
 		return UUID;
 	}
 
-	public static void main(String[] args) {
-		String zto = generate("ZTO");
-		String sto = generate("STO");
-		String yto = generate("YTO");
-		String jd = generate("JD");
-		String sf = generate("SF");
-		String yd = generate("YD");
-		String tt = generate("TT");
-		String ems = generate("EMS");
-		System.out.println("中通: " + zto);
-		System.out.println("申通: " + sto);
-		System.out.println("圆通: " + yto);
-		System.out.println("京东: " + jd);
-		System.out.println("顺丰: " + sf);
-		System.out.println("韵达: " + yd);
-		System.out.println("天天: " + tt);
-		System.out.println("EMS: " + ems);
+	public static void main(String[] args) throws InterruptedException {
+		// String zto = generate("ZTO");
+		// String sto = generate("STO");
+		// String yto = generate("YTO");
+		// String jd = generate("JD");
+		// String sf = generate("SF");
+		// String yd = generate("YD");
+		// String tt = generate("TT");
+		// String ems = generate("EMS");
+		// System.out.println("中通: " + zto);
+		// System.out.println("申通: " + sto);
+		// System.out.println("圆通: " + yto);
+		// System.out.println("京东: " + jd);
+		// System.out.println("顺丰: " + sf);
+		// System.out.println("韵达: " + yd);
+		// System.out.println("天天: " + tt);
+		// System.out.println("EMS: " + ems);
+		// System.out.println("-------------------------------------------------");
+		for (int i = 0; i < 100; i++) {
+			System.out.println(generate("EMS"));
+			Thread.sleep(100);
+		}
 	}
 
 }

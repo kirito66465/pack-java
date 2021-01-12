@@ -23,7 +23,7 @@ public class UserController {
 	private AccountService<User> accountService;
 
 	/**
-	 * @Description: User登录请求
+	 * @Description: User登录
 	 * @Param: [card, password]
 	 * @Return: java.lang.String
 	 **/
@@ -35,7 +35,7 @@ public class UserController {
 	}
 
 	/**
-	 * @Description: User退出登录请求
+	 * @Description: User退出登录
 	 * @Param: []
 	 * @Return: java.lang.String
 	 **/
@@ -46,7 +46,7 @@ public class UserController {
 	}
 
 	/**
-	 * @Description: 获取User信息请求
+	 * @Description: 获取User信息
 	 * @Param: []
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
@@ -57,7 +57,7 @@ public class UserController {
 	}
 
 	/**
-	 * @Description: User注册请求
+	 * @Description: User注册
 	 * @Param: [user]
 	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/
@@ -68,7 +68,7 @@ public class UserController {
 	}
 
 	/**
-	 * @Description: User忘记密码请求
+	 * @Description: User忘记密码
 	 * @Param: [card, phone, password]
 	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/
@@ -81,7 +81,7 @@ public class UserController {
 	}
 
 	/**
-	 * @Description: 重置密码
+	 * @Description: 修改密码
 	 * @Param: [card, password, checkCode, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/
@@ -97,15 +97,16 @@ public class UserController {
 
 	/**
 	 * @Description: 更新用户信息
-	 * @Param: [name, addr, token]
+	 * @Param: [name, addr, mail, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/updateInfo")
 	public Map<String, String> updateInfo(@RequestParam(value = "name") String name,
 	                                      @RequestParam(value = "addr") String addr,
+	                                      @RequestParam(value = "mail") String mail,
 	                                      @RequestParam(value = "token") String token) {
-		return accountService.updateInfo(name, addr, token);
+		return accountService.updateInfo(name, addr, mail, token);
 	}
 
 }

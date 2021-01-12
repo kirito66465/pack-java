@@ -26,5 +26,6 @@ public class User {
 	private String name;        // 姓名
 	private String addr;        // 收货地址
 	private int count;          // 包裹件数
+	private String mail;        // 电子邮箱
 
 }

@@ -3,66 +3,49 @@
 <mapper namespace="per.kirito.pack.mapper.UserMapper">
 
 	<sql id="FIELDS">
-        card, password, phone, name, addr, count
+        card, password, phone, name, addr, count, mail
     </sql>
 
-	<select id="findUserByCard" parameterType="String" resultType="Integer">
-		SELECT count(*)
-		FROM t_user
-		WHERE card = #{card}
-	</select>
-
-	<select id="login" parameterType="User" resultType="Integer">
+	<!-- 根据学号和密码查询用户是否存在以进行登录判断 -->
+	<select id="login" resultType="Integer">
 		SELECT count(*)
 		FROM t_user
 		WHERE card = #{card}
 		AND password = #{password}
 	</select>
 
-	<select id="findUserByCardAndPhone" parameterType="User" resultType="Integer">
-		SELECT count(*)
-		FROM t_user
-		WHERE card = #{card}
-		AND phone = #{phone}
-	</select>
-
+	<!-- 根据card查询出该User信息 -->
 	<select id="getUserById" parameterType="String" resultType="User">
-		SELECT t.card, t.password, t.phone, t.name, t.addr, t.count
+		SELECT t.card, t.password, t.phone, t.name, t.addr, t.count, t.mail
 		FROM t_user t
 		WHERE card = #{card}
 	</select>
 
+	<!-- 根据phone查询出该User信息 -->
 	<select id="getUserByPhone" parameterType="String" resultType="User">
-		SELECT t.card, t.password, t.phone, t.name, t.addr, t.count
+		SELECT t.card, t.password, t.phone, t.name, t.addr, t.count, t.mail
 		FROM t_user t
 		WHERE phone = #{phone}
 	</select>
 
+	<!-- User注册 -->
 	<insert id="register" parameterType="User">
 		INSERT INTO t_user (
-			card, password, phone, name, addr, count
+			card, password, phone, name, addr, count, mail
 		) VALUES (
-			#{card}, #{password}, #{phone}, #{name}, #{addr}, #{count}
+			#{card}, #{password}, #{phone}, #{name}, #{addr}, #{count}, #{mail}
 		)
 	</insert>
 
-	<update id="updateUser" parameterType="User">
-		UPDATE t_user t
-		SET t.password = #{password}
-			, t.count = #{count}
-			, t.phone = #{phone}
-			, t.name = #{name}
-			, t.addr = #{addr}
-		WHERE t.card = #{card}
-	</update>
-
-	<update id="forgetPwd" parameterType="User">
+	<!-- User忘记密码以进行密码重置 -->
+	<update id="forgetPwd">
 		UPDATE t_user
 		SET password = #{password}
 		WHERE card = #{card}
 		AND phone = #{phone}
 	</update>
 
+	<!-- User修改密码 -->
 	<update id="resetPwd">
 		UPDATE t_user
 		SET password = #{newPwd}
@@ -70,17 +53,55 @@
 		AND password = #{oldPwd}
 	</update>
 
+	<!-- User更新信息 -->
 	<update id="updateInfo">
 		UPDATE t_user
 		SET name = #{name}
 			, addr = #{addr}
+			, mail = #{mail}
 		WHERE card = #{card}
 	</update>
 
+	<!-- 随机获取一个User信息 -->
 	<select id="getUserByRand" resultType="User">
-		SELECT card, password, phone, name, addr, count
+		SELECT card, password, phone, name, addr, count, mail
 		FROM t_user
 		ORDER BY RAND()
 		LIMIT 1
 	</select>
+
+	<!-- 更新count数-1 -->
+	<update id="updateCountLessByPackId" parameterType="String">
+		UPDATE t_user
+		SET count = count - 1
+		WHERE phone IN (
+			SELECT per_tel
+			FROM t_pack
+			WHERE id = #{id}
+		)
+	</update>
+
+	<!-- 更新count数+1 -->
+	<update id="updateCountPlusByPackId" parameterType="String">
+		UPDATE t_user
+		SET count = count + 1
+		WHERE phone IN (
+			SELECT per_tel
+			FROM t_pack
+			WHERE id = #{id}
+		)
+	</update>
+
+	<!-- 根据快递单号查询出收件人邮箱、取件码、驿站地址、快递公司信息 -->
+	<select id="getMailById" parameterType="String" resultType="Map">
+		SELECT T2.mail mail
+			, T1.code code
+			, T1.addr addr
+			, T1.org org
+		FROM t_pack T1
+		LEFT JOIN t_user T2
+		ON T1.per_tel = T2.phone
+		WHERE T1.id = #{id}
+	</select>
+
 </mapper>

@@ -28,7 +28,7 @@ public interface CodeMapper {
 	int updateCode(Code code);
 
 	/**
-	 * @Description: 根据驿站地址查询出当前
+	 * @Description: 当最大取件码被使用过时，根据驿站地址查询出当前最早被释放的取件码
 	 * @Param: [addr]
 	 * @Return: per.kirito.pack.pojo.Code
 	 **/

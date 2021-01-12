@@ -152,4 +152,18 @@ public interface PackMapper {
 	 **/
 	List<Pack> getShelfPack(@Param("card") String card, @Param("shelf") String shelf);
 
+	/**
+	 * @Description: 根据快递单号删除此快递
+	 * @Param: [id]
+	 * @Return: int
+	 **/
+	int deletePackById(String id);
+
+	/**
+	 * @Description: 根据快递单号查询出此快递状态
+	 * @Param: [id]
+	 * @Return: int
+	 **/
+	int getStatusById(String id);
+
 }

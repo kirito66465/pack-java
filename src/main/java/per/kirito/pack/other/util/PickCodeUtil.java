@@ -35,15 +35,19 @@ public class PickCodeUtil {
 		// 该摆放的货架快递数量，假设all为1253, 那么取件码应为11-3-13
 		int have = all % MAX_SHELF;           // 那么该摆放的这个货架有53件快递
 		if (all % MAX_SHELF == 0) {
-			have = MAX_SHELF;
 			code_1 = all / MAX_SHELF;
 			code_2 = MAX_2;
 			code_3 = MAX_3;
 		} else {
 			have = all % MAX_SHELF;
 			code_1 = all / MAX_SHELF + 1;
-			code_2 = have / MAX_3 + 1;
-			code_3 = have % MAX_3;
+			if (have % 20 == 0) {
+				code_2 = have / MAX_3;
+				code_3 = MAX_3;
+			} else {
+				code_2 = have / MAX_3 + 1;
+				code_3 = have % MAX_3;
+			}
 		}
 		// 防止生成的第一位取件码大于20的异常
 		if (code_1 > MAX_3) {
@@ -58,8 +62,11 @@ public class PickCodeUtil {
 	}
 
 	public static void main(String[] args) {
-		String code = generate(2399);
-		System.out.println(code);
+		// String code = generate(19);
+		// System.out.println(code);
+		for (int i = 0; i < 140; i++) {
+			System.out.println(generate(i));
+		}
 	}
 
 }

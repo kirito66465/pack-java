@@ -23,7 +23,7 @@ public class AdminController {
 	private AccountService<Admin> accountService;
 
 	/**
-	 * @Description: Admin登录请求
+	 * @Description: Admin登录
 	 * @Param: [card, password]
 	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/
@@ -35,7 +35,7 @@ public class AdminController {
 	}
 
 	/**
-	 * @Description: Admin退出登录请求
+	 * @Description: Admin退出登录
 	 * @Param: []
 	 * @Return: java.lang.String
 	 **/
@@ -46,7 +46,7 @@ public class AdminController {
 	}
 
 	/**
-	 * @Description: 获取Admin信息请求
+	 * @Description: 获取Admin信息
 	 * @Param: []
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
@@ -57,7 +57,7 @@ public class AdminController {
 	}
 
 	/**
-	 * @Description: 重置密码
+	 * @Description: 修改密码
 	 * @Param: [card, oldPwd, newPwd, checkCode, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/
@@ -80,8 +80,9 @@ public class AdminController {
 	@RequestMapping(value = "/updateInfo")
 	public Map<String, String> updateInfo(@RequestParam(value = "name") String name,
 	                                      @RequestParam(value = "phone") String phone,
+	                                      @RequestParam(value = "mail") String mail,
 	                                      @RequestParam(value = "token") String token) {
-		return accountService.updateInfo(name, phone, token);
+		return accountService.updateInfo(name, phone, mail, token);
 	}
 
 }

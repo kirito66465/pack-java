@@ -20,17 +20,6 @@ public class PackController {
 	@Autowired
 	private PackService packService;
 
-	// /**
-	//  * @Description: 根据快递单号获取快递信息
-	//  * @Param: [id]
-	//  * @Return: java.lang.Object
-	//  **/
-	// @CrossOrigin
-	// @RequestMapping(value = "/getPackById")
-	// public Object getPackById(@RequestParam(value = "id") String id) {
-	// 	return packService.getPackById(id);
-	// }
-
 	/**
 	 * @Description: 驿站管理员添加快递入站
 	 * @Param: [id]
@@ -63,8 +52,21 @@ public class PackController {
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/pickPackByAdmin")
-	public String pickPackByAdmin(@RequestParam(value = "id") String id) {
-		return packService.pickPackByAdmin(id);
+	public String pickPackByAdmin(@RequestParam(value = "id") String id,
+	                              @RequestParam(value = "token") String token) {
+		return packService.pickPackByAdmin(id, token);
+	}
+
+	/**
+	 * @Description: 根据快递单号删除此快递
+	 * @Param: [id, token]
+	 * @Return: java.lang.String
+	 **/
+	@CrossOrigin
+	@RequestMapping(value = "/deletePack")
+	public String deletePack(@RequestParam(value = "id") String id,
+	                         @RequestParam(value = "token") String token) {
+		return packService.deletePackById(id, token);
 	}
 
 	/**

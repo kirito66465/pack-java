@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import per.kirito.pack.mapper.UserMapper;
 import per.kirito.pack.other.myEnum.Status;
-import per.kirito.pack.other.util.CheckCodeUtil;
 import per.kirito.pack.pojo.User;
 import per.kirito.pack.service.inter.AccountService;
 
@@ -64,12 +63,8 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 	@Override
 	public Map<String, String> login(String card, String password) {
 		Map<String, String> map = new HashMap<>();
-		String result = "";
-		User user = new User();
-		user.setCard(card);
-		user.setPassword(password);
 		// 根据card和password查询出该User是否存在
-		int flag = userMapper.login(user);
+		int flag = userMapper.login(card, password);
 		if (flag == LOGIN_CODE) {
 			// 生成唯一令牌token
 			String token = UUID.randomUUID().toString();
@@ -79,11 +74,10 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 			}
 			stringRedisTemplate.opsForValue().set(token, card, 10, TimeUnit.MINUTES);
 			map.put("token", token);
-			result = LOGIN_SUCCESS;
+			map.put("result", LOGIN_SUCCESS);
 		} else {
-			result = LOGIN_FAIL;
+			map.put("result", LOGIN_FAIL);
 		}
-		map.put("result", result);
 		return map;
 	}
 
@@ -168,13 +162,9 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 		Map<String, String> map = new HashMap<>();
 		try {
 			String result = "";
-			User user = new User();
-			user.setCard(card);
-			user.setPhone(phone);
-			user.setPassword(password);
-			int isDo = userMapper.forgetPwd(user);
+			int isDo = userMapper.forgetPwd(card, phone, password);
 			if (isDo == 1) {
-				user = userMapper.getUserById(card);
+				User user = userMapper.getUserById(card);
 				// 生成唯一令牌token
 				String token = UUID.randomUUID().toString();
 				// 如果Redis中已存储，则先删除此键
@@ -198,7 +188,7 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 	}
 
 	/**
-	 * @Description: 重置密码
+	 * @Description: 修改密码
 	 * @Param: [card, password, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/
@@ -235,17 +225,17 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 
 	/**
 	 * @Description: 更新用户信息
-	 * @Param: [name, phone, token]
+	 * @Param: [name, phone, mail, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public Map<String, String> updateInfo(String name, String addr, String token) {
+	public Map<String, String> updateInfo(String name, String addr, String mail, String token) {
 		Map<String, String> map = new HashMap<>();
 		try {
 			if (stringRedisTemplate.hasKey(token)) {
 				String card = stringRedisTemplate.opsForValue().get(token);
-				userMapper.updateInfo(card, name, addr);
+				userMapper.updateInfo(card, name, addr, mail);
 				map.put("result", DO_SUCCESS);
 			} else {
 				// 登录状态失效
