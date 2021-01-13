@@ -117,20 +117,6 @@
 			<artifactId>druid-spring-boot-starter</artifactId>
 			<version>${druid-spring-boot-starter.version}</version>
 		</dependency>
-
-<!--		&lt;!&ndash; javax-mail &ndash;&gt;-->
-<!--		<dependency>-->
-<!--			<groupId>javax.mail</groupId>-->
-<!--			<artifactId>javax.mail-api</artifactId>-->
-<!--			<version>${javax-mail.version}</version>-->
-<!--		</dependency>-->
-
-<!--		&lt;!&ndash; Java Activation Framework(JAF) &ndash;&gt;-->
-<!--		<dependency>-->
-<!--			<groupId>javax.activation</groupId>-->
-<!--			<artifactId>activation</artifactId>-->
-<!--			<version>${java-activation-framework.version}</version>-->
-<!--		</dependency>-->
 	</dependencies>
 
 	<build>
