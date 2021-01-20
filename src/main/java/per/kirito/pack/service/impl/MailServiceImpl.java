@@ -12,6 +12,7 @@ import javax.mail.MessagingException;
 import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @version 1.0
@@ -46,7 +47,7 @@ public class MailServiceImpl implements MailService {
 			if (stringRedisTemplate.hasKey(token)) {
 				Map<String, String> result = userMapper.getMailById(id);
 				String mail = result.get("mail");
-				if (mail != null && mail != "") {
+				if (mail != null && !Objects.equals(mail, "")) {
 					String code = result.get("code");
 					String addr = result.get("addr");
 					String org = result.get("org");

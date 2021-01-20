@@ -27,6 +27,7 @@
 		<spring-boot-maven-plugin.version>2.4.1</spring-boot-maven-plugin.version>
 		<javax-mail.version>1.6.2</javax-mail.version>
 		<java-activation-framework.version>1.1.1</java-activation-framework.version>
+		<javax-mail.version>1.6.2</javax-mail.version>
 	</properties>
 
 	<dependencies>
@@ -78,6 +79,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
 		<!-- MyBatis启动器 -->
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
@@ -89,6 +91,7 @@
 			<artifactId>mapper-spring-boot-starter</artifactId>
 			<version>${mapper-spring-boot-starter.version}</version>
 		</dependency>
+
 		<!-- 分页依赖 -->
 		<dependency>
 			<groupId>com.github.pagehelper</groupId>
@@ -100,6 +103,7 @@
 			<artifactId>pagehelper</artifactId>
 			<version>${pagehelper.version}</version>
 		</dependency>
+
 		<!-- Redis启动器 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -116,6 +120,13 @@
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid-spring-boot-starter</artifactId>
 			<version>${druid-spring-boot-starter.version}</version>
+		</dependency>
+
+		<!-- javax.mail -->
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>${javax-mail.version}</version>
 		</dependency>
 	</dependencies>
 

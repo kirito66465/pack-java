@@ -23,8 +23,8 @@ import javax.mail.internet.MimeMessage;
  */
 public class SendMailUtil {
 	
-	private static String MAIL_FROM = "1204505357@qq.com";          // 发件人电子邮箱
-	private static String MAIL_HOST = "smtp.qq.com";                // 指定发送邮件的主机为smtp.qq.com
+	private static final String MAIL_FROM = "1204505357@qq.com";          // 发件人电子邮箱
+	private static final String MAIL_HOST = "smtp.qq.com";                // 指定发送邮件的主机为smtp.qq.com
 
 	public static void sendMail(String mail, String addr, String code, String org) throws MessagingException, GeneralSecurityException {
 		String to = mail;                                           // 收件人电子邮箱
