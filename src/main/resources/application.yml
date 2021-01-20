@@ -13,7 +13,7 @@ spring:
     password: 054417@nufe
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-    # Druid扩展属性配置
+    # Druid 扩展属性配置
     druid:
       # 初始化大小，最小，最大
       initial-size: 5
@@ -25,17 +25,17 @@ spring:
       time-between-eviction-runs-millis: 60000
       # 配置有一个连接在连接池中的最小生存时间，单位是毫秒
       min-evictable-idle-time-millis: 300000
-      # max-evictable-idle-time-millis: 600000
       validation-query: SELECT 1 FROM DUAL
       validation-query-timeout: 60
-
-#  jpa:
-#    open-in-view: false
-#    database: MySQL
-#    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-#    show-sql: true
-#    hibernate:
-#      ddl-auto: update
+      # 开启 Druid 控功能
+      filter:
+        stat: # 配置 StatFilter ，对应文档 https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE_StatFilter
+          log-slow-sql: true # 开启慢查询记录
+          slow-sql-millis: 5000 # 慢 SQL 的标准，单位：毫秒
+      stat-view-servlet: # 配置 StatViewServlet ，对应文档 https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE_StatViewServlet%E9%85%8D%E7%BD%AE
+        enabled: true # 是否开启 StatViewServlet
+        login-username: kirito # 账号
+        login-password: kirito # 密码
 
   redis:
     # 阿里云服务器
@@ -46,9 +46,6 @@ spring:
     port: 6379
     database: 0
 
-#mvc:
-#  static-path-pattern: /**
-
 resources:
   static-locations: classpath:/static/,classpath:/templates/
 
@@ -57,12 +54,9 @@ logging:
     root: debug
 
 mybatis:
-  config-location: classpath:conf/mybatis-config.xml    # MyBatis配置文件路径
-  mapper-locations: classpath:mapper/*.xml              # Mapper.xml地址
+  config-location: classpath:conf/mybatis-config.xml    # MyBatis 配置文件路径
+  mapper-locations: classpath:mapper/*.xml              # Mapper.xml 地址
   type-aliases-package: per.kirito.pack.pojo            # 数据库实体类包路径
-#  configuration:
-#    # 开启驼峰命名转换
-#    map-underscore-to-camel-case: false
 
 pagehelper:
   # 配置使用的数据库语言
