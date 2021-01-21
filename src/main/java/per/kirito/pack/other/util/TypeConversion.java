@@ -40,13 +40,7 @@ public class TypeConversion {
 			Class className = Class.forName("com.sun.org.apache.xerces.internal.impl.dv.util.Base64");
 			Method method = className.getMethod("encode", byte[].class);
 			result = (String) method.invoke(null, input);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
+		} catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
 			e.printStackTrace();
 		}
 		return result;
@@ -63,13 +57,7 @@ public class TypeConversion {
 			Class className = Class.forName("com.sun.org.apache.xerces.internal.impl.dv.util.Base64");
 			Method method = className.getMethod("decode", String.class);
 			result = (byte[]) method.invoke(null, input);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
+		} catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
 			e.printStackTrace();
 		}
 		return result;

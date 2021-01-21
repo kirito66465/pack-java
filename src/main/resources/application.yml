@@ -4,13 +4,13 @@ server:
 spring:
   datasource:
     # 阿里云服务器
-    # url: jdbc:mysql://139.196.28.154:3306/package_manage?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
-    # username: kirito
+    # url: jdbc:mysql://xxx.xxx.xx.xxx:xxxx/xxx?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+    # username: xxx
 
     # 本地
     url: jdbc:mysql://localhost:3306/package_manage?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
     username: root
-    password: 054417@nufe
+    password: xxxx
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     # Druid 扩展属性配置
@@ -39,7 +39,7 @@ spring:
 
   redis:
     # 阿里云服务器
-    # host: 139.196.28.154
+    # host: xxx.xxx.xx.xxx
 
     # 本地
     host: localhost

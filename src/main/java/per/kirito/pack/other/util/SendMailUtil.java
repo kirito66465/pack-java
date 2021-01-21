@@ -23,8 +23,9 @@ import javax.mail.internet.MimeMessage;
  */
 public class SendMailUtil {
 	
-	private static final String MAIL_FROM = "1204505357@qq.com";          // 发件人电子邮箱
-	private static final String MAIL_HOST = "smtp.qq.com";                // 指定发送邮件的主机为smtp.qq.com
+	private static final String MAIL_FROM = "xxx@xx.com";                 // 发件人电子邮箱
+	private static final String MAIL_HOST = "xxxx.xx.xxx";                // 指定发送邮件的主机
+	private static final String PASSWORD = "xxxx";                        // 发件邮箱的密钥授权码
 
 	public static void sendMail(String mail, String addr, String code, String org) throws MessagingException, GeneralSecurityException {
 		String to = mail;                                           // 收件人电子邮箱
@@ -45,7 +46,7 @@ public class SendMailUtil {
 			public PasswordAuthentication getPasswordAuthentication()
 			{
 				//发件人邮件用户名、授权码
-				return new PasswordAuthentication("1204505357@qq.com", "knpsvtgocnchigib");
+				return new PasswordAuthentication(MAIL_FROM, PASSWORD);
 			}
 
 		});
@@ -69,7 +70,7 @@ public class SendMailUtil {
 
 	public static void main(String[] args) {
 		try {
-			sendMail("4yanchen6@163.com", "中苑", "1-1-01", "中通");
+			sendMail("xxx@xx.com", "中苑", "1-1-01", "中通");
 		} catch (MessagingException | GeneralSecurityException e) {
 			e.printStackTrace();
 		}
