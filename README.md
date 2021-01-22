@@ -23,12 +23,24 @@
 ```markdown
 1. 实现管理员邮件通知未取快递的收件人
 ```
+-2021.01.22<br>
+```markdown
+1. 使用自定义配置文件完成邮件发送邮箱配置
+2. 使用 jasypt 对 application.yml 中的配置进行加密
+3. 开启 Druid 的 SQ L监控功能
+# 加密
+$ .\encrypt input=demo-input password=demo-pwd algorithm=PBEWithMD5AndDES
+输出结果为：`av8dLw8htTU7k5AQaoMgGzI5KLaj9Glp`
+# 解密
+$ .\decrypt input="av8dLw8htTU7k5AQaoMgGzI5KLaj9Glp" password="demo-pwd" algorithm=PBEWithMD5AndDES
+输出结果为: `demo-input`
+```
 __TODO__
 ```markdown
 1. 搜索（已取根据签收人搜索，未取与全部根据收件人搜索，揽收根据寄件人搜索）
-2. Vue项目刷新数据丢失问题
-3. Vue项目表格展示数据筛选问题，重新请求、分页请求
-4. User在AllPack页面删除快递时，页面数据没有更新（包括AllPack和Aside）
+2. Vue 项目刷新数据丢失问题
+3. Vue 项目表格展示数据筛选问题，重新请求、分页请求
+4. User 在 AllPack 页面删除快递时，页面数据没有更新（包括 AllPack和Aside ）
 5. 页面布局调整优化
 6. 每张表造大量的数据进行测试，其中t_pack最好一个驿站2400条数据及以上
 ```

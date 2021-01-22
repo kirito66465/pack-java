@@ -3,8 +3,8 @@ package per.kirito.pack.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
-import per.kirito.pack.other.myEnum.Status;
-import per.kirito.pack.other.util.CheckCodeUtil;
+import per.kirito.pack.myEnum.Status;
+import per.kirito.pack.util.CheckCodeUtil;
 import per.kirito.pack.service.inter.CheckCodeService;
 
 import java.util.HashMap;
@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  * @Author: kirito
  * @Date: 2021/1/8
  * @Time: 16:28
- * @description: 验证码的service实现类
+ * @description: 验证码的 Service 实现类
  */
 @Service
 public class CheckCodeServiceImpl implements CheckCodeService {

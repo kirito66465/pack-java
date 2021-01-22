@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import per.kirito.pack.mapper.UserMapper;
-import per.kirito.pack.other.myEnum.Status;
-import per.kirito.pack.other.util.SendMailUtil;
+import per.kirito.pack.myEnum.Status;
+import per.kirito.pack.util.SendMailUtil;
 import per.kirito.pack.service.inter.MailService;
 
 import javax.mail.MessagingException;
@@ -19,7 +19,7 @@ import java.util.Objects;
  * @Author: kirito
  * @Date: 2021/1/12
  * @Time: 14:09
- * @description: Mail的Service层，MailService接口的实现类
+ * @description: Mail 的 Service 层，MailService 接口的实现类
  */
 @Service
 public class MailServiceImpl implements MailService {
@@ -29,6 +29,9 @@ public class MailServiceImpl implements MailService {
 
 	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
+
+	@Autowired
+	private SendMailUtil sendMailUtil;
 
 	private static final String DO_SUCCESS = Status.DO_SUCCESS.getEnMsg();
 	private static final String DO_FAIL = Status.DO_FAIL.getEnMsg();
@@ -51,7 +54,7 @@ public class MailServiceImpl implements MailService {
 					String code = result.get("code");
 					String addr = result.get("addr");
 					String org = result.get("org");
-					SendMailUtil.sendMail(mail, addr, code, org);
+					sendMailUtil.sendMail(mail, addr, code, org);
 					map.put("result", DO_SUCCESS);
 				} else {
 					map.put("result", NOT_EXIST);

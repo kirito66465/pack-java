@@ -76,7 +76,7 @@
 		OR status = -1
 	</select>
 
-	<!-- 根据User学号查询出该User所有快递集合 -->
+	<!-- 根据 User 学号查询出该 User 所有快递集合 -->
 	<select id="getUserPacks" parameterType="String" resultType="Pack">
 		SELECT id, org, per_name
 			, per_tel, per_addr, addr
@@ -91,7 +91,7 @@
 		ORDER BY start DESC
 	</select>
 
-	<!-- 根据User学号查询出该User已取快递集合 -->
+	<!-- 根据 User 学号查询出该 User 已取快递集合 -->
 	<select id="getUserIsPick" parameterType="String" resultType="Pack">
 		SELECT id, org, per_name
 			, per_tel, per_addr, addr
@@ -107,7 +107,7 @@
 		ORDER BY end DESC
 	</select>
 
-	<!-- 根据User学号查询出该User未取快递集合 -->
+	<!-- 根据 User 学号查询出该 User 未取快递集合 -->
 	<select id="getUserNoPick" parameterType="String" resultType="Pack">
 		SELECT id, org, per_name
 			, per_tel, per_addr, addr
@@ -147,7 +147,7 @@
 		OR status = -1
 	</select>
 
-	<!-- 根据Admin编号查询出所在驿站的快递集合 -->
+	<!-- 根据 Admin 编号查询出所在驿站的快递集合 -->
 	<select id="getAdminPacks" parameterType="String" resultType="Pack">
 		SELECT id, org, per_name
 			, per_tel, per_addr, addr
@@ -162,7 +162,7 @@
 		ORDER BY start DESC
 	</select>
 
-	<!-- 根据Admin编号查询出所在驿站已取快递集合 -->
+	<!-- 根据 Admin 编号查询出所在驿站已取快递集合 -->
 	<select id="getAdminIsPick" parameterType="String" resultType="Pack">
 		SELECT id, org, per_name
 			, per_tel, per_addr, addr
@@ -178,7 +178,7 @@
 		ORDER BY end DESC
 	</select>
 
-	<!-- 根据Admin编号查询出所在驿站未取快递集合 -->
+	<!-- 根据 Admin 编号查询出所在驿站未取快递集合 -->
 	<select id="getAdminNoPick" parameterType="String" resultType="Pack">
 		SELECT id, org, per_name
 			, per_tel, per_addr, addr

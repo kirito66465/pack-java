@@ -7,7 +7,7 @@ import java.util.Map;
  * @Author: kirito
  * @Date: 2020/12/23
  * @Time: 15:35
- * @description: Pack的Service层接口
+ * @description: Pack 的 Service 层接口
  */
 public interface PackService {
 

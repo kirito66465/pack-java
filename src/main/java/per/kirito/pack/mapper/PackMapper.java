@@ -11,7 +11,7 @@ import java.util.List;
  * @Author: kirito
  * @Date: 2020/12/23
  * @Time: 15:24
- * @description: Pack的Mapper接口
+ * @description: Pack 的 Mapper 接口
  */
 @Repository
 public interface PackMapper {
@@ -46,7 +46,7 @@ public interface PackMapper {
 
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
-	 * User相关
+	 * User 相关
 	 **/
 	
 	/**
@@ -71,21 +71,21 @@ public interface PackMapper {
 	int getUserNoTotalNum(String phone);
 
 	/**
-	 * @Description: 根据User学号查询出该User所有快递集合
+	 * @Description: 根据 User 学号查询出该 User 所有快递集合
 	 * @Param: [card]
 	 * @Return: java.util.List<per.kirito.pack.pojo.Pack>
 	 **/
 	List<Pack> getUserPacks(String card);
 
 	/**
-	 * @Description: 根据User学号查询出该User已取快递集合
+	 * @Description: 根据 User 学号查询出该 User 已取快递集合
 	 * @Param: [card]
 	 * @Return: java.util.List<per.kirito.pack.pojo.Pack>
 	 **/
 	List<Pack> getUserIsPick(String card);
 
 	/**
-	 * @Description: 根据User学号查询出该User未取快递集合
+	 * @Description: 根据 User 学号查询出该 User 未取快递集合
 	 * @Param: [card]
 	 * @Return: java.util.List<per.kirito.pack.pojo.Pack>
 	 **/
@@ -93,7 +93,7 @@ public interface PackMapper {
 
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
-	 * Admin相关
+	 * Admin 相关
 	 **/
 
 	/**
@@ -118,21 +118,21 @@ public interface PackMapper {
 	int getAdminNoTotalNum(String addr);
 
 	/**
-	 * @Description: 根据Admin编号查询出所在驿站的快递集合
+	 * @Description: 根据 Admin 编号查询出所在驿站的快递集合
 	 * @Param: [card]
 	 * @Return: java.util.List<per.kirito.pack.pojo.Pack>
 	 **/
 	List<Pack> getAdminPacks(String card);
 
 	/**
-	 * @Description: 根据Admin编号查询出所在驿站已取快递集合
+	 * @Description: 根据 Admin 编号查询出所在驿站已取快递集合
 	 * @Param: [card]
 	 * @Return: java.util.List<per.kirito.pack.pojo.Pack>
 	 **/
 	List<Pack> getAdminIsPick(String card);
 
 	/**
-	 * @Description: 根据Admin编号查询出所在驿站未取快递集合
+	 * @Description: 根据 Admin 编号查询出所在驿站未取快递集合
 	 * @Param: [card]
 	 * @Return: java.util.List<per.kirito.pack.pojo.Pack>
 	 **/

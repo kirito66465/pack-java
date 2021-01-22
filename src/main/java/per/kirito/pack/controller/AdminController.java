@@ -12,7 +12,7 @@ import java.util.Map;
  * @author kirito
  * @version 1.0
  * @date 2020/12/11 20:11
- * @description: Admin的Controller层
+ * @description: Admin 的 Controller 层
  */
 @RestController
 @RequestMapping(value = "/admin")
@@ -23,7 +23,7 @@ public class AdminController {
 	private AccountService<Admin> accountService;
 
 	/**
-	 * @Description: Admin登录
+	 * @Description: Admin 登录
 	 * @Param: [card, password]
 	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/
@@ -35,7 +35,7 @@ public class AdminController {
 	}
 
 	/**
-	 * @Description: Admin退出登录
+	 * @Description: Admin 退出登录
 	 * @Param: []
 	 * @Return: java.lang.String
 	 **/
@@ -46,7 +46,7 @@ public class AdminController {
 	}
 
 	/**
-	 * @Description: 获取Admin信息
+	 * @Description: 获取 Admin 信息
 	 * @Param: []
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
@@ -72,7 +72,7 @@ public class AdminController {
 	}
 
 	/**
-	 * @Description: 更新Admin信息
+	 * @Description: 更新 Admin 信息
 	 * @Param: [name, phone, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/

@@ -14,7 +14,7 @@ import java.util.Map;
  * @Author: kirito
  * @Date: 2021/1/8
  * @Time: 16:26
- * @description: 验证码的controller层
+ * @description: 验证码的 controller 层
  */
 @RestController
 public class CheckCodeController {

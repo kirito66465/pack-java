@@ -9,7 +9,7 @@ import java.util.Map;
  * @Author: kirito
  * @Date: 2021/1/4
  * @Time: 15:52
- * @description:
+ * @description: 寄件 Send 的Service 层接口
  */
 public interface SendService {
 

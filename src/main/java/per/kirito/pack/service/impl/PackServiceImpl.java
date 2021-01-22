@@ -8,10 +8,10 @@ import per.kirito.pack.mapper.AdminMapper;
 import per.kirito.pack.mapper.CodeMapper;
 import per.kirito.pack.mapper.PackMapper;
 import per.kirito.pack.mapper.UserMapper;
-import per.kirito.pack.other.myEnum.Status;
-import per.kirito.pack.other.util.PackUtil;
-import per.kirito.pack.other.util.PickCodeUtil;
-import per.kirito.pack.other.util.TypeConversion;
+import per.kirito.pack.myEnum.Status;
+import per.kirito.pack.util.PackUtil;
+import per.kirito.pack.util.PickCodeUtil;
+import per.kirito.pack.util.TypeConversion;
 import per.kirito.pack.pojo.*;
 import per.kirito.pack.pojo.utilPojo.PackResult;
 import per.kirito.pack.pojo.utilPojo.Page;
@@ -24,7 +24,7 @@ import java.util.*;
  * @Author: kirito
  * @Date: 2020/12/23
  * @Time: 15:36
- * @description: Pack的Service层，PackService接口的实现类
+ * @description: Pack 的 Service 层，PackService 接口的实现类
  */
 @Service
 public class PackServiceImpl implements PackService {
@@ -146,7 +146,7 @@ public class PackServiceImpl implements PackService {
 	}
 
 	/**
-	 * @Description: User进行取件，必须传入驿站地址和取件码
+	 * @Description: User 进行取件，必须传入驿站地址和取件码
 	 * @Param: [id, code]
 	 * @Return: java.lang.String
 	 **/
@@ -214,7 +214,7 @@ public class PackServiceImpl implements PackService {
 	}
 
 	/**
-	 * @Description: Admin进行取件，仅传入快递单号即可
+	 * @Description: Admin 进行取件，仅传入快递单号即可
 	 * @Param: [id, token]
 	 * @Return: java.lang.String
 	 **/
@@ -299,11 +299,11 @@ public class PackServiceImpl implements PackService {
 
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
-	 * User相关
+	 * User 相关
 	 **/
 
 	/**
-	 * @Description: 分页获取User所有的快递，包括已取出和未取出的快递；如果没有token令牌，则返回获取信息失败
+	 * @Description: 分页获取 User 所有的快递，包括已取出和未取出的快递；如果没有 token 令牌，则返回获取信息失败
 	 * @Param: [currentPage, pageSize, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
@@ -326,7 +326,7 @@ public class PackServiceImpl implements PackService {
 	}
 
 	/**
-	 * @Description: 分页获取User已取出的快递；如果没有token令牌，则返回获取信息失败
+	 * @Description: 分页获取 User 已取出的快递；如果没有 token 令牌，则返回获取信息失败
 	 * @Param: [currentPage, pageSize, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
@@ -349,7 +349,7 @@ public class PackServiceImpl implements PackService {
 	}
 
 	/**
-	 * @Description: 分页获取User所未取出的快递， 无论有无取件码；如果没有token令牌，则返回获取信息失败
+	 * @Description: 分页获取 User 所未取出的快递， 无论有无取件码；如果没有 token 令牌，则返回获取信息失败
 	 * @Param: [currentPage, pageSize, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
@@ -372,7 +372,7 @@ public class PackServiceImpl implements PackService {
 	}
 
 	/**
-	 * @Description: 获取User所有快递总数、已取快递数量、未取快递数量
+	 * @Description: 获取 User 所有快递总数、已取快递数量、未取快递数量
 	 * @Param: [token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
@@ -399,11 +399,11 @@ public class PackServiceImpl implements PackService {
 
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
-	 * Admin相关
+	 * Admin 相关
 	 **/
 
 	/**
-	 * @Description: 分页获取Admin所有的快递，包括已取出和未取出的快递；如果没有token令牌，则返回获取信息失败
+	 * @Description: 分页获取 Admin 所有的快递，包括已取出和未取出的快递；如果没有 token 令牌，则返回获取信息失败
 	 * @Param: [currentPage, pageSize, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
@@ -427,7 +427,7 @@ public class PackServiceImpl implements PackService {
 	}
 
 	/**
-	 * @Description: 分页获取当前驿站的已取出快递；如果没有token令牌，则返回获取信息失败
+	 * @Description: 分页获取当前驿站的已取出快递；如果没有 token 令牌，则返回获取信息失败
 	 * @Param: [currentPage, pageSize, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
@@ -450,7 +450,7 @@ public class PackServiceImpl implements PackService {
 	}
 
 	/**
-	 * @Description: 分页获取当前驿站的未取出快递，无论有无取件码；如果没有token令牌，则返回获取信息失败
+	 * @Description: 分页获取当前驿站的未取出快递，无论有无取件码；如果没有 token令 牌，则返回获取信息失败
 	 * @Param: [currentPage, pageSize, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
@@ -473,7 +473,7 @@ public class PackServiceImpl implements PackService {
 	}
 
 	/**
-	 * @Description: 获取Admin所有快递总数、已取快递数量、未取快递数量
+	 * @Description: 获取 Admin 所有快递总数、已取快递数量、未取快递数量
 	 * @Param: [token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/

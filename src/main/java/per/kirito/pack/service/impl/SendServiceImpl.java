@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import per.kirito.pack.mapper.SendMapper;
 import per.kirito.pack.mapper.UserMapper;
-import per.kirito.pack.other.myEnum.Status;
-import per.kirito.pack.other.util.SendUtil;
-import per.kirito.pack.other.util.TypeConversion;
+import per.kirito.pack.myEnum.Status;
+import per.kirito.pack.util.SendUtil;
+import per.kirito.pack.util.TypeConversion;
 import per.kirito.pack.pojo.Send;
 import per.kirito.pack.pojo.User;
 import per.kirito.pack.pojo.utilPojo.Page;
@@ -24,7 +24,7 @@ import java.util.Map;
  * @Author: kirito
  * @Date: 2021/1/4
  * @Time: 15:53
- * @description:
+ * @description: 寄件 Send 的Service 层
  */
 @Service
 public class SendServiceImpl implements SendService {
@@ -51,11 +51,11 @@ public class SendServiceImpl implements SendService {
 
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
-	 * User相关
+	 * User 相关
 	 **/
 
 	/**
-	 * @Description: User寄件下单
+	 * @Description: User 寄件下单
 	 * @Param: [request]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
@@ -103,7 +103,7 @@ public class SendServiceImpl implements SendService {
 	}
 
 	/**
-	 * @Description: User支付寄件
+	 * @Description: User 支付寄件
 	 * @Param: [id, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
@@ -128,7 +128,7 @@ public class SendServiceImpl implements SendService {
 	}
 
 	/**
-	 * @Description: Admin确认寄件
+	 * @Description: Admin 确认寄件
 	 * @Param: [id, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/
@@ -153,7 +153,7 @@ public class SendServiceImpl implements SendService {
 	}
 
 	/**
-	 * @Description: Admin发出寄件
+	 * @Description: Admin 发出寄件
 	 * @Param: [id, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/
@@ -178,7 +178,7 @@ public class SendServiceImpl implements SendService {
 	}
 
 	/**
-	 * @Description: User取消寄件
+	 * @Description: User 取消寄件
 	 * @Param: [id, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/
@@ -202,7 +202,7 @@ public class SendServiceImpl implements SendService {
 	}
 
 	/**
-	 * @Description: 分页方式获取User寄件集合
+	 * @Description: 分页方式获取 User 寄件集合
 	 * @Param: [currentPage, pageSize, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
@@ -227,7 +227,7 @@ public class SendServiceImpl implements SendService {
 	}
 
 	/**
-	 * @Description: 获取User寄件数量
+	 * @Description: 获取 User 寄件数量
 	 * @Param: [token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
@@ -252,11 +252,11 @@ public class SendServiceImpl implements SendService {
 
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
-	 * Admin相关
+	 * Admin 相关
 	 **/
 
 	/**
-	 * @Description: 分页方式获取Admin寄件集合
+	 * @Description: 分页方式获取 Admin 寄件集合
 	 * @Param: [currentPage, pageSize, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
@@ -283,7 +283,7 @@ public class SendServiceImpl implements SendService {
 	}
 
 	/**
-	 * @Description: 获取Admin寄件数量
+	 * @Description: 获取 Admin 寄件数量
 	 * @Param: [token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/

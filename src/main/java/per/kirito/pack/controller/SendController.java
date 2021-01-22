@@ -12,7 +12,7 @@ import java.util.Map;
  * @Author: kirito
  * @Date: 2021/1/4
  * @Time: 15:51
- * @description:
+ * @description: 寄件 Send 的 controller 层
  */
 @RestController
 @RequestMapping(value = "/send")
@@ -22,7 +22,7 @@ public class SendController {
 
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
-	 * User相关
+	 * User 相关
 	 **/
 
 	/**
@@ -38,7 +38,7 @@ public class SendController {
 	}
 
 	/**
-	 * @Description: User支付寄件
+	 * @Description: User 支付寄件
 	 * @Param: [id, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
@@ -50,7 +50,7 @@ public class SendController {
 	}
 
 	/**
-	 * @Description: Admin确认寄件
+	 * @Description: Admin 确认寄件
 	 * @Param: [id, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/
@@ -62,7 +62,7 @@ public class SendController {
 	}
 	
 	/**
-	 * @Description: Admin发出寄件
+	 * @Description: Admin 发出寄件
 	 * @Param: [id, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/
@@ -74,7 +74,7 @@ public class SendController {
 	}
 
 	/**
-	 * @Description: User取消寄件
+	 * @Description: User 取消寄件
 	 * @Param: [id, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/
@@ -86,7 +86,7 @@ public class SendController {
 	}
 
 	/**
-	 * @Description: 分页方式获取User寄件集合
+	 * @Description: 分页方式获取 User 寄件集合
 	 * @Param: [currentPage, pageSize, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
@@ -99,7 +99,7 @@ public class SendController {
 	}
 
 	/**
-	 * @Description: 获取User寄件数量
+	 * @Description: 获取 User 寄件数量
 	 * @Param: [token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
@@ -111,11 +111,11 @@ public class SendController {
 
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
-	 * Admin相关
+	 * Admin 相关
 	 **/
 
 	/**
-	 * @Description: 分页方式获取Admin寄件集合
+	 * @Description: 分页方式获取 Admin 寄件集合
 	 * @Param: [currentPage, pageSize, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
@@ -128,7 +128,7 @@ public class SendController {
 	}
 
 	/**
-	 * @Description: 获取Admin寄件数量
+	 * @Description: 获取 Admin 寄件数量
 	 * @Param: [token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/

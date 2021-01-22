@@ -1,11 +1,11 @@
-package per.kirito.pack.other.util;
+package per.kirito.pack.util;
 
 /**
  * @version 1.0
  * @Author: kirito
  * @Date: 2020/12/23
  * @Time: 16:12
- * @description: 取件码工具类，从1-1-1到20-6-20一共2400件快递有取件码
+ * @description: 取件码工具类，从 1-1-1 到 20-6-20 一共2400件快递有取件码
  */
 public class PickCodeUtil {
 

@@ -12,7 +12,7 @@ import java.util.Map;
  * @author kirito
  * @version 1.0
  * @date 2020/12/4 21:04
- * @description: User的Controller层
+ * @description: User 的 Controller 层
  */
 @RestController
 @RequestMapping(value = "/user")
@@ -23,7 +23,7 @@ public class UserController {
 	private AccountService<User> accountService;
 
 	/**
-	 * @Description: User登录
+	 * @Description: User 登录
 	 * @Param: [card, password]
 	 * @Return: java.lang.String
 	 **/
@@ -35,7 +35,7 @@ public class UserController {
 	}
 
 	/**
-	 * @Description: User退出登录
+	 * @Description: User 退出登录
 	 * @Param: []
 	 * @Return: java.lang.String
 	 **/
@@ -46,7 +46,7 @@ public class UserController {
 	}
 
 	/**
-	 * @Description: 获取User信息
+	 * @Description: 获取 User 信息
 	 * @Param: []
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
@@ -57,7 +57,7 @@ public class UserController {
 	}
 
 	/**
-	 * @Description: User注册
+	 * @Description: User 注册
 	 * @Param: [user]
 	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/
@@ -68,7 +68,7 @@ public class UserController {
 	}
 
 	/**
-	 * @Description: User忘记密码
+	 * @Description: User 忘记密码
 	 * @Param: [card, phone, password]
 	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/

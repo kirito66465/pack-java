@@ -11,7 +11,7 @@ import java.util.Map;
  * @Author: kirito
  * @Date: 2020/12/23
  * @Time: 15:19
- * @description: Pack的Controller层
+ * @description: Pack 的 Controller 层
  */
 @RestController
 @RequestMapping(value = "/pack")
@@ -33,7 +33,7 @@ public class PackController {
 	}
 
 	/**
-	 * @Description: User进行取件请求，必须传入驿站地址和取件码
+	 * @Description: User 进行取件请求，必须传入驿站地址和取件码
 	 * @Param: [id, code]
 	 * @Return: java.lang.String
 	 **/
@@ -46,7 +46,7 @@ public class PackController {
 	}
 	
 	/**
-	 * @Description: Admin进行取件请求，仅传入快递单号即可
+	 * @Description: Admin 进行取件请求，仅传入快递单号即可
 	 * @Param: [id]
 	 * @Return: java.lang.String
 	 **/
@@ -71,11 +71,11 @@ public class PackController {
 
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
-	 * User相关
+	 * User 相关
 	 **/
 
 	/**
-	 * @Description: 分页获取User所有的快递，包括已取出和未取出的快递；如果没有token令牌，则返回获取信息失败
+	 * @Description: 分页获取 User 所有的快递，包括已取出和未取出的快递；如果没有 token 令牌，则返回获取信息失败
 	 * @Param: [currentPage, pageSize, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
@@ -88,7 +88,7 @@ public class PackController {
 	}
 
 	/**
-	 * @Description: 分页获取User的已取出快递；如果没有token令牌，则返回获取信息失败
+	 * @Description: 分页获取 User 的已取出快递；如果没有 token 令牌，则返回获取信息失败
 	 * @Param: [currentPage, pageSize, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
@@ -101,7 +101,7 @@ public class PackController {
 	}
 
 	/**
-	 * @Description: 分页获取User的未取出快递，无论其有无取件码；如果没有token令牌，则返回获取信息失败
+	 * @Description: 分页获取 User 的未取出快递，无论其有无取件码；如果没有 token 令牌，则返回获取信息失败
 	 * @Param: [currentPage, pageSize, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
@@ -114,7 +114,7 @@ public class PackController {
 	}
 
 	/**
-	 * @Description: 获取User所有快递总数、已取快递数量、未取快递数量
+	 * @Description: 获取 User 所有快递总数、已取快递数量、未取快递数量
 	 * @Param: [token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
@@ -126,11 +126,11 @@ public class PackController {
 
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
-	 * Admin相关
+	 * Admin 相关
 	 **/
 
 	/**
-	 * @Description: 分页获取Admin所有的快递，包括已取出和未取出的快递；如果没有token令牌，则返回获取信息失败
+	 * @Description: 分页获取 Admin 所有的快递，包括已取出和未取出的快递；如果没有 token令 牌，则返回获取信息失败
 	 * @Param: [currentPage, pageSize, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
@@ -143,7 +143,7 @@ public class PackController {
 	}
 
 	/**
-	 * @Description: 分页获取Admin的已取出快递；如果没有token令牌，则返回获取信息失败
+	 * @Description: 分页获取 Admin 的已取出快递；如果没有 token 令牌，则返回获取信息失败
 	 * @Param: [currentPage, pageSize, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
@@ -156,7 +156,7 @@ public class PackController {
 	}
 
 	/**
-	 * @Description: 分页获取Admin的未取出快递，无论其有无取件码；如果没有token令牌，则返回获取信息失败
+	 * @Description: 分页获取 Admin 的未取出快递，无论其有无取件码；如果没有 token 令牌，则返回获取信息失败
 	 * @Param: [currentPage, pageSize, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/
@@ -169,7 +169,7 @@ public class PackController {
 	}
 
 	/**
-	 * @Description: 获取Admin所有快递总数、已取快递数量、未取快递数量
+	 * @Description: 获取 Admin 所有快递总数、已取快递数量、未取快递数量
 	 * @Param: [token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
 	 **/

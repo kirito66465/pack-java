@@ -33,7 +33,7 @@
 		WHERE id = #{id}
 	</update>
 
-	<!-- 获取User的寄件集合 -->
+	<!-- 获取 User 的寄件集合 -->
 	<select id="getSendByUser" parameterType="String" resultType="Send">
 		SELECT from_name, from_tel, from_addr
 			, to_name, to_tel, to_addr, price
@@ -46,7 +46,7 @@
 		)
 	</select>
 
-	<!-- 获取Admin的寄件集合 -->
+	<!-- 获取 Admin 的寄件集合 -->
 	<select id="getSendByAdmin" parameterType="String" resultType="Send">
 		SELECT from_name, from_tel, from_addr
 			, to_name, to_tel, to_addr, price
@@ -55,7 +55,7 @@
 		WHERE org = #{org}
 	</select>
 
-	<!-- 传入状态，获取User的该状态寄件数量 -->
+	<!-- 传入状态，获取 User 的该状态寄件数量 -->
 	<select id="getUserTotal" resultType="Integer">
 		SELECT count(*)
 		FROM t_send
@@ -67,7 +67,7 @@
 		)
 	</select>
 
-	<!-- 传入状态，获取Admin的该状态寄件数量 -->
+	<!-- 传入状态，获取 Admin 的该状态寄件数量 -->
 	<select id="getAdminTotal" resultType="Integer">
 		SELECT count(*)
 		FROM t_send

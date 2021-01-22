@@ -1,4 +1,4 @@
-package per.kirito.pack.other.util;
+package per.kirito.pack.util;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -56,7 +56,7 @@ public class CheckCodeUtil {
 	}
 
 	/**
-	 * @Description: 获取随机颜色的RGB值
+	 * @Description: 获取随机颜色的 RGB 值
 	 * @Param: []
 	 * @Return: int[]
 	 **/
@@ -79,7 +79,7 @@ public class CheckCodeUtil {
 	}
 
 	/**
-	 * @Description: x轴方向扭曲
+	 * @Description: x 轴方向扭曲
 	 * @Param: [g, w1, h1, color]
 	 * @Return: void
 	 **/
@@ -101,7 +101,7 @@ public class CheckCodeUtil {
 	}
 
 	/**
-	 * @Description: y轴方向扭曲
+	 * @Description: y 轴方向扭曲
 	 * @Param: [g, w1, h1, color]
 	 * @Return: void
 	 **/
@@ -148,7 +148,7 @@ public class CheckCodeUtil {
 	}
 
 	/**
-	 * @Description: Base64编码的验证码图片
+	 * @Description: Base64 编码的验证码图片
 	 * @Param: [w, h, code]
 	 * @Return: java.lang.String
 	 **/
@@ -217,7 +217,7 @@ public class CheckCodeUtil {
 	}
 
 	/**
-	 * @Description: 将Base64位编码的图片进行解码，并保存到指定目录
+	 * @Description: 将 Base64 位编码的图片进行解码，并保存到指定目录
 	 * @Param: [base64]
 	 * @Return: void
 	 **/

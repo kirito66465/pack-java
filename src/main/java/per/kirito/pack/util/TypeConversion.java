@@ -1,4 +1,4 @@
-package per.kirito.pack.other.util;
+package per.kirito.pack.util;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -30,7 +30,7 @@ public class TypeConversion {
 	}
 
 	/**
-	 * @Description: 采用Base64加密
+	 * @Description: 采用 Base64 加密
 	 * @Param: [input]
 	 * @Return: java.lang.String
 	 **/
@@ -47,7 +47,7 @@ public class TypeConversion {
 	}
 
 	/**
-	 * @Description: 采用Base64解密
+	 * @Description: 采用 Base64 解密
 	 * @Param: [input]
 	 * @Return: byte[]
 	 **/
@@ -64,7 +64,7 @@ public class TypeConversion {
 	}
 
 	/**
-	 * @Description: MD5加密字符串，不可逆
+	 * @Description: MD5 加密字符串，不可逆
 	 * @Param: [plainText]
 	 * @Return: java.lang.String
 	 **/

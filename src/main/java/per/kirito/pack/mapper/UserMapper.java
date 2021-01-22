@@ -10,7 +10,7 @@ import java.util.Map;
  * @author kirito
  * @version 1.0
  * @date 2020/12/4 21:00
- * @description: User的Mapper层接口
+ * @description: User 的 Mapper 层接口
  */
 @Repository
 public interface UserMapper {
@@ -23,63 +23,63 @@ public interface UserMapper {
 	int login(@Param("card") String card, @Param("password") String password);
 
 	/**
-	 * @Description: 根据card查询出该User信息
+	 * @Description: 根据 card 查询出该 User 信息
 	 * @Param: [card]
 	 * @Return: per.kirito.pack.pojo.User
 	 **/
 	User getUserById(String card);
 
 	/**
-	 * @Description: 根据phone查询出该User信息
+	 * @Description: 根据 phone 查询出该 User 信息
 	 * @Param: [phone]
 	 * @Return: per.kirito.pack.pojo.User
 	 **/
 	User getUserByPhone(String phone);
 
 	/**
-	 * @Description: User注册
+	 * @Description: User 注册
 	 * @Param: [user]
 	 * @Return: int
 	 **/
 	int register(User user);
 
 	/**
-	 * @Description: User忘记密码以进行密码重置
+	 * @Description: User 忘记密码以进行密码重置
 	 * @Param: [card, password, phone]
 	 * @Return: int
 	 **/
 	int forgetPwd(@Param("card") String card, @Param("password") String password, @Param("phone") String phone);
 
 	/**
-	 * @Description: User修改密码
+	 * @Description: User 修改密码
 	 * @Param: [card, oldPwd, newPwd]
 	 * @Return: int
 	 **/
 	int resetPwd(@Param("card") String card, @Param("oldPwd") String oldPwd, @Param("newPwd") String newPwd);
 
 	/**
-	 * @Description: User更新信息
+	 * @Description: User 更新信息
 	 * @Param: [card, name, addr, mail]
 	 * @Return: int
 	 **/
 	int updateInfo(@Param("card") String card, @Param("name") String name, @Param("addr") String addr, @Param("mail") String mail);
 
 	/**
-	 * @Description: 随机获取一个User信息
+	 * @Description: 随机获取一个 User 信息
 	 * @Param: []
 	 * @Return: per.kirito.pack.pojo.User
 	 **/
 	User getUserByRand();
 
 	/**
-	 * @Description: 更新count数-1
+	 * @Description: 更新 count 数-1
 	 * @Param: [id]
 	 * @Return: int
 	 **/
 	int updateCountLessByPackId(String id);
 
 	/**
-	 * @Description: 更新count数+1
+	 * @Description: 更新 count 数+1
 	 * @Param: [id]
 	 * @Return: int
 	 **/

@@ -8,7 +8,7 @@ import per.kirito.pack.pojo.Code;
  * @Author: kirito
  * @Date: 2020/12/23
  * @Time: 17:21
- * @description: Code的Mapper层接口
+ * @description: Code 的 Mapper 层接口
  */
 @Repository
 public interface CodeMapper {
@@ -21,7 +21,7 @@ public interface CodeMapper {
 	int findMaxCode(Code code);
 
 	/**
-	 * @Description: 更新Code
+	 * @Description: 更新 Code
 	 * @Param: [code]
 	 * @Return: int
 	 **/

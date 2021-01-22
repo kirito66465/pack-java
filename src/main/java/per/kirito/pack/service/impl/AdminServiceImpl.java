@@ -5,7 +5,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import per.kirito.pack.mapper.AdminMapper;
-import per.kirito.pack.other.myEnum.Status;
+import per.kirito.pack.myEnum.Status;
 import per.kirito.pack.pojo.Admin;
 import per.kirito.pack.service.inter.AccountService;
 
@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  * @Author: kirito
  * @Date: 2020/12/28
  * @Time: 16:02
- * @description: Admin的Service层，是AccountService的泛型接口实现
+ * @description: Admin 的 Service 层，是 AccountService 的泛型接口实现
  */
 @Service
 public class AdminServiceImpl<E> implements AccountService<E> {
@@ -174,7 +174,7 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 	}
 
 	/**
-	 * @Description: 更新Admin信息
+	 * @Description: 更新 Admin 信息
 	 * @Param: [name, phone, mail, token]
 	 * @Return: java.util.Map<java.lang.String,java.lang.String>
 	 **/

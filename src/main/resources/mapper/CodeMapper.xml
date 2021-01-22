@@ -15,7 +15,7 @@
 		AND free = ""
 	</select>
 
-	<!-- 更新Code -->
+	<!-- 更新 Code -->
 	<update id="updateCode" parameterType="Code">
 		UPDATE t_code
 		SET status = #{status}

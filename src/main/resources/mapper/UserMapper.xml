@@ -14,21 +14,21 @@
 		AND password = #{password}
 	</select>
 
-	<!-- 根据card查询出该User信息 -->
+	<!-- 根据 card 查询出该 User 信息 -->
 	<select id="getUserById" parameterType="String" resultType="User">
 		SELECT t.card, t.password, t.phone, t.name, t.addr, t.count, t.mail
 		FROM t_user t
 		WHERE card = #{card}
 	</select>
 
-	<!-- 根据phone查询出该User信息 -->
+	<!-- 根据 phone 查询出该 User 信息 -->
 	<select id="getUserByPhone" parameterType="String" resultType="User">
 		SELECT t.card, t.password, t.phone, t.name, t.addr, t.count, t.mail
 		FROM t_user t
 		WHERE phone = #{phone}
 	</select>
 
-	<!-- User注册 -->
+	<!-- User 注册 -->
 	<insert id="register" parameterType="User">
 		INSERT INTO t_user (
 			card, password, phone, name, addr, count, mail
@@ -37,7 +37,7 @@
 		)
 	</insert>
 
-	<!-- User忘记密码以进行密码重置 -->
+	<!-- User 忘记密码以进行密码重置 -->
 	<update id="forgetPwd">
 		UPDATE t_user
 		SET password = #{password}
@@ -45,7 +45,7 @@
 		AND phone = #{phone}
 	</update>
 
-	<!-- User修改密码 -->
+	<!-- User 修改密码 -->
 	<update id="resetPwd">
 		UPDATE t_user
 		SET password = #{newPwd}
@@ -53,7 +53,7 @@
 		AND password = #{oldPwd}
 	</update>
 
-	<!-- User更新信息 -->
+	<!-- User 更新信息 -->
 	<update id="updateInfo">
 		UPDATE t_user
 		SET name = #{name}
@@ -62,7 +62,7 @@
 		WHERE card = #{card}
 	</update>
 
-	<!-- 随机获取一个User信息 -->
+	<!-- 随机获取一个 User 信息 -->
 	<select id="getUserByRand" resultType="User">
 		SELECT card, password, phone, name, addr, count, mail
 		FROM t_user
@@ -70,7 +70,7 @@
 		LIMIT 1
 	</select>
 
-	<!-- 更新count数-1 -->
+	<!-- 更新 count 数-1 -->
 	<update id="updateCountLessByPackId" parameterType="String">
 		UPDATE t_user
 		SET count = count - 1
@@ -81,7 +81,7 @@
 		)
 	</update>
 
-	<!-- 更新count数+1 -->
+	<!-- 更新 count 数+1 -->
 	<update id="updateCountPlusByPackId" parameterType="String">
 		UPDATE t_user
 		SET count = count + 1

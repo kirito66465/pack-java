@@ -1,7 +1,7 @@
-package per.kirito.pack.other.util;
+package per.kirito.pack.util;
 
-import per.kirito.pack.other.myEnum.Express;
-import per.kirito.pack.other.myEnum.Status;
+import per.kirito.pack.myEnum.Express;
+import per.kirito.pack.myEnum.Status;
 import per.kirito.pack.pojo.Pack;
 import per.kirito.pack.pojo.utilPojo.PackResult;
 import per.kirito.pack.pojo.utilPojo.Page;
@@ -57,57 +57,57 @@ public class PackUtil {
 		String id = idAll.substring(0, 2);
 		String org = "";
 		String addr = "";
-		String cont_per = "";
-		String cont_tel = "";
+		String contPer = "";
+		String contTel = "";
 		// 根据快递单号前2位获取快递公司和驿站相关信息
 		switch (id) {
 			case "75":
 				org = ZTO;
 				addr = ADDR_ZY;
-				cont_per = CONT_ZY;
-				cont_tel = TEL_ZY;
+				contPer = CONT_ZY;
+				contTel = TEL_ZY;
 				break;
 			case "77":
 				org = STO;
 				addr = ADDR_ZY;
-				cont_per = CONT_ZY;
-				cont_tel = TEL_ZY;
+				contPer = CONT_ZY;
+				contTel = TEL_ZY;
 				break;
 			case "YT":
 				org = YTO;
 				addr = ADDR_ZY;
-				cont_per = CONT_ZY;
-				cont_tel = TEL_ZY;
+				contPer = CONT_ZY;
+				contTel = TEL_ZY;
 				break;
 			case "JD":
 				org = JD;
 				addr = ADDR_XY;
-				cont_per = CONT_XY;
-				cont_tel = TEL_XY;
+				contPer = CONT_XY;
+				contTel = TEL_XY;
 				break;
 			case "SF":
 				org = SF;
 				addr = ADDR_XY;
-				cont_per = CONT_XY;
-				cont_tel = TEL_XY;
+				contPer = CONT_XY;
+				contTel = TEL_XY;
 				break;
 			case "43":
 				org = YD;
 				addr = ADDR_XY;
-				cont_per = CONT_XY;
-				cont_tel = TEL_XY;
+				contPer = CONT_XY;
+				contTel = TEL_XY;
 				break;
 			case "88":
 				org = TT;
 				addr = ADDR_BY;
-				cont_per = CONT_BY;
-				cont_tel = TEL_BY;
+				contPer = CONT_BY;
+				contTel = TEL_BY;
 				break;
 			case "EA":
 				org = EMS;
 				addr = ADDR_BY;
-				cont_per = CONT_BY;
-				cont_tel = TEL_BY;
+				contPer = CONT_BY;
+				contTel = TEL_BY;
 				break;
 			default: break;
 		}
@@ -116,9 +116,9 @@ public class PackUtil {
 		// 添加所在驿站信息
 		pack.setAddr(addr);
 		// 添加驿站联系人信息
-		pack.setCont_name(cont_per);
+		pack.setCont_name(contPer);
 		// 添加驿站联系方式信息
-		pack.setCont_tel(cont_tel);
+		pack.setCont_tel(contTel);
 		// 添加快递状态信息
 		pack = updateStatus(pack, "入站");
 		String time = TypeConversion.getTime();

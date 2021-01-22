@@ -5,7 +5,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import per.kirito.pack.mapper.UserMapper;
-import per.kirito.pack.other.myEnum.Status;
+import per.kirito.pack.myEnum.Status;
 import per.kirito.pack.pojo.User;
 import per.kirito.pack.service.inter.AccountService;
 
@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
  * @Author: kirito
  * @Date: 2020/12/28
  * @Time: 15:24
- * @description: User的Service层，是AccountService的泛型接口实现
+ * @description: User 的 Service 层，是 AccountService 的泛型接口实现
  */
 @Service
 public class UserServiceImpl<E extends User> implements AccountService<E> {

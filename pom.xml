@@ -28,9 +28,24 @@
 		<javax-mail.version>1.6.2</javax-mail.version>
 		<java-activation-framework.version>1.1.1</java-activation-framework.version>
 		<javax-mail.version>1.6.2</javax-mail.version>
+		<jasypt.version>2.1.0</jasypt.version>
 	</properties>
 
 	<dependencies>
+		<!-- Spring Boot Starter 基础依赖 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<!-- 实现对 Jasypt 实现自动化配置 -->
+		<dependency>
+			<groupId>com.github.ulisesbocchio</groupId>
+			<artifactId>jasypt-spring-boot-starter</artifactId>
+			<!-- 注： 必须是V2.1.0版本，V3版本解密后为乱码 -->
+			<version>${jasypt.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jdbc</artifactId>
@@ -50,6 +65,13 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web-services</artifactId>
+		</dependency>
+
+		<!-- Spring Boot 配置处理器 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
 		</dependency>
 
 		<dependency>
@@ -127,6 +149,12 @@
 			<groupId>com.sun.mail</groupId>
 			<artifactId>javax.mail</artifactId>
 			<version>${javax-mail.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 

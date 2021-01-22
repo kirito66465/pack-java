@@ -14,7 +14,7 @@ import java.util.Map;
  * @Author: kirito
  * @Date: 2021/1/12
  * @Time: 14:54
- * @description: Mail的Controller层
+ * @description: Mail 的 Controller 层
  */
 @RestController
 @RequestMapping(value = "mail")

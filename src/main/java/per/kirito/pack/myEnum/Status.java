@@ -1,4 +1,4 @@
-package per.kirito.pack.other.myEnum;
+package per.kirito.pack.myEnum;
 
 /**
  * @version 1.0

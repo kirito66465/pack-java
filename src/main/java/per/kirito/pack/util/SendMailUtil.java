@@ -1,6 +1,9 @@
-package per.kirito.pack.other.util;
+package per.kirito.pack.util;
 
 import com.sun.mail.util.MailSSLSocketFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import per.kirito.pack.properties.MailProperties;
 
 import java.security.GeneralSecurityException;
 import java.util.Properties;
@@ -21,17 +24,21 @@ import javax.mail.internet.MimeMessage;
  * @Time: 14:17
  * @description: 发送邮件工具类
  */
+@Component
 public class SendMailUtil {
-	
-	private static final String MAIL_FROM = "xxx@xx.com";                 // 发件人电子邮箱
-	private static final String MAIL_HOST = "xxxx.xx.xxx";                // 指定发送邮件的主机
-	private static final String PASSWORD = "xxxx";                        // 发件邮箱的密钥授权码
 
-	public static void sendMail(String mail, String addr, String code, String org) throws MessagingException, GeneralSecurityException {
+	@Autowired
+	private MailProperties mailProperties;
+
+	public void sendMail(String mail, String addr, String code, String org) throws MessagingException, GeneralSecurityException {
+		String senderMail = mailProperties.getSenderMail();         // 发件人电子邮箱
+		String mailHost = mailProperties.getHost();                 // 指定发送邮件的主机
+		String password = mailProperties.getPassword();             // 发件邮箱的密钥授权码
+
 		String to = mail;                                           // 收件人电子邮箱
 		// 获取系统属性
 		Properties properties = System.getProperties();
-		properties.setProperty("mail.smtp.host", MAIL_HOST);
+		properties.setProperty("mail.smtp.host", mailHost);
 		properties.put("mail.smtp.auth", "true");
 
 		MailSSLSocketFactory sf = new MailSSLSocketFactory();
@@ -46,14 +53,14 @@ public class SendMailUtil {
 			public PasswordAuthentication getPasswordAuthentication()
 			{
 				//发件人邮件用户名、授权码
-				return new PasswordAuthentication(MAIL_FROM, PASSWORD);
+				return new PasswordAuthentication(senderMail, password);
 			}
 
 		});
 		// 创建默认的 MimeMessage 对象
 		MimeMessage message = new MimeMessage(session);
 		// Set From: 头部头字段
-		message.setFrom(new InternetAddress(MAIL_FROM));
+		message.setFrom(new InternetAddress(senderMail));
 		// Set To: 头部头字段
 		message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 		// Set Subject: 头部头字段
@@ -65,15 +72,7 @@ public class SendMailUtil {
 		// 发送消息
 		Transport.send(message);
 		String dt = TypeConversion.getTime();
-		System.out.println(dt + "\tfrom: " + MAIL_FROM + "\tto: " + mail + "\tsub: " + sub + "\ttext: " + text + "\tSend message successfully....");
-	}
-
-	public static void main(String[] args) {
-		try {
-			sendMail("xxx@xx.com", "中苑", "1-1-01", "中通");
-		} catch (MessagingException | GeneralSecurityException e) {
-			e.printStackTrace();
-		}
+		System.out.println(dt + "\tfrom: " + senderMail + "\tto: " + mail + "\tsub: " + sub + "\ttext: " + text + "\tSend message successfully....");
 	}
 
 }

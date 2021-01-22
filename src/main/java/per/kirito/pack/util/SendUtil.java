@@ -1,6 +1,6 @@
-package per.kirito.pack.other.util;
+package per.kirito.pack.util;
 
-import per.kirito.pack.other.myEnum.Express;
+import per.kirito.pack.myEnum.Express;
 import per.kirito.pack.pojo.Send;
 import per.kirito.pack.pojo.utilPojo.Page;
 
