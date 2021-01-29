@@ -52,7 +52,9 @@ public enum Status {
 	TAKE_SUCCESS(1, "take over", "代取成功"),
 	LOGIN_TO_DO(-1, "please login to operate", "请登录再操作"),
 	CODE_ERR(-1, "check code is wrong", "验证码输入错误"),
+	CODE_INVALID(0, "code has expired", "验证码已过期"),
 	PWD_ERR(-1, "password not same", "原密码输入错误");
+
 
 	private final int code;
 	private final String enMsg;

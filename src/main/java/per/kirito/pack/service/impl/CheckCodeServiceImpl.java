@@ -45,6 +45,7 @@ public class CheckCodeServiceImpl implements CheckCodeService {
 				String tokenCode = token + "-code";
 				// 判断Redis中有无存储
 				if (stringRedisTemplate.hasKey(tokenCode)) {
+					// 当请求新的验证码时，如果旧的验证码存在则删除
 					stringRedisTemplate.delete(tokenCode);
 				}
 				// 将验证码存入Redis，并设置有效期2分钟

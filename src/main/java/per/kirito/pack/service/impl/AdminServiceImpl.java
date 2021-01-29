@@ -53,6 +53,7 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 	private static final String DO_SUCCESS = Status.DO_SUCCESS.getEnMsg();
 	private static final String DO_FAIL = Status.DO_FAIL.getEnMsg();
 	private static final String CODE_ERR = Status.CODE_ERR.getEnMsg();
+	private static final String CODE_INVALID = Status.CODE_INVALID.getEnMsg();
 	private static final String PWD_ERR = Status.PWD_ERR.getEnMsg();
 
 	/**
@@ -147,19 +148,26 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 	public Map<String, String> resetPwd(String card, String oldPwd, String newPwd, String checkCode, String token) {
 		Map<String, String> map = new HashMap<>();
 		try {
-			String code = stringRedisTemplate.opsForValue().get(token + "-code");
 			if (stringRedisTemplate.hasKey(token)) {
-				if (code.equals(checkCode)) {
-					int flag = adminMapper.resetPwd(card, oldPwd, newPwd);
-					if (flag == 1) {
-						map.put("result", PWD_SUCCESS);
+				String tokenCode = token + "-code";
+				if (stringRedisTemplate.hasKey(tokenCode)) {
+					// Redis 中存有验证码，且未过期
+					String code = stringRedisTemplate.opsForValue().get(token + "-code");
+					if (code.equals(checkCode)) {
+						int flag = adminMapper.resetPwd(card, oldPwd, newPwd);
+						if (flag == 1) {
+							map.put("result", PWD_SUCCESS);
+						} else {
+							// 原密码错误，导致成功执行条数不为1
+							map.put("result", PWD_ERR);
+						}
 					} else {
-						// 原密码错误，导致成功执行条数不为1
-						map.put("result", PWD_ERR);
+						// 验证码不正确
+						map.put("result", CODE_ERR);
 					}
 				} else {
-					// 验证码不正确
-					map.put("result", CODE_ERR);
+					// 验证码已过期
+					map.put("result", CODE_INVALID);
 				}
 			} else {
 				// 登录状态失效
