@@ -47,15 +47,21 @@ spring:
     # host: ENC(+kDJuN/UFQEGSUI2DFU+suzObfi+AmeO)
 
     # 本地
-    host: localhost
-    port: 6379
-    database: 0
+    # host: localhost
+    # port: 6379
+    # database: 0
 
-    # redmi虚拟机
+    # redmi 虚拟机
     # host: 192.168.152.100
     # port: 6379
     # database: 0
     # password: kirito
+
+    # aorus 虚拟机
+    host: 192.168.32.101
+    port: 6379
+    database: 0
+    password: kirito
 
 jasypt:
   # jasypt 配置项，对应 JasyptEncryptorConfigurationProperties 配置类
