@@ -26,9 +26,9 @@ public class SendController {
 	 **/
 
 	/**
-	 * @Description: 接收寄件表单中的信息
-	 * @Param: [request]
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 * 接收寄件表单中的信息
+	 * @param request   寄件信息
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 *     返回运费和成功与否消息
 	 **/
 	@CrossOrigin
@@ -38,9 +38,10 @@ public class SendController {
 	}
 
 	/**
-	 * @Description: User 支付寄件
-	 * @Param: [id, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 * User 支付寄件
+	 * @param id    快递单号
+	 * @param token 令牌
+	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/pay")
@@ -50,9 +51,10 @@ public class SendController {
 	}
 
 	/**
-	 * @Description: Admin 确认寄件
-	 * @Param: [id, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 * Admin 确认寄件
+	 * @param id    快递单号
+	 * @param token 令牌
+	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/confirm")
@@ -60,11 +62,12 @@ public class SendController {
 	                                   @RequestParam(value = "token") String token) {
 		return sendService.sendConfirm(id, token);
 	}
-	
+
 	/**
-	 * @Description: Admin 发出寄件
-	 * @Param: [id, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 * Admin 发出寄件
+	 * @param id    快递单号
+	 * @param token 令牌
+	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/out")
@@ -74,9 +77,10 @@ public class SendController {
 	}
 
 	/**
-	 * @Description: User 取消寄件
-	 * @Param: [id, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 * User 取消寄件
+	 * @param id    快递单号
+	 * @param token 令牌
+	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/cancel")
@@ -86,9 +90,11 @@ public class SendController {
 	}
 
 	/**
-	 * @Description: 分页方式获取 User 寄件集合
-	 * @Param: [currentPage, pageSize, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 * 分页方式获取 User 寄件集合
+	 * @param currentPage   当前页
+	 * @param pageSize      每页大小
+	 * @param token         令牌
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/getSendByUser/{currentPage}")
@@ -99,9 +105,9 @@ public class SendController {
 	}
 
 	/**
-	 * @Description: 获取 User 寄件数量
-	 * @Param: [token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 * 获取 User 寄件数量
+	 * @param token 令牌
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/getTotalByUser")
@@ -115,9 +121,11 @@ public class SendController {
 	 **/
 
 	/**
-	 * @Description: 分页方式获取 Admin 寄件集合
-	 * @Param: [currentPage, pageSize, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 * 分页方式获取 Admin 寄件集合
+	 * @param currentPage   当前页
+	 * @param pageSize      每页大小
+	 * @param token         令牌
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/getSendByAdmin/{currentPage}")
@@ -128,9 +136,9 @@ public class SendController {
 	}
 
 	/**
-	 * @Description: 获取 Admin 寄件数量
-	 * @Param: [token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 * 获取 Admin 寄件数量
+	 * @param token 令牌
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/getTotalByAdmin")

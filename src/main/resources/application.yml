@@ -3,17 +3,24 @@ server:
 
 spring:
   datasource:
-    # 阿里云服务器
-    # url: ENC(ty8rPDwzweM5LUAVCB3GSvWcmiO70rAn+FlrGBHRFY0t73hsMUAKhpBWUN+C9aEG1IouwsGEOIoRcG328zTiPveSEBWSp+ZeU15wzxHeAfmIHBR7ollRc4eCBzrnjJs8n5LjSY/Wkr+f4k8d/V34Etsh4KHyJOO0)
-    # username: ENC(2lsXsv6rXC5FGuuhdbFPpw==)
-
     type: com.alibaba.druid.pool.DruidDataSource
     # Druid 扩展属性配置
     druid:
       # 本地
-      url: jdbc:mysql://localhost:3306/package_manage?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
-      username: ENC(3cEAWlera2Z6S4yBwHfmCQ==)
-      password: ENC(S2ievqHIz/xDJuUVZPUMtB+Y5EtFIYoz)
+      url: ENC(XIJ9qpE+IiX+LtR5NDTJKslOt+EZ66KNlzO9gexwQf0DWQZb0lZJWN7KUzv8QXWNP/M30UoYS2lZavAcjF3jwerEPngaKQYbAZ7mYK9izRrJT+OITBfpQKm3KnHQnIJyau5vIabcH6s=)
+      username: ENC(10VxmuDM9NQpaK876a7FMA==)
+      password: ENC(ebx9tXeDRfnrZ+FisGAANOQxJ1OgLKwt)
+
+      # redmi 虚拟机
+#      url: ENC(fnDsTfgcWFYuyVHf/Gy1bhtdXhEpF8uMWcS29j1+OSEgwsFf0gRqMtT9+VR8CdcegV0Pvv2oqmxOQIckwfFGHioOSV3hcB2UUBAgwlDk3m8RaRvQIrgoinu3JtZ0UY6EvWlLmGWu+Fz3obfc7+WyWA==)
+#      username: ENC(Zsqw+dnzdS3aIetZ5C/CYQ==)
+#      password: ENC(Zsqw+dnzdS3aIetZ5C/CYQ==)
+
+      # aorus 虚拟机
+#      url: ENC(DVnCgZZcZJfUo0bhr/XUx1QiPhT0PArik4J9LIR5nfUchk6X5xNn1Wl/S0WjufgSdkF7EHWXqbJNMG1Q+837PCKbTwV5AqV6Hz+LeNmvXfMQ5YOx6E/92K1JhNZ9/7xMgLRkYSbP7wNbUDHx7l+ByA==)
+#      username: ENC(Zsqw+dnzdS3aIetZ5C/CYQ==)
+#      password: ENC(Zsqw+dnzdS3aIetZ5C/CYQ==)
+
       driver-class-name: com.mysql.cj.jdbc.Driver
       # 初始化大小，最小，最大
       initial-size: 5
@@ -43,25 +50,22 @@ spring:
         exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
 
   redis:
-    # 阿里云服务器
-    # host: ENC(+kDJuN/UFQEGSUI2DFU+suzObfi+AmeO)
-
     # 本地
-    # host: localhost
-    # port: 6379
-    # database: 0
+#    host: 127.0.0.1
+#    port: 6379
+#    database: 0
 
     # redmi 虚拟机
-    # host: 192.168.152.100
-    # port: 6379
-    # database: 0
-    # password: kirito
-
-    # aorus 虚拟机
-    host: 192.168.32.101
+    host: ENC(Gl5tR6kwvG0dqKoHeyUtOgyD8ezvLs5N)
     port: 6379
     database: 0
-    password: kirito
+    password: ENC(4+KizEi40PUvDKznYjgigg==)
+
+    # aorus 虚拟机
+#    host: ENC(Gry9OmgcqdnhjUZ1ZsOYI6fbS0UbueAS)
+#    port: 6379
+#    database: 0
+#    password: ENC(4+KizEi40PUvDKznYjgigg==)
 
 jasypt:
   # jasypt 配置项，对应 JasyptEncryptorConfigurationProperties 配置类
@@ -77,6 +81,8 @@ mybatis:
   config-location: classpath:conf/mybatis-config.xml    # MyBatis 配置文件路径
   mapper-locations: classpath:mapper/*.xml              # Mapper.xml 地址
   type-aliases-package: per.kirito.pack.pojo            # 数据库实体类包路径
+#  configuration:
+#    map-underscore-to-camel-case: true                  # 开启驼峰转换
 
 pagehelper:
   # 配置使用的数据库语言

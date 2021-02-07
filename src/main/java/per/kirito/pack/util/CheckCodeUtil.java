@@ -23,9 +23,10 @@ public class CheckCodeUtil {
 	private static Random random = new Random();
 
 	/**
-	 * @Description: 获取随机颜色
-	 * @Param: [fc, bc]
-	 * @Return: java.awt.Color
+	 * 获取随机颜色
+	 * @param fc    最小值
+	 * @param bc    最大色
+	 * @return java.awt.Color
 	 **/
 	private static Color getRandColor(int fc, int bc) {
 		if (fc > 255) {
@@ -41,9 +42,8 @@ public class CheckCodeUtil {
 	}
 
 	/**
-	 * @Description: 获取随机颜色的整型值
-	 * @Param: []
-	 * @Return: int
+	 * 获取随机颜色的整型值
+	 * @return int
 	 **/
 	private static int getRandomIntColor() {
 		int[] rgb = getRandomRgb();
@@ -56,9 +56,8 @@ public class CheckCodeUtil {
 	}
 
 	/**
-	 * @Description: 获取随机颜色的 RGB 值
-	 * @Param: []
-	 * @Return: int[]
+	 * 获取随机颜色的 RGB 值
+	 * @return int[]
 	 **/
 	private static int[] getRandomRgb() {
 		int[] rgb = new int[3];
@@ -69,9 +68,12 @@ public class CheckCodeUtil {
 	}
 
 	/**
-	 * @Description: 图片扭曲
-	 * @Param: [g, w1, h1, color]
-	 * @Return: void
+	 * 图片扭曲
+	 * @param g     图形
+	 * @param w1    横轴扭曲像素
+	 * @param h1    纵轴扭曲像素
+	 * @param color 颜色
+	 * @return void
 	 **/
 	private static void shear(Graphics g, int w1, int h1, Color color) {
 		shearX(g, w1, h1, color);
@@ -79,9 +81,12 @@ public class CheckCodeUtil {
 	}
 
 	/**
-	 * @Description: x 轴方向扭曲
-	 * @Param: [g, w1, h1, color]
-	 * @Return: void
+	 * x 轴方向扭曲
+	 * @param g     图形
+	 * @param w1    横轴扭曲像素
+	 * @param h1    纵轴扭曲像素
+	 * @param color 颜色
+	 * @return void
 	 **/
 	private static void shearX(Graphics g, int w1, int h1, Color color) {
 		int period = random.nextInt(2);
@@ -101,9 +106,12 @@ public class CheckCodeUtil {
 	}
 
 	/**
-	 * @Description: y 轴方向扭曲
-	 * @Param: [g, w1, h1, color]
-	 * @Return: void
+	 * y 轴方向扭曲
+	 * @param g     图形
+	 * @param w1    横轴扭曲像素
+	 * @param h1    纵轴扭曲像素
+	 * @param color 颜色
+	 * @return void
 	 **/
 	private static void shearY(Graphics g, int w1, int h1, Color color) {
 		int period = random.nextInt(40) + 10; // 50;
@@ -123,9 +131,9 @@ public class CheckCodeUtil {
 	}
 
 	/**
-	 * @Description: 生成指定长度的随机数字和字母
-	 * @Param: [length]
-	 * @Return: java.lang.String
+	 * 生成指定长度的随机数字和字母
+	 * @param length    验证码长度
+	 * @return java.lang.String
 	 **/
 	public static String getStringRandom(int length) {
 		String val = "";
@@ -148,9 +156,11 @@ public class CheckCodeUtil {
 	}
 
 	/**
-	 * @Description: Base64 编码的验证码图片
-	 * @Param: [w, h, code]
-	 * @Return: java.lang.String
+	 * 获取 Base64 编码的验证码图片
+	 * @param w     图片宽度
+	 * @param h     图片高度
+	 * @param code  验证码
+	 * @return java.lang.String
 	 **/
 	public static String imageToBase64(int w, int h, String code) throws Exception {
 		int verifySize = code.length();
@@ -217,9 +227,8 @@ public class CheckCodeUtil {
 	}
 
 	/**
-	 * @Description: 将 Base64 位编码的图片进行解码，并保存到指定目录
-	 * @Param: [base64]
-	 * @Return: void
+	 * 将 Base64 位编码的图片进行解码，并保存到指定目录
+	 * @param base64    Base64 编码的验证码图片
 	 **/
 	public static void base64ToImage(String base64) {
 		BASE64Decoder decoder = new BASE64Decoder();

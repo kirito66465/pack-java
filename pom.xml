@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>per.kirito</groupId>
 	<artifactId>pack</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>war</packaging>
 	<name>pack</name>
 	<description>Package manage project for Spring Boot</description>
@@ -92,13 +92,13 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- Spring MVC启动器 -->
+		<!-- Spring MVC 启动器 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-		<!-- MyBatis启动器 -->
+		<!-- MyBatis 启动器 -->
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
@@ -122,13 +122,13 @@
 			<version>${pagehelper.version}</version>
 		</dependency>
 
-		<!-- Redis启动器 -->
+		<!-- Redis 启动器 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
 
-		<!-- druid数据源 -->
+		<!-- druid 数据源 -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
@@ -172,4 +172,17 @@
 		</pluginRepository>
 	</pluginRepositories>
 
+	<repositories>
+		<repository>
+			<id>aliyun</id>
+			<name>aliyun repository</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 </project>

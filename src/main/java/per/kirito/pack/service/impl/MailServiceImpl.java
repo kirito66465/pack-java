@@ -39,9 +39,10 @@ public class MailServiceImpl implements MailService {
 	private static final String LOGIN_TO_DO = Status.LOGIN_TO_DO.getEnMsg();
 
 	/**
-	 * @Description: 根据快递单号查询出收件人邮箱并发送取件通知邮件
-	 * @Param: [id, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 * 根据快递单号查询出收件人邮箱并发送取件通知邮件
+	 * @param id    快递单号
+	 * @param token 令牌
+	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	@Override
 	public Map<String, String> sendMail(String id, String token) {

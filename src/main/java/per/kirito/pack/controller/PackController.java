@@ -21,9 +21,10 @@ public class PackController {
 	private PackService packService;
 
 	/**
-	 * @Description: 驿站管理员添加快递入站
-	 * @Param: [id]
-	 * @Return: java.lang.String
+	 * 驿站管理员添加快递入站
+	 * @param id        快递单号
+	 * @param token     令牌
+	 * @return java.lang.String
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/addPack")
@@ -33,9 +34,11 @@ public class PackController {
 	}
 
 	/**
-	 * @Description: User 进行取件请求，必须传入驿站地址和取件码
-	 * @Param: [id, code]
-	 * @Return: java.lang.String
+	 * User 进行取件请求，必须传入驿站地址和取件码
+	 * @param addr      驿站地址
+	 * @param code      取件码
+	 * @param token     令牌
+	 * @return java.lang.String
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/pickPackByUser")
@@ -44,11 +47,12 @@ public class PackController {
 	                             @RequestParam(value = "token") String token) {
 		return packService.pickPackByUser(addr, code, token);
 	}
-	
+
 	/**
-	 * @Description: Admin 进行取件请求，仅传入快递单号即可
-	 * @Param: [id]
-	 * @Return: java.lang.String
+	 * Admin 进行取件请求，仅传入快递单号即可
+	 * @param id        快递单号
+	 * @param token     令牌
+	 * @return java.lang.String
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/pickPackByAdmin")
@@ -58,9 +62,10 @@ public class PackController {
 	}
 
 	/**
-	 * @Description: 根据快递单号删除此快递
-	 * @Param: [id, token]
-	 * @Return: java.lang.String
+	 * 根据快递单号删除此快递
+	 * @param id        快递单号
+	 * @param token     令牌
+	 * @return java.lang.String
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/deletePack")
@@ -75,9 +80,11 @@ public class PackController {
 	 **/
 
 	/**
-	 * @Description: 分页获取 User 所有的快递，包括已取出和未取出的快递；如果没有 token 令牌，则返回获取信息失败
-	 * @Param: [currentPage, pageSize, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 * 分页获取 User 所有的快递，包括已取出和未取出的快递；如果没有 token 令牌，则返回获取信息失败
+	 * @param currentPage   当前页
+	 * @param pageSize      每页大小
+	 * @param token         令牌
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/getUserPackByPage/{currentPage}")
@@ -88,9 +95,11 @@ public class PackController {
 	}
 
 	/**
-	 * @Description: 分页获取 User 的已取出快递；如果没有 token 令牌，则返回获取信息失败
-	 * @Param: [currentPage, pageSize, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 * 分页获取 User 的已取出快递；如果没有 token 令牌，则返回获取信息失败
+	 * @param currentPage   当前页
+	 * @param pageSize      每页大小
+	 * @param token         令牌
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/getUserIsPick/{currentPage}")
@@ -101,9 +110,11 @@ public class PackController {
 	}
 
 	/**
-	 * @Description: 分页获取 User 的未取出快递，无论其有无取件码；如果没有 token 令牌，则返回获取信息失败
-	 * @Param: [currentPage, pageSize, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 * 分页获取 User 的未取出快递，无论其有无取件码；如果没有 token 令牌，则返回获取信息失败
+	 * @param currentPage   当前页
+	 * @param pageSize      每页大小
+	 * @param token         令牌
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/getUserNoPick/{currentPage}")
@@ -114,9 +125,9 @@ public class PackController {
 	}
 
 	/**
-	 * @Description: 获取 User 所有快递总数、已取快递数量、未取快递数量
-	 * @Param: [token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 * 获取 User 所有快递总数、已取快递数量、未取快递数量
+	 * @param token 令牌
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/getUserTotalNum")
@@ -130,9 +141,11 @@ public class PackController {
 	 **/
 
 	/**
-	 * @Description: 分页获取 Admin 所有的快递，包括已取出和未取出的快递；如果没有 token令 牌，则返回获取信息失败
-	 * @Param: [currentPage, pageSize, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 * 分页获取 Admin 所有的快递，包括已取出和未取出的快递；如果没有 token令 牌，则返回获取信息失败
+	 * @param currentPage   当前页
+	 * @param pageSize      每页大小
+	 * @param token         令牌
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/getAdminPacksByPage/{currentPage}")
@@ -143,9 +156,11 @@ public class PackController {
 	}
 
 	/**
-	 * @Description: 分页获取 Admin 的已取出快递；如果没有 token 令牌，则返回获取信息失败
-	 * @Param: [currentPage, pageSize, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 * 分页获取 Admin 的已取出快递；如果没有 token 令牌，则返回获取信息失败
+	 * @param currentPage   当前页
+	 * @param pageSize      每页大小
+	 * @param token         令牌
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/getAdminIsPick/{currentPage}")
@@ -156,9 +171,11 @@ public class PackController {
 	}
 
 	/**
-	 * @Description: 分页获取 Admin 的未取出快递，无论其有无取件码；如果没有 token 令牌，则返回获取信息失败
-	 * @Param: [currentPage, pageSize, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 * 分页获取 Admin 的未取出快递，无论其有无取件码；如果没有 token 令牌，则返回获取信息失败
+	 * @param currentPage   当前页
+	 * @param pageSize      每页大小
+	 * @param token         令牌
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/getAdminNoPick/{currentPage}")
@@ -169,9 +186,9 @@ public class PackController {
 	}
 
 	/**
-	 * @Description: 获取 Admin 所有快递总数、已取快递数量、未取快递数量
-	 * @Param: [token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 * 获取 Admin 所有快递总数、已取快递数量、未取快递数量
+	 * @param token 令牌
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/getAdminTotalNum")
@@ -180,9 +197,10 @@ public class PackController {
 	}
 
 	/**
-	 * @Description: 根据驿站地址和货架取出当前货架的所有快递
-	 * @Param: [token, shelf]
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 * 根据驿站地址和货架取出当前货架的所有快递
+	 * @param token 令牌
+	 * @param shelf 货架
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/getShelfPack")

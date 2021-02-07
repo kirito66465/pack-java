@@ -26,9 +26,7 @@ public class PackApplication {
 	}
 
 	/**
-	 * @Description: 测试 Properties 配置类
-	 * @Param:
-	 * @Return:
+	 * 测试 Properties 配置类
 	 **/
 	@Component
 	public static class OrderPropertiesCommandLineRunner implements CommandLineRunner {

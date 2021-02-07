@@ -18,9 +18,8 @@ import java.text.SimpleDateFormat;
 public class TypeConversion {
 
 	/**
-	 * @Description: 获取当前时间
-	 * @Param: []
-	 * @Return: java.lang.String
+	 * 获取当前时间
+	 * @return java.lang.String
 	 **/
 	public static String getTime() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -30,9 +29,9 @@ public class TypeConversion {
 	}
 
 	/**
-	 * @Description: 采用 Base64 加密
-	 * @Param: [input]
-	 * @Return: java.lang.String
+	 * 采用 Base64 加密
+	 * @param input 加密内容
+	 * @return java.lang.String
 	 **/
 	public static String base64Encode(byte[] input) {
 		String result = null;
@@ -47,9 +46,9 @@ public class TypeConversion {
 	}
 
 	/**
-	 * @Description: 采用 Base64 解密
-	 * @Param: [input]
-	 * @Return: byte[]
+	 * 采用 Base64 解密
+	 * @param input 解密内容
+	 * @return byte[]
 	 **/
 	public static byte[] base64Decode(String input) {
 		byte[] result = null;
@@ -64,9 +63,9 @@ public class TypeConversion {
 	}
 
 	/**
-	 * @Description: MD5 加密字符串，不可逆
-	 * @Param: [plainText]
-	 * @Return: java.lang.String
+	 * MD5 加密字符串，不可逆
+	 * @param plainText 加密内容
+	 * @return java.lang.String
 	 **/
 	public static String stringToMD5(String plainText) {
 		byte[] secretBytes = null;

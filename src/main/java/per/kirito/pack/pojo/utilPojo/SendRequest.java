@@ -18,13 +18,21 @@ import lombok.NonNull;
 @AllArgsConstructor
 public class SendRequest {
 
-	private String admin;               // 驿站选择
-	private String name;                // 收件人姓名
-	private String phone;               // 收件人联系方式
-	private String addr;                // 收件人地址，省/市/区
-	private String info;                // 物品信息
-	private int weight;                 // 物品重量
-	private double price;               // 运费
-	private String token;               // 登录状态令牌
+	/** 驿站选择 */
+	private String admin;
+	/** 收件人姓名 */
+	private String name;
+	/** 收件人联系方式 */
+	private String phone;
+	/** 收件人地址，省/市/区 */
+	private String addr;
+	/** 物品信息 */
+	private String info;
+	/** 物品重量 */
+	private int weight;
+	/** 运费 */
+	private double price;
+	/** 登录状态令牌 */
+	private String token;
 
 }

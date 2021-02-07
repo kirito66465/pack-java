@@ -30,6 +30,13 @@ public class SendMailUtil {
 	@Autowired
 	private MailProperties mailProperties;
 
+	/**
+	 * 发送邮件
+	 * @param mail  收件人邮箱
+	 * @param addr  驿站地址
+	 * @param code  取件码
+	 * @param org   快递公司
+	 **/
 	public void sendMail(String mail, String addr, String code, String org) throws MessagingException, GeneralSecurityException {
 		String senderMail = mailProperties.getSenderMail();         // 发件人电子邮箱
 		String mailHost = mailProperties.getHost();                 // 指定发送邮件的主机

@@ -27,9 +27,11 @@ public class SendUtil {
 	private static final String EMS_TYPE = Express.EMS.getExpressEngName();
 
 	/**
-	 * @Description: 抽取出来的分页方法，仅需传入当前页面、每页条数、快递结果集
-	 * @Param: [currentPage, pageSize, sendList]
-	 * @Return: per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.Send>
+	 * 抽取出来的分页方法，仅需传入当前页面、每页条数、快递结果集
+	 * @param currentPage   当前页
+	 * @param pageSize      每页大小
+	 * @param sendList      寄件快递结果集
+	 * @return per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.Send>
 	 **/
 	public static Page<Send> getSendByPage(int currentPage, int pageSize, List<Send> sendList) {
 		Page<Send> sendPage = new Page<>();
@@ -56,6 +58,11 @@ public class SendUtil {
 		return sendPage;
 	}
 
+	/**
+	 * 生成寄件的快递单号和快递公司
+	 * @param postAddr  驿站地址
+	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 **/
 	public static Map<String, String> getSendIdAndOrg(String postAddr) {
 		Map<String, String> map = new HashMap<>();
 		String id = "";
@@ -81,9 +88,9 @@ public class SendUtil {
 	}
 
 	/**
-	 * @Description: 抽取出来的传入驿站编号，返回寄件快递公司/种类方法
-	 * @Param: [card]
-	 * @Return: java.lang.String
+	 * 抽取出来的传入驿站编号，返回寄件快递公司/种类方法
+	 * @param card  驿站编号
+	 * @return java.lang.String
 	 **/
 	public static String getSendOrg(String card) {
 		String org = "";

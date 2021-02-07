@@ -39,9 +39,9 @@ public class PackIdUtil {
 	private static final String STATUS_ERROR = "error";
 
 	/**
-	 * @Description: 根据当前日期获取前两位数字
-	 * @Param: [date]
-	 * @Return: java.lang.String
+	 * 根据当前日期获取前两位数字
+	 * @param date  当前日期
+	 * @return java.lang.String
 	 **/
 	public static String getTwoId(Date date) {
 		Calendar calendar = Calendar.getInstance();
@@ -50,9 +50,9 @@ public class PackIdUtil {
 	}
 
 	/**
-	 * @Description: 根据索引值截取13位时间戳以获取剩余数字
-	 * @Param: [index]
-	 * @Return: java.lang.String
+	 * 根据索引值截取13位时间戳以获取剩余数字
+	 * @param index 索引位置
+	 * @return java.lang.String
 	 **/
 	public static String getLeftId(int index) {
 		String timestamp = String.valueOf(System.currentTimeMillis());
@@ -60,9 +60,9 @@ public class PackIdUtil {
 	}
 
 	/**
-	 * @Description: 传入快递类型生成取件码
-	 * @Param: [type]
-	 * @Return: java.lang.String
+	 * 传入快递公司生成取件码
+	 * @param type  快递公司
+	 * @return java.lang.String
 	 **/
 	public static String generate(String type) {
 		String UUID = "";

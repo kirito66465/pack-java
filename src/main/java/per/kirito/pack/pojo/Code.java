@@ -21,9 +21,13 @@ import javax.persistence.Table;
 @Table(name = "t_code")
 public class Code {
 
-	private String code;        // 取件码
-	private String addr;        // 所在驿站
-	private int status;         // 状态，0：未被使用，1：已被使用
-	private String free;        // 释放时间
+	/** 取件码 */
+	private String code;
+	/** 所在驿站 */
+	private String addr;
+	/** 状态，0：未被使用，1：已被使用 */
+	private int status;
+	/** 释放时间 */
+	private String free;
 
 }

@@ -23,9 +23,10 @@ public class UserController {
 	private AccountService<User> accountService;
 
 	/**
-	 * @Description: User 登录
-	 * @Param: [card, password]
-	 * @Return: java.lang.String
+	 * User 登录
+	 * @param card      学号
+	 * @param password  密码
+	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/login")
@@ -35,9 +36,9 @@ public class UserController {
 	}
 
 	/**
-	 * @Description: User 退出登录
-	 * @Param: []
-	 * @Return: java.lang.String
+	 * User 退出登录
+	 * @param token 令牌
+	 * @return java.lang.String
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/exit")
@@ -46,9 +47,9 @@ public class UserController {
 	}
 
 	/**
-	 * @Description: 获取 User 信息
-	 * @Param: []
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 * 获取 User 信息
+	 * @param token 令牌
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/getInfo")
@@ -57,9 +58,9 @@ public class UserController {
 	}
 
 	/**
-	 * @Description: User 注册
-	 * @Param: [user]
-	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 * User 注册
+	 * @param user  用户信息
+	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/register")
@@ -68,9 +69,11 @@ public class UserController {
 	}
 
 	/**
-	 * @Description: User 忘记密码
-	 * @Param: [card, phone, password]
-	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 * User 忘记密码
+	 * @param card      学号
+	 * @param phone     手机号
+	 * @param password  新密码
+	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/forgetPwd")
@@ -81,9 +84,13 @@ public class UserController {
 	}
 
 	/**
-	 * @Description: 修改密码
-	 * @Param: [card, password, checkCode, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 * 修改密码
+	 * @param card      学号
+	 * @param oldPwd    原密码
+	 * @param newPwd    新密码
+	 * @param checkCode 验证码
+	 * @param token     令牌
+	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/resetPwd")
@@ -96,9 +103,12 @@ public class UserController {
 	}
 
 	/**
-	 * @Description: 更新用户信息
-	 * @Param: [name, addr, mail, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 * 更新用户信息
+	 * @param name  姓名
+	 * @param addr  地址
+	 * @param mail  邮箱
+	 * @param token 令牌
+	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/updateInfo")

@@ -20,12 +20,19 @@ import javax.persistence.Table;
 @Table(name = "t_user")
 public class User {
 
-	private String card;        // 学号
-	private String password;    // 密码
-	private String phone;       // 手机号
-	private String name;        // 姓名
-	private String addr;        // 收货地址
-	private int count;          // 包裹件数
-	private String mail;        // 电子邮箱
+	/** 学号 */
+	private String card;
+	/** 密码 */
+	private String password;
+	/** 手机号 */
+	private String phone;
+	/** 姓名 */
+	private String name;
+	/** 收货地址 */
+	private String addr;
+	/** 包裹件数 */
+	private int count;
+	/** 电子邮箱 */
+	private String mail;
 
 }

@@ -29,9 +29,9 @@ public class CheckCodeServiceImpl implements CheckCodeService {
 	private static final String LOGIN_TO_DO = Status.LOGIN_TO_DO.getEnMsg();
 
 	/**
-	 * @Description: 获取验证码字符串和图片
-	 * @Param: [token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 * 获取验证码字符串和图片
+	 * @param token 令牌
+	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	@Override
 	public Map<String, String> getCheckCode(String token) {

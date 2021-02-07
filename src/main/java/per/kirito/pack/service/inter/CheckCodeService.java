@@ -12,9 +12,9 @@ import java.util.Map;
 public interface CheckCodeService {
 
 	/**
-	 * @Description: 获取验证码字符串和图片
-	 * @Param: [token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 * 获取验证码字符串和图片
+	 * @param token 令牌
+	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	Map<String, String> getCheckCode(String token);
 

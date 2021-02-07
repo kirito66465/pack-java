@@ -20,11 +20,17 @@ import javax.persistence.Table;
 @Table(name = "t_admin")
 public class Admin {
 
-	private String card;        // 编号
-	private String password;    // 密码
-	private String phone;       // 手机号
-	private String name;        // 姓名
-	private String addr;        // 地址
-	private int count;          // 包裹件数(仅限已入站但未取出的快递)
+	/** 编号 */
+	private String card;
+	/** 密码 */
+	private String password;
+	/** 手机号 */
+	private String phone;
+	/** 姓名 */
+	private String name;
+	/** 地址 */
+	private String addr;
+	/** 包裹件数(仅限已入站但未取出的快递) */
+	private int count;
 
 }

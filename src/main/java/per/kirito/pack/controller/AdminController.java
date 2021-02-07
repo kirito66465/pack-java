@@ -23,9 +23,10 @@ public class AdminController {
 	private AccountService<Admin> accountService;
 
 	/**
-	 * @Description: Admin 登录
-	 * @Param: [card, password]
-	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 * Admin 登录
+	 * @param card      编号
+	 * @param password  密码
+	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/login")
@@ -35,9 +36,9 @@ public class AdminController {
 	}
 
 	/**
-	 * @Description: Admin 退出登录
-	 * @Param: []
-	 * @Return: java.lang.String
+	 * Admin 退出登录
+	 * @param token 令牌
+	 * @return java.lang.String
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/exit")
@@ -46,9 +47,9 @@ public class AdminController {
 	}
 
 	/**
-	 * @Description: 获取 Admin 信息
-	 * @Param: []
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 * 获取 Admin 信息
+	 * @param token 令牌
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/getInfo")
@@ -57,9 +58,13 @@ public class AdminController {
 	}
 
 	/**
-	 * @Description: 修改密码
-	 * @Param: [card, oldPwd, newPwd, checkCode, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 * 修改密码
+	 * @param card      编号
+	 * @param oldPwd    原密码
+	 * @param newPwd    新密码
+	 * @param checkCode 验证码
+	 * @param token     令牌
+	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/resetPwd")
@@ -72,9 +77,12 @@ public class AdminController {
 	}
 
 	/**
-	 * @Description: 更新 Admin 信息
-	 * @Param: [name, phone, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.String>
+	 * 更新 Admin 信息
+	 * @param name      姓名
+	 * @param phone     手机号
+	 * @param mail      邮箱
+	 * @param token     令牌
+	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/updateInfo")
