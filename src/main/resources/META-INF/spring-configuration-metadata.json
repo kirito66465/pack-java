@@ -1,0 +1,30 @@
+{
+  "groups": [
+    {
+      "name": "mail",
+      "type": "per.kirito.pack.properties.MailProperties",
+      "sourceType": "per.kirito.pack.properties.MailProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "mail.host",
+      "type": "java.lang.String",
+      "description": "发件邮箱主机",
+      "sourceType": "per.kirito.pack.properties.MailProperties"
+    },
+    {
+      "name": "mail.password",
+      "type": "java.lang.String",
+      "description": "发件邮箱密钥授权码",
+      "sourceType": "per.kirito.pack.properties.MailProperties"
+    },
+    {
+      "name": "mail.sender-mail",
+      "type": "java.lang.String",
+      "description": "发件人邮箱",
+      "sourceType": "per.kirito.pack.properties.MailProperties"
+    }
+  ],
+  "hints": []
+}
