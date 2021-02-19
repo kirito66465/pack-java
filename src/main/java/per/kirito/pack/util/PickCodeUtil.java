@@ -22,12 +22,12 @@ public class PickCodeUtil {
 	 * @return java.lang.String
 	 **/
 	public static String generate(int count) {
-		// 新入站的快递还未计算在count中
+		// 新入站的快递还未计算在 count 中
 		int all = count + 1;
 		if (count >= MAX_PACKS) {       // 如果货架已满，则不生成取件码
 			return null;
 		}
-		// 该摆放的货架快递数量，假设all为1253, 那么取件码应为11-3-13
+		// 该摆放的货架快递数量，假设 all 为1253, 那么取件码应为11-3-13
 		int have = all % MAX_SHELF;           // 那么该摆放的这个货架有53件快递
 		int code1;
 		int code2;

@@ -88,7 +88,7 @@ public class SendServiceImpl implements SendService {
 				String dt = TypeConversion.getTime();
 				send.setDt(dt);
 				send.setPrice(request.getPrice());
-				// 向t_send表中插入这条数据
+				// 向 t_send 表中插入这条数据
 				sendMapper.addSend(send);
 				map.put("result", DO_SUCCESS);
 			} catch (Exception e) {
@@ -267,7 +267,7 @@ public class SendServiceImpl implements SendService {
 			// 获取所在驿站的寄件快递种类/公司
 			String card = stringRedisTemplate.opsForValue().get(token);
 			String org = SendUtil.getSendOrg(card);
-			// 根据org查询出该Admin寄件集合
+			// 根据 org 查询出该 Admin 寄件集合
 			List<Send> sends = sendMapper.getSendByAdmin(org);
 			if (sends != null) {
 				// 获取分页方式结果集

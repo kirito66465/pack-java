@@ -48,10 +48,10 @@ public class PackUtil {
 	private static final String TEL_BY = "13300000003";
 
 	/**
-	 * @Description: 添加入站信息(入站时只有快递单号这一条信息)
-	 * @Param: [pack]
-	 * @Return: per.kirito.pack.pojo.Pack
-	 **/
+	 * 添加入站信息(入站时只有快递单号这一条信息)
+	 * @param pack  入站快递实体
+	 * @return per.kirito.pack.pojo.Pack
+	 */
 	public static Pack addInfo(Pack pack) {
 		String idAll = pack.getId();
 		String id = idAll.substring(0, 2);
@@ -128,10 +128,11 @@ public class PackUtil {
 	}
 
 	/**
-	 * @Description: 仅更新快递状态
-	 * @Param: [pack, operate]
-	 * @Return: per.kirito.pack.pojo.Pack
-	 **/
+	 * 仅更新快递状态
+	 * @param pack      快递实体
+	 * @param operate   操作码
+	 * @return per.kirito.pack.pojo.Pack
+	 */
 	public static Pack updateStatus(Pack pack, String operate) {
 		int status = pack.getStatus();
 		if ("取件".equals(operate)) {
@@ -143,10 +144,10 @@ public class PackUtil {
 	}
 
 	/**
-	 * @Description: 抽取出来的获取结果集方法，主要对status进行类型转换：jdbcType/Integer -> java/String
-	 * @Param: [packList]
-	 * @Return: java.util.List<per.kirito.pack.pojo.utilPojo.PackResult>
-	 **/
+	 * 抽取出来的获取结果集方法，主要对status进行类型转换：jdbcType/Integer -> java/String
+	 * @param packList  Pack 结果集
+	 * @return java.util.List<per.kirito.pack.pojo.utilPojo.PackResult>
+	 */
 	public static List<PackResult> getPackResult(List<Pack> packList) {
 		List<PackResult> packResultList = new ArrayList<>();
 		PackResult packResult;
@@ -158,10 +159,12 @@ public class PackUtil {
 	}
 
 	/**
-	 * @Description: 抽取出来的分页方法，仅需传入当前页码、每页条数、快递结果集
-	 * @Param: [currentPage, pageSize, packResultList]
-	 * @Return: per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.utilPojo.PackResult>
-	 **/
+	 * 抽取出来的分页方法，仅需传入当前页码、每页条数、快递结果集
+	 * @param currentPage       当前页码
+	 * @param pageSize          每页条数
+	 * @param packResultList    快递结果集
+	 * @return per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.utilPojo.PackResult>
+	 */
 	public static Page<PackResult> getPackByPage(int currentPage, int pageSize, List<PackResult> packResultList) {
 		Page<PackResult> resultPage = new Page<>();
 		resultPage.setCurrentPage(currentPage);

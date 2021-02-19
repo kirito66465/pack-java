@@ -94,7 +94,7 @@ public class PackServiceImpl implements PackService {
 				pack.setPer_name(user.getName());
 				pack.setPer_tel(user.getPhone());
 				pack.setPer_addr(user.getAddr());
-				// 根据快递单号id获取驿站相关信息
+				// 根据快递单号 id 获取驿站相关信息
 				pack = PackUtil.addInfo(pack);
 				String addr = pack.getAddr();
 				// 取出目前驿站信息
@@ -131,9 +131,9 @@ public class PackServiceImpl implements PackService {
 				}
 				pack.setCode(code);
 				packMapper.addPack(pack);
-				// 更新Admin的count数
+				// 更新 Admin 的 count 数
 				adminMapper.updateCountPlusByPackId(id);
-				// 更新User的count数
+				// 更新 User 的 count 数
 				userMapper.updateCountPlusByPackId(id);
 				return INTO_SUCCESS;
 			} catch (Exception e) {
@@ -143,6 +143,69 @@ public class PackServiceImpl implements PackService {
 			}
 		} else {
 			return LOGIN_TO_DO;
+		}
+	}
+
+	/**
+	 * User 进行取件请求，仅传入快递单号和 token
+	 * @param id    快递单号
+	 * @param token 令牌
+	 * @return java.lang.String
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public String pickById(String id, String token) {
+		String msg = PICK_FAIL;
+		try {
+			// 如果 token 令牌存在
+			if (stringRedisTemplate.hasKey(token)) {
+				Pack pack = packMapper.getPackById(id);
+				String card = stringRedisTemplate.opsForValue().get(token);
+				User user = userMapper.getUserById(card);
+				String name = user.getName();
+				if (pack != null) {
+					String addr = pack.getAddr();
+					String code = pack.getCode();
+					// 更新管理员信息
+					Admin admin = adminMapper.getAdminByAddr(addr);
+					adminMapper.updateCountLessByPackId(pack.getId());
+					// 更新用户信息
+					userMapper.updateCountLessByPackId(pack.getId());
+					pack.setStatus(PACK_CODE_0);
+					String time = TypeConversion.getTime();
+					pack.setEnd(time);
+					// 更新签收人
+					pack.setPick(name);
+					// 更新包裹状态、取件时间
+					packMapper.updatePack(pack);
+					// 更新取件码使用状态与释放时间
+					Code coder = new Code(code, addr, CODE_STATUS_0, time);
+					codeMapper.updateCode(coder);
+					int count = admin.getCount() - 1;
+					if (count >= MAX_PACKS) {
+						// 当前快递取出后，驿站剩余未取快递数大于等于2400，则需要为有取件码的快递根据最早入站时间赋予取件码
+						pack = packMapper.getPackByStartMin(addr);
+						pack.setCode(code);
+						pack.setStatus(PACK_CODE_1);
+						packMapper.updatePack(pack);
+						// 重新设置该 code 为使用状态
+						coder.setStatus(CODE_STATUS_1);
+						codeMapper.updateCode(coder);
+					}
+					msg = PICK_SUCCESS;
+				} else {
+					// 该快递不存在
+					msg = NOT_EXIST;
+				}
+			} else {
+				// 请登录再操作
+				msg = LOGIN_TO_DO;
+			}
+			return msg;
+		} catch (Exception e) {
+			e.printStackTrace();
+			// 取件失败
+			return PICK_FAIL;
 		}
 	}
 
@@ -158,7 +221,7 @@ public class PackServiceImpl implements PackService {
 	public String pickPackByUser(String addr, String code, String token) {
 		String msg = PICK_FAIL;
 		try {
-			// 如果token令牌存在
+			// 如果 token 令牌存在
 			if (stringRedisTemplate.hasKey(token)) {
 				Pack pack = packMapper.getPackByAddrAndCode(addr, code);
 				String card = stringRedisTemplate.opsForValue().get(token);
@@ -196,7 +259,7 @@ public class PackServiceImpl implements PackService {
 						pack.setCode(code);
 						pack.setStatus(PACK_CODE_1);
 						packMapper.updatePack(pack);
-						// 重新设置该code为使用状态
+						// 重新设置该 code 为使用状态
 						coder.setStatus(CODE_STATUS_1);
 						codeMapper.updateCode(coder);
 					}
@@ -255,7 +318,7 @@ public class PackServiceImpl implements PackService {
 							pack.setCode(code);
 							pack.setStatus(PACK_CODE_1);
 							packMapper.updatePack(pack);
-							// 重新设置该code为使用状态
+							// 重新设置该 code 为使用状态
 							coder.setStatus(CODE_STATUS_1);
 							codeMapper.updateCode(coder);
 						}
@@ -283,11 +346,11 @@ public class PackServiceImpl implements PackService {
 		try {
 			if (stringRedisTemplate.hasKey(token)) {
 				int status = packMapper.getStatusById(id);
-				// 已取快递不更新Admin与User的count值
+				// 已取快递不更新 Admin 与 User 的 count 值
 				if (status != PACK_CODE_0) {
-					// 更新User的count数
+					// 更新 User 的 count 数
 					userMapper.updateCountLessByPackId(id);
-					// 更新Admin的count数
+					// 更新 Admin 的 count 数
 					adminMapper.updateCountLessByPackId(id);
 				}
 				// 删除快递
@@ -318,9 +381,9 @@ public class PackServiceImpl implements PackService {
 	public Map<String, Object> getUserPackByPage(int currentPage, int pageSize, String token) {
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
-			// 取出User登录的card
+			// 取出 User 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
-			// 根据card查询出该User已取快递集合
+			// 根据 card 查询出该 User 已取快递集合
 			List<Pack> packs = packMapper.getUserPacks(card);
 			List<PackResult> packResultList = PackUtil.getPackResult(packs);
 			// 获取分页方式的结果集
@@ -343,9 +406,9 @@ public class PackServiceImpl implements PackService {
 	public Map<String, Object> getUserIsPick(int currentPage, int pageSize, String token) {
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
-			// 取出User登录的card
+			// 取出 User 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
-			// 根据card查询出该User已取快递集合
+			// 根据 card 查询出该 User 已取快递集合
 			List<Pack> packs = packMapper.getUserIsPick(card);
 			List<PackResult> packResultList = PackUtil.getPackResult(packs);
 			// 获取分页方式的结果集
@@ -368,7 +431,7 @@ public class PackServiceImpl implements PackService {
 	public Map<String, Object> getUserNoPick(int currentPage, int pageSize, String token) {
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
-			// 取出User登录的card
+			// 取出 User 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据card查询出该User已取快递集合
 			List<Pack> packs = packMapper.getUserNoPick(card);
@@ -424,9 +487,9 @@ public class PackServiceImpl implements PackService {
 	public Map<String, Object> getAdminPackByPage(int currentPage, int pageSize, String token) {
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
-			// 取出Admin登录的card
+			// 取出 Admin 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
-			// 根据card查询出该Admin已取快递集合
+			// 根据 card 查询出该 Admin 已取快递集合
 			List<Pack> packs = packMapper.getAdminPacks(card);
 			// int -> String 转换
 			List<PackResult> packResultList = PackUtil.getPackResult(packs);
@@ -450,9 +513,9 @@ public class PackServiceImpl implements PackService {
 	public Map<String, Object> getAdminIsPick(int currentPage, int pageSize, String token) {
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
-			// 取出Admin登录的card
+			// 取出 Admin 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
-			// 根据card查询出该Admin已取快递集合
+			// 根据 card 查询出该 Admin 已取快递集合
 			List<Pack> packs = packMapper.getAdminIsPick(card);
 			List<PackResult> packResultList = PackUtil.getPackResult(packs);
 			// 获取分页方式的结果集
@@ -475,9 +538,9 @@ public class PackServiceImpl implements PackService {
 	public Map<String, Object> getAdminNoPick(int currentPage, int pageSize, String token) {
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
-			// 取出Admin登录的card
+			// 取出 Admin 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
-			// 根据card查询出该Admin未取快递集合
+			// 根据 card 查询出该 Admin 未取快递集合
 			List<Pack> packs = packMapper.getAdminNoPick(card);
 			List<PackResult> packResultList = PackUtil.getPackResult(packs);
 			// 获取分页方式结果集

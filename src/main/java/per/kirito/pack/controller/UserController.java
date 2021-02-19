@@ -41,9 +41,9 @@ public class UserController {
 	 * @return java.lang.String
 	 **/
 	@CrossOrigin
-	@RequestMapping(value = "/exit")
-	public String userExit(@RequestParam(value = "token") String token) {
-		return accountService.exit(token);
+	@RequestMapping(value = "/logout")
+	public String userLogout(@RequestParam(value = "token") String token) {
+		return accountService.logout(token);
 	}
 
 	/**

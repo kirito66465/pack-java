@@ -43,12 +43,12 @@ public class CheckCodeServiceImpl implements CheckCodeService {
 				// 生成验证码图片
 				String pic = CheckCodeUtil.imageToBase64(120, 40, code);
 				String tokenCode = token + "-code";
-				// 判断Redis中有无存储
+				// 判断 Redis 中有无存储
 				if (stringRedisTemplate.hasKey(tokenCode)) {
 					// 当请求新的验证码时，如果旧的验证码存在则删除
 					stringRedisTemplate.delete(tokenCode);
 				}
-				// 将验证码存入Redis，并设置有效期2分钟
+				// 将验证码存入 Redis，并设置有效期2分钟
 				stringRedisTemplate.opsForValue().set(tokenCode, code, 2, TimeUnit.MINUTES);
 				map.put("codePic", pic);
 				System.out.println("code: " + code);

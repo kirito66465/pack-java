@@ -29,6 +29,7 @@
 		<java-activation-framework.version>1.1.1</java-activation-framework.version>
 		<javax-mail.version>1.6.2</javax-mail.version>
 		<jasypt.version>2.1.0</jasypt.version>
+		<hutool.version>5.5.7</hutool.version>
 	</properties>
 
 	<dependencies>
@@ -145,6 +146,13 @@
 			<groupId>com.sun.mail</groupId>
 			<artifactId>javax.mail</artifactId>
 			<version>${javax-mail.version}</version>
+		</dependency>
+
+		<!-- HuTool 工具包 -->
+		<dependency>
+			<groupId>cn.hutool</groupId>
+			<artifactId>hutool-all</artifactId>
+			<version>${hutool.version}</version>
 		</dependency>
 	</dependencies>
 

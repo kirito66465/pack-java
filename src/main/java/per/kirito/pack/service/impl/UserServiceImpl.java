@@ -65,16 +65,16 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 	@Override
 	public Map<String, String> login(String card, String password) {
 		Map<String, String> map = new HashMap<>();
-		// 根据card和password查询出该User是否存在
+		// 根据 card 和 password 查询出该 User 是否存在
 		int flag = userMapper.login(card, password);
 		if (flag == LOGIN_CODE) {
-			// 生成唯一令牌token
+			// 生成唯一令牌 token
 			String token = UUID.randomUUID().toString();
-			// 如果Redis中已存储，则先删除此键
+			// 如果 Redis 中已存储，则先删除此键
 			if (stringRedisTemplate.hasKey(token)) {
 				stringRedisTemplate.delete(token);
 			}
-			stringRedisTemplate.opsForValue().set(token, card, 10, TimeUnit.MINUTES);
+			stringRedisTemplate.opsForValue().set(token, card, 30, TimeUnit.MINUTES);
 			map.put("token", token);
 			map.put("result", LOGIN_SUCCESS);
 		} else {
@@ -89,8 +89,8 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 	 * @return java.lang.String
 	 **/
 	@Override
-	public String exit(String token) {
-		// 退出登录时，删除Redis中存储的相关键值
+	public String logout(String token) {
+		// 退出登录时，删除 Redis 中存储的相关键值
 		stringRedisTemplate.delete(token);
 		return stringRedisTemplate.hasKey(token) ? EXIT_FAIL : EXIT_SUCCESS;
 	}
@@ -131,13 +131,13 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 			String card = entity.getCard();
 			int isDo = userMapper.register(entity);
 			if (isDo == 1) {
-				// 生成唯一令牌token
+				// 生成唯一令牌 token
 				String token = UUID.randomUUID().toString();
-				// 如果Redis中已存储，则先删除此键
+				// 如果 Redis 中已存储，则先删除此键
 				if (stringRedisTemplate.hasKey(token)) {
 					stringRedisTemplate.delete(token);
 				}
-				stringRedisTemplate.opsForValue().set(token, card, 10, TimeUnit.MINUTES);
+				stringRedisTemplate.opsForValue().set(token, card, 30, TimeUnit.MINUTES);
 				map.put("token", token);
 				map.put("name", entity.getName());
 				result = REGISTER_SUCCESS;
@@ -169,13 +169,13 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 			int isDo = userMapper.forgetPwd(card, phone, password);
 			if (isDo == 1) {
 				User user = userMapper.getUserById(card);
-				// 生成唯一令牌token
+				// 生成唯一令牌 token
 				String token = UUID.randomUUID().toString();
-				// 如果Redis中已存储，则先删除此键
+				// 如果 Redis 中已存储，则先删除此键
 				if (stringRedisTemplate.hasKey(token)) {
 					stringRedisTemplate.delete(token);
 				}
-				stringRedisTemplate.opsForValue().set(token, card, 10, TimeUnit.MINUTES);
+				stringRedisTemplate.opsForValue().set(token, card, 30, TimeUnit.MINUTES);
 				map.put("token", token);
 				map.put("name", user.getName());
 				result = PWD_SUCCESS;

@@ -20,6 +20,14 @@ public interface PackService {
 	String addPack(String id, String token);
 
 	/**
+	 * User 进行取件请求，仅传入快递单号和 token
+	 * @param id    快递单号
+	 * @param token 令牌
+	 * @return java.lang.String
+	 */
+	String pickById(String id, String token);
+
+	/**
 	 * User 进行取件，必须传入驿站地址和取件码
 	 * @param addr  驿站地址
 	 * @param code  取件码

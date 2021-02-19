@@ -1,5 +1,7 @@
 package per.kirito.pack.util;
 
+import cn.hutool.core.io.file.FileWriter;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -100,28 +102,35 @@ public class PackIdUtil {
 		return UUID;
 	}
 
-	public static void main(String[] args) throws InterruptedException {
-		// String zto = generate("ZTO");
-		// String sto = generate("STO");
-		// String yto = generate("YTO");
-		// String jd = generate("JD");
-		// String sf = generate("SF");
-		// String yd = generate("YD");
-		// String tt = generate("TT");
-		// String ems = generate("EMS");
-		// System.out.println("中通: " + zto);
-		// System.out.println("申通: " + sto);
-		// System.out.println("圆通: " + yto);
-		// System.out.println("京东: " + jd);
-		// System.out.println("顺丰: " + sf);
-		// System.out.println("韵达: " + yd);
-		// System.out.println("天天: " + tt);
-		// System.out.println("EMS: " + ems);
-		// System.out.println("-------------------------------------------------");
-		for (int i = 0; i < 100; i++) {
-			System.out.println(generate("EMS"));
+	/**
+	 * 传入快递类型和生成数量，把生成的快递单号写入文件
+	 * @param type  快递类型
+	 * @param count 生成数量
+	 */
+	public static void writeToFile(String type, int count) throws InterruptedException {
+		System.out.println("==========开始生成 " + type + " 的快递单号==========");
+		long start = System.currentTimeMillis();
+		FileWriter writer = new FileWriter("D://data/" + type +".txt");
+		for (int i = 0; i < count; i++) {
+			String id = generate(type);
+			writer.append(id + ",");
 			Thread.sleep(100);
 		}
+		long end = System.currentTimeMillis();
+		System.out.println("耗时: " + (end - start) + "ns");
+		System.out.println("==========生成结束==========");
+	}
+
+	public static void main(String[] args) throws InterruptedException {
+		int count = 800;
+		writeToFile("ZTO", count);
+		writeToFile("STO", count);
+		writeToFile("YTO", count);
+		writeToFile("JD", count);
+		writeToFile("SF", count);
+		writeToFile("YD", count);
+		writeToFile("TT", count);
+		writeToFile("EMS", count);
 	}
 
 }

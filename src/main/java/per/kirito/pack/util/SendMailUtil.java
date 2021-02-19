@@ -53,7 +53,7 @@ public class SendMailUtil {
 		properties.put("mail.smtp.ssl.enable", "true");
 		properties.put("mail.smtp.ssl.socketFactory", sf);
 
-		// 获取默认session对象
+		// 获取默认 session 对象
 		Session session = Session.getDefaultInstance(properties, new Authenticator() {
 
 			@Override

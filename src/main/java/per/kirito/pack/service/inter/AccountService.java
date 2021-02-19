@@ -24,7 +24,7 @@ public interface AccountService<E> {
 	 * @param token 令牌
 	 * @return java.lang.String
 	 **/
-	String exit(String token);
+	String logout(String token);
 
 	/**
 	 * 获取账户信息
