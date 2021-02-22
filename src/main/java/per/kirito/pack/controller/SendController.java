@@ -22,7 +22,7 @@ public class SendController {
 
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
-	 * User 相关
+	 * 流程相关
 	 **/
 
 	/**
@@ -90,18 +90,25 @@ public class SendController {
 	}
 
 	/**
+	 * -----------------------------------------------------------------------------------------------------------------
+	 * User 相关
+	 **/
+
+	/**
 	 * 分页方式获取 User 寄件集合
 	 * @param currentPage   当前页
 	 * @param pageSize      每页大小
 	 * @param token         令牌
+	 * @param org           快递公司
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/getSendByUser/{currentPage}")
 	public Map<String, Object> getSendByUser(@PathVariable int currentPage,
 	                                         @RequestParam(value = "pageSize") int pageSize,
-	                                         @RequestParam(value = "token") String token) {
-		return sendService.getSendByUser(currentPage, pageSize, token);
+	                                         @RequestParam(value = "token") String token,
+	                                         @RequestParam(value = "org") String org) {
+		return sendService.getSendByUser(currentPage, pageSize, token, org);
 	}
 
 	/**

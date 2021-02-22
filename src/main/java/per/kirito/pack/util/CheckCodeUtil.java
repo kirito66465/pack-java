@@ -73,7 +73,6 @@ public class CheckCodeUtil {
 	 * @param w1    横轴扭曲像素
 	 * @param h1    纵轴扭曲像素
 	 * @param color 颜色
-	 * @return void
 	 **/
 	private static void shear(Graphics g, int w1, int h1, Color color) {
 		shearX(g, w1, h1, color);
@@ -86,7 +85,6 @@ public class CheckCodeUtil {
 	 * @param w1    横轴扭曲像素
 	 * @param h1    纵轴扭曲像素
 	 * @param color 颜色
-	 * @return void
 	 **/
 	private static void shearX(Graphics g, int w1, int h1, Color color) {
 		int period = random.nextInt(2);
@@ -111,7 +109,6 @@ public class CheckCodeUtil {
 	 * @param w1    横轴扭曲像素
 	 * @param h1    纵轴扭曲像素
 	 * @param color 颜色
-	 * @return void
 	 **/
 	private static void shearY(Graphics g, int w1, int h1, Color color) {
 		int period = random.nextInt(40) + 10; // 50;

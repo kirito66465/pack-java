@@ -14,24 +14,24 @@ import per.kirito.pack.pojo.Code;
 public interface CodeMapper {
 
 	/**
-	 * @Description: 查询所在驿站最大取件码状态是否为未使用，且从未被使用过
-	 * @Param: [code]
-	 * @Return: int
-	 **/
+	 * 查询所在驿站最大取件码状态是否为未使用，且从未被使用过
+	 * @param code  取件码实体
+	 * @return int
+	 */
 	int findMaxCode(Code code);
 
 	/**
-	 * @Description: 更新 Code
-	 * @Param: [code]
-	 * @Return: int
-	 **/
+	 * 更新 Code
+	 * @param code  取件码实体
+	 * @return int
+	 */
 	int updateCode(Code code);
 
 	/**
-	 * @Description: 当最大取件码被使用过时，根据驿站地址查询出当前最早被释放的取件码
-	 * @Param: [addr]
-	 * @Return: per.kirito.pack.pojo.Code
-	 **/
+	 * 当最大取件码被使用过时，根据驿站地址查询出当前最早被释放的取件码
+	 * @param addr  驿站地址
+	 * @return per.kirito.pack.pojo.Code
+	 */
 	Code findCodeFreeMin(String addr);
 
 }

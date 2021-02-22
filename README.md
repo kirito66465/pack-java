@@ -40,14 +40,17 @@ $ .\decrypt input="av8dLw8htTU7k5AQaoMgGzI5KLaj9Glp" password="demo-pwd" algorit
 1. 优化代码逻辑，在 NoPick 部分添加学生在根据快递单号取件
 2. npm 打包文件放入 `static` 文件夹下
 ```
+- 2021.02.22<br>
+```markdown
+1. 完成后端数据筛选过滤；优化代码逻辑
+```
 
 __TODO__
 ```markdown
 1. 搜索（已取根据签收人搜索，未取与全部根据收件人搜索，揽收根据寄件人搜索）
 2. Vue 项目刷新数据丢失问题
-3. Vue 项目表格展示数据筛选问题，重新请求、分页请求
-4. 去除所有 `@CrossOrigin` 注解
-5. 每张表造大量的数据进行测试，其中t_pack最好一个驿站2400条数据及以上
+3. 去除所有 `@CrossOrigin` 注解
+4. 每张表造大量的数据进行测试，其中t_pack最好一个驿站2400条数据及以上
 ```
 
 ## 相关算法

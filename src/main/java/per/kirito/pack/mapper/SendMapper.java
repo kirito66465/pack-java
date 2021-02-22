@@ -17,52 +17,57 @@ import java.util.List;
 public interface SendMapper {
 
 	/**
-	 * @Description: 添加寄件
-	 * @Param: [send]
-	 * @Return: int
-	 **/
+	 * 添加寄件
+	 * @param send  寄件实体
+	 * @return int
+	 */
 	int addSend(Send send);
 
 	/**
-	 * @Description: 删除寄件
-	 * @Param: [id]
-	 * @Return: int
-	 **/
+	 * 删除寄件
+	 * @param id    快递单号
+	 * @return int
+	 */
 	int deleteSend(String id);
 
 	/**
-	 * @Description: 更新寄件状态
-	 * @Param: [id, status, dt]
-	 * @Return: int
-	 **/
+	 * 更新寄件状态
+	 * @param id        快递单号
+	 * @param status    状态
+	 * @param dt        时间戳
+	 * @return int
+	 */
 	int updateSend(@Param("id") String id, @Param("status") String status, @Param("dt") String dt);
 
 	/**
-	 * @Description: 获取 User 的寄件集合
-	 * @Param: [card]
-	 * @Return: java.util.List<per.kirito.pack.pojo.Send>
-	 **/
-	List<Send> getSendByUser(String card);
+	 * 获取 User 的寄件集合
+	 * @param card  学号
+	 * @param org   快递公司
+	 * @return java.util.List<per.kirito.pack.pojo.Send>
+	 */
+	List<Send> getSendByUser(String card, String org);
 
 	/**
-	 * @Description: 获取 Admin 的寄件集合
-	 * @Param: [org]
-	 * @Return: java.util.List<per.kirito.pack.pojo.Send>
-	 **/
+	 * 获取 Admin 的寄件集合
+	 * @param org   快递公司
+	 * @return java.util.List<per.kirito.pack.pojo.Send>
+	 */
 	List<Send> getSendByAdmin(String org);
 
 	/**
-	 * @Description: 传入状态，获取 User 的该状态寄件数量
-	 * @Param: [card, status]
-	 * @Return: int
-	 **/
+	 * 传入状态，获取 User 的该状态寄件数量
+	 * @param card      学号
+	 * @param status    状态
+	 * @return int
+	 */
 	int getUserTotal(@Param("card") String card, @Param("status") String status);
 
 	/**
-	 * @Description: 传入状态，获取 Admin 的该状态寄件数量
-	 * @Param: [org, status]
-	 * @Return: int
-	 **/
+	 * 传入状态，获取 Admin 的该状态寄件数量
+	 * @param org       快递公司
+	 * @param status    状态
+	 * @return int
+	 */
 	int getAdminTotal(@Param("org") String org, @Param("status") String status);
 
 }

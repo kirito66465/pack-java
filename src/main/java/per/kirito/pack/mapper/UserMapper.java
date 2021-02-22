@@ -16,80 +16,87 @@ import java.util.Map;
 public interface UserMapper {
 
 	/**
-	 * @Description: 根据学号和密码查询用户是否存在以进行登录判断
-	 * @Param: [card, password]
-	 * @Return: int
-	 **/
+	 * 根据学号和密码查询用户是否存在以进行登录判断
+	 * @param card      学号
+	 * @param password  密码
+	 * @return int
+	 */
 	int login(@Param("card") String card, @Param("password") String password);
 
 	/**
-	 * @Description: 根据 card 查询出该 User 信息
-	 * @Param: [card]
-	 * @Return: per.kirito.pack.pojo.User
-	 **/
+	 * 根据 card 查询出该 User 信息
+	 * @param card  学号
+	 * @return per.kirito.pack.pojo.User
+	 */
 	User getUserById(String card);
 
 	/**
-	 * @Description: 根据 phone 查询出该 User 信息
-	 * @Param: [phone]
-	 * @Return: per.kirito.pack.pojo.User
-	 **/
+	 * 根据 phone 查询出该 User 信息
+	 * @param phone 手机号
+	 * @return per.kirito.pack.pojo.User
+	 */
 	User getUserByPhone(String phone);
 
 	/**
-	 * @Description: User 注册
-	 * @Param: [user]
-	 * @Return: int
-	 **/
+	 * User 注册
+	 * @param user  User 实体
+	 * @return int
+	 */
 	int register(User user);
 
 	/**
-	 * @Description: User 忘记密码以进行密码重置
-	 * @Param: [card, password, phone]
-	 * @Return: int
-	 **/
+	 * User 忘记密码以进行密码重置
+	 * @param card      学号
+	 * @param password  密码
+	 * @param phone     手机号
+	 * @return int
+	 */
 	int forgetPwd(@Param("card") String card, @Param("password") String password, @Param("phone") String phone);
 
 	/**
-	 * @Description: User 修改密码
-	 * @Param: [card, oldPwd, newPwd]
-	 * @Return: int
-	 **/
+	 * User 修改密码
+	 * @param card      学号
+	 * @param oldPwd    原密码
+	 * @param newPwd    新密码
+	 * @return int
+	 */
 	int resetPwd(@Param("card") String card, @Param("oldPwd") String oldPwd, @Param("newPwd") String newPwd);
 
 	/**
-	 * @Description: User 更新信息
-	 * @Param: [card, name, addr, mail]
-	 * @Return: int
-	 **/
+	 * User 更新信息
+	 * @param card  学号
+	 * @param name  姓名
+	 * @param addr  地址
+	 * @param mail  邮箱
+	 * @return int
+	 */
 	int updateInfo(@Param("card") String card, @Param("name") String name, @Param("addr") String addr, @Param("mail") String mail);
 
 	/**
-	 * @Description: 随机获取一个 User 信息
-	 * @Param: []
-	 * @Return: per.kirito.pack.pojo.User
-	 **/
+	 * 随机获取一个 User 信息
+	 * @return per.kirito.pack.pojo.User
+	 */
 	User getUserByRand();
 
 	/**
-	 * @Description: 更新 count 数-1
-	 * @Param: [id]
-	 * @Return: int
-	 **/
+	 * 更新 count 数-1
+	 * @param id    快递单号
+	 * @return int
+	 */
 	int updateCountLessByPackId(String id);
 
 	/**
-	 * @Description: 更新 count 数+1
-	 * @Param: [id]
-	 * @Return: int
-	 **/
+	 * 更新 count 数+1
+	 * @param id    快递单号
+	 * @return int
+	 */
 	int updateCountPlusByPackId(String id);
 
 	/**
-	 * @Description: 根据快递单号查询出收件人邮箱、取件码、驿站地址、快递公司信息
-	 * @Param: [id]
-	 * @Return: java.util.Map<java.lang.String,java.lang.String>
-	 **/
+	 *根据快递单号查询出收件人邮箱、取件码、驿站地址、快递公司信息
+	 * @param id    快递单号
+	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 */
 	Map<String, String> getMailById(String id);
 
 }

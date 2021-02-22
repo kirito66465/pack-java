@@ -71,25 +71,29 @@ public interface PackMapper {
 	int getUserNoTotalNum(String phone);
 
 	/**
-	 * @Description: 根据 User 学号查询出该 User 所有快递集合
-	 * @Param: [card]
-	 * @Return: java.util.List<per.kirito.pack.pojo.Pack>
-	 **/
-	List<Pack> getUserPacks(String card);
+	 * 根据 User 学号查询出该 User 所有快递集合
+	 * @param card  学号
+	 * @param org   快递公司
+	 * @param addr  驿站地址
+	 * @return java.util.List<per.kirito.pack.pojo.Pack>
+	 */
+	List<Pack> getUserPacks(String card, String org, String addr);
 
 	/**
-	 * @Description: 根据 User 学号查询出该 User 已取快递集合
-	 * @Param: [card]
-	 * @Return: java.util.List<per.kirito.pack.pojo.Pack>
-	 **/
-	List<Pack> getUserIsPick(String card);
+	 * 根据 User 学号查询出该 User 已取快递集合
+	 * @param card  学号
+	 * @param org   快递公司
+	 * @return java.util.List<per.kirito.pack.pojo.Pack>
+	 */
+	List<Pack> getUserIsPick(String card, String org);
 
 	/**
-	 * @Description: 根据 User 学号查询出该 User 未取快递集合
-	 * @Param: [card]
-	 * @Return: java.util.List<per.kirito.pack.pojo.Pack>
-	 **/
-	List<Pack> getUserNoPick(String card);
+	 * 根据 User 学号查询出该 User 未取快递集合
+	 * @param card  学号
+	 * @param org   快递公司
+	 * @return java.util.List<per.kirito.pack.pojo.Pack>
+	 */
+	List<Pack> getUserNoPick(String card, String org);
 
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
@@ -118,25 +122,28 @@ public interface PackMapper {
 	int getAdminNoTotalNum(String addr);
 
 	/**
-	 * @Description: 根据 Admin 编号查询出所在驿站的快递集合
-	 * @Param: [card]
-	 * @Return: java.util.List<per.kirito.pack.pojo.Pack>
-	 **/
-	List<Pack> getAdminPacks(String card);
+	 * 根据 Admin 编号查询出所在驿站的所有快递集合
+	 * @param card  Admin 编号
+	 * @param org   快递公司
+	 * @return java.util.List<per.kirito.pack.pojo.Pack>
+	 */
+	List<Pack> getAdminPacks(String card, String org);
 
 	/**
-	 * @Description: 根据 Admin 编号查询出所在驿站已取快递集合
-	 * @Param: [card]
-	 * @Return: java.util.List<per.kirito.pack.pojo.Pack>
-	 **/
-	List<Pack> getAdminIsPick(String card);
+	 * 根据 Admin 编号查询出所在驿站已取快递集合
+	 * @param card  Admin 编号
+	 * @param org   快递公司
+	 * @return java.util.List<per.kirito.pack.pojo.Pack>
+	 */
+	List<Pack> getAdminIsPick(String card, String org);
 
 	/**
-	 * @Description: 根据 Admin 编号查询出所在驿站未取快递集合
-	 * @Param: [card]
-	 * @Return: java.util.List<per.kirito.pack.pojo.Pack>
-	 **/
-	List<Pack> getAdminNoPick(String card);
+	 * 根据 Admin 编号查询出所在驿站未取快递集合
+	 * @param card  Admin 编号
+	 * @param org   快递公司
+	 * @return java.util.List<per.kirito.pack.pojo.Pack>
+	 */
+	List<Pack> getAdminNoPick(String card, String org);
 
 	/**
 	 * @Description: 根据驿站地址取出当前驿站未有取件码的快递中入站时间最早的快递

@@ -97,14 +97,18 @@ public class PackController {
 	 * @param currentPage   当前页
 	 * @param pageSize      每页大小
 	 * @param token         令牌
+	 * @param org           快递公司
+	 * @param addr          驿站地址
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/getUserPackByPage/{currentPage}")
 	public Map<String, Object> getUserPackByPage(@PathVariable int currentPage,
-	                                          @RequestParam(value = "pageSize") int pageSize,
-	                                          @RequestParam(value = "token") String token) {
-		return packService.getUserPackByPage(currentPage, pageSize, token);
+	                                             @RequestParam(value = "pageSize") int pageSize,
+	                                             @RequestParam(value = "token") String token,
+	                                             @RequestParam(value = "org") String org,
+	                                             @RequestParam(value = "addr") String addr) {
+		return packService.getUserPackByPage(currentPage, pageSize, token, org, addr);
 	}
 
 	/**
@@ -112,14 +116,16 @@ public class PackController {
 	 * @param currentPage   当前页
 	 * @param pageSize      每页大小
 	 * @param token         令牌
+	 * @param org           快递公司
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/getUserIsPick/{currentPage}")
 	public Map<String, Object> getUserIsPick(@PathVariable int currentPage,
 	                                         @RequestParam(value = "pageSize") int pageSize,
-	                                         @RequestParam(value = "token") String token) {
-		return packService.getUserIsPick(currentPage, pageSize, token);
+	                                         @RequestParam(value = "token") String token,
+	                                         @RequestParam(value = "org") String org) {
+		return packService.getUserIsPick(currentPage, pageSize, token, org);
 	}
 
 	/**
@@ -127,14 +133,16 @@ public class PackController {
 	 * @param currentPage   当前页
 	 * @param pageSize      每页大小
 	 * @param token         令牌
+	 * @param org           快递公司
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/getUserNoPick/{currentPage}")
 	public Map<String, Object> getUserNoPick(@PathVariable int currentPage,
 	                                         @RequestParam(value = "pageSize") int pageSize,
-	                                         @RequestParam(value = "token") String token) {
-		return packService.getUserNoPick(currentPage, pageSize, token);
+	                                         @RequestParam(value = "token") String token,
+	                                         @RequestParam(value = "org") String org) {
+		return packService.getUserNoPick(currentPage, pageSize, token, org);
 	}
 
 	/**
@@ -158,14 +166,16 @@ public class PackController {
 	 * @param currentPage   当前页
 	 * @param pageSize      每页大小
 	 * @param token         令牌
+	 * @param org           快递公司
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/getAdminPacksByPage/{currentPage}")
 	public Map<String, Object> getAdminPackByPage(@PathVariable int currentPage,
 	                                              @RequestParam(value = "pageSize") int pageSize,
-	                                              @RequestParam(value = "token") String token) {
-		return packService.getAdminPackByPage(currentPage, pageSize, token);
+	                                              @RequestParam(value = "token") String token,
+	                                              @RequestParam(value = "org") String org) {
+		return packService.getAdminPackByPage(currentPage, pageSize, token, org);
 	}
 
 	/**
@@ -173,14 +183,16 @@ public class PackController {
 	 * @param currentPage   当前页
 	 * @param pageSize      每页大小
 	 * @param token         令牌
+	 * @param org           快递公司
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/getAdminIsPick/{currentPage}")
 	public Map<String, Object> getAdminIsPick(@PathVariable int currentPage,
 	                                          @RequestParam(value = "pageSize") int pageSize,
-	                                          @RequestParam(value = "token") String token) {
-		return packService.getAdminIsPick(currentPage, pageSize, token);
+	                                          @RequestParam(value = "token") String token,
+	                                          @RequestParam(value = "org") String org) {
+		return packService.getAdminIsPick(currentPage, pageSize, token, org);
 	}
 
 	/**
@@ -188,14 +200,16 @@ public class PackController {
 	 * @param currentPage   当前页
 	 * @param pageSize      每页大小
 	 * @param token         令牌
+	 * @param org           快递公司
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@CrossOrigin
 	@RequestMapping(value = "/getAdminNoPick/{currentPage}")
 	public Map<String, Object> getAdminNoPick(@PathVariable int currentPage,
 	                                          @RequestParam(value = "pageSize") int pageSize,
-	                                          @RequestParam(value = "token") String token) {
-		return packService.getAdminNoPick(currentPage, pageSize, token);
+	                                          @RequestParam(value = "token") String token,
+	                                          @RequestParam(value = "org") String org) {
+		return packService.getAdminNoPick(currentPage, pageSize, token, org);
 	}
 
 	/**

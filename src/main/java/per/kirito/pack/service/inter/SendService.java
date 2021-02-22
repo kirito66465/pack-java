@@ -9,81 +9,95 @@ import java.util.Map;
  * @Author: kirito
  * @Date: 2021/1/4
  * @Time: 15:52
- * @description: 寄件 Send 的Service 层接口
+ * @description: 寄件 Send 的 Service 层接口
  */
 public interface SendService {
 
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
-	 * User相关
+	 * 流程相关
 	 **/
 
 	/**
-	 * @Description: User寄件下单
-	 * @Param: [request]
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
-	 **/
+	 * User 寄件下单
+	 * @param request   寄件请求实体
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 */
 	Map<String, Object> sendPack(SendRequest request);
 	
 	/**
-	 * @Description: User支付寄件
-	 * @Param: [id, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
-	 **/
+	 * User 支付寄件
+	 * @param id    学号
+	 * @param token 令牌
+	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 */
 	Map<String, String> sendPay(String id, String token);
 
 	/**
-	 * @Description: Admin确认寄件
-	 * @Param: [id, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.String>
-	 **/
+	 * Admin 确认寄件
+	 * @param id    编号
+	 * @param token 令牌
+	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 */
 	Map<String, String> sendConfirm(String id, String token);
 
 	/**
-	 * @Description: Admin发出寄件
-	 * @Param: [id, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.String>
-	 **/
+	 * Admin 发出寄件
+	 * @param id    编号
+	 * @param token 令牌
+	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 */
 	Map<String, String> sendOut(String id, String token);
 
 	/**
-	 * @Description: User取消寄件
-	 * @Param: [id, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.String>
-	 **/
+	 * User 取消寄件
+	 * @param id    学号
+	 * @param token 令牌
+	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 */
 	Map<String, String> sendCancel(String id, String token);
 
 	/**
-	 * @Description: 分页方式获取User寄件集合
-	 * @Param: [currentPage, pageSize, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 * -----------------------------------------------------------------------------------------------------------------
+	 * User 相关
 	 **/
-	Map<String, Object> getSendByUser(int currentPage, int pageSize, String token);
 
 	/**
-	 * @Description: 获取User寄件数量
-	 * @Param: [token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
-	 **/
+	 * 分页方式获取 User 寄件集合
+	 * @param currentPage   当前页
+	 * @param pageSize      每页大小
+	 * @param token         令牌
+	 * @param org           快递公司
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 */
+	Map<String, Object> getSendByUser(int currentPage, int pageSize, String token, String org);
+
+	/**
+	 * 获取 User 寄件数量
+	 * @param token 令牌
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 */
 	Map<String, Object> getTotalByUser(String token);
 
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
-	 * Admin相关
+	 * Admin 相关
 	 **/
 
 	/**
-	 * @Description: 分页方式获取Admin寄件集合
-	 * @Param: [currentPage, pageSize, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
-	 **/
+	 * 分页方式获取 Admin 寄件集合
+	 * @param currentPage   当前页
+	 * @param pageSize      每页大小
+	 * @param token         令牌
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 */
 	Map<String, Object> getSendByAdmin(int currentPage, int pageSize, String token);
 
 	/**
-	 * @Description: 获取Admin寄件数量
-	 * @Param: [token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
-	 **/
+	 * 获取 Admin 寄件数量
+	 * @param token 令牌
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 */
 	Map<String, Object> getTotalByAdmin(String token);
 
 }

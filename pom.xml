@@ -30,6 +30,7 @@
 		<javax-mail.version>1.6.2</javax-mail.version>
 		<jasypt.version>2.1.0</jasypt.version>
 		<hutool.version>5.5.7</hutool.version>
+		<junit.version>4.12</junit.version>
 	</properties>
 
 	<dependencies>
@@ -153,6 +154,18 @@
 			<groupId>cn.hutool</groupId>
 			<artifactId>hutool-all</artifactId>
 			<version>${hutool.version}</version>
+		</dependency>
+
+		<!-- 单元测试 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 

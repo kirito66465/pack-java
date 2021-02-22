@@ -44,6 +44,13 @@
 			FROM t_user
 			WHERE card = #{card}
 		)
+		<if test="org != null and org.length > 0">
+			AND org IN (
+			<foreach collection="org.split(',')" item="org" index="index" separator=",">
+				'${org}'
+			</foreach>
+			)
+		</if>
 	</select>
 
 	<!-- 获取 Admin 的寄件集合 -->

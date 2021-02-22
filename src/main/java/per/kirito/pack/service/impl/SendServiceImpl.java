@@ -51,14 +51,14 @@ public class SendServiceImpl implements SendService {
 
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
-	 * User 相关
+	 * 流程相关
 	 **/
 
 	/**
-	 * @Description: User 寄件下单
-	 * @Param: [request]
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
-	 **/
+	 * User 寄件下单
+	 * @param request   寄件请求实体
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public Map<String, Object> sendPack(SendRequest request) {
@@ -103,10 +103,11 @@ public class SendServiceImpl implements SendService {
 	}
 
 	/**
-	 * @Description: User 支付寄件
-	 * @Param: [id, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
-	 **/
+	 * User 支付寄件
+	 * @param id    学号
+	 * @param token 令牌
+	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public Map<String, String> sendPay(String id, String token) {
@@ -128,10 +129,11 @@ public class SendServiceImpl implements SendService {
 	}
 
 	/**
-	 * @Description: Admin 确认寄件
-	 * @Param: [id, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.String>
-	 **/
+	 * Admin 确认寄件
+	 * @param id    编号
+	 * @param token 令牌
+	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public Map<String, String> sendConfirm(String id, String token) {
@@ -153,10 +155,11 @@ public class SendServiceImpl implements SendService {
 	}
 
 	/**
-	 * @Description: Admin 发出寄件
-	 * @Param: [id, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.String>
-	 **/
+	 * Admin 发出寄件
+	 * @param id    编号
+	 * @param token 令牌
+	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public Map<String, String> sendOut(String id, String token) {
@@ -178,10 +181,11 @@ public class SendServiceImpl implements SendService {
 	}
 
 	/**
-	 * @Description: User 取消寄件
-	 * @Param: [id, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.String>
-	 **/
+	 * User 取消寄件
+	 * @param id    学号
+	 * @param token 令牌
+	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public Map<String, String> sendCancel(String id, String token) {
@@ -202,17 +206,25 @@ public class SendServiceImpl implements SendService {
 	}
 
 	/**
-	 * @Description: 分页方式获取 User 寄件集合
-	 * @Param: [currentPage, pageSize, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
+	 * -----------------------------------------------------------------------------------------------------------------
+	 * User 相关
 	 **/
+
+	/**
+	 * 分页方式获取 User 寄件集合
+	 * @param currentPage   当前页
+	 * @param pageSize      每页大小
+	 * @param token         令牌
+	 * @param org           快递公司
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 */
 	@Override
-	public Map<String, Object> getSendByUser(int currentPage, int pageSize, String token) {
+	public Map<String, Object> getSendByUser(int currentPage, int pageSize, String token, String org) {
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据card查询出该user寄件集合
-			List<Send> sends = sendMapper.getSendByUser(card);
+			List<Send> sends = sendMapper.getSendByUser(card, org);
 			if (sends != null) {
 				// 获取分页方式结果集
 				Page<Send> sendPage = SendUtil.getSendByPage(currentPage, pageSize, sends);
@@ -227,10 +239,10 @@ public class SendServiceImpl implements SendService {
 	}
 
 	/**
-	 * @Description: 获取 User 寄件数量
-	 * @Param: [token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
-	 **/
+	 * 获取 User 寄件数量
+	 * @param token 令牌
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 */
 	@Override
 	public Map<String, Object> getTotalByUser(String token) {
 		Map<String, Object> map = new HashMap<>();
@@ -256,10 +268,12 @@ public class SendServiceImpl implements SendService {
 	 **/
 
 	/**
-	 * @Description: 分页方式获取 Admin 寄件集合
-	 * @Param: [currentPage, pageSize, token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
-	 **/
+	 * 分页方式获取 Admin 寄件集合
+	 * @param currentPage   当前页
+	 * @param pageSize      每页大小
+	 * @param token         令牌
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 */
 	@Override
 	public Map<String, Object> getSendByAdmin(int currentPage, int pageSize, String token) {
 		Map<String, Object> map = new HashMap<>();
@@ -283,10 +297,10 @@ public class SendServiceImpl implements SendService {
 	}
 
 	/**
-	 * @Description: 获取 Admin 寄件数量
-	 * @Param: [token]
-	 * @Return: java.util.Map<java.lang.String,java.lang.Object>
-	 **/
+	 * 获取 Admin 寄件数量
+	 * @param token 令牌
+	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 */
 	@Override
 	public Map<String, Object> getTotalByAdmin(String token) {
 		Map<String, Object> map = new HashMap<>();

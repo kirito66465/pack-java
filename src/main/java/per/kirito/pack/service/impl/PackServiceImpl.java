@@ -378,13 +378,13 @@ public class PackServiceImpl implements PackService {
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
-	public Map<String, Object> getUserPackByPage(int currentPage, int pageSize, String token) {
+	public Map<String, Object> getUserPackByPage(int currentPage, int pageSize, String token, String org, String addr) {
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
 			// 取出 User 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 User 已取快递集合
-			List<Pack> packs = packMapper.getUserPacks(card);
+			List<Pack> packs = packMapper.getUserPacks(card, org, addr);
 			List<PackResult> packResultList = PackUtil.getPackResult(packs);
 			// 获取分页方式的结果集
 			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
@@ -403,13 +403,13 @@ public class PackServiceImpl implements PackService {
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
-	public Map<String, Object> getUserIsPick(int currentPage, int pageSize, String token) {
+	public Map<String, Object> getUserIsPick(int currentPage, int pageSize, String token, String org) {
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
 			// 取出 User 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 User 已取快递集合
-			List<Pack> packs = packMapper.getUserIsPick(card);
+			List<Pack> packs = packMapper.getUserIsPick(card, org);
 			List<PackResult> packResultList = PackUtil.getPackResult(packs);
 			// 获取分页方式的结果集
 			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
@@ -428,13 +428,13 @@ public class PackServiceImpl implements PackService {
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
-	public Map<String, Object> getUserNoPick(int currentPage, int pageSize, String token) {
+	public Map<String, Object> getUserNoPick(int currentPage, int pageSize, String token, String org) {
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
 			// 取出 User 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据card查询出该User已取快递集合
-			List<Pack> packs = packMapper.getUserNoPick(card);
+			List<Pack> packs = packMapper.getUserNoPick(card, org);
 			List<PackResult> packResultList = PackUtil.getPackResult(packs);
 			// 获取分页方式的结果集
 			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
@@ -481,16 +481,17 @@ public class PackServiceImpl implements PackService {
 	 * @param currentPage   当前页
 	 * @param pageSize      每页大小
 	 * @param token         令牌
+	 * @param org           快递公司
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
-	public Map<String, Object> getAdminPackByPage(int currentPage, int pageSize, String token) {
+	public Map<String, Object> getAdminPackByPage(int currentPage, int pageSize, String token, String org) {
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
 			// 取出 Admin 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
-			// 根据 card 查询出该 Admin 已取快递集合
-			List<Pack> packs = packMapper.getAdminPacks(card);
+			// 根据 card 查询出该 Admin 所有快递集合
+			List<Pack> packs = packMapper.getAdminPacks(card, org);
 			// int -> String 转换
 			List<PackResult> packResultList = PackUtil.getPackResult(packs);
 			// 获取分页方式的结果集
@@ -507,16 +508,17 @@ public class PackServiceImpl implements PackService {
 	 * @param currentPage   当前页
 	 * @param pageSize      每页大小
 	 * @param token         令牌
+	 * @param org           快递公司
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
-	public Map<String, Object> getAdminIsPick(int currentPage, int pageSize, String token) {
+	public Map<String, Object> getAdminIsPick(int currentPage, int pageSize, String token, String org) {
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
 			// 取出 Admin 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 Admin 已取快递集合
-			List<Pack> packs = packMapper.getAdminIsPick(card);
+			List<Pack> packs = packMapper.getAdminIsPick(card, org);
 			List<PackResult> packResultList = PackUtil.getPackResult(packs);
 			// 获取分页方式的结果集
 			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
@@ -532,16 +534,17 @@ public class PackServiceImpl implements PackService {
 	 * @param currentPage   当前页
 	 * @param pageSize      每页大小
 	 * @param token         令牌
+	 * @param org           快递公司
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
-	public Map<String, Object> getAdminNoPick(int currentPage, int pageSize, String token) {
+	public Map<String, Object> getAdminNoPick(int currentPage, int pageSize, String token, String org) {
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
 			// 取出 Admin 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 Admin 未取快递集合
-			List<Pack> packs = packMapper.getAdminNoPick(card);
+			List<Pack> packs = packMapper.getAdminNoPick(card, org);
 			List<PackResult> packResultList = PackUtil.getPackResult(packs);
 			// 获取分页方式结果集
 			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);

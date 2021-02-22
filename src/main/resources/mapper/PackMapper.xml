@@ -88,6 +88,20 @@
 			FROM t_user
 			WHERE card = #{card}
 		)
+		<if test="org != null and org.length > 0">
+			AND org IN (
+			<foreach collection="org.split(',')" item="org" index="index" separator=",">
+				'${org}'
+			</foreach>
+			)
+		</if>
+		<if test="addr != null and addr.length > 0">
+			AND addr IN (
+			<foreach collection="addr.split(',')" item="addr" index="index" separator=",">
+				'${addr}'
+			</foreach>
+			)
+		</if>
 		ORDER BY start DESC
 	</select>
 
@@ -104,6 +118,13 @@
 			FROM t_user
 			WHERE card = #{card}
 		)
+		<if test="org != null and org.length > 0">
+			AND org IN (
+			<foreach collection="org.split(',')" item="org" index="index" separator=",">
+				'${org}'
+			</foreach>
+			)
+		</if>
 		ORDER BY end DESC
 	</select>
 
@@ -120,6 +141,13 @@
 			FROM t_user
 			WHERE card = #{card}
 		)
+		<if test="org != null and org.length > 0">
+			AND org IN (
+			<foreach collection="org.split(',')" item="org" index="index" separator=",">
+				'${org}'
+			</foreach>
+			)
+		</if>
 		ORDER BY code
 	</select>
 
@@ -147,7 +175,7 @@
 		OR status = -1
 	</select>
 
-	<!-- 根据 Admin 编号查询出所在驿站的快递集合 -->
+	<!-- 根据 Admin 编号查询出所在驿站的所有快递集合 -->
 	<select id="getAdminPacks" parameterType="String" resultType="Pack">
 		SELECT id, org, per_name
 			, per_tel, per_addr, addr
@@ -159,6 +187,13 @@
 			FROM t_admin
 			WHERE card = #{card}
 		)
+		<if test="org != null and org.length > 0">
+			AND org IN (
+				<foreach collection="org.split(',')" item="org" index="index" separator=",">
+					'${org}'
+				</foreach>
+			)
+		</if>
 		ORDER BY start DESC
 	</select>
 
@@ -175,6 +210,13 @@
 			FROM t_admin
 			WHERE card = #{card}
 		)
+		<if test="org != null and org.length > 0">
+			AND org IN (
+			<foreach collection="org.split(',')" item="org" index="index" separator=",">
+				'${org}'
+			</foreach>
+			)
+		</if>
 		ORDER BY end DESC
 	</select>
 
@@ -191,6 +233,13 @@
 			FROM t_admin
 			WHERE card = #{card}
 		)
+		<if test="org != null and org.length > 0">
+			AND org IN (
+			<foreach collection="org.split(',')" item="org" index="index" separator=",">
+				'${org}'
+			</foreach>
+			)
+		</if>
 		ORDER BY code
 	</select>
 

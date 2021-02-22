@@ -1,5 +1,6 @@
 package per.kirito.pack.util;
 
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.file.FileWriter;
 
 import java.util.Calendar;
@@ -109,6 +110,7 @@ public class PackIdUtil {
 	 */
 	public static void writeToFile(String type, int count) throws InterruptedException {
 		System.out.println("==========开始生成 " + type + " 的快递单号==========");
+		System.out.println(DateUtil.now());
 		long start = System.currentTimeMillis();
 		FileWriter writer = new FileWriter("D://data/" + type +".txt");
 		for (int i = 0; i < count; i++) {
@@ -117,7 +119,8 @@ public class PackIdUtil {
 			Thread.sleep(100);
 		}
 		long end = System.currentTimeMillis();
-		System.out.println("耗时: " + (end - start) + "ns");
+		System.out.println("耗时: " + (end - start) + "ms");
+		System.out.println(DateUtil.now());
 		System.out.println("==========生成结束==========");
 	}
 
@@ -126,11 +129,11 @@ public class PackIdUtil {
 		writeToFile("ZTO", count);
 		writeToFile("STO", count);
 		writeToFile("YTO", count);
-		writeToFile("JD", count);
-		writeToFile("SF", count);
-		writeToFile("YD", count);
-		writeToFile("TT", count);
-		writeToFile("EMS", count);
+		// writeToFile("JD", count);
+		// writeToFile("SF", count);
+		// writeToFile("YD", count);
+		// writeToFile("TT", count);
+		// writeToFile("EMS", count);
 	}
 
 }
