@@ -75,6 +75,9 @@ public class SendMailUtil {
 		message.setSubject(sub);
 		// 设置消息体
 		String text = "您好，您有一个" + org + "快递包裹已到达" + addr + "菜鸟驿站，请凭取件码" + code + "在19:00前尽早取！";
+		if ("".equals(code) || code == null) {
+			text = "您好，您有一个" + org + "快递包裹已到达" + addr + "菜鸟驿站，但由于驿站快递爆满，请联系驿站管理员尽早取件！";
+		}
 		message.setText(text);
 		// 发送消息
 		Transport.send(message);

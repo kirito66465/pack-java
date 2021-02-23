@@ -73,7 +73,8 @@
 		FROM t_pack
 		WHERE per_tel = #{phone}
 		AND status = 1
-		OR status = -1
+		OR per_tel = #{phone}
+		AND status = -1
 	</select>
 
 	<!-- 根据 User 学号查询出该 User 所有快递集合 -->
@@ -102,7 +103,7 @@
 			</foreach>
 			)
 		</if>
-		ORDER BY start DESC
+		ORDER BY start DESC, code ASC
 	</select>
 
 	<!-- 根据 User 学号查询出该 User 已取快递集合 -->
@@ -148,7 +149,14 @@
 			</foreach>
 			)
 		</if>
-		ORDER BY code
+		<if test="addr != null and addr.length > 0">
+			AND addr IN (
+			<foreach collection="addr.split(',')" item="addr" index="index" separator=",">
+				'${addr}'
+			</foreach>
+			)
+		</if>
+		ORDER BY status DESC, code ASC, start DESC
 	</select>
 
 	<!-- 根据驿站地址获取该驿站所有快递数 -->
@@ -172,7 +180,8 @@
 		FROM t_pack
 		WHERE addr = #{addr}
 		AND status = 1
-		OR status = -1
+		OR addr = #{addr}
+		AND status = -1
 	</select>
 
 	<!-- 根据 Admin 编号查询出所在驿站的所有快递集合 -->
@@ -194,7 +203,7 @@
 				</foreach>
 			)
 		</if>
-		ORDER BY start DESC
+		ORDER BY start DESC, code ASC
 	</select>
 
 	<!-- 根据 Admin 编号查询出所在驿站已取快递集合 -->
@@ -240,7 +249,7 @@
 			</foreach>
 			)
 		</if>
-		ORDER BY code
+		ORDER BY code ASC, start DESC
 	</select>
 
 	<!-- 根据驿站地址取出当前驿站未有取件码的快递中入站时间最早的快递 -->
@@ -258,6 +267,8 @@
 			WHERE addr = #{addr}
 			AND status = -1
 		)
+		ORDER BY start ASC
+		LIMIT 1
 	</select>
 
 	<!-- 根据驿站地址和货架取出当前货架的所有快递 -->

@@ -12,6 +12,7 @@
 		FROM t_code
 		WHERE code = #{code}
 		AND addr = #{addr}
+		AND status = 0
 		AND free = ""
 	</select>
 

@@ -1,26 +1,10 @@
-server:
-  port: 8080
-
 spring:
+  profiles:
+    active: redmi
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     # Druid 扩展属性配置
     druid:
-      # 本地
-      url: ENC(XIJ9qpE+IiX+LtR5NDTJKslOt+EZ66KNlzO9gexwQf0DWQZb0lZJWN7KUzv8QXWNP/M30UoYS2lZavAcjF3jwerEPngaKQYbAZ7mYK9izRrJT+OITBfpQKm3KnHQnIJyau5vIabcH6s=)
-      username: ENC(10VxmuDM9NQpaK876a7FMA==)
-      password: ENC(ebx9tXeDRfnrZ+FisGAANOQxJ1OgLKwt)
-
-      # redmi 虚拟机
-#      url: ENC(fnDsTfgcWFYuyVHf/Gy1bhtdXhEpF8uMWcS29j1+OSEgwsFf0gRqMtT9+VR8CdcegV0Pvv2oqmxOQIckwfFGHioOSV3hcB2UUBAgwlDk3m8RaRvQIrgoinu3JtZ0UY6EvWlLmGWu+Fz3obfc7+WyWA==)
-#      username: ENC(Zsqw+dnzdS3aIetZ5C/CYQ==)
-#      password: ENC(Zsqw+dnzdS3aIetZ5C/CYQ==)
-
-      # aorus 虚拟机
-#      url: ENC(DVnCgZZcZJfUo0bhr/XUx1QiPhT0PArik4J9LIR5nfUchk6X5xNn1Wl/S0WjufgSdkF7EHWXqbJNMG1Q+837PCKbTwV5AqV6Hz+LeNmvXfMQ5YOx6E/92K1JhNZ9/7xMgLRkYSbP7wNbUDHx7l+ByA==)
-#      username: ENC(Zsqw+dnzdS3aIetZ5C/CYQ==)
-#      password: ENC(Zsqw+dnzdS3aIetZ5C/CYQ==)
-
       driver-class-name: com.mysql.cj.jdbc.Driver
       # 初始化大小，最小，最大
       initial-size: 5
@@ -49,23 +33,8 @@ spring:
         enabled: true
         exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
 
-  redis:
-    # 本地
-#    host: 127.0.0.1
-#    port: 6379
-#    database: 0
-
-    # redmi 虚拟机
-    host: ENC(Gl5tR6kwvG0dqKoHeyUtOgyD8ezvLs5N)
-    port: 6379
-    database: 0
-    password: ENC(4+KizEi40PUvDKznYjgigg==)
-
-    # aorus 虚拟机
-#    host: ENC(Gry9OmgcqdnhjUZ1ZsOYI6fbS0UbueAS)
-#    port: 6379
-#    database: 0
-#    password: ENC(4+KizEi40PUvDKznYjgigg==)
+server:
+  port: 8080
 
 jasypt:
   # jasypt 配置项，对应 JasyptEncryptorConfigurationProperties 配置类
@@ -97,3 +66,53 @@ mail:
   sender-mail: ENC(QrLyPQolo1eloonEfX9W4YbUdWDQjWfXA/iYMexdn+I=)    # 发件人邮箱
   host: ENC(SbfpF4J7vqp29+QQKaneMlh29HtqedMP)                       # 发件邮箱主机
   password: ENC(SMS8MgNusP4+3pwqrWxBd8wECHz9FKOeyiW01VxSOj0=)       # 发件邮箱密钥授权码
+
+---
+# aorus 开发时配置
+spring:
+  profiles:
+    aorus
+  datasource:
+    # Druid 扩展属性配置
+    druid:
+      # 本地
+      url: ENC(XIJ9qpE+IiX+LtR5NDTJKslOt+EZ66KNlzO9gexwQf0DWQZb0lZJWN7KUzv8QXWNP/M30UoYS2lZavAcjF3jwerEPngaKQYbAZ7mYK9izRrJT+OITBfpQKm3KnHQnIJyau5vIabcH6s=)
+      username: ENC(10VxmuDM9NQpaK876a7FMA==)
+      password: ENC(ebx9tXeDRfnrZ+FisGAANOQxJ1OgLKwt)
+
+      # aorus 虚拟机
+#      url: jdbc:mysql://192.168.32.101:3306/pack?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+#      username: demo
+#      password: demo
+
+  redis:
+    # aorus 虚拟机
+    host: 192.168.32.101
+    port: 6379
+    database: 0
+    password: kirito
+
+---
+# redmi 开发时配置
+spring:
+  profiles:
+    redmi
+  datasource:
+    # Druid 扩展属性配置
+    druid:
+      # 本地
+#      url: ENC(XIJ9qpE+IiX+LtR5NDTJKslOt+EZ66KNlzO9gexwQf0DWQZb0lZJWN7KUzv8QXWNP/M30UoYS2lZavAcjF3jwerEPngaKQYbAZ7mYK9izRrJT+OITBfpQKm3KnHQnIJyau5vIabcH6s=)
+#      username: ENC(10VxmuDM9NQpaK876a7FMA==)
+#      password: ENC(ebx9tXeDRfnrZ+FisGAANOQxJ1OgLKwt)
+
+      # redmi 虚拟机
+      url: jdbc:mysql://192.168.152.100:3306/pack?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+      username: demo
+      password: demo
+
+  redis:
+    # redmi 虚拟机
+    host: 192.168.152.100
+    port: 6379
+    database: 0
+    password: kirito

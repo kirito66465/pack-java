@@ -59,34 +59,24 @@ public interface PackService {
 
 	/**
 	 * 分页获取 User 所有的快递，包括已取出和未取出的快递；如果没有 token 令牌，则返回获取信息失败
-	 * @param currentPage   当前页
-	 * @param pageSize      每页大小
-	 * @param token         令牌
-	 * @param org           快递公司
-	 * @param addr          驿站地址
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
-	Map<String, Object> getUserPackByPage(int currentPage, int pageSize, String token, String org, String addr);
+	Map<String, Object> getUserPackByPage(String json);
 
 	/**
 	 * 分页获取 User 已取出的快递；如果没有 token 令牌，则返回获取信息失败
-	 * @param currentPage   当前页
-	 * @param pageSize      每页大小
-	 * @param token         令牌
-	 * @param org           快递公司
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
-	Map<String, Object> getUserIsPick(int currentPage, int pageSize, String token, String org);
+	Map<String, Object> getUserIsPick(String json);
 
 	/**
 	 * 分页获取 User 所未取出的快递， 无论有无取件码；如果没有 token 令牌，则返回获取信息失败
-	 * @param currentPage   当前页
-	 * @param pageSize      每页大小
-	 * @param token         令牌
-	 * @param org           快递公司
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
-	Map<String, Object> getUserNoPick(int currentPage, int pageSize, String token, String org);
+	Map<String, Object> getUserNoPick(String json);
 
 	/**
 	 * 获取 User 所有快递总数、已取快递数量、未取快递数量
@@ -102,33 +92,24 @@ public interface PackService {
 
 	/**
 	 * 分页获取 Admin 所有的快递，包括已取出和未取出的快递；如果没有 token 令牌，则返回获取信息失败
-	 * @param currentPage   当前页
-	 * @param pageSize      每页大小
-	 * @param token         令牌
-	 * @param org           快递公司
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
-	Map<String, Object> getAdminPackByPage(int currentPage, int pageSize, String token, String org);
+	Map<String, Object> getAdminPackByPage(String json);
 
 	/**
-	 * 分页获取当前驿站的已取出快递；如果没有 token令 牌，则返回获取信息失败
-	 * @param currentPage   当前页
-	 * @param pageSize      每页大小
-	 * @param token         令牌
-	 * @param org           快递公司
+	 * 分页获取当前驿站的已取出快递；如果没有 token 令牌，则返回获取信息失败
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
-	Map<String, Object> getAdminIsPick(int currentPage, int pageSize, String token, String org);
+	Map<String, Object> getAdminIsPick(String json);
 
 	/**
 	 * 分页获取当前驿站的未取出快递，无论有无取件码；如果没有 token 令牌，则返回获取信息失败
-	 * @param currentPage   当前页
-	 * @param pageSize      每页大小
-	 * @param token         令牌
-	 * @param org           快递公司
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
-	Map<String, Object> getAdminNoPick(int currentPage, int pageSize, String token, String org);
+	Map<String, Object> getAdminNoPick(String json);
 
 	/**
 	 * 获取 Admin 所有快递总数、已取快递数量、未取快递数量

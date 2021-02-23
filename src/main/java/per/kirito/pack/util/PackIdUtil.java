@@ -129,11 +129,12 @@ public class PackIdUtil {
 		writeToFile("ZTO", count);
 		writeToFile("STO", count);
 		writeToFile("YTO", count);
-		// writeToFile("JD", count);
-		// writeToFile("SF", count);
-		// writeToFile("YD", count);
-		// writeToFile("TT", count);
-		// writeToFile("EMS", count);
+		writeToFile("JD", count);
+		writeToFile("SF", count);
+		writeToFile("YD", count);
+		count = 1200;
+		writeToFile("TT", count);
+		writeToFile("EMS", count);
 	}
 
 }

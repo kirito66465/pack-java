@@ -1,5 +1,6 @@
 package per.kirito.pack.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -100,7 +101,7 @@ public class PackServiceImpl implements PackService {
 				// 取出目前驿站信息
 				Admin admin = adminMapper.getAdminByAddr(addr);
 				int count = admin.getCount();
-				// 查询最大取件码有无被使用
+				// 查询最大取件码有无被使用，值为1说明状态为未使用且释放时间为空字符串即从未被使用过
 				MAX_CODE_UNUSED.setAddr(addr);
 				int isUse = codeMapper.findMaxCode(MAX_CODE_UNUSED);
 				String code = "";
@@ -111,14 +112,14 @@ public class PackServiceImpl implements PackService {
 					pack.setStatus(PACK_CODE_1);
 					// 判断取件码有无被使用
 					if (isUse == USE_CODE) {
-						// 最大取件码已被使用，根据已被使用的取件码释放先后赋予取件码
-						coder = codeMapper.findCodeFreeMin(addr);
-						code = coder.getCode();
-					} else {
 						// 最大取件码未被使用，此时按照该驿站该快递未入站之前的快递数量生成取件码
 						code = PickCodeUtil.generate(count);
 						coder.setFree("");
 						coder.setAddr(addr);
+					} else {
+						// 最大取件码已被使用，根据已被使用的取件码释放先后赋予取件码
+						coder = codeMapper.findCodeFreeMin(addr);
+						code = coder.getCode();
 					}
 					coder.setCode(code);
 					coder.setStatus(IS_USE);
@@ -183,7 +184,7 @@ public class PackServiceImpl implements PackService {
 					codeMapper.updateCode(coder);
 					int count = admin.getCount() - 1;
 					if (count >= MAX_PACKS) {
-						// 当前快递取出后，驿站剩余未取快递数大于等于2400，则需要为有取件码的快递根据最早入站时间赋予取件码
+						// 当前快递取出后，驿站剩余未取快递数大于等于2400，则需要为未有取件码的快递根据最早入站时间赋予取件码
 						pack = packMapper.getPackByStartMin(addr);
 						pack.setCode(code);
 						pack.setStatus(PACK_CODE_1);
@@ -254,7 +255,7 @@ public class PackServiceImpl implements PackService {
 					codeMapper.updateCode(coder);
 					int count = admin.getCount() - 1;
 					if (count >= MAX_PACKS) {
-						// 当前快递取出后，驿站剩余未取快递数大于等于2400，则需要为有取件码的快递根据最早入站时间赋予取件码
+						// 当前快递取出后，驿站剩余未取快递数大于等于2400，则需要为未有取件码的快递根据最早入站时间赋予取件码
 						pack = packMapper.getPackByStartMin(addr);
 						pack.setCode(code);
 						pack.setStatus(PACK_CODE_1);
@@ -372,13 +373,25 @@ public class PackServiceImpl implements PackService {
 
 	/**
 	 * 分页获取 User 所有的快递，包括已取出和未取出的快递；如果没有 token 令牌，则返回获取信息失败
-	 * @param currentPage   当前页
-	 * @param pageSize      每页大小
-	 * @param token         令牌
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
-	public Map<String, Object> getUserPackByPage(int currentPage, int pageSize, String token, String org, String addr) {
+	public Map<String, Object> getUserPackByPage(String json) {
+		Map mapTypes = JSON.parseObject(json);
+		Map<String, Object> mapParams = new HashMap<>();
+		for (Object obj : mapTypes.keySet()){
+			System.out.println("key为："+obj+"值为："+mapTypes.get(obj));
+			mapParams.put(String.valueOf(obj), mapTypes.get(obj));
+		}
+		int currentPage = (int) mapParams.get("currentPage");
+		int pageSize = (int) mapParams.get("pageSize");
+		String token = String.valueOf(mapParams.get("token"));
+		String orgArray = String.valueOf(mapParams.get("org"));
+		String org = TypeConversion.arrayToString(orgArray);
+		String addrArray = String.valueOf(mapParams.get("addr"));
+		String addr = TypeConversion.arrayToString(addrArray);
+
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
 			// 取出 User 登录的 card
@@ -397,13 +410,23 @@ public class PackServiceImpl implements PackService {
 
 	/**
 	 * 分页获取 User 已取出的快递；如果没有 token 令牌，则返回获取信息失败
-	 * @param currentPage   当前页
-	 * @param pageSize      每页大小
-	 * @param token         令牌
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
-	public Map<String, Object> getUserIsPick(int currentPage, int pageSize, String token, String org) {
+	public Map<String, Object> getUserIsPick(String json) {
+		Map mapTypes = JSON.parseObject(json);
+		Map<String, Object> mapParams = new HashMap<>();
+		for (Object obj : mapTypes.keySet()){
+			System.out.println("key为："+obj+"值为："+mapTypes.get(obj));
+			mapParams.put(String.valueOf(obj), mapTypes.get(obj));
+		}
+		int currentPage = (int) mapParams.get("currentPage");
+		int pageSize = (int) mapParams.get("pageSize");
+		String token = String.valueOf(mapParams.get("token"));
+		String orgArray = String.valueOf(mapParams.get("org"));
+		String org = TypeConversion.arrayToString(orgArray);
+
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
 			// 取出 User 登录的 card
@@ -422,19 +445,31 @@ public class PackServiceImpl implements PackService {
 
 	/**
 	 * 分页获取 User 所未取出的快递， 无论有无取件码；如果没有 token 令牌，则返回获取信息失败
-	 * @param currentPage   当前页
-	 * @param pageSize      每页大小
-	 * @param token         令牌
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
-	public Map<String, Object> getUserNoPick(int currentPage, int pageSize, String token, String org) {
+	public Map<String, Object> getUserNoPick(String json) {
+		Map mapTypes = JSON.parseObject(json);
+		Map<String, Object> mapParams = new HashMap<>();
+		for (Object obj : mapTypes.keySet()){
+			System.out.println("key为："+obj+"值为："+mapTypes.get(obj));
+			mapParams.put(String.valueOf(obj), mapTypes.get(obj));
+		}
+		int currentPage = (int) mapParams.get("currentPage");
+		int pageSize = (int) mapParams.get("pageSize");
+		String token = String.valueOf(mapParams.get("token"));
+		String orgArray = String.valueOf(mapParams.get("org"));
+		String org = TypeConversion.arrayToString(orgArray);
+		String addrArray = String.valueOf(mapParams.get("addr"));
+		String addr = TypeConversion.arrayToString(addrArray);
+
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
 			// 取出 User 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据card查询出该User已取快递集合
-			List<Pack> packs = packMapper.getUserNoPick(card, org);
+			List<Pack> packs = packMapper.getUserNoPick(card, org, addr);
 			List<PackResult> packResultList = PackUtil.getPackResult(packs);
 			// 获取分页方式的结果集
 			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
@@ -478,14 +513,23 @@ public class PackServiceImpl implements PackService {
 
 	/**
 	 * 分页获取 Admin 所有的快递，包括已取出和未取出的快递；如果没有 token 令牌，则返回获取信息失败
-	 * @param currentPage   当前页
-	 * @param pageSize      每页大小
-	 * @param token         令牌
-	 * @param org           快递公司
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
-	public Map<String, Object> getAdminPackByPage(int currentPage, int pageSize, String token, String org) {
+	public Map<String, Object> getAdminPackByPage(String json) {
+		Map mapTypes = JSON.parseObject(json);
+		Map<String, Object> mapParams = new HashMap<>();
+		for (Object obj : mapTypes.keySet()){
+			System.out.println("key为："+obj+"值为："+mapTypes.get(obj));
+			mapParams.put(String.valueOf(obj), mapTypes.get(obj));
+		}
+		int currentPage = (int) mapParams.get("currentPage");
+		int pageSize = (int) mapParams.get("pageSize");
+		String token = String.valueOf(mapParams.get("token"));
+		String orgArray = String.valueOf(mapParams.get("org"));
+		String org = TypeConversion.arrayToString(orgArray);
+
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
 			// 取出 Admin 登录的 card
@@ -504,15 +548,24 @@ public class PackServiceImpl implements PackService {
 	}
 
 	/**
-	 * 分页获取当前驿站的已取出快递；如果没有 token令 牌，则返回获取信息失败
-	 * @param currentPage   当前页
-	 * @param pageSize      每页大小
-	 * @param token         令牌
-	 * @param org           快递公司
+	 * 分页获取当前驿站的已取出快递；如果没有 token 令牌，则返回获取信息失败
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
-	public Map<String, Object> getAdminIsPick(int currentPage, int pageSize, String token, String org) {
+	public Map<String, Object> getAdminIsPick(String json) {
+		Map mapTypes = JSON.parseObject(json);
+		Map<String, Object> mapParams = new HashMap<>();
+		for (Object obj : mapTypes.keySet()){
+			System.out.println("key为："+obj+"值为："+mapTypes.get(obj));
+			mapParams.put(String.valueOf(obj), mapTypes.get(obj));
+		}
+		int currentPage = (int) mapParams.get("currentPage");
+		int pageSize = (int) mapParams.get("pageSize");
+		String token = String.valueOf(mapParams.get("token"));
+		String orgArray = String.valueOf(mapParams.get("org"));
+		String org = TypeConversion.arrayToString(orgArray);
+
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
 			// 取出 Admin 登录的 card
@@ -531,14 +584,23 @@ public class PackServiceImpl implements PackService {
 
 	/**
 	 * 分页获取当前驿站的未取出快递，无论有无取件码；如果没有 token 令牌，则返回获取信息失败
-	 * @param currentPage   当前页
-	 * @param pageSize      每页大小
-	 * @param token         令牌
-	 * @param org           快递公司
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
-	public Map<String, Object> getAdminNoPick(int currentPage, int pageSize, String token, String org) {
+	public Map<String, Object> getAdminNoPick(String json) {
+		Map mapTypes = JSON.parseObject(json);
+		Map<String, Object> mapParams = new HashMap<>();
+		for (Object obj : mapTypes.keySet()){
+			System.out.println("key为："+obj+"值为："+mapTypes.get(obj));
+			mapParams.put(String.valueOf(obj), mapTypes.get(obj));
+		}
+		int currentPage = (int) mapParams.get("currentPage");
+		int pageSize = (int) mapParams.get("pageSize");
+		String token = String.valueOf(mapParams.get("token"));
+		String orgArray = String.valueOf(mapParams.get("org"));
+		String org = TypeConversion.arrayToString(orgArray);
+
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
 			// 取出 Admin 登录的 card

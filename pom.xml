@@ -11,7 +11,8 @@
 	<groupId>per.kirito</groupId>
 	<artifactId>pack</artifactId>
 	<version>1.0.0</version>
-	<packaging>war</packaging>
+	<!-- SpringBoot 项目打 jar 包，SSM 项目打 war 包 -->
+	<packaging>jar</packaging>
 	<name>pack</name>
 	<description>Package manage project for Spring Boot</description>
 
@@ -156,10 +157,18 @@
 			<version>${hutool.version}</version>
 		</dependency>
 
+		<!-- JSON 处理工具 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.69</version>
+		</dependency>
+
 		<!-- 单元测试 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

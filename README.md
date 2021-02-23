@@ -27,7 +27,7 @@
 ```markdown
 1. 使用自定义配置文件完成邮件发送邮箱配置
 2. 使用 jasypt 对 application.yml 中的配置进行加密
-3. 开启 Druid 的 SQ L监控功能
+3. 开启 Druid 的 SQL 监控功能
 # 加密
 $ .\encrypt input=demo-input password=demo-pwd algorithm=PBEWithMD5AndDES
 输出结果为：`av8dLw8htTU7k5AQaoMgGzI5KLaj9Glp`
@@ -44,13 +44,27 @@ $ .\decrypt input="av8dLw8htTU7k5AQaoMgGzI5KLaj9Glp" password="demo-pwd" algorit
 ```markdown
 1. 完成后端数据筛选过滤；优化代码逻辑
 ```
+- 2021.02.23<br>
+```markdown
+1. 优化代码逻辑；添加单元测试；造取数据测试
+2. 优化多参数方法为传入 JSON 字符串再转 Map 解析参数
+3. 不同环境不同配置文件，并方便切换
+```
 
 __TODO__
 ```markdown
-1. 搜索（已取根据签收人搜索，未取与全部根据收件人搜索，揽收根据寄件人搜索）
-2. Vue 项目刷新数据丢失问题
-3. 去除所有 `@CrossOrigin` 注解
-4. 每张表造大量的数据进行测试，其中t_pack最好一个驿站2400条数据及以上
+待完成：
+1. 添加快递单号生成的 API
+2. 快递状态的筛选过滤
+3. 搜索（已取根据签收人搜索，未取与全部根据收件人搜索，揽收根据寄件人搜索）
+4. 添加标签页/面包屑
+5. 页面布局优化
+6. Vue 项目刷新数据丢失问题
+
+打包：
+1. Vue 项目去除大部分 console.log()
+2. Vue 项目修改 Constant 的 baseUrl 为空
+3. SpringBoot 项目去除所有 `@CrossOrigin` 注解
 ```
 
 ## 相关算法
@@ -62,3 +76,27 @@ __TODO__
 2. 如果驿站快递已满，则当有快递被取出时，未有取件码的快递根据最旧入站时间给予其被取出的快递释放的取件码
 3. 取件码工具类生成取件码，仅在当前驿站快递未满且最大取件码未被使用时才使用
 ```
+
+## 注意
+SQL 语句: 
+```mysql
+SELECT count(*) 未取快递数
+FROM t_pack
+WHERE per_tel = '13305193691'
+AND status = 1
+OR status = -1;
+```
+实际执行的是: 
+```mysql
+SELECT count(*)
+FROM t_pack
+WHERE per_tel = '13305193691'
+AND status = 1;
+```
++
+```mysql
+SELECT count(*)
+FROM t_pack
+WHERE status = -1;
+```
+导致结果不正确。

@@ -91,9 +91,10 @@ public interface PackMapper {
 	 * 根据 User 学号查询出该 User 未取快递集合
 	 * @param card  学号
 	 * @param org   快递公司
+	 * @param addr  驿站地址
 	 * @return java.util.List<per.kirito.pack.pojo.Pack>
 	 */
-	List<Pack> getUserNoPick(String card, String org);
+	List<Pack> getUserNoPick(String card, String org, String addr);
 
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------

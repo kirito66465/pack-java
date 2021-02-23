@@ -1,9 +1,11 @@
 package per.kirito.pack.controller;
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import per.kirito.pack.service.inter.PackService;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -94,55 +96,35 @@ public class PackController {
 
 	/**
 	 * 分页获取 User 所有的快递，包括已取出和未取出的快递；如果没有 token 令牌，则返回获取信息失败
-	 * @param currentPage   当前页
-	 * @param pageSize      每页大小
-	 * @param token         令牌
-	 * @param org           快递公司
-	 * @param addr          驿站地址
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@CrossOrigin
-	@RequestMapping(value = "/getUserPackByPage/{currentPage}")
-	public Map<String, Object> getUserPackByPage(@PathVariable int currentPage,
-	                                             @RequestParam(value = "pageSize") int pageSize,
-	                                             @RequestParam(value = "token") String token,
-	                                             @RequestParam(value = "org") String org,
-	                                             @RequestParam(value = "addr") String addr) {
-		return packService.getUserPackByPage(currentPage, pageSize, token, org, addr);
+	@RequestMapping(value = "/getUserPackByPage")
+	public Map<String, Object> getUserPackByPage(@RequestParam(value = "json") String json) {
+		return packService.getUserPackByPage(json);
 	}
 
 	/**
 	 * 分页获取 User 的已取出快递；如果没有 token 令牌，则返回获取信息失败
-	 * @param currentPage   当前页
-	 * @param pageSize      每页大小
-	 * @param token         令牌
-	 * @param org           快递公司
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@CrossOrigin
-	@RequestMapping(value = "/getUserIsPick/{currentPage}")
-	public Map<String, Object> getUserIsPick(@PathVariable int currentPage,
-	                                         @RequestParam(value = "pageSize") int pageSize,
-	                                         @RequestParam(value = "token") String token,
-	                                         @RequestParam(value = "org") String org) {
-		return packService.getUserIsPick(currentPage, pageSize, token, org);
+	@RequestMapping(value = "/getUserIsPick")
+	public Map<String, Object> getUserIsPick(@RequestParam(value = "json") String json) {
+		return packService.getUserIsPick(json);
 	}
 
 	/**
 	 * 分页获取 User 的未取出快递，无论其有无取件码；如果没有 token 令牌，则返回获取信息失败
-	 * @param currentPage   当前页
-	 * @param pageSize      每页大小
-	 * @param token         令牌
-	 * @param org           快递公司
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@CrossOrigin
-	@RequestMapping(value = "/getUserNoPick/{currentPage}")
-	public Map<String, Object> getUserNoPick(@PathVariable int currentPage,
-	                                         @RequestParam(value = "pageSize") int pageSize,
-	                                         @RequestParam(value = "token") String token,
-	                                         @RequestParam(value = "org") String org) {
-		return packService.getUserNoPick(currentPage, pageSize, token, org);
+	@RequestMapping(value = "/getUserNoPick")
+	public Map<String, Object> getUserNoPick(@RequestParam(value = "json") String json) {
+		return packService.getUserNoPick(json);
 	}
 
 	/**
@@ -162,54 +144,36 @@ public class PackController {
 	 **/
 
 	/**
-	 * 分页获取 Admin 所有的快递，包括已取出和未取出的快递；如果没有 token令 牌，则返回获取信息失败
-	 * @param currentPage   当前页
-	 * @param pageSize      每页大小
-	 * @param token         令牌
-	 * @param org           快递公司
+	 * 分页获取 Admin 所有的快递，包括已取出和未取出的快递；如果没有 token 令牌，则返回获取信息失败
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@CrossOrigin
-	@RequestMapping(value = "/getAdminPacksByPage/{currentPage}")
-	public Map<String, Object> getAdminPackByPage(@PathVariable int currentPage,
-	                                              @RequestParam(value = "pageSize") int pageSize,
-	                                              @RequestParam(value = "token") String token,
-	                                              @RequestParam(value = "org") String org) {
-		return packService.getAdminPackByPage(currentPage, pageSize, token, org);
+	@RequestMapping(value = "/getAdminPacksByPage")
+	public Map<String, Object> getAdminPackByPage(@RequestParam(value = "json") String json) {
+		return packService.getAdminPackByPage(json);
 	}
 
 	/**
 	 * 分页获取 Admin 的已取出快递；如果没有 token 令牌，则返回获取信息失败
-	 * @param currentPage   当前页
-	 * @param pageSize      每页大小
-	 * @param token         令牌
-	 * @param org           快递公司
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@CrossOrigin
-	@RequestMapping(value = "/getAdminIsPick/{currentPage}")
-	public Map<String, Object> getAdminIsPick(@PathVariable int currentPage,
-	                                          @RequestParam(value = "pageSize") int pageSize,
-	                                          @RequestParam(value = "token") String token,
-	                                          @RequestParam(value = "org") String org) {
-		return packService.getAdminIsPick(currentPage, pageSize, token, org);
+	@RequestMapping(value = "/getAdminIsPick")
+	public Map<String, Object> getAdminIsPick(@RequestParam(value = "json") String json) {
+		return packService.getAdminIsPick(json);
 	}
 
 	/**
 	 * 分页获取 Admin 的未取出快递，无论其有无取件码；如果没有 token 令牌，则返回获取信息失败
-	 * @param currentPage   当前页
-	 * @param pageSize      每页大小
-	 * @param token         令牌
-	 * @param org           快递公司
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@CrossOrigin
-	@RequestMapping(value = "/getAdminNoPick/{currentPage}")
-	public Map<String, Object> getAdminNoPick(@PathVariable int currentPage,
-	                                          @RequestParam(value = "pageSize") int pageSize,
-	                                          @RequestParam(value = "token") String token,
-	                                          @RequestParam(value = "org") String org) {
-		return packService.getAdminNoPick(currentPage, pageSize, token, org);
+	@RequestMapping(value = "/getAdminNoPick")
+	public Map<String, Object> getAdminNoPick(@RequestParam(value = "json") String json) {
+		return packService.getAdminNoPick(json);
 	}
 
 	/**

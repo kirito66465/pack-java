@@ -83,6 +83,18 @@ public class TypeConversion {
 		return md5code;
 	}
 
+	/**
+	 * ["中通","申通","圆通"] 转换为 中通,申通,圆通
+	 * @param array json 数组
+	 * @return java.lang.String
+	 */
+	public static String arrayToString(String array) {
+		// 正则表达式
+		String regEx = "[\n`~!@#$%^&*()+=|{}':;'\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。， 、？\"]";
+		String org = array.replaceAll(regEx, "");
+		return org;
+	}
+
 	public static void main(String[] args) throws ParseException {
 		String time = TypeConversion.getTime();
 		System.out.println("现在时间：" + time);
