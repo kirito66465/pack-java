@@ -100,3 +100,8 @@ FROM t_pack
 WHERE status = -1;
 ```
 导致结果不正确。
+
+## 打包上线
+1. Vue 项目的 Constant 的 baseUrl 域名设置为虚拟机 IP
+2. 虚拟机数据库开放本地 demo 用户连接权限
+3. java -jar [jar包] 命令运行 SpringBoot 项目
