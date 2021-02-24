@@ -59,10 +59,12 @@ $ .\decrypt input="av8dLw8htTU7k5AQaoMgGzI5KLaj9Glp" password="demo-pwd" algorit
 __TODO__
 ```markdown
 待完成：
-1. 搜索（已取根据签收人搜索，未取与全部根据收件人搜索，揽收根据寄件人搜索）
-2. 添加标签页/面包屑
-3. 页面布局优化
-4. Vue 项目刷新数据丢失问题
+1. 添加快递数据导出为 Excel 表格
+2. 完成 selection 单选多选功能
+3. 搜索（已取根据签收人搜索，未取与全部根据收件人搜索，揽收根据寄件人搜索）
+4. 添加标签页/面包屑
+5. 页面布局优化
+6. Vue 项目刷新数据丢失问题
 
 打包：
 1. Vue 项目去除大部分 console.log()

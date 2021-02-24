@@ -40,18 +40,20 @@ public interface SendMapper {
 
 	/**
 	 * 获取 User 的寄件集合
-	 * @param card  学号
-	 * @param org   快递公司
+	 * @param card      学号
+	 * @param org       快递公司
+	 * @param status    寄件状态
 	 * @return java.util.List<per.kirito.pack.pojo.Send>
-	 */
-	List<Send> getSendByUser(String card, String org);
+	 **/
+	List<Send> getSendByUser(String card, String org, String status);
 
 	/**
 	 * 获取 Admin 的寄件集合
-	 * @param org   快递公司
+	 * @param org       快递公司
+	 * @param status    寄件状态
 	 * @return java.util.List<per.kirito.pack.pojo.Send>
 	 */
-	List<Send> getSendByAdmin(String org);
+	List<Send> getSendByAdmin(String org, String status);
 
 	/**
 	 * 传入状态，获取 User 的该状态寄件数量

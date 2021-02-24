@@ -63,13 +63,10 @@ public interface SendService {
 
 	/**
 	 * 分页方式获取 User 寄件集合
-	 * @param currentPage   当前页
-	 * @param pageSize      每页大小
-	 * @param token         令牌
-	 * @param org           快递公司
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:寄件状态}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 */
-	Map<String, Object> getSendByUser(int currentPage, int pageSize, String token, String org);
+	Map<String, Object> getSendByUser(String json);
 
 	/**
 	 * 获取 User 寄件数量
@@ -85,12 +82,10 @@ public interface SendService {
 
 	/**
 	 * 分页方式获取 Admin 寄件集合
-	 * @param currentPage   当前页
-	 * @param pageSize      每页大小
-	 * @param token         令牌
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, status:寄件状态}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 */
-	Map<String, Object> getSendByAdmin(int currentPage, int pageSize, String token);
+	Map<String, Object> getSendByAdmin(String json);
 
 	/**
 	 * 获取 Admin 寄件数量

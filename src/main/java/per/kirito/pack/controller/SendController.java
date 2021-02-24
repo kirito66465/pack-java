@@ -103,20 +103,14 @@ public class SendController {
 
 	/**
 	 * 分页方式获取 User 寄件集合
-	 * @param currentPage   当前页
-	 * @param pageSize      每页大小
-	 * @param token         令牌
-	 * @param org           快递公司
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:寄件状态}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@ApiOperation(value = "学生寄件集")
 	@CrossOrigin
-	@RequestMapping(value = "/getSendByUser/{currentPage}")
-	public Map<String, Object> getSendByUser(@PathVariable int currentPage,
-	                                         @RequestParam(value = "pageSize") int pageSize,
-	                                         @RequestParam(value = "token") String token,
-	                                         @RequestParam(value = "org") String org) {
-		return sendService.getSendByUser(currentPage, pageSize, token, org);
+	@RequestMapping(value = "/getSendByUser")
+	public Map<String, Object> getSendByUser(@RequestParam(value = "json") String json) {
+		return sendService.getSendByUser(json);
 	}
 
 	/**
@@ -138,18 +132,14 @@ public class SendController {
 
 	/**
 	 * 分页方式获取 Admin 寄件集合
-	 * @param currentPage   当前页
-	 * @param pageSize      每页大小
-	 * @param token         令牌
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, status:寄件状态}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@ApiOperation(value = "驿站寄件集")
 	@CrossOrigin
-	@RequestMapping(value = "/getSendByAdmin/{currentPage}")
-	public Map<String, Object> getSendByAdmin(@PathVariable int currentPage,
-	                                          @RequestParam(value = "pageSize") int pageSize,
-	                                          @RequestParam(value = "token") String token) {
-		return sendService.getSendByAdmin(currentPage, pageSize, token);
+	@RequestMapping(value = "/getSendByAdmin")
+	public Map<String, Object> getSendByAdmin(@RequestParam(value = "json") String json) {
+		return sendService.getSendByAdmin(json);
 	}
 
 	/**
@@ -161,7 +151,7 @@ public class SendController {
 	@CrossOrigin
 	@RequestMapping(value = "/getTotalByAdmin")
 	public Map<String, Object> getTotalByAdmin(@RequestParam(value = "token") String token) {
-		return sendService.getTotalByUser(token);
+		return sendService.getTotalByAdmin(token);
 	}
 
 }

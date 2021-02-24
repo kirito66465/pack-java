@@ -1,5 +1,6 @@
 package per.kirito.pack.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -211,19 +212,30 @@ public class SendServiceImpl implements SendService {
 
 	/**
 	 * 分页方式获取 User 寄件集合
-	 * @param currentPage   当前页
-	 * @param pageSize      每页大小
-	 * @param token         令牌
-	 * @param org           快递公司
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:寄件状态}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 */
 	@Override
-	public Map<String, Object> getSendByUser(int currentPage, int pageSize, String token, String org) {
+	public Map<String, Object> getSendByUser(String json) {
+		Map mapTypes = JSON.parseObject(json);
+		Map<String, Object> mapParams = new HashMap<>();
+		for (Object obj : mapTypes.keySet()){
+			System.out.println("key为: " + obj + "值为: "+ mapTypes.get(obj));
+			mapParams.put(String.valueOf(obj), mapTypes.get(obj));
+		}
+		int currentPage = (int) mapParams.get("currentPage");
+		int pageSize = (int) mapParams.get("pageSize");
+		String token = String.valueOf(mapParams.get("token"));
+		String orgArray = String.valueOf(mapParams.get("org"));
+		String org = TypeConversion.arrayToString(orgArray);
+		String statusArray = String.valueOf(mapParams.get("status"));
+		String status = TypeConversion.arrayToString(statusArray);
+
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 user 寄件集合
-			List<Send> sends = sendMapper.getSendByUser(card, org);
+			List<Send> sends = sendMapper.getSendByUser(card, org, status);
 			if (sends != null) {
 				// 获取分页方式结果集
 				Page<Send> sendPage = SendUtil.getSendByPage(currentPage, pageSize, sends);
@@ -248,8 +260,8 @@ public class SendServiceImpl implements SendService {
 		if (stringRedisTemplate.hasKey(token)) {
 			String card = stringRedisTemplate.opsForValue().get(token);
 			int submit = sendMapper.getUserTotal(card, SEND_STATUS_0);
-			int pay = sendMapper.getUserTotal(card, SEND_STATUS_2);
-			int confirm = sendMapper.getUserTotal(card, SEND_STATUS_1);
+			int pay = sendMapper.getUserTotal(card, SEND_STATUS_1);
+			int confirm = sendMapper.getUserTotal(card, SEND_STATUS_2);
 			int out = sendMapper.getUserTotal(card, SEND_STATUS_3);
 			map.put("sendSubmit", submit);
 			map.put("sendPay", pay);
@@ -268,20 +280,30 @@ public class SendServiceImpl implements SendService {
 
 	/**
 	 * 分页方式获取 Admin 寄件集合
-	 * @param currentPage   当前页
-	 * @param pageSize      每页大小
-	 * @param token         令牌
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, status:寄件状态}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 */
 	@Override
-	public Map<String, Object> getSendByAdmin(int currentPage, int pageSize, String token) {
+	public Map<String, Object> getSendByAdmin(String json) {
+		Map mapTypes = JSON.parseObject(json);
+		Map<String, Object> mapParams = new HashMap<>();
+		for (Object obj : mapTypes.keySet()){
+			System.out.println("key为: " + obj + "值为: "+ mapTypes.get(obj));
+			mapParams.put(String.valueOf(obj), mapTypes.get(obj));
+		}
+		int currentPage = (int) mapParams.get("currentPage");
+		int pageSize = (int) mapParams.get("pageSize");
+		String token = String.valueOf(mapParams.get("token"));
+		String statusArray = String.valueOf(mapParams.get("status"));
+		String status = TypeConversion.arrayToString(statusArray);
+
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
 			// 获取所在驿站的寄件快递种类/公司
 			String card = stringRedisTemplate.opsForValue().get(token);
 			String org = SendUtil.getSendOrg(card);
 			// 根据 org 查询出该 Admin 寄件集合
-			List<Send> sends = sendMapper.getSendByAdmin(org);
+			List<Send> sends = sendMapper.getSendByAdmin(org, status);
 			if (sends != null) {
 				// 获取分页方式结果集
 				Page<Send> sendPage = SendUtil.getSendByPage(currentPage, pageSize, sends);
@@ -308,8 +330,8 @@ public class SendServiceImpl implements SendService {
 			String card = stringRedisTemplate.opsForValue().get(token);
 			String org = SendUtil.getSendOrg(card);
 			int submit = sendMapper.getAdminTotal(org, SEND_STATUS_0);
-			int pay = sendMapper.getAdminTotal(org, SEND_STATUS_2);
-			int confirm = sendMapper.getAdminTotal(org, SEND_STATUS_1);
+			int pay = sendMapper.getAdminTotal(org, SEND_STATUS_1);
+			int confirm = sendMapper.getAdminTotal(org, SEND_STATUS_2);
 			int out = sendMapper.getAdminTotal(org, SEND_STATUS_3);
 			map.put("sendSubmit", submit);
 			map.put("sendPay", pay);

@@ -34,7 +34,7 @@
 	</update>
 
 	<!-- 获取 User 的寄件集合 -->
-	<select id="getSendByUser" parameterType="String" resultType="Send">
+	<select id="getSendByUser" resultType="Send">
 		SELECT from_name, from_tel, from_addr
 			, to_name, to_tel, to_addr, price
 			, id, org, status, dt
@@ -51,6 +51,14 @@
 			</foreach>
 			)
 		</if>
+		<if test="status != null and status.length > 0">
+			AND org IN (
+			<foreach collection="status.split(',')" item="status" index="index" separator=",">
+				'${status}'
+			</foreach>
+			)
+		</if>
+		ORDER BY status ASC, dt DESC
 	</select>
 
 	<!-- 获取 Admin 的寄件集合 -->
@@ -60,6 +68,13 @@
 			, id, org, status, dt
 		FROM t_send
 		WHERE org = #{org}
+		<if test="status != null and status.length > 0">
+			AND status IN (
+			<foreach collection="status.split(',')" item="status" index="index" separator=",">
+				'${status}'
+			</foreach>
+			)
+		</if>
 	</select>
 
 	<!-- 传入状态，获取 User 的该状态寄件数量 -->
@@ -72,6 +87,7 @@
 			FROM t_user
 			WHERE card = #{card}
 		)
+		ORDER BY status ASC, dt DESC
 	</select>
 
 	<!-- 传入状态，获取 Admin 的该状态寄件数量 -->

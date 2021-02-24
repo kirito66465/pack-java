@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: aorus
+    active: redmi
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     # Druid 扩展属性配置
@@ -26,6 +26,8 @@ spring:
           slow-sql-millis: 5000 # 慢 SQL 的标准，单位：毫秒
       stat-view-servlet: # 配置 StatViewServlet ，对应文档 https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE_StatViewServlet%E9%85%8D%E7%BD%AE
         enabled: true # 是否开启 StatViewServlet
+        # 允许所有 IP 访问
+        allow:
         login-username: kirito # 账号
         login-password: kirito # 密码
       # web url 请求监控
