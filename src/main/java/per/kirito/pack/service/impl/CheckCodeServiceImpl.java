@@ -6,17 +6,17 @@ import org.springframework.stereotype.Service;
 import per.kirito.pack.myEnum.Status;
 import per.kirito.pack.util.CheckCodeUtil;
 import per.kirito.pack.service.inter.CheckCodeService;
+import per.kirito.pack.util.Constant;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @version 1.0
- * @Author: kirito
- * @Date: 2021/1/8
- * @Time: 16:28
- * @description: 验证码的 Service 实现类
+ * author: 严晨
+ * date: 2021/1/8
+ * time: 16:28
+ * 验证码的 Service 实现类
  */
 @Service
 public class CheckCodeServiceImpl implements CheckCodeService {
@@ -49,7 +49,7 @@ public class CheckCodeServiceImpl implements CheckCodeService {
 					stringRedisTemplate.delete(tokenCode);
 				}
 				// 将验证码存入 Redis，并设置有效期2分钟
-				stringRedisTemplate.opsForValue().set(tokenCode, code, 2, TimeUnit.MINUTES);
+				stringRedisTemplate.opsForValue().set(tokenCode, code, Constant.VERIFY_VALID_MINUTE, TimeUnit.MINUTES);
 				map.put("codePic", pic);
 				System.out.println("code: " + code);
 				map.put("result", INFO_SUCCESS);

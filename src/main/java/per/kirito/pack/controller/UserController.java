@@ -1,5 +1,7 @@
 package per.kirito.pack.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -9,11 +11,12 @@ import per.kirito.pack.service.inter.AccountService;
 import java.util.Map;
 
 /**
- * @author kirito
- * @version 1.0
- * @date 2020/12/4 21:04
- * @description: User 的 Controller 层
+ * author: 严晨
+ * date: 2020/12/4
+ * time: 21:04
+ * User 的 Controller 层
  */
+@Api(tags = {"学生管理"}, description = "学生管理")
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
@@ -28,6 +31,7 @@ public class UserController {
 	 * @param password  密码
 	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
+	@ApiOperation(value = "登录")
 	@CrossOrigin
 	@RequestMapping(value = "/login")
 	public Map<String, String> login(@RequestParam(value = "card") String card,
@@ -40,6 +44,7 @@ public class UserController {
 	 * @param token 令牌
 	 * @return java.lang.String
 	 **/
+	@ApiOperation(value = "退出登录")
 	@CrossOrigin
 	@RequestMapping(value = "/logout")
 	public String userLogout(@RequestParam(value = "token") String token) {
@@ -51,6 +56,7 @@ public class UserController {
 	 * @param token 令牌
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
+	@ApiOperation(value = "获取账号信息")
 	@CrossOrigin
 	@RequestMapping(value = "/getInfo")
 	public Map<String, Object> getUserInfo(@RequestParam(value = "token") String token) {
@@ -62,6 +68,7 @@ public class UserController {
 	 * @param user  用户信息
 	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
+	@ApiOperation(value = "注册")
 	@CrossOrigin
 	@RequestMapping(value = "/register")
 	public Map<String, String> register(@RequestBody User user) {
@@ -75,6 +82,7 @@ public class UserController {
 	 * @param password  新密码
 	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
+	@ApiOperation(value = "忘记密码")
 	@CrossOrigin
 	@RequestMapping(value = "/forgetPwd")
 	public Map<String, String> forgetPwd(@RequestParam(value = "card") String card,
@@ -92,6 +100,7 @@ public class UserController {
 	 * @param token     令牌
 	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
+	@ApiOperation(value = "修改密码")
 	@CrossOrigin
 	@RequestMapping(value = "/resetPwd")
 	public Map<String, String> resetPwd(@RequestParam(value = "card") String card,
@@ -110,6 +119,7 @@ public class UserController {
 	 * @param token 令牌
 	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
+	@ApiOperation(value = "更新账号信息")
 	@CrossOrigin
 	@RequestMapping(value = "/updateInfo")
 	public Map<String, String> updateInfo(@RequestParam(value = "name") String name,

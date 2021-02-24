@@ -1,11 +1,10 @@
 package per.kirito.pack.myEnum;
 
 /**
- * @version 1.0
- * @Author: kirito
- * @Date: 2020/12/24
- * @Time: 10:30
- * @description: 状态码与值枚举类
+ * author: 严晨
+ * date: 2020/12/24
+ * time: 10:30
+ * 状态码与值枚举类
  */
 public enum Status {
 

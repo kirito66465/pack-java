@@ -10,11 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @version 1.0
- * @Author: kirito
- * @Date: 2020/12/23
- * @Time: 15:48
- * @description: 包裹信息完善:自动生成取件码、更新取件状态、添加地址信息
+ * author: 严晨
+ * date: 2020/12/23
+ * time: 15:48
+ * 包裹信息完善:自动生成取件码、更新取件状态、添加地址信息
  */
 public class PackUtil {
 

@@ -12,11 +12,10 @@ import java.util.Arrays;
 import java.util.Random;
 
 /**
- * @version 1.0
- * @Author: kirito
- * @Date: 2021/1/8
- * @Time: 10:51
- * @description: 验证码工具类
+ * author: 严晨
+ * date: 2021/1/8
+ * time: 10:51
+ * 验证码工具类
  */
 public class CheckCodeUtil {
 

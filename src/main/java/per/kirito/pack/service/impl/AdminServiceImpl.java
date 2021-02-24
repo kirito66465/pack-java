@@ -8,6 +8,7 @@ import per.kirito.pack.mapper.AdminMapper;
 import per.kirito.pack.myEnum.Status;
 import per.kirito.pack.pojo.Admin;
 import per.kirito.pack.service.inter.AccountService;
+import per.kirito.pack.util.Constant;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,11 +16,10 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @version 1.0
- * @Author: kirito
- * @Date: 2020/12/28
- * @Time: 16:02
- * @description: Admin 的 Service 层，是 AccountService 的泛型接口实现
+ * author: 严晨
+ * date: 2020/12/28
+ * time: 16:02
+ * Admin 的 Service 层，是 AccountService 的泛型接口实现
  */
 @Service
 public class AdminServiceImpl<E> implements AccountService<E> {
@@ -74,7 +74,7 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 			if (stringRedisTemplate.hasKey(token)) {
 				stringRedisTemplate.delete(token);
 			}
-			stringRedisTemplate.opsForValue().set(token, card, 30, TimeUnit.MINUTES);
+			stringRedisTemplate.opsForValue().set(token, card, Constant.LOGIN_VALID_MINUTE, TimeUnit.MINUTES);
 			map.put("token", token);
 			map.put("result", LOGIN_SUCCESS);
 		} else {

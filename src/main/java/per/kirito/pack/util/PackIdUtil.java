@@ -7,11 +7,10 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * @version 1.0
- * @Author: kirito
- * @Date: 2020/12/23
- * @Time: 13:39
- * @description: 校园快递，单号规则仅供参考，不完全与实际相符！
+ * author: 严晨
+ * date: 2020/12/23
+ * time: 13:39
+ * 校园快递，单号规则仅供参考，不完全与实际相符！
  * 中苑：中通、申通、圆通
  * 西苑：京东、顺丰、韵达
  * 北苑：天天、EMS

@@ -8,10 +8,10 @@ import lombok.NonNull;
 import javax.persistence.Table;
 
 /**
- * @author kirito
- * @version 1.0
- * @date 2020/12/4 20:37
- * @description: 管理员实体类
+ * author: 严晨
+ * date: 2020/12/4
+ * time: 20:37
+ * 管理员实体类
  */
 @Data
 @NonNull

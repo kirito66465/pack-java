@@ -5,11 +5,10 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * @version 1.0
- * @Author: kirito
- * @Date: 2020/12/28
- * @Time: 14:48
- * @description: 分页实体类
+ * author: 严晨
+ * date: 2020/12/28
+ * time: 14:48
+ * 分页实体类
  */
 @Data
 public class Page<T> {

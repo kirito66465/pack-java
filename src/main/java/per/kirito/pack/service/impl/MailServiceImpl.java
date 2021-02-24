@@ -15,11 +15,10 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * @version 1.0
- * @Author: kirito
- * @Date: 2021/1/12
- * @Time: 14:09
- * @description: Mail 的 Service 层，MailService 接口的实现类
+ * author: 严晨
+ * date: 2021/1/12
+ * time: 14:09
+ * Mail 的 Service 层，MailService 接口的实现类
  */
 @Service
 public class MailServiceImpl implements MailService {

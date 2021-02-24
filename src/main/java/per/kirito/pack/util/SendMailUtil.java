@@ -18,11 +18,10 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 /**
- * @version 1.0
- * @Author: kirito
- * @Date: 2021/1/12
- * @Time: 14:17
- * @description: 发送邮件工具类
+ * author: 严晨
+ * date: 2021/1/12
+ * time: 14:17
+ * 发送邮件工具类
  */
 @Component
 public class SendMailUtil {

@@ -13,7 +13,6 @@
 		<typeAlias alias="String" type="java.lang.String" />
 		<typeAlias alias="Admin" type="per.kirito.pack.pojo.Admin" />
 		<typeAlias alias="Code" type="per.kirito.pack.pojo.Code" />
-		<typeAlias alias="Message" type="per.kirito.pack.pojo.Message" />
 		<typeAlias alias="Pack" type="per.kirito.pack.pojo.Pack" />
 		<typeAlias alias="Send" type="per.kirito.pack.pojo.Send" />
 		<typeAlias alias="User" type="per.kirito.pack.pojo.User" />

@@ -11,11 +11,10 @@ import org.springframework.stereotype.Component;
 import per.kirito.pack.properties.MailProperties;
 
 /**
- * @version 1.0
- * @Author: kirito
- * @Date: 2020/12/4
- * @Time: 20:37
- * @description: Spring Boot 项目启动类
+ * author: 严晨
+ * date: 2020/12/4
+ * time: 20:37
+ * Spring Boot 项目启动类
  */
 @MapperScan(basePackages = "per.kirito.pack.mapper")
 @SpringBootApplication(scanBasePackages = "per.kirito.pack")

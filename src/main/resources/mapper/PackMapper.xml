@@ -71,14 +71,12 @@
 	<select id="getUserNoTotalNum" parameterType="String" resultType="Integer">
 		SELECT count(*)
 		FROM t_pack
-		WHERE per_tel = #{phone}
-		AND status = 1
-		OR per_tel = #{phone}
-		AND status = -1
+		WHERE (per_tel = #{phone} AND status = 1)
+		OR (per_tel = #{phone} AND status = -1)
 	</select>
 
 	<!-- 根据 User 学号查询出该 User 所有快递集合 -->
-	<select id="getUserPacks" parameterType="String" resultType="Pack">
+	<select id="getUserPacks" resultType="Pack">
 		SELECT id, org, per_name
 			, per_tel, per_addr, addr
 			, code, cont_name, cont_tel
@@ -102,6 +100,15 @@
 				'${addr}'
 			</foreach>
 			)
+		</if>
+		<if test="status[0] != 2">
+			<if test="status != null and status.length > 0">
+				AND status IN (
+				<foreach collection="status" item="status" index="index" separator=",">
+					${status}
+				</foreach>
+				)
+			</if>
 		</if>
 		ORDER BY start DESC, code ASC
 	</select>
@@ -130,7 +137,7 @@
 	</select>
 
 	<!-- 根据 User 学号查询出该 User 未取快递集合 -->
-	<select id="getUserNoPick" parameterType="String" resultType="Pack">
+	<select id="getUserNoPick" resultType="Pack">
 		SELECT id, org, per_name
 			, per_tel, per_addr, addr
 			, code, cont_name, cont_tel
@@ -156,6 +163,15 @@
 			</foreach>
 			)
 		</if>
+		<if test="status[0] != 2">
+			<if test="status != null and status.length > 0">
+				AND status IN (
+				<foreach collection="status" item="status" index="index" separator=",">
+					${status}
+				</foreach>
+				)
+			</if>
+		</if>
 		ORDER BY status DESC, code ASC, start DESC
 	</select>
 
@@ -178,14 +194,12 @@
 	<select id="getAdminNoTotalNum" parameterType="String" resultType="Integer">
 		SELECT count(*)
 		FROM t_pack
-		WHERE addr = #{addr}
-		AND status = 1
-		OR addr = #{addr}
-		AND status = -1
+		WHERE (addr = #{addr} AND status = 1)
+		OR (addr = #{addr} AND status = -1)
 	</select>
 
 	<!-- 根据 Admin 编号查询出所在驿站的所有快递集合 -->
-	<select id="getAdminPacks" parameterType="String" resultType="Pack">
+	<select id="getAdminPacks" resultType="Pack">
 		SELECT id, org, per_name
 			, per_tel, per_addr, addr
 			, code, cont_name, cont_tel
@@ -202,6 +216,15 @@
 					'${org}'
 				</foreach>
 			)
+		</if>
+		<if test="status[0] != 2">
+			<if test="status != null and status.length > 0">
+				AND status IN (
+				<foreach collection="status" item="status" index="index" separator=",">
+					${status}
+				</foreach>
+				)
+			</if>
 		</if>
 		ORDER BY start DESC, code ASC
 	</select>
@@ -230,7 +253,7 @@
 	</select>
 
 	<!-- 根据 Admin 编号查询出所在驿站未取快递集合 -->
-	<select id="getAdminNoPick" parameterType="String" resultType="Pack">
+	<select id="getAdminNoPick" resultType="Pack">
 		SELECT id, org, per_name
 			, per_tel, per_addr, addr
 			, code, cont_name, cont_tel
@@ -248,6 +271,15 @@
 				'${org}'
 			</foreach>
 			)
+		</if>
+		<if test="status[0] != 2">
+			<if test="status != null and status.length > 0">
+				AND status IN (
+				<foreach collection="status" item="status" index="index" separator=",">
+					${status}
+				</foreach>
+				)
+			</if>
 		</if>
 		ORDER BY code ASC, start DESC
 	</select>

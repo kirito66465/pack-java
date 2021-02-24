@@ -8,11 +8,10 @@ import lombok.NonNull;
 import javax.persistence.Table;
 
 /**
- * @version 1.0
- * @Author: kirito
- * @Date: 2020/12/23
- * @Time: 17:20
- * @description: 取件码存放表
+ * author: 严晨
+ * date: 2020/12/23
+ * time: 17:20
+ * 取件码存放表
  */
 @Data
 @NonNull

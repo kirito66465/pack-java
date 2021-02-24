@@ -10,11 +10,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @version 1.0
- * @Author: kirito
- * @Date: 2021/1/5
- * @Time: 17:15
- * @description: 寄件工具类
+ * author: 严晨
+ * date: 2021/1/5
+ * time: 17:15
+ * 寄件工具类
  */
 public class SendUtil {
 

@@ -20,11 +20,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @version 1.0
- * @Author: kirito
- * @Date: 2021/1/4
- * @Time: 15:53
- * @description: 寄件 Send 的Service 层
+ * author: 严晨
+ * date: 2021/1/4
+ * time: 15:53
+ * 寄件 Send 的Service 层
  */
 @Service
 public class SendServiceImpl implements SendService {
@@ -223,7 +222,7 @@ public class SendServiceImpl implements SendService {
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
 			String card = stringRedisTemplate.opsForValue().get(token);
-			// 根据card查询出该user寄件集合
+			// 根据 card 查询出该 user 寄件集合
 			List<Send> sends = sendMapper.getSendByUser(card, org);
 			if (sends != null) {
 				// 获取分页方式结果集

@@ -5,10 +5,10 @@ import org.springframework.stereotype.Repository;
 import per.kirito.pack.pojo.Admin;
 
 /**
- * @author kirito
- * @version 1.0
- * @date 2020/12/11 19:54
- * @description: Admin 的 Mapper 层接口
+ * author: 严晨
+ * date: 2020/12/11
+ * time: 19:54
+ * Admin 的 Mapper 层接口
  */
 @Repository
 public interface AdminMapper {
@@ -35,11 +35,6 @@ public interface AdminMapper {
 	 */
 	Admin getAdminByAddr(String addr);
 
-	/**
-	 * @Description:
-	 * @Param: [card, oldPwd, newPwd]
-	 * @Return: int
-	 **/
 	/**
 	 * 修改密码
 	 * @param card      编号

@@ -3,11 +3,10 @@ package per.kirito.pack.service.inter;
 import java.util.Map;
 
 /**
- * @version 1.0
- * @Author: kirito
- * @Date: 2020/12/23
- * @Time: 15:35
- * @description: Pack 的 Service 层接口
+ * author: 严晨
+ * date: 2020/12/23
+ * time: 15:35
+ * Pack 的 Service 层接口
  */
 public interface PackService {
 
@@ -59,7 +58,7 @@ public interface PackService {
 
 	/**
 	 * 分页获取 User 所有的快递，包括已取出和未取出的快递；如果没有 token 令牌，则返回获取信息失败
-	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址}
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	Map<String, Object> getUserPackByPage(String json);
@@ -73,7 +72,7 @@ public interface PackService {
 
 	/**
 	 * 分页获取 User 所未取出的快递， 无论有无取件码；如果没有 token 令牌，则返回获取信息失败
-	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址}
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	Map<String, Object> getUserNoPick(String json);
@@ -92,7 +91,7 @@ public interface PackService {
 
 	/**
 	 * 分页获取 Admin 所有的快递，包括已取出和未取出的快递；如果没有 token 令牌，则返回获取信息失败
-	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司}
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	Map<String, Object> getAdminPackByPage(String json);
@@ -106,7 +105,7 @@ public interface PackService {
 
 	/**
 	 * 分页获取当前驿站的未取出快递，无论有无取件码；如果没有 token 令牌，则返回获取信息失败
-	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司}
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	Map<String, Object> getAdminNoPick(String json);

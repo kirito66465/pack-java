@@ -4,11 +4,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * @version 1.0
- * @author: 严晨
- * @date: 2021/1/22
- * @time: 11:22
- * @description: 发送邮件参数配置类
+ * author: 严晨
+ * date: 2021/1/22
+ * time: 11:22
+ * 发送邮件参数配置类
  */
 @Component
 @ConfigurationProperties(prefix = "mail")

@@ -5,11 +5,10 @@ import per.kirito.pack.pojo.utilPojo.SendRequest;
 import java.util.Map;
 
 /**
- * @version 1.0
- * @Author: kirito
- * @Date: 2021/1/4
- * @Time: 15:52
- * @description: 寄件 Send 的 Service 层接口
+ * author: 严晨
+ * date: 2021/1/4
+ * time: 15:52
+ * 寄件 Send 的 Service 层接口
  */
 public interface SendService {
 

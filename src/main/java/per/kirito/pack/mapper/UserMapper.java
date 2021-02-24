@@ -7,10 +7,10 @@ import per.kirito.pack.pojo.User;
 import java.util.Map;
 
 /**
- * @author kirito
- * @version 1.0
- * @date 2020/12/4 21:00
- * @description: User 的 Mapper 层接口
+ * author: 严晨
+ * date: 2020/12/4
+ * time: 21:00
+ * User 的 Mapper 层接口
  */
 @Repository
 public interface UserMapper {
@@ -93,7 +93,7 @@ public interface UserMapper {
 	int updateCountPlusByPackId(String id);
 
 	/**
-	 *根据快递单号查询出收件人邮箱、取件码、驿站地址、快递公司信息
+	 * 根据快递单号查询出收件人邮箱、取件码、驿站地址、快递公司信息
 	 * @param id    快递单号
 	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 */

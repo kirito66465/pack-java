@@ -95,6 +95,25 @@ public class TypeConversion {
 		return org;
 	}
 
+	/**
+	 * "-1,0,1" 转换为 [-1,0,1]
+	 * 即字符串转为整型数组
+	 * @param statusStr 字符串
+	 * @return java.lang.Integer[]
+	 */
+	public static Integer[] stringToIntegerArray(String statusStr) {
+		if ("".equals(statusStr) || statusStr == null || "null".equals(statusStr)) {
+			// 筛选框重置情况下，filter 值为 [] 即传入空字符串
+			return new Integer[] {2};
+		}
+		String[] array = statusStr.split(",");
+		Integer[] status = new Integer[array.length];
+		for (int i = 0; i < array.length; i++) {
+			status[i] = Integer.valueOf(array[i]);
+		}
+		return status;
+	}
+
 	public static void main(String[] args) throws ParseException {
 		String time = TypeConversion.getTime();
 		System.out.println("现在时间：" + time);

@@ -4,11 +4,10 @@ import org.springframework.stereotype.Repository;
 import per.kirito.pack.pojo.Code;
 
 /**
- * @version 1.0
- * @Author: kirito
- * @Date: 2020/12/23
- * @Time: 17:21
- * @description: Code 的 Mapper 层接口
+ * author: 严晨
+ * date: 2020/12/23
+ * time: 17:21
+ * Code 的 Mapper 层接口
  */
 @Repository
 public interface CodeMapper {

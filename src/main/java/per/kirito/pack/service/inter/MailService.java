@@ -3,11 +3,10 @@ package per.kirito.pack.service.inter;
 import java.util.Map;
 
 /**
- * @version 1.0
- * @Author: kirito
- * @Date: 2021/1/12
- * @Time: 14:08
- * @description: Mail 的 Service 层接口
+ * author: 严晨
+ * date: 2021/1/12
+ * time: 14:08
+ * Mail 的 Service 层接口
  */
 public interface MailService {
 

@@ -21,11 +21,10 @@ import per.kirito.pack.service.inter.PackService;
 import java.util.*;
 
 /**
- * @version 1.0
- * @Author: kirito
- * @Date: 2020/12/23
- * @Time: 15:36
- * @description: Pack 的 Service 层，PackService 接口的实现类
+ * author: 严晨
+ * date: 2020/12/23
+ * time: 15:36
+ * Pack 的 Service 层，PackService 接口的实现类
  */
 @Service
 public class PackServiceImpl implements PackService {
@@ -373,7 +372,7 @@ public class PackServiceImpl implements PackService {
 
 	/**
 	 * 分页获取 User 所有的快递，包括已取出和未取出的快递；如果没有 token 令牌，则返回获取信息失败
-	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址}
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
@@ -381,7 +380,7 @@ public class PackServiceImpl implements PackService {
 		Map mapTypes = JSON.parseObject(json);
 		Map<String, Object> mapParams = new HashMap<>();
 		for (Object obj : mapTypes.keySet()){
-			System.out.println("key为："+obj+"值为："+mapTypes.get(obj));
+			System.out.println("key为: " + obj + "值为: "+ mapTypes.get(obj));
 			mapParams.put(String.valueOf(obj), mapTypes.get(obj));
 		}
 		int currentPage = (int) mapParams.get("currentPage");
@@ -391,13 +390,21 @@ public class PackServiceImpl implements PackService {
 		String org = TypeConversion.arrayToString(orgArray);
 		String addrArray = String.valueOf(mapParams.get("addr"));
 		String addr = TypeConversion.arrayToString(addrArray);
+		String statusArray = String.valueOf(mapParams.get("status"));
+		String statusStr = TypeConversion.arrayToString(statusArray);
+		Integer[] status;
+		if ("2".equals(statusStr)) {
+			status = new Integer[] {2};
+		} else {
+			status = TypeConversion.stringToIntegerArray(statusStr);
+		}
 
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
 			// 取出 User 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 User 已取快递集合
-			List<Pack> packs = packMapper.getUserPacks(card, org, addr);
+			List<Pack> packs = packMapper.getUserPacks(card, org, addr, status);
 			List<PackResult> packResultList = PackUtil.getPackResult(packs);
 			// 获取分页方式的结果集
 			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
@@ -418,7 +425,7 @@ public class PackServiceImpl implements PackService {
 		Map mapTypes = JSON.parseObject(json);
 		Map<String, Object> mapParams = new HashMap<>();
 		for (Object obj : mapTypes.keySet()){
-			System.out.println("key为："+obj+"值为："+mapTypes.get(obj));
+			System.out.println("key为: " + obj + "值为: "+ mapTypes.get(obj));
 			mapParams.put(String.valueOf(obj), mapTypes.get(obj));
 		}
 		int currentPage = (int) mapParams.get("currentPage");
@@ -445,7 +452,7 @@ public class PackServiceImpl implements PackService {
 
 	/**
 	 * 分页获取 User 所未取出的快递， 无论有无取件码；如果没有 token 令牌，则返回获取信息失败
-	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址}
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
@@ -453,7 +460,7 @@ public class PackServiceImpl implements PackService {
 		Map mapTypes = JSON.parseObject(json);
 		Map<String, Object> mapParams = new HashMap<>();
 		for (Object obj : mapTypes.keySet()){
-			System.out.println("key为："+obj+"值为："+mapTypes.get(obj));
+			System.out.println("key为: " + obj + "值为: "+ mapTypes.get(obj));
 			mapParams.put(String.valueOf(obj), mapTypes.get(obj));
 		}
 		int currentPage = (int) mapParams.get("currentPage");
@@ -463,13 +470,21 @@ public class PackServiceImpl implements PackService {
 		String org = TypeConversion.arrayToString(orgArray);
 		String addrArray = String.valueOf(mapParams.get("addr"));
 		String addr = TypeConversion.arrayToString(addrArray);
+		String statusArray = String.valueOf(mapParams.get("status"));
+		String statusStr = TypeConversion.arrayToString(statusArray);
+		Integer[] status;
+		if ("2".equals(statusStr)) {
+			status = new Integer[] {2};
+		} else {
+			status = TypeConversion.stringToIntegerArray(statusStr);
+		}
 
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
 			// 取出 User 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
-			// 根据card查询出该User已取快递集合
-			List<Pack> packs = packMapper.getUserNoPick(card, org, addr);
+			// 根据 card 查询出该 User 已取快递集合
+			List<Pack> packs = packMapper.getUserNoPick(card, org, addr, status);
 			List<PackResult> packResultList = PackUtil.getPackResult(packs);
 			// 获取分页方式的结果集
 			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
@@ -513,7 +528,7 @@ public class PackServiceImpl implements PackService {
 
 	/**
 	 * 分页获取 Admin 所有的快递，包括已取出和未取出的快递；如果没有 token 令牌，则返回获取信息失败
-	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司}
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
@@ -521,7 +536,7 @@ public class PackServiceImpl implements PackService {
 		Map mapTypes = JSON.parseObject(json);
 		Map<String, Object> mapParams = new HashMap<>();
 		for (Object obj : mapTypes.keySet()){
-			System.out.println("key为："+obj+"值为："+mapTypes.get(obj));
+			System.out.println("key为: " + obj + "值为: "+ mapTypes.get(obj));
 			mapParams.put(String.valueOf(obj), mapTypes.get(obj));
 		}
 		int currentPage = (int) mapParams.get("currentPage");
@@ -529,13 +544,21 @@ public class PackServiceImpl implements PackService {
 		String token = String.valueOf(mapParams.get("token"));
 		String orgArray = String.valueOf(mapParams.get("org"));
 		String org = TypeConversion.arrayToString(orgArray);
+		String statusArray = String.valueOf(mapParams.get("status"));
+		String statusStr = TypeConversion.arrayToString(statusArray);
+		Integer[] status;
+		if ("2".equals(statusStr)) {
+			status = new Integer[] {2};
+		} else {
+			status = TypeConversion.stringToIntegerArray(statusStr);
+		}
 
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
 			// 取出 Admin 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 Admin 所有快递集合
-			List<Pack> packs = packMapper.getAdminPacks(card, org);
+			List<Pack> packs = packMapper.getAdminPacks(card, org, status);
 			// int -> String 转换
 			List<PackResult> packResultList = PackUtil.getPackResult(packs);
 			// 获取分页方式的结果集
@@ -557,7 +580,7 @@ public class PackServiceImpl implements PackService {
 		Map mapTypes = JSON.parseObject(json);
 		Map<String, Object> mapParams = new HashMap<>();
 		for (Object obj : mapTypes.keySet()){
-			System.out.println("key为："+obj+"值为："+mapTypes.get(obj));
+			System.out.println("key为: " + obj + "值为: "+ mapTypes.get(obj));
 			mapParams.put(String.valueOf(obj), mapTypes.get(obj));
 		}
 		int currentPage = (int) mapParams.get("currentPage");
@@ -584,7 +607,7 @@ public class PackServiceImpl implements PackService {
 
 	/**
 	 * 分页获取当前驿站的未取出快递，无论有无取件码；如果没有 token 令牌，则返回获取信息失败
-	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司}
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
@@ -592,7 +615,7 @@ public class PackServiceImpl implements PackService {
 		Map mapTypes = JSON.parseObject(json);
 		Map<String, Object> mapParams = new HashMap<>();
 		for (Object obj : mapTypes.keySet()){
-			System.out.println("key为："+obj+"值为："+mapTypes.get(obj));
+			System.out.println("key为: " + obj + "值为: "+ mapTypes.get(obj));
 			mapParams.put(String.valueOf(obj), mapTypes.get(obj));
 		}
 		int currentPage = (int) mapParams.get("currentPage");
@@ -600,13 +623,21 @@ public class PackServiceImpl implements PackService {
 		String token = String.valueOf(mapParams.get("token"));
 		String orgArray = String.valueOf(mapParams.get("org"));
 		String org = TypeConversion.arrayToString(orgArray);
+		String statusArray = String.valueOf(mapParams.get("status"));
+		String statusStr = TypeConversion.arrayToString(statusArray);
+		Integer[] status;
+		if ("2".equals(statusStr)) {
+			status = new Integer[] {2};
+		} else {
+			status = TypeConversion.stringToIntegerArray(statusStr);
+		}
 
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
 			// 取出 Admin 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 Admin 未取快递集合
-			List<Pack> packs = packMapper.getAdminNoPick(card, org);
+			List<Pack> packs = packMapper.getAdminNoPick(card, org, status);
 			List<PackResult> packResultList = PackUtil.getPackResult(packs);
 			// 获取分页方式结果集
 			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);

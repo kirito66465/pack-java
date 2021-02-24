@@ -3,11 +3,10 @@ package per.kirito.pack.service.inter;
 import java.util.Map;
 
 /**
- * @version 1.0
- * @Author: kirito
- * @Date: 2020/12/28
- * @Time: 15:21
- * @description: 账户管理相关泛型接口
+ * author: 严晨
+ * date: 2020/12/28
+ * time: 15:21
+ * 账户管理相关泛型接口
  */
 public interface AccountService<E> {
 

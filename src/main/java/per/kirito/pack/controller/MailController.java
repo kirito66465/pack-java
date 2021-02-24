@@ -1,5 +1,7 @@
 package per.kirito.pack.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,12 +12,12 @@ import per.kirito.pack.service.inter.MailService;
 import java.util.Map;
 
 /**
- * @version 1.0
- * @Author: kirito
- * @Date: 2021/1/12
- * @Time: 14:54
- * @description: Mail 的 Controller 层
+ * author: 严晨
+ * date: 2021/1/12
+ * time: 14:54
+ * Mail 的 Controller 层
  */
+@Api(tags = {"发送邮件"}, description = "发送邮件")
 @RestController
 @RequestMapping(value = "mail")
 public class MailController {
@@ -29,6 +31,7 @@ public class MailController {
 	 * @param token     令牌
 	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
+	@ApiOperation(value = "邮件通知")
 	@CrossOrigin
 	@RequestMapping(value = "/notice")
 	public Map<String, String> sendMail(@RequestParam(value = "id") String id,

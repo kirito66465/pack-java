@@ -7,11 +7,10 @@ import lombok.NonNull;
 import per.kirito.pack.pojo.Pack;
 
 /**
- * @version 1.0
- * @Author: kirito
- * @Date: 2020/12/29
- * @Time: 10:32
- * @description: 快递信息转换结果：jdbcType(Integer) -> javaType(String)
+ * author: 严晨
+ * date: 2020/12/29
+ * time: 10:32
+ * 快递信息转换结果：jdbcType(Integer) -> javaType(String)
  */
 @Data
 @NonNull

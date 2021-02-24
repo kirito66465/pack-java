@@ -4,11 +4,9 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 /**
- * @version 1.0
- * @Author: kirito
- * @Date: 2020/12/4
- * @Time: 20:37
- * @description:
+ * author: 严晨
+ * date: 2020/12/4
+ * time: 20:37
  */
 public class ServletInitializer extends SpringBootServletInitializer {
 
