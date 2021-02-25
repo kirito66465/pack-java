@@ -137,11 +137,13 @@ public class SendServiceImpl implements SendService {
 			return LOGIN_TO_DO;
 		}
 		try {
-			String[] idArr = ids.split(",");
-			String dt = "";
-			for (String id : idArr) {
-				dt = TypeConversion.getTime();
-				sendMapper.updateSend(id, SEND_STATUS_2, dt);
+			if ("".equals(ids)) {
+				String[] idArr = ids.split(",");
+				String dt = "";
+				for (String id : idArr) {
+					dt = TypeConversion.getTime();
+					sendMapper.updateSend(id, SEND_STATUS_2, dt);
+				}
 			}
 			return DO_SUCCESS;
 		} catch (Exception e) {
@@ -163,11 +165,13 @@ public class SendServiceImpl implements SendService {
 			return LOGIN_TO_DO;
 		}
 		try {
-			String[] idArr = ids.split(",");
-			String dt = "";
-			for (String id : idArr) {
-				dt = TypeConversion.getTime();
-				sendMapper.updateSend(id, SEND_STATUS_3, dt);
+			if ("".equals(ids)) {
+				String[] idArr = ids.split(",");
+				String dt = "";
+				for (String id : idArr) {
+					dt = TypeConversion.getTime();
+					sendMapper.updateSend(id, SEND_STATUS_3, dt);
+				}
 			}
 			return DO_SUCCESS;
 		} catch (Exception e) {
@@ -189,9 +193,11 @@ public class SendServiceImpl implements SendService {
 			return LOGIN_TO_DO;
 		}
 		try {
-			String[] idArr = ids.split(",");
-			for (String id : idArr) {
-				sendMapper.deleteSend(id);
+			if ("".equals(ids)) {
+				String[] idArr = ids.split(",");
+				for (String id : idArr) {
+					sendMapper.deleteSend(id);
+				}
 			}
 			return DO_SUCCESS;
 		} catch (Exception e) {
