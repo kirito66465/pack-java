@@ -1,7 +1,6 @@
 package per.kirito.pack.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import per.kirito.pack.pojo.utilPojo.SendRequest;
@@ -15,7 +14,7 @@ import java.util.Map;
  * time: 15:51
  * 寄件 Send 的 controller 层
  */
-@Api(tags = {"寄件管理"}, description = "寄件管理")
+@Api(tags = {"寄件管理"}, description = "寄件管理", produces = "application/json", consumes = "application/json")
 @RestController
 @RequestMapping(value = "/send")
 public class SendController {
@@ -33,10 +32,18 @@ public class SendController {
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 * 返回运费和成功与否消息
 	 **/
-	@ApiOperation(value = "接收寄件表单")
+	@ApiOperation(value = "接收寄件表单", notes = "接收学生寄件申请，返回写入数据库成功与否", httpMethod = "POST")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "响应成功"),
+			@ApiResponse(code = 201, message = "响应创建"),
+			@ApiResponse(code = 401, message = "没有权限"),
+			@ApiResponse(code = 403, message = "请求被拒绝"),
+			@ApiResponse(code = 404, message = "资源不存在")
+	})
 	@CrossOrigin
-	@RequestMapping(value = "/getSendInfo")
-	public Map<String, Object> getSendInfo(@RequestBody SendRequest request) {
+	@PostMapping(value = "/getSendInfo")
+	public Map<String, Object> getSendInfo(
+			@ApiParam(required = true, name = "request", value = "寄件表单实体") @RequestBody SendRequest request) {
 		return sendService.sendPack(request);
 	}
 
@@ -44,56 +51,88 @@ public class SendController {
 	 * User 支付寄件
 	 * @param id    快递单号
 	 * @param token 令牌
-	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 * @return java.lang.String
 	 **/
-	@ApiOperation(value = "学生支付")
+	@ApiOperation(value = "学生支付", notes = "学生支付寄件请求，返回更新状态成功与否", httpMethod = "PUT")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "响应成功"),
+			@ApiResponse(code = 201, message = "响应创建"),
+			@ApiResponse(code = 401, message = "没有权限"),
+			@ApiResponse(code = 403, message = "请求被拒绝"),
+			@ApiResponse(code = 404, message = "资源不存在")
+	})
 	@CrossOrigin
-	@RequestMapping(value = "/pay")
-	public Map<String, String> pay(@RequestParam(value = "id") String id,
-	                               @RequestParam(value = "token") String token) {
+	@PutMapping(value = "/pay")
+	public String pay(
+			@ApiParam(required = true, name = "id", value = "快递单号") @RequestParam(value = "id") String id,
+			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
 		return sendService.sendPay(id, token);
 	}
 
 	/**
 	 * Admin 确认寄件
-	 * @param id    快递单号
+	 * @param ids   快递单号
 	 * @param token 令牌
-	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 * @return java.lang.String
 	 **/
-	@ApiOperation(value = "驿站确认")
+	@ApiOperation(value = "驿站确认", notes = "驿站确认所属寄件请求，返回更新状态成功与否", httpMethod = "PUT")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "响应成功"),
+			@ApiResponse(code = 201, message = "响应创建"),
+			@ApiResponse(code = 401, message = "没有权限"),
+			@ApiResponse(code = 403, message = "请求被拒绝"),
+			@ApiResponse(code = 404, message = "资源不存在")
+	})
 	@CrossOrigin
-	@RequestMapping(value = "/confirm")
-	public Map<String, String> confirm(@RequestParam(value = "id") String id,
-	                                   @RequestParam(value = "token") String token) {
-		return sendService.sendConfirm(id, token);
+	@PutMapping(value = "/confirm")
+	public String confirm(
+			@ApiParam(required = true, name = "ids", value = "快递单号") @RequestParam(value = "ids") String ids,
+			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
+		return sendService.sendConfirm(ids, token);
 	}
 
 	/**
 	 * Admin 发出寄件
-	 * @param id    快递单号
+	 * @param ids   快递单号
 	 * @param token 令牌
-	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 * @return java.lang.String
 	 **/
-	@ApiOperation(value = "驿站发出")
+	@ApiOperation(value = "驿站发出", notes = "驿站发出所属寄件请求，返回更新状态成功与否", httpMethod = "PUT")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "响应成功"),
+			@ApiResponse(code = 201, message = "响应创建"),
+			@ApiResponse(code = 401, message = "没有权限"),
+			@ApiResponse(code = 403, message = "请求被拒绝"),
+			@ApiResponse(code = 404, message = "资源不存在")
+	})
 	@CrossOrigin
-	@RequestMapping(value = "/out")
-	public Map<String, String> out(@RequestParam(value = "id") String id,
-	                               @RequestParam(value = "token") String token) {
-		return sendService.sendOut(id, token);
+	@PutMapping(value = "/out")
+	public String out(
+			@ApiParam(required = true, name = "ids", value = "快递单号") @RequestParam(value = "ids") String ids,
+			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
+		return sendService.sendOut(ids, token);
 	}
 
 	/**
 	 * User 取消寄件
-	 * @param id    快递单号
+	 * @param ids   快递单号
 	 * @param token 令牌
-	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 * @return java.lang.String
 	 **/
-	@ApiOperation(value = "学生取消")
+	@ApiOperation(value = "学生取消", notes = "学生取消寄件请求，返回取消成功与否", httpMethod = "DELETE")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "响应成功"),
+			@ApiResponse(code = 201, message = "响应创建"),
+			@ApiResponse(code = 401, message = "没有权限"),
+			@ApiResponse(code = 403, message = "请求被拒绝"),
+			@ApiResponse(code = 404, message = "资源不存在")
+	})
 	@CrossOrigin
-	@RequestMapping(value = "/cancel")
-	public Map<String, String> cancel(@RequestParam(value = "id") String id,
-	                                  @RequestParam(value = "token") String token) {
-		return sendService.sendCancel(id, token);
+	@DeleteMapping(value = "/cancel")
+	public String cancel(
+			@ApiParam(required = true, name = "ids", value = "快递单号") @RequestParam(value = "ids") String ids,
+			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
+		return sendService.sendCancel(ids, token);
 	}
 
 	/**
@@ -106,10 +145,19 @@ public class SendController {
 	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:寄件状态}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
-	@ApiOperation(value = "学生寄件集")
+	@ApiOperation(value = "学生寄件集", notes = "获取寄件列表请求，如果成功返回分页结果集", httpMethod = "POST")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "响应成功"),
+			@ApiResponse(code = 201, message = "响应创建"),
+			@ApiResponse(code = 401, message = "没有权限"),
+			@ApiResponse(code = 403, message = "请求被拒绝"),
+			@ApiResponse(code = 404, message = "资源不存在")
+	})
 	@CrossOrigin
-	@RequestMapping(value = "/getSendByUser")
-	public Map<String, Object> getSendByUser(@RequestParam(value = "json") String json) {
+	@PostMapping(value = "/getSendByUser")
+	public Map<String, Object> getSendByUser(
+			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:寄件状态}")
+			@RequestParam(value = "json") String json) {
 		return sendService.getSendByUser(json);
 	}
 
@@ -118,10 +166,18 @@ public class SendController {
 	 * @param token 令牌
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
-	@ApiOperation(value = "学生寄件数量")
+	@ApiOperation(value = "学生寄件数量", notes = "获取学生寄件数量请求，返回各个状态的寄件数量", httpMethod = "POST")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "响应成功"),
+			@ApiResponse(code = 201, message = "响应创建"),
+			@ApiResponse(code = 401, message = "没有权限"),
+			@ApiResponse(code = 403, message = "请求被拒绝"),
+			@ApiResponse(code = 404, message = "资源不存在")
+	})
 	@CrossOrigin
-	@RequestMapping(value = "/getTotalByUser")
-	public Map<String, Object> getTotalByUser(@RequestParam(value = "token") String token) {
+	@PostMapping(value = "/getTotalByUser")
+	public Map<String, Object> getTotalByUser(
+			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
 		return sendService.getTotalByUser(token);
 	}
 
@@ -135,10 +191,19 @@ public class SendController {
 	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, status:寄件状态}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
-	@ApiOperation(value = "驿站寄件集")
+	@ApiOperation(value = "驿站寄件集", notes = "获取驿站所属寄件列表请求，如果成功返回分页结果集", httpMethod = "POST")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "响应成功"),
+			@ApiResponse(code = 201, message = "响应创建"),
+			@ApiResponse(code = 401, message = "没有权限"),
+			@ApiResponse(code = 403, message = "请求被拒绝"),
+			@ApiResponse(code = 404, message = "资源不存在")
+	})
 	@CrossOrigin
-	@RequestMapping(value = "/getSendByAdmin")
-	public Map<String, Object> getSendByAdmin(@RequestParam(value = "json") String json) {
+	@PostMapping(value = "/getSendByAdmin")
+	public Map<String, Object> getSendByAdmin(
+			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, status:寄件状态}")
+			@RequestParam(value = "json") String json) {
 		return sendService.getSendByAdmin(json);
 	}
 
@@ -147,10 +212,18 @@ public class SendController {
 	 * @param token 令牌
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
-	@ApiOperation(value = "驿站寄件数量")
+	@ApiOperation(value = "驿站寄件数量", notes = "获取驿站所属寄件数量请求，返回各个状态的寄件数量", httpMethod = "POST")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "响应成功"),
+			@ApiResponse(code = 201, message = "响应创建"),
+			@ApiResponse(code = 401, message = "没有权限"),
+			@ApiResponse(code = 403, message = "请求被拒绝"),
+			@ApiResponse(code = 404, message = "资源不存在")
+	})
 	@CrossOrigin
-	@RequestMapping(value = "/getTotalByAdmin")
-	public Map<String, Object> getTotalByAdmin(@RequestParam(value = "token") String token) {
+	@PostMapping(value = "/getTotalByAdmin")
+	public Map<String, Object> getTotalByAdmin(
+			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
 		return sendService.getTotalByAdmin(token);
 	}
 

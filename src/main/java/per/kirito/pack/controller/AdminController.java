@@ -1,7 +1,6 @@
 package per.kirito.pack.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +16,7 @@ import java.util.Map;
  * time: 20:11
  * Admin 的 Controller 层
  */
-@Api(tags = {"管理员管理"}, description = "管理员管理")
+@Api(tags = {"管理员管理"}, description = "管理员管理", produces = "application/json", consumes = "application/json")
 @RestController
 @RequestMapping(value = "/admin")
 public class AdminController {
@@ -32,11 +31,19 @@ public class AdminController {
 	 * @param password  密码
 	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
-	@ApiOperation(value = "登录")
+	@ApiOperation(value = "登录", notes = "登录请求，返回登录成功与否", httpMethod = "PUT")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "响应成功"),
+			@ApiResponse(code = 201, message = "响应创建"),
+			@ApiResponse(code = 401, message = "没有权限"),
+			@ApiResponse(code = 403, message = "请求被拒绝"),
+			@ApiResponse(code = 404, message = "资源不存在")
+	})
 	@CrossOrigin
-	@RequestMapping(value = "/login")
-	public Map<String, String> adminLogin(@RequestParam(value = "card") String card,
-	                        @RequestParam(value = "password") String password) {
+	@PostMapping(value = "/login")
+	public Map<String, String> adminLogin(
+			@ApiParam(required = true, name = "card", value = "驿站编号") @RequestParam(value = "card") String card,
+			@ApiParam(required = true, name = "password", value = "密码") @RequestParam(value = "password") String password) {
 		return accountService.login(card, password);
 	}
 
@@ -45,10 +52,18 @@ public class AdminController {
 	 * @param token 令牌
 	 * @return java.lang.String
 	 **/
-	@ApiOperation(value = "退出登录")
+	@ApiOperation(value = "退出登录", notes = "退出登录请求，返回退出成功与否", httpMethod = "POST")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "响应成功"),
+			@ApiResponse(code = 201, message = "响应创建"),
+			@ApiResponse(code = 401, message = "没有权限"),
+			@ApiResponse(code = 403, message = "请求被拒绝"),
+			@ApiResponse(code = 404, message = "资源不存在")
+	})
 	@CrossOrigin
-	@RequestMapping(value = "/logout")
-	public String adminLogout(@RequestParam(value = "token") String token) {
+	@PostMapping(value = "/logout")
+	public String adminLogout(
+			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
 		return accountService.logout(token);
 	}
 
@@ -57,10 +72,18 @@ public class AdminController {
 	 * @param token 令牌
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
-	@ApiOperation(value = "获取账号信息")
+	@ApiOperation(value = "获取驿站信息", notes = "获取信息，如果获取成功返回账号信息，如果失败返回失败原因", httpMethod = "POST")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "响应成功"),
+			@ApiResponse(code = 201, message = "响应创建"),
+			@ApiResponse(code = 401, message = "没有权限"),
+			@ApiResponse(code = 403, message = "请求被拒绝"),
+			@ApiResponse(code = 404, message = "资源不存在")
+	})
 	@CrossOrigin
-	@RequestMapping(value = "/getInfo")
-	public Map<String, Object> getAdminInfo(@RequestParam(value = "token") String token) {
+	@PostMapping(value = "/getInfo")
+	public Map<String, Object> getAdminInfo(
+			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
 		return accountService.getInfo(token);
 	}
 
@@ -73,14 +96,22 @@ public class AdminController {
 	 * @param token     令牌
 	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
-	@ApiOperation(value = "修改密码")
+	@ApiOperation(value = "修改密码", notes = "修改密码请求，返回修改密码成功与否", httpMethod = "PUT")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "响应成功"),
+			@ApiResponse(code = 201, message = "响应创建"),
+			@ApiResponse(code = 401, message = "没有权限"),
+			@ApiResponse(code = 403, message = "请求被拒绝"),
+			@ApiResponse(code = 404, message = "资源不存在")
+	})
 	@CrossOrigin
-	@RequestMapping(value = "/resetPwd")
-	public Map<String, String> resetPwd(@RequestParam(value = "card") String card,
-	                                    @RequestParam(value = "oldPwd") String oldPwd,
-	                                    @RequestParam(value = "newPwd") String newPwd,
-	                                    @RequestParam(value = "checkCode") String checkCode,
-	                                    @RequestParam(value = "token") String token) {
+	@PutMapping(value = "/resetPwd")
+	public Map<String, String> resetPwd(
+			@ApiParam(required = true, name = "card", value = "驿站编号") @RequestParam(value = "card") String card,
+			@ApiParam(required = true, name = "oldPwd", value = "原密码") @RequestParam(value = "oldPwd") String oldPwd,
+			@ApiParam(required = true, name = "newPwd", value = "新密码") @RequestParam(value = "newPwd") String newPwd,
+			@ApiParam(required = true, name = "checkCode", value = "验证码") @RequestParam(value = "checkCode") String checkCode,
+			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
 		return accountService.resetPwd(card, oldPwd, newPwd, checkCode, token);
 	}
 
@@ -92,13 +123,21 @@ public class AdminController {
 	 * @param token     令牌
 	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
-	@ApiOperation(value = "更新账号信息")
+	@ApiOperation(value = "更新驿站信息", notes = "更新信息请求，返回更新成功与否", httpMethod = "PUT")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "响应成功"),
+			@ApiResponse(code = 201, message = "响应创建"),
+			@ApiResponse(code = 401, message = "没有权限"),
+			@ApiResponse(code = 403, message = "请求被拒绝"),
+			@ApiResponse(code = 404, message = "资源不存在")
+	})
 	@CrossOrigin
-	@RequestMapping(value = "/updateInfo")
-	public Map<String, String> updateInfo(@RequestParam(value = "name") String name,
-	                                      @RequestParam(value = "phone") String phone,
-	                                      @RequestParam(value = "mail") String mail,
-	                                      @RequestParam(value = "token") String token) {
+	@PutMapping(value = "/updateInfo")
+	public Map<String, String> updateInfo(
+			@ApiParam(required = true, name = "name", value = "驿站编号") @RequestParam(value = "name") String name,
+			@ApiParam(required = true, name = "phone", value = "手机号") @RequestParam(value = "phone") String phone,
+			@ApiParam(required = true, name = "mail", value = "邮箱") @RequestParam(value = "mail") String mail,
+			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
 		return accountService.updateInfo(name, phone, mail, token);
 	}
 
@@ -107,10 +146,18 @@ public class AdminController {
 	 * @param type  快递所属公司
 	 * @return java.lang.String
 	 */
-	@ApiOperation(value = "生成快递单号")
+	@ApiOperation(value = "生成快递单号", notes = "生成指定快递的单号请求，返回快递单号", httpMethod = "POST")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "响应成功"),
+			@ApiResponse(code = 201, message = "响应创建"),
+			@ApiResponse(code = 401, message = "没有权限"),
+			@ApiResponse(code = 403, message = "请求被拒绝"),
+			@ApiResponse(code = 404, message = "资源不存在")
+	})
 	@CrossOrigin
-	@RequestMapping(value = "/getPackId")
-	public String getPackId(@RequestParam(value = "type") String type) {
+	@PostMapping(value = "/getPackId")
+	public String getPackId(
+			@ApiParam(required = true, name = "type", value = "快递公司") @RequestParam(value = "type") String type) {
 		return PackIdUtil.generate(type);
 	}
 

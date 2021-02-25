@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: redmi
+    active: aorus
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     # Druid 扩展属性配置

@@ -1,7 +1,6 @@
 package per.kirito.pack.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +15,7 @@ import java.util.Map;
  * time: 21:04
  * User 的 Controller 层
  */
-@Api(tags = {"学生管理"}, description = "学生管理")
+@Api(tags = {"学生管理"}, description = "学生管理", produces = "application/json", consumes = "application/json")
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
@@ -31,11 +30,19 @@ public class UserController {
 	 * @param password  密码
 	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
-	@ApiOperation(value = "登录")
+	@ApiOperation(value = "登录", notes = "登录请求，返回登录成功与否", httpMethod = "POST")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "响应成功"),
+			@ApiResponse(code = 201, message = "响应创建"),
+			@ApiResponse(code = 401, message = "没有权限"),
+			@ApiResponse(code = 403, message = "请求被拒绝"),
+			@ApiResponse(code = 404, message = "资源不存在")
+	})
 	@CrossOrigin
-	@RequestMapping(value = "/login")
-	public Map<String, String> login(@RequestParam(value = "card") String card,
-	                                 @RequestParam(value = "password") String password) {
+	@PostMapping(value = "/login")
+	public Map<String, String> login(
+			@ApiParam(required = true, name = "card", value = "学号") @RequestParam(value = "card") String card,
+			@ApiParam(required = true, name = "password", value = "密码") @RequestParam(value = "password") String password) {
 		return accountService.login(card, password);
 	}
 
@@ -44,10 +51,18 @@ public class UserController {
 	 * @param token 令牌
 	 * @return java.lang.String
 	 **/
-	@ApiOperation(value = "退出登录")
+	@ApiOperation(value = "退出登录", notes = "退出登录请求，返回退出成功与否", httpMethod = "POST")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "响应成功"),
+			@ApiResponse(code = 201, message = "响应创建"),
+			@ApiResponse(code = 401, message = "没有权限"),
+			@ApiResponse(code = 403, message = "请求被拒绝"),
+			@ApiResponse(code = 404, message = "资源不存在")
+	})
 	@CrossOrigin
-	@RequestMapping(value = "/logout")
-	public String userLogout(@RequestParam(value = "token") String token) {
+	@PostMapping(value = "/logout")
+	public String userLogout(
+			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
 		return accountService.logout(token);
 	}
 
@@ -56,10 +71,18 @@ public class UserController {
 	 * @param token 令牌
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
-	@ApiOperation(value = "获取账号信息")
+	@ApiOperation(value = "获取学生信息", notes = "获取信息，如果获取成功返回账号信息，如果失败返回失败原因", httpMethod = "POST")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "响应成功"),
+			@ApiResponse(code = 201, message = "响应创建"),
+			@ApiResponse(code = 401, message = "没有权限"),
+			@ApiResponse(code = 403, message = "请求被拒绝"),
+			@ApiResponse(code = 404, message = "资源不存在")
+	})
 	@CrossOrigin
-	@RequestMapping(value = "/getInfo")
-	public Map<String, Object> getUserInfo(@RequestParam(value = "token") String token) {
+	@PostMapping(value = "/getInfo")
+	public Map<String, Object> getUserInfo(
+			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
 		return accountService.getInfo(token);
 	}
 
@@ -68,10 +91,18 @@ public class UserController {
 	 * @param user  用户信息
 	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
-	@ApiOperation(value = "注册")
+	@ApiOperation(value = "注册", notes = "注册请求，返回注册成功与否", httpMethod = "POST")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "响应成功"),
+			@ApiResponse(code = 201, message = "响应创建"),
+			@ApiResponse(code = 401, message = "没有权限"),
+			@ApiResponse(code = 403, message = "请求被拒绝"),
+			@ApiResponse(code = 404, message = "资源不存在")
+	})
 	@CrossOrigin
-	@RequestMapping(value = "/register")
-	public Map<String, String> register(@RequestBody User user) {
+	@PostMapping(value = "/register")
+	public Map<String, String> register(
+			@ApiParam(required = true, name = "user", value = "学生实体") @RequestBody User user) {
 		return accountService.register(user);
 	}
 
@@ -82,12 +113,20 @@ public class UserController {
 	 * @param password  新密码
 	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
-	@ApiOperation(value = "忘记密码")
+	@ApiOperation(value = "忘记密码", notes = "忘记密码请求，如果学生存在返回操作成功与否，如果不存在返回学生不存在信息", httpMethod = "PUT")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "响应成功"),
+			@ApiResponse(code = 201, message = "响应创建"),
+			@ApiResponse(code = 401, message = "没有权限"),
+			@ApiResponse(code = 403, message = "请求被拒绝"),
+			@ApiResponse(code = 404, message = "资源不存在")
+	})
 	@CrossOrigin
-	@RequestMapping(value = "/forgetPwd")
-	public Map<String, String> forgetPwd(@RequestParam(value = "card") String card,
-	                                     @RequestParam(value = "phone") String phone,
-	                                     @RequestParam(value = "password") String password) {
+	@PutMapping(value = "/forgetPwd")
+	public Map<String, String> forgetPwd(
+			@ApiParam(required = true, name = "card", value = "学号") @RequestParam(value = "card") String card,
+			@ApiParam(required = true, name = "phone", value = "手机号") @RequestParam(value = "phone") String phone,
+			@ApiParam(required = true, name = "password", value = "密码") @RequestParam(value = "password") String password) {
 		return accountService.forgetPwd(card, phone, password);
 	}
 
@@ -100,14 +139,22 @@ public class UserController {
 	 * @param token     令牌
 	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
-	@ApiOperation(value = "修改密码")
+	@ApiOperation(value = "修改密码", notes = "修改密码请求，返回修改密码成功与否", httpMethod = "PUT")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "响应成功"),
+			@ApiResponse(code = 201, message = "响应创建"),
+			@ApiResponse(code = 401, message = "没有权限"),
+			@ApiResponse(code = 403, message = "请求被拒绝"),
+			@ApiResponse(code = 404, message = "资源不存在")
+	})
 	@CrossOrigin
-	@RequestMapping(value = "/resetPwd")
-	public Map<String, String> resetPwd(@RequestParam(value = "card") String card,
-	                                    @RequestParam(value = "oldPwd") String oldPwd,
-	                                    @RequestParam(value = "newPwd") String newPwd,
-	                                    @RequestParam(value = "checkCode") String checkCode,
-	                                    @RequestParam(value = "token") String token) {
+	@PutMapping(value = "/resetPwd")
+	public Map<String, String> resetPwd(
+			@ApiParam(required = true, name = "card", value = "学号") @RequestParam(value = "card") String card,
+			@ApiParam(required = true, name = "oldPwd", value = "原密码") @RequestParam(value = "oldPwd") String oldPwd,
+			@ApiParam(required = true, name = "newPwd", value = "新密码") @RequestParam(value = "newPwd") String newPwd,
+			@ApiParam(required = true, name = "checkCode", value = "验证码") @RequestParam(value = "checkCode") String checkCode,
+			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
 		return accountService.resetPwd(card, oldPwd, newPwd, checkCode, token);
 	}
 
@@ -119,13 +166,21 @@ public class UserController {
 	 * @param token 令牌
 	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
-	@ApiOperation(value = "更新账号信息")
+	@ApiOperation(value = "更新学生信息", notes = "更新信息请求，返回更新成功与否", httpMethod = "PUT")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "响应成功"),
+			@ApiResponse(code = 201, message = "响应创建"),
+			@ApiResponse(code = 401, message = "没有权限"),
+			@ApiResponse(code = 403, message = "请求被拒绝"),
+			@ApiResponse(code = 404, message = "资源不存在")
+	})
 	@CrossOrigin
-	@RequestMapping(value = "/updateInfo")
-	public Map<String, String> updateInfo(@RequestParam(value = "name") String name,
-	                                      @RequestParam(value = "addr") String addr,
-	                                      @RequestParam(value = "mail") String mail,
-	                                      @RequestParam(value = "token") String token) {
+	@PutMapping(value = "/updateInfo")
+	public Map<String, String> updateInfo(
+			@ApiParam(required = true, name = "name", value = "姓名") @RequestParam(value = "name") String name,
+			@ApiParam(required = true, name = "addr", value = "地址") @RequestParam(value = "addr") String addr,
+			@ApiParam(required = true, name = "mail", value = "邮箱") @RequestParam(value = "mail") String mail,
+			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
 		return accountService.updateInfo(name, addr, mail, token);
 	}
 

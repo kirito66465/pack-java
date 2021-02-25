@@ -24,6 +24,14 @@ public interface UserMapper {
 	int login(@Param("card") String card, @Param("password") String password);
 
 	/**
+	 * 根据学号和手机号判断用户是否存在
+	 * @param card  学号
+	 * @param phone 手机号
+	 * @return int
+	 */
+	int isExistByCardAndPhone(@Param("card") String card, @Param("phone") String phone);
+
+	/**
 	 * 根据 card 查询出该 User 信息
 	 * @param card  学号
 	 * @return per.kirito.pack.pojo.User
@@ -48,10 +56,8 @@ public interface UserMapper {
 	 * User 忘记密码以进行密码重置
 	 * @param card      学号
 	 * @param password  密码
-	 * @param phone     手机号
-	 * @return int
 	 */
-	int forgetPwd(@Param("card") String card, @Param("password") String password, @Param("phone") String phone);
+	void forgetPwd(@Param("card") String card, @Param("password") String password);
 
 	/**
 	 * User 修改密码

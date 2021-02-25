@@ -14,6 +14,14 @@
 		AND password = #{password}
 	</select>
 
+	<!-- 根据学号和手机号判断用户是否存在 -->
+	<select id="isExistByCardAndPhone" parameterType="String" resultType="Integer">
+		SELECT count(*)
+		FROM t_user
+		WHERE card = #{card}
+		AND phone = #{phone}
+	</select>
+
 	<!-- 根据 card 查询出该 User 信息 -->
 	<select id="getUserById" parameterType="String" resultType="User">
 		SELECT t.card, t.password, t.phone, t.name, t.addr, t.count, t.mail
@@ -42,7 +50,6 @@
 		UPDATE t_user
 		SET password = #{password}
 		WHERE card = #{card}
-		AND phone = #{phone}
 	</update>
 
 	<!-- User 修改密码 -->

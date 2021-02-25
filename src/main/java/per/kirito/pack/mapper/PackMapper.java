@@ -158,7 +158,7 @@ public interface PackMapper {
 	Pack getPackByStartMin(String addr);
 
 	/**
-	 * 根据驿站地址和货架取出当前货架的所有快递
+	 * 根据驿站地址和货架获取当前货架的所有快递
 	 * @param card  编号
 	 * @param shelf 货架
 	 * @return java.util.List<per.kirito.pack.pojo.Pack>

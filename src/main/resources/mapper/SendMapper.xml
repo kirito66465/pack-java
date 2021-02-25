@@ -52,7 +52,7 @@
 			)
 		</if>
 		<if test="status != null and status.length > 0">
-			AND org IN (
+			AND status IN (
 			<foreach collection="status.split(',')" item="status" index="index" separator=",">
 				'${status}'
 			</foreach>

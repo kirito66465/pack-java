@@ -166,8 +166,9 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 		Map<String, String> map = new HashMap<>();
 		try {
 			String result = "";
-			int isDo = userMapper.forgetPwd(card, phone, password);
+			int isDo = userMapper.isExistByCardAndPhone(card, phone);
 			if (isDo == 1) {
+				userMapper.forgetPwd(card, password);
 				User user = userMapper.getUserById(card);
 				// 生成唯一令牌 token
 				String token = UUID.randomUUID().toString();

@@ -39,25 +39,34 @@ public class MailServiceImpl implements MailService {
 
 	/**
 	 * 根据快递单号查询出收件人邮箱并发送取件通知邮件
-	 * @param id    快递单号
+	 * @param ids   快递单号
 	 * @param token 令牌
 	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	@Override
-	public Map<String, String> sendMail(String id, String token) {
+	public Map<String, String> sendMail(String ids, String token) {
 		Map<String, String> map = new HashMap<>();
 		try {
 			if (stringRedisTemplate.hasKey(token)) {
-				Map<String, String> result = userMapper.getMailById(id);
-				String mail = result.get("mail");
-				if (mail != null && !Objects.equals(mail, "")) {
-					String code = result.get("code");
-					String addr = result.get("addr");
-					String org = result.get("org");
-					sendMailUtil.sendMail(mail, addr, code, org);
-					map.put("result", DO_SUCCESS);
+				String[] idArr = ids.split(",");
+				int noExistCount = 0;
+				for (String id : idArr) {
+					Map<String, String> result = userMapper.getMailById(id);
+					String mail = result.get("mail");
+					if (mail != null && !Objects.equals(mail, "")) {
+						String code = result.get("code");
+						String addr = result.get("addr");
+						String org = result.get("org");
+						sendMailUtil.sendMail(mail, addr, code, org);
+					} else {
+						noExistCount++;
+					}
+				}
+				if (noExistCount > 0) {
+					String result = "有 " + noExistCount + " 件快递通知取件失败，因为快递所属学生账号没有绑定邮箱！";
+					map.put("result", result);
 				} else {
-					map.put("result", NOT_EXIST);
+					map.put("result", DO_SUCCESS);
 				}
 			} else {
 				map.put("result", LOGIN_TO_DO);

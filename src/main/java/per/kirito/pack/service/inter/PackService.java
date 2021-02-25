@@ -20,11 +20,11 @@ public interface PackService {
 
 	/**
 	 * User 进行取件请求，仅传入快递单号和 token
-	 * @param id    快递单号
+	 * @param ids   快递单号
 	 * @param token 令牌
 	 * @return java.lang.String
 	 */
-	String pickById(String id, String token);
+	String pickById(String ids, String token);
 
 	/**
 	 * User 进行取件，必须传入驿站地址和取件码
@@ -37,19 +37,19 @@ public interface PackService {
 
 	/**
 	 * Admin 进行取件，仅传入快递单号即可
-	 * @param id    快递单号
+	 * @param ids   快递单号
 	 * @param token 令牌
 	 * @return java.lang.String
 	 **/
-	String pickPackByAdmin(String id, String token);
+	String pickPackByAdmin(String ids, String token);
 
 	/**
 	 * 根据快递单号删除此快递
-	 * @param id    快递单号
+	 * @param ids   快递单号
 	 * @param token 令牌
 	 * @return java.lang.String
 	 **/
-	String deletePackById(String id, String token);
+	String deletePacksById(String ids, String token);
 
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
@@ -118,7 +118,7 @@ public interface PackService {
 	Map<String, Object> getAdminTotalNum(String token);
 
 	/**
-	 * 根据驿站地址和货架取出当前货架的所有快递
+	 * 根据驿站地址和货架获取当前货架的所有快递
 	 * @param token 令牌
 	 * @param shelf 货架
 	 * @return java.util.Map<java.lang.String,java.lang.Object>

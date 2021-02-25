@@ -55,21 +55,27 @@ $ .\decrypt input="av8dLw8htTU7k5AQaoMgGzI5KLaj9Glp" password="demo-pwd" algorit
 1. 添加快递单号生成页面；完成快递状态的筛选过滤
 2. 添加 swagger 使用，可查询 API；优化代码逻辑
 ```
+- 2021.02.25<br>
+```markdown
+1. 优化 swagger API；优化请求方法类型；优化代码逻辑
+2. 实现 selection 多选处理
+```
 
 __TODO__
 ```markdown
 待完成：
 1. 添加快递数据导出为 Excel 表格
-2. 完成 selection 单选多选功能
-3. 搜索（已取根据签收人搜索，未取与全部根据收件人搜索，揽收根据寄件人搜索）
-4. 添加标签页/面包屑
-5. 页面布局优化
-6. Vue 项目刷新数据丢失问题
+2. 搜索（已取根据签收人搜索，未取与全部根据收件人搜索，揽收根据寄件人搜索）
+3. 添加标签页/面包屑
+4. 页面布局优化
 
 打包：
 1. Vue 项目去除大部分 console.log()
 2. Vue 项目修改 Constant 的 baseUrl 为空
 3. SpringBoot 项目去除所有 `@CrossOrigin` 注解
+
+熟悉：
+1. GET POST PUT DELETE，这四种请求方式区别
 ```
 
 ## 相关算法

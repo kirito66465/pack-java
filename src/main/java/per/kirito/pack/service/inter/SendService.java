@@ -28,33 +28,33 @@ public interface SendService {
 	 * User 支付寄件
 	 * @param id    学号
 	 * @param token 令牌
-	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 * @return java.lang.String
 	 */
-	Map<String, String> sendPay(String id, String token);
+	String sendPay(String id, String token);
 
 	/**
 	 * Admin 确认寄件
-	 * @param id    编号
+	 * @param ids   快递单号
 	 * @param token 令牌
-	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 * @return java.lang.String
 	 */
-	Map<String, String> sendConfirm(String id, String token);
+	String sendConfirm(String ids, String token);
 
 	/**
 	 * Admin 发出寄件
-	 * @param id    编号
+	 * @param ids   快递单号
 	 * @param token 令牌
-	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 * @return java.lang.String
 	 */
-	Map<String, String> sendOut(String id, String token);
+	String sendOut(String ids, String token);
 
 	/**
 	 * User 取消寄件
-	 * @param id    学号
+	 * @param ids   快递单号
 	 * @param token 令牌
-	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 * @return java.lang.String
 	 */
-	Map<String, String> sendCancel(String id, String token);
+	String sendCancel(String ids, String token);
 
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------

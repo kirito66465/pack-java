@@ -148,54 +148,62 @@ public class PackServiceImpl implements PackService {
 
 	/**
 	 * User 进行取件请求，仅传入快递单号和 token
-	 * @param id    快递单号
+	 * @param ids   快递单号
 	 * @param token 令牌
 	 * @return java.lang.String
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public String pickById(String id, String token) {
+	public String pickById(String ids, String token) {
 		String msg = PICK_FAIL;
 		try {
 			// 如果 token 令牌存在
 			if (stringRedisTemplate.hasKey(token)) {
-				Pack pack = packMapper.getPackById(id);
-				String card = stringRedisTemplate.opsForValue().get(token);
-				User user = userMapper.getUserById(card);
-				String name = user.getName();
-				if (pack != null) {
-					String addr = pack.getAddr();
-					String code = pack.getCode();
-					// 更新管理员信息
-					Admin admin = adminMapper.getAdminByAddr(addr);
-					adminMapper.updateCountLessByPackId(pack.getId());
-					// 更新用户信息
-					userMapper.updateCountLessByPackId(pack.getId());
-					pack.setStatus(PACK_CODE_0);
-					String time = TypeConversion.getTime();
-					pack.setEnd(time);
-					// 更新签收人
-					pack.setPick(name);
-					// 更新包裹状态、取件时间
-					packMapper.updatePack(pack);
-					// 更新取件码使用状态与释放时间
-					Code coder = new Code(code, addr, CODE_STATUS_0, time);
-					codeMapper.updateCode(coder);
-					int count = admin.getCount() - 1;
-					if (count >= MAX_PACKS) {
-						// 当前快递取出后，驿站剩余未取快递数大于等于2400，则需要为未有取件码的快递根据最早入站时间赋予取件码
-						pack = packMapper.getPackByStartMin(addr);
-						pack.setCode(code);
-						pack.setStatus(PACK_CODE_1);
+				String[] idArr = ids.split(",");
+				int noExistCount = 0;
+				for (String id : idArr) {
+					Pack pack = packMapper.getPackById(id);
+					String card = stringRedisTemplate.opsForValue().get(token);
+					User user = userMapper.getUserById(card);
+					String name = user.getName();
+					if (pack != null) {
+						String addr = pack.getAddr();
+						String code = pack.getCode();
+						// 更新管理员信息
+						Admin admin = adminMapper.getAdminByAddr(addr);
+						adminMapper.updateCountLessByPackId(pack.getId());
+						// 更新用户信息
+						userMapper.updateCountLessByPackId(pack.getId());
+						pack.setStatus(PACK_CODE_0);
+						String time = TypeConversion.getTime();
+						pack.setEnd(time);
+						// 更新签收人
+						pack.setPick(name);
+						// 更新包裹状态、取件时间
 						packMapper.updatePack(pack);
-						// 重新设置该 code 为使用状态
-						coder.setStatus(CODE_STATUS_1);
+						// 更新取件码使用状态与释放时间
+						Code coder = new Code(code, addr, CODE_STATUS_0, time);
 						codeMapper.updateCode(coder);
+						int count = admin.getCount() - 1;
+						if (count >= MAX_PACKS) {
+							// 当前快递取出后，驿站剩余未取快递数大于等于2400，则需要为未有取件码的快递根据最早入站时间赋予取件码
+							pack = packMapper.getPackByStartMin(addr);
+							pack.setCode(code);
+							pack.setStatus(PACK_CODE_1);
+							packMapper.updatePack(pack);
+							// 重新设置该 code 为使用状态
+							coder.setStatus(CODE_STATUS_1);
+							codeMapper.updateCode(coder);
+						}
+					} else {
+						// 该快递不存在
+						noExistCount++;
 					}
+				}
+				if (noExistCount == 0) {
 					msg = PICK_SUCCESS;
 				} else {
-					// 该快递不存在
-					msg = NOT_EXIST;
+					msg = "有 " + noExistCount + " 件快递取件失败，因为不存在！";
 				}
 			} else {
 				// 请登录再操作
@@ -281,20 +289,22 @@ public class PackServiceImpl implements PackService {
 
 	/**
 	 * Admin 进行取件，仅传入快递单号即可
-	 * @param id    快递单号
+	 * @param ids   快递单号
 	 * @param token 令牌
 	 * @return java.lang.String
 	 **/
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public String pickPackByAdmin(String id, String token) {
+	public String pickPackByAdmin(String ids, String token) {
 		try {
-			if (stringRedisTemplate.hasKey(token)) {
+			if (!stringRedisTemplate.hasKey(token)) {
+				return LOGIN_TO_DO;
+			}
+			String[] idArr = ids.split(",");
+			int noExistCount = 0;
+			for (String id : idArr) {
 				Pack pack = packMapper.getPackById(id);
-				if (pack == null) {
-					// 没有该快递
-					return INFO_FAIL;
-				} else {
+				if (pack != null) {
 					// 更新管理员信息
 					String addr = pack.getAddr();
 					Admin admin = adminMapper.getAdminByAddr(addr);
@@ -305,6 +315,7 @@ public class PackServiceImpl implements PackService {
 					pack.setStatus(PACK_CODE_0);
 					String time = TypeConversion.getTime();
 					pack.setEnd(time);
+					pack.setPick(admin.getName());
 					packMapper.updatePack(pack);
 					int count = admin.getCount() - 1;
 					// 更新取件码使用状态与释放时间
@@ -323,10 +334,15 @@ public class PackServiceImpl implements PackService {
 							codeMapper.updateCode(coder);
 						}
 					}
-					return PICK_SUCCESS;
+				} else {
+					noExistCount++;
 				}
+			}
+			if (noExistCount == 0) {
+				return PICK_SUCCESS;
 			} else {
-				return LOGIN_TO_DO;
+				String msg = "有 " + noExistCount + " 件快递取件失败，因为不存在！";
+				return msg;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -336,15 +352,19 @@ public class PackServiceImpl implements PackService {
 
 	/**
 	 * 根据快递单号删除此快递
-	 * @param id    快递单号
+	 * @param ids   快递单号
 	 * @param token 令牌
 	 * @return java.lang.String
 	 **/
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public String deletePackById(String id, String token) {
+	public String deletePacksById(String ids, String token) {
 		try {
-			if (stringRedisTemplate.hasKey(token)) {
+			String[] idArr = ids.split(",");
+			for (String id : idArr) {
+				if (!stringRedisTemplate.hasKey(token)) {
+					return LOGIN_TO_DO;
+				}
 				int status = packMapper.getStatusById(id);
 				// 已取快递不更新 Admin 与 User 的 count 值
 				if (status != PACK_CODE_0) {
@@ -355,10 +375,8 @@ public class PackServiceImpl implements PackService {
 				}
 				// 删除快递
 				packMapper.deletePackById(id);
-				return DO_SUCCESS;
-			} else {
-				return LOGIN_TO_DO;
 			}
+			return DO_SUCCESS;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return DO_FAIL;
@@ -683,7 +701,7 @@ public class PackServiceImpl implements PackService {
 	}
 
 	/**
-	 * 根据驿站地址和货架取出当前货架的所有快递
+	 * 根据驿站地址和货架获取当前货架的所有快递
 	 * @param token 令牌
 	 * @param shelf 货架
 	 * @return java.util.Map<java.lang.String,java.lang.Object>

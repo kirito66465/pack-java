@@ -106,102 +106,97 @@ public class SendServiceImpl implements SendService {
 	 * User 支付寄件
 	 * @param id    学号
 	 * @param token 令牌
-	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 * @return java.lang.String
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public Map<String, String> sendPay(String id, String token) {
-		Map<String, String> map = new HashMap<>();
-		if (stringRedisTemplate.hasKey(token)) {
-			try {
-				String dt = TypeConversion.getTime();
-				sendMapper.updateSend(id, SEND_STATUS_1, dt);
-				map.put("result", DO_SUCCESS);
-			} catch (Exception e) {
-				map.put("result", DO_FAIL);
-				e.printStackTrace();
-			}
-			return map;
-		} else {
-			map.put("result", LOGIN_TO_DO);
-			return map;
+	public String sendPay(String id, String token) {
+		if (!stringRedisTemplate.hasKey(token)) {
+			return LOGIN_TO_DO;
+		}
+		try {
+			String dt = TypeConversion.getTime();
+			sendMapper.updateSend(id, SEND_STATUS_1, dt);
+			return DO_SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DO_FAIL;
 		}
 	}
 
 	/**
 	 * Admin 确认寄件
-	 * @param id    编号
+	 * @param ids   快递单号
 	 * @param token 令牌
-	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 * @return java.lang.String
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public Map<String, String> sendConfirm(String id, String token) {
-		Map<String, String> map = new HashMap<>();
-		if (stringRedisTemplate.hasKey(token)) {
-			try {
-				String dt = TypeConversion.getTime();
+	public String sendConfirm(String ids, String token) {
+		if (!stringRedisTemplate.hasKey(token)) {
+			return LOGIN_TO_DO;
+		}
+		try {
+			String[] idArr = ids.split(",");
+			String dt = "";
+			for (String id : idArr) {
+				dt = TypeConversion.getTime();
 				sendMapper.updateSend(id, SEND_STATUS_2, dt);
-				map.put("result", DO_SUCCESS);
-			} catch (Exception e) {
-				map.put("result", DO_FAIL);
-				e.printStackTrace();
 			}
-			return map;
-		} else {
-			map.put("result", LOGIN_TO_DO);
-			return map;
+			return DO_SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DO_FAIL;
 		}
 	}
 
 	/**
 	 * Admin 发出寄件
-	 * @param id    编号
+	 * @param ids   快递单号
 	 * @param token 令牌
-	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 * @return java.lang.String
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public Map<String, String> sendOut(String id, String token) {
-		Map<String, String> map = new HashMap<>();
-		if (stringRedisTemplate.hasKey(token)) {
-			try {
-				String dt = TypeConversion.getTime();
+	public String sendOut(String ids, String token) {
+		if (!stringRedisTemplate.hasKey(token)) {
+			return LOGIN_TO_DO;
+		}
+		try {
+			String[] idArr = ids.split(",");
+			String dt = "";
+			for (String id : idArr) {
+				dt = TypeConversion.getTime();
 				sendMapper.updateSend(id, SEND_STATUS_3, dt);
-				map.put("result", DO_SUCCESS);
-			} catch (Exception e) {
-				map.put("result", DO_FAIL);
-				e.printStackTrace();
 			}
-			return map;
-		} else {
-			map.put("result", LOGIN_TO_DO);
-			return map;
+			return DO_SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DO_FAIL;
 		}
 	}
 
 	/**
 	 * User 取消寄件
-	 * @param id    学号
+	 * @param ids   快递单号
 	 * @param token 令牌
-	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 * @return java.lang.String
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public Map<String, String> sendCancel(String id, String token) {
-		Map<String, String> map = new HashMap<>();
-		if (stringRedisTemplate.hasKey(token)) {
-			try {
+	public String sendCancel(String ids, String token) {
+		if (!stringRedisTemplate.hasKey(token)) {
+			return LOGIN_TO_DO;
+		}
+		try {
+			String[] idArr = ids.split(",");
+			for (String id : idArr) {
 				sendMapper.deleteSend(id);
-				map.put("result", DO_SUCCESS);
-			} catch (Exception e) {
-				map.put("result", DO_FAIL);
-				e.printStackTrace();
 			}
-			return map;
-		} else {
-			map.put("result", LOGIN_TO_DO);
-			return map;
+			return DO_SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return DO_FAIL;
 		}
 	}
 
