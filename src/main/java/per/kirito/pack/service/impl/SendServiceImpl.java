@@ -137,15 +137,17 @@ public class SendServiceImpl implements SendService {
 			return LOGIN_TO_DO;
 		}
 		try {
-			if ("".equals(ids)) {
+			if (!"".equals(ids)) {
 				String[] idArr = ids.split(",");
 				String dt = "";
 				for (String id : idArr) {
 					dt = TypeConversion.getTime();
 					sendMapper.updateSend(id, SEND_STATUS_2, dt);
 				}
+				return DO_SUCCESS;
+			} else {    // 传入的 ids 为空字符串时
+				return "";
 			}
-			return DO_SUCCESS;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return DO_FAIL;
@@ -165,15 +167,17 @@ public class SendServiceImpl implements SendService {
 			return LOGIN_TO_DO;
 		}
 		try {
-			if ("".equals(ids)) {
+			if (!"".equals(ids)) {
 				String[] idArr = ids.split(",");
 				String dt = "";
 				for (String id : idArr) {
 					dt = TypeConversion.getTime();
 					sendMapper.updateSend(id, SEND_STATUS_3, dt);
 				}
+				return DO_SUCCESS;
+			} else {    // 传入的 ids 为空字符串时
+				return "";
 			}
-			return DO_SUCCESS;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return DO_FAIL;

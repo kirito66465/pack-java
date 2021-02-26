@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
  * author: 严晨
  * date: 2021/1/22
  * time: 11:22
- * 发送邮件参数配置类
+ * 发送邮件配置参数类
  */
 @Component
 @ConfigurationProperties(prefix = "mail")

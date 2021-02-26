@@ -179,4 +179,25 @@ public interface PackMapper {
 	 */
 	int getStatusById(String id);
 
+	/**
+	 * 获取不筛选不分页的驿站所有快递集合
+	 * @param card  编号
+	 * @return java.util.List<per.kirito.pack.pojo.Pack>
+	 */
+	List<Pack> getAllPacksByExcelOfAdmin(@Param("card") String card);
+
+	/**
+	 * 获取不筛选不分页的驿站已取快递集合
+	 * @param card  编号
+	 * @return java.util.List<per.kirito.pack.pojo.Pack>
+	 */
+	List<Pack> getIsPacksByExcelOfAdmin(@Param("card") String card);
+
+	/**
+	 * 获取不筛选不分页的驿站未取快递集合
+	 * @param card  编号
+	 * @return java.util.List<per.kirito.pack.pojo.Pack>
+	 */
+	List<Pack> getNoPacksByExcelOfAdmin(@Param("card") String card);
+
 }

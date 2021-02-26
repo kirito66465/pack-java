@@ -31,6 +31,6 @@ public class Admin {
 	/** 地址 */
 	private String addr;
 	/** 包裹件数(仅限已入站但未取出的快递) */
-	private int count;
+	private Integer count;
 
 }

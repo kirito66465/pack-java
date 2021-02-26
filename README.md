@@ -60,14 +60,17 @@ $ .\decrypt input="av8dLw8htTU7k5AQaoMgGzI5KLaj9Glp" password="demo-pwd" algorit
 1. 优化 swagger API；优化请求方法类型；优化代码逻辑
 2. 实现 selection 多选处理
 ```
+- 2021.02.26<br>
+```markdown
+1. 优化 selection 多选处理；添加快递数据导出为 Excel 表格
+```
 
 __TODO__
 ```markdown
 待完成：
-1. 添加快递数据导出为 Excel 表格
-2. 搜索（已取根据签收人搜索，未取与全部根据收件人搜索，揽收根据寄件人搜索）
-3. 添加标签页/面包屑
-4. 页面布局优化
+1. 搜索（已取根据签收人搜索，未取与全部根据收件人搜索，揽收根据寄件人搜索）
+2. 添加标签页/面包屑
+3. 页面布局优化
 
 打包：
 1. Vue 项目去除大部分 console.log()
@@ -116,3 +119,7 @@ WHERE status = -1;
 1. Vue 项目的 Constant 的 baseUrl 域名设置为虚拟机 IP
 2. 虚拟机数据库开放本地 demo 用户连接权限
 3. java -jar [jar包] 命令运行 SpringBoot 项目
+
+## 请求响应类型
+produces：它的作用是指定返回值类型，不但可以设置返回值类型还可以设定返回值的字符编码；
+consumes： 指定处理请求的提交内容类型（Content-Type），例如application/json, text/html;

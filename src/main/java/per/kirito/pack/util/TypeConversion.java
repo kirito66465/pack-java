@@ -29,40 +29,6 @@ public class TypeConversion {
 	}
 
 	/**
-	 * 采用 Base64 加密
-	 * @param input 加密内容
-	 * @return java.lang.String
-	 **/
-	public static String base64Encode(byte[] input) {
-		String result = null;
-		try {
-			Class className = Class.forName("com.sun.org.apache.xerces.internal.impl.dv.util.Base64");
-			Method method = className.getMethod("encode", byte[].class);
-			result = (String) method.invoke(null, input);
-		} catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
-
-	/**
-	 * 采用 Base64 解密
-	 * @param input 解密内容
-	 * @return byte[]
-	 **/
-	public static byte[] base64Decode(String input) {
-		byte[] result = null;
-		try {
-			Class className = Class.forName("com.sun.org.apache.xerces.internal.impl.dv.util.Base64");
-			Method method = className.getMethod("decode", String.class);
-			result = (byte[]) method.invoke(null, input);
-		} catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
-
-	/**
 	 * MD5 加密字符串，不可逆
 	 * @param plainText 加密内容
 	 * @return java.lang.String
@@ -117,8 +83,6 @@ public class TypeConversion {
 	public static void main(String[] args) throws ParseException {
 		String time = TypeConversion.getTime();
 		System.out.println("现在时间：" + time);
-		System.out.println(base64Encode("123456".getBytes()));
-		System.out.println(base64Encode("admin".getBytes()));
 		System.out.println(stringToMD5("123456"));
 		System.out.println(stringToMD5("admin"));
 	}

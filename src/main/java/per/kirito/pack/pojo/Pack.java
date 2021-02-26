@@ -39,7 +39,7 @@ public class Pack {
 	/** 驿站联系方式 */
 	private String cont_tel;
 	/** 快递状态 */
-	private int status;
+	private Integer status;
 	/** 入站时间 */
 	private String start;
 	/** 取件时间 */

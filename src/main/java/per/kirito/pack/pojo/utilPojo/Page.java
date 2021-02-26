@@ -14,11 +14,11 @@ import java.util.List;
 public class Page<T> {
 
 	/** 当前页数 */
-	private int currentPage;
+	private Integer currentPage;
 	/** 每页的记录条数 */
-	private int pageSize;
+	private Integer pageSize;
 	/** 总记录条数 */
-	private int total;
+	private Integer total;
 	/** 当前页的记录 */
 	private List<T> list;
 

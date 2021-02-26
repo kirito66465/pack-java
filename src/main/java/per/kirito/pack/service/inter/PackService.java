@@ -1,5 +1,8 @@
 package per.kirito.pack.service.inter;
 
+import per.kirito.pack.pojo.utilPojo.PackResult;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -124,5 +127,25 @@ public interface PackService {
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	Map<String, Object> getShelfPack(String token, String shelf);
+
+	/**
+	 * 获取不筛选不分页的驿站所有快递集合
+	 * @param token 令牌
+	 * @return java.util.List<per.kirito.pack.pojo.utilPojo.PackResult>
+	 */
+	List<PackResult> getAllPacksByExcelOfAdmin(String token);
+	/**
+	 * 获取不筛选不分页的驿站已取快递集合
+	 * @param token 令牌
+	 * @return java.util.List<per.kirito.pack.pojo.utilPojo.PackResult>
+	 */
+	List<PackResult> getIsPacksByExcelOfAdmin(String token);
+
+	/**
+	 * 获取不筛选不分页的驿站未取快递集合
+	 * @param token 令牌
+	 * @return java.util.List<per.kirito.pack.pojo.utilPojo.PackResult>
+	 */
+	List<PackResult> getNoPacksByExcelOfAdmin(String token);
 
 }

@@ -28,9 +28,9 @@ public class SendRequest {
 	/** 物品信息 */
 	private String info;
 	/** 物品重量 */
-	private int weight;
+	private Integer weight;
 	/** 运费 */
-	private double price;
+	private Double price;
 	/** 登录状态令牌 */
 	private String token;
 

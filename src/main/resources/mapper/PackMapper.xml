@@ -331,4 +331,51 @@
 		WHERE id = #{id}
 	</select>
 
+	<!-- 获取不筛选不分页的驿站所有快递集合 -->
+	<select id="getAllPacksByExcelOfAdmin" parameterType="String" resultType="Pack">
+		SELECT id, org, per_name
+			, per_tel, per_addr, addr
+			, code, cont_name, cont_tel
+			, status, start, end, pick
+		FROM t_pack
+		WHERE addr IN (
+			SELECT addr
+			FROM t_admin
+			WHERE card = #{card}
+		)
+		ORDER BY start DESC, code ASC
+	</select>
+
+	<!-- 获取不筛选不分页的驿站已取快递集合 -->
+	<select id="getIsPacksByExcelOfAdmin" parameterType="String" resultType="Pack">
+		SELECT id, org, per_name
+			, per_tel, per_addr, addr
+			, code, cont_name, cont_tel
+			, status, start, end, pick
+		FROM t_pack
+		WHERE status = 0
+		AND addr IN (
+			SELECT addr
+			FROM t_admin
+			WHERE card = #{card}
+		)
+		ORDER BY end DESC
+	</select>
+
+	<!-- 获取不筛选不分页的驿站未取快递集合 -->
+	<select id="getNoPacksByExcelOfAdmin" parameterType="String" resultType="Pack">
+		SELECT id, org, per_name
+			, per_tel, per_addr, addr
+			, code, cont_name, cont_tel
+			, status, start, end, pick
+		FROM t_pack
+		WHERE (status = 1 OR status = -1)
+		AND addr IN (
+			SELECT addr
+			FROM t_admin
+			WHERE card = #{card}
+		)
+		ORDER BY code ASC, start DESC
+	</select>
+
 </mapper>

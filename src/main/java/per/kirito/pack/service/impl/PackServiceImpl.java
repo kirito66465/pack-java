@@ -130,6 +130,7 @@ public class PackServiceImpl implements PackService {
 					code = "";
 				}
 				pack.setCode(code);
+				// TODO ES入库
 				packMapper.addPack(pack);
 				// 更新 Admin 的 count 数
 				adminMapper.updateCountPlusByPackId(id);
@@ -718,6 +719,63 @@ public class PackServiceImpl implements PackService {
 			map.put("result", INFO_FAIL);
 		}
 		return map;
+	}
+
+	/**
+	 * 获取不筛选不分页的驿站所有快递集合
+	 * @param token 令牌
+	 * @return java.util.List<per.kirito.pack.pojo.utilPojo.PackResult>
+	 */
+	@Override
+	public List<PackResult> getAllPacksByExcelOfAdmin(String token) {
+		if (stringRedisTemplate.hasKey(token)) {
+			// 取出 Admin 登录的 card
+			String card = stringRedisTemplate.opsForValue().get(token);
+			// 根据 card 查询出该 Admin 所有快递集合
+			List<Pack> packs = packMapper.getAllPacksByExcelOfAdmin(card);
+			// int -> String 转换
+			List<PackResult> packResultList = PackUtil.getPackResult(packs);
+			return packResultList;
+		}
+		return null;
+	}
+
+	/**
+	 * 获取不筛选不分页的驿站已取快递集合
+	 * @param token 令牌
+	 * @return java.util.List<per.kirito.pack.pojo.utilPojo.PackResult>
+	 */
+	@Override
+	public List<PackResult> getIsPacksByExcelOfAdmin(String token) {
+		if (stringRedisTemplate.hasKey(token)) {
+			// 取出 Admin 登录的 card
+			String card = stringRedisTemplate.opsForValue().get(token);
+			// 根据 card 查询出该 Admin 已取快递集合
+			List<Pack> packs = packMapper.getIsPacksByExcelOfAdmin(card);
+			// int -> String 转换
+			List<PackResult> packResultList = PackUtil.getPackResult(packs);
+			return packResultList;
+		}
+		return null;
+	}
+
+	/**
+	 * 获取不筛选不分页的驿站未取快递集合
+	 * @param token 令牌
+	 * @return java.util.List<per.kirito.pack.pojo.utilPojo.PackResult>
+	 */
+	@Override
+	public List<PackResult> getNoPacksByExcelOfAdmin(String token) {
+		if (stringRedisTemplate.hasKey(token)) {
+			// 取出 Admin 登录的 card
+			String card = stringRedisTemplate.opsForValue().get(token);
+			// 根据 card 查询出该 Admin 未取快递集合
+			List<Pack> packs = packMapper.getNoPacksByExcelOfAdmin(card);
+			// int -> String 转换
+			List<PackResult> packResultList = PackUtil.getPackResult(packs);
+			return packResultList;
+		}
+		return null;
 	}
 
 }

@@ -31,7 +31,7 @@ public class User {
 	/** 收货地址 */
 	private String addr;
 	/** 包裹件数 */
-	private int count;
+	private Integer count;
 	/** 电子邮箱 */
 	private String mail;
 

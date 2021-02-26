@@ -33,7 +33,7 @@ public class Send {
 	/** 收件人地址 */
 	private String to_addr;
 	/** 运费 */
-	private double price;
+	private Double price;
 	/** 快递单号 */
 	private String id;
 	/** 快递公司 */
