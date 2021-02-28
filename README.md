@@ -123,3 +123,7 @@ WHERE status = -1;
 ## 请求响应类型
 produces：它的作用是指定返回值类型，不但可以设置返回值类型还可以设定返回值的字符编码；
 consumes： 指定处理请求的提交内容类型（Content-Type），例如application/json, text/html;
+
+## elasticsearch
+1. 前端 搜索 根据 输入内容 请求 服务器
+2. 服务器根据索引请求 elasticsearch 获取数据 返回 前端
