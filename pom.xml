@@ -34,6 +34,7 @@
 		<poi-ooxml.version>4.1.2</poi-ooxml.version>
 		<junit.version>4.12</junit.version>
 		<elasticsearch.version>7.11.1</elasticsearch.version>
+		<elasticsearch>7.11.1</elasticsearch>
 	</properties>
 
 	<dependencies>
@@ -70,14 +71,8 @@
 
 		<!-- elasticsearch 依赖 -->
 		<dependency>
-			<groupId>org.elasticsearch.client</groupId>
-			<artifactId>elasticsearch-rest-high-level-client</artifactId>
-			<version>${elasticsearch.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.elasticsearch</groupId>
-			<artifactId>elasticsearch</artifactId>
-			<version>${elasticsearch.version}</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
 		</dependency>
 
 		<!-- Spring Boot 配置处理器 -->

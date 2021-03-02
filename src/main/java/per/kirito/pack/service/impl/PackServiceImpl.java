@@ -88,7 +88,7 @@ public class PackServiceImpl implements PackService {
 		if (stringRedisTemplate.hasKey(token)) {
 			try {
 				// 随机获取一个用户，用于绑定快递的收件信息
-				Pack pack = new Pack();
+				Pack pack = Pack.builder().build();
 				pack.setId(id);
 				User user = userMapper.getUserByRand();
 				pack.setPer_name(user.getName());
@@ -107,7 +107,7 @@ public class PackServiceImpl implements PackService {
 				// 驿站现存快递数量小于能有取件码的快递数量
 				if (count < MAX_PACKS) {
 					// 此入站快递能有取件码
-					Code coder = new Code();
+					Code coder = Code.builder().build();
 					pack.setStatus(PACK_CODE_1);
 					// 判断取件码有无被使用
 					if (isUse == USE_CODE) {
@@ -130,7 +130,7 @@ public class PackServiceImpl implements PackService {
 					code = "";
 				}
 				pack.setCode(code);
-				// TODO ES入库
+				// TODO ES 入库
 				packMapper.addPack(pack);
 				// 更新 Admin 的 count 数
 				adminMapper.updateCountPlusByPackId(id);

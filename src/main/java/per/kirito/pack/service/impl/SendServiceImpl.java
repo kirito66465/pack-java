@@ -66,7 +66,7 @@ public class SendServiceImpl implements SendService {
 		String token = request.getToken();
 		if (stringRedisTemplate.hasKey(token)) {
 			try {
-				Send send = new Send();
+				Send send = Send.builder().build();
 				String card = stringRedisTemplate.opsForValue().get(token);
 				User user = userMapper.getUserById(card);
 				// 设置寄件人信息

@@ -1,9 +1,6 @@
 package per.kirito.pack.pojo.utilPojo;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 import per.kirito.pack.pojo.Pack;
 
 /**
@@ -14,7 +11,7 @@ import per.kirito.pack.pojo.Pack;
  */
 @Data
 @NonNull
-@NoArgsConstructor
+@Builder
 @AllArgsConstructor
 public class PackResult {
 

@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Component;
+import per.kirito.pack.properties.ElasticProperties;
 import per.kirito.pack.properties.MailProperties;
 
 /**
@@ -35,11 +36,18 @@ public class PackApplication {
 		@Autowired
 		private MailProperties mailProperties;
 
+		@Autowired
+		private ElasticProperties elasticProperties;
+
 		@Override
 		public void run(String... args) {
+			logger.info("---------- MailProperties ----------");
 			logger.info("senderMail: " + mailProperties.getSenderMail());
 			logger.info("host: " + mailProperties.getHost());
 			logger.info("password: " + mailProperties.getPassword());
+			logger.info("---------- ElasticProperties ----------");
+			logger.info("hostName: " + elasticProperties.getHostName());
+			logger.info("port: " + elasticProperties.getPort());
 		}
 
 	}

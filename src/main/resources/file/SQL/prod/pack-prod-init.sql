@@ -1,4 +1,3 @@
--- 开发时带 15 + 15 + 10 条数据，带隐私信息
 /*
  Navicat Premium Data Transfer
 
@@ -12,7 +11,7 @@
  Target Server Version : 50730
  File Encoding         : 65001
 
- Date: 23/02/2021 10:24:15
+ Date: 02/03/2021 10:36:19
 */
 
 SET NAMES utf8mb4;
@@ -35,9 +34,9 @@ CREATE TABLE `t_admin`  (
 -- ----------------------------
 -- Records of t_admin
 -- ----------------------------
-INSERT INTO `t_admin` VALUES ('2101', '21232f297a57a5a743894a0e4a801fc3', '12345678901', '中苑', '中苑', 15);
-INSERT INTO `t_admin` VALUES ('2102', '21232f297a57a5a743894a0e4a801fc3', '12345678902', '西苑', '西苑', 15);
-INSERT INTO `t_admin` VALUES ('2103', '21232f297a57a5a743894a0e4a801fc3', '12345678903', '北苑', '北苑', 10);
+INSERT INTO `t_admin` VALUES ('2101', '21232f297a57a5a743894a0e4a801fc3', '12345678901', '中苑', '中苑', 0);
+INSERT INTO `t_admin` VALUES ('2102', '21232f297a57a5a743894a0e4a801fc3', '12345678902', '西苑', '西苑', 0);
+INSERT INTO `t_admin` VALUES ('2103', '21232f297a57a5a743894a0e4a801fc3', '12345678903', '北苑', '北苑', 0);
 
 -- ----------------------------
 -- Table structure for t_code
@@ -54,51 +53,51 @@ CREATE TABLE `t_code`  (
 -- ----------------------------
 -- Records of t_code
 -- ----------------------------
-INSERT INTO `t_code` VALUES ('1-1-01', '中苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-01', '北苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-01', '西苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-02', '中苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-02', '北苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-02', '西苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-03', '中苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-03', '北苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-03', '西苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-04', '中苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-04', '北苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-04', '西苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-05', '中苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-05', '北苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-05', '西苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-06', '中苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-06', '北苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-06', '西苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-07', '中苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-07', '北苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-07', '西苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-08', '中苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-08', '北苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-08', '西苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-09', '中苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-09', '北苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-09', '西苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-10', '中苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-10', '北苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-10', '西苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-11', '中苑', 1, '');
+INSERT INTO `t_code` VALUES ('1-1-01', '中苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-01', '北苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-01', '西苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-02', '中苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-02', '北苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-02', '西苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-03', '中苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-03', '北苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-03', '西苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-04', '中苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-04', '北苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-04', '西苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-05', '中苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-05', '北苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-05', '西苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-06', '中苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-06', '北苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-06', '西苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-07', '中苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-07', '北苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-07', '西苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-08', '中苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-08', '北苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-08', '西苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-09', '中苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-09', '北苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-09', '西苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-10', '中苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-10', '北苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-10', '西苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-11', '中苑', 0, '');
 INSERT INTO `t_code` VALUES ('1-1-11', '北苑', 0, '');
-INSERT INTO `t_code` VALUES ('1-1-11', '西苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-12', '中苑', 1, '');
+INSERT INTO `t_code` VALUES ('1-1-11', '西苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-12', '中苑', 0, '');
 INSERT INTO `t_code` VALUES ('1-1-12', '北苑', 0, '');
-INSERT INTO `t_code` VALUES ('1-1-12', '西苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-13', '中苑', 1, '');
+INSERT INTO `t_code` VALUES ('1-1-12', '西苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-13', '中苑', 0, '');
 INSERT INTO `t_code` VALUES ('1-1-13', '北苑', 0, '');
-INSERT INTO `t_code` VALUES ('1-1-13', '西苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-14', '中苑', 1, '');
+INSERT INTO `t_code` VALUES ('1-1-13', '西苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-14', '中苑', 0, '');
 INSERT INTO `t_code` VALUES ('1-1-14', '北苑', 0, '');
-INSERT INTO `t_code` VALUES ('1-1-14', '西苑', 1, '');
-INSERT INTO `t_code` VALUES ('1-1-15', '中苑', 1, '');
+INSERT INTO `t_code` VALUES ('1-1-14', '西苑', 0, '');
+INSERT INTO `t_code` VALUES ('1-1-15', '中苑', 0, '');
 INSERT INTO `t_code` VALUES ('1-1-15', '北苑', 0, '');
-INSERT INTO `t_code` VALUES ('1-1-15', '西苑', 1, '');
+INSERT INTO `t_code` VALUES ('1-1-15', '西苑', 0, '');
 INSERT INTO `t_code` VALUES ('1-1-16', '中苑', 0, '');
 INSERT INTO `t_code` VALUES ('1-1-16', '北苑', 0, '');
 INSERT INTO `t_code` VALUES ('1-1-16', '西苑', 0, '');
@@ -6117,6 +6116,30 @@ INSERT INTO `t_code` VALUES ('6-5-20', '西苑', 0, '');
 INSERT INTO `t_code` VALUES ('6-6-01', '中苑', 0, '');
 INSERT INTO `t_code` VALUES ('6-6-01', '北苑', 0, '');
 INSERT INTO `t_code` VALUES ('6-6-01', '西苑', 0, '');
+INSERT INTO `t_code` VALUES ('6-6-02', '中苑', 0, '');
+INSERT INTO `t_code` VALUES ('6-6-02', '北苑', 0, '');
+INSERT INTO `t_code` VALUES ('6-6-02', '西苑', 0, '');
+INSERT INTO `t_code` VALUES ('6-6-03', '中苑', 0, '');
+INSERT INTO `t_code` VALUES ('6-6-03', '北苑', 0, '');
+INSERT INTO `t_code` VALUES ('6-6-03', '西苑', 0, '');
+INSERT INTO `t_code` VALUES ('6-6-04', '中苑', 0, '');
+INSERT INTO `t_code` VALUES ('6-6-04', '北苑', 0, '');
+INSERT INTO `t_code` VALUES ('6-6-04', '西苑', 0, '');
+INSERT INTO `t_code` VALUES ('6-6-05', '中苑', 0, '');
+INSERT INTO `t_code` VALUES ('6-6-05', '北苑', 0, '');
+INSERT INTO `t_code` VALUES ('6-6-05', '西苑', 0, '');
+INSERT INTO `t_code` VALUES ('6-6-06', '中苑', 0, '');
+INSERT INTO `t_code` VALUES ('6-6-06', '北苑', 0, '');
+INSERT INTO `t_code` VALUES ('6-6-06', '西苑', 0, '');
+INSERT INTO `t_code` VALUES ('6-6-07', '中苑', 0, '');
+INSERT INTO `t_code` VALUES ('6-6-07', '北苑', 0, '');
+INSERT INTO `t_code` VALUES ('6-6-07', '西苑', 0, '');
+INSERT INTO `t_code` VALUES ('6-6-08', '中苑', 0, '');
+INSERT INTO `t_code` VALUES ('6-6-08', '北苑', 0, '');
+INSERT INTO `t_code` VALUES ('6-6-08', '西苑', 0, '');
+INSERT INTO `t_code` VALUES ('6-6-09', '中苑', 0, '');
+INSERT INTO `t_code` VALUES ('6-6-09', '北苑', 0, '');
+INSERT INTO `t_code` VALUES ('6-6-09', '西苑', 0, '');
 INSERT INTO `t_code` VALUES ('6-6-10', '中苑', 0, '');
 INSERT INTO `t_code` VALUES ('6-6-10', '北苑', 0, '');
 INSERT INTO `t_code` VALUES ('6-6-10', '西苑', 0, '');
@@ -6147,33 +6170,9 @@ INSERT INTO `t_code` VALUES ('6-6-18', '西苑', 0, '');
 INSERT INTO `t_code` VALUES ('6-6-19', '中苑', 0, '');
 INSERT INTO `t_code` VALUES ('6-6-19', '北苑', 0, '');
 INSERT INTO `t_code` VALUES ('6-6-19', '西苑', 0, '');
-INSERT INTO `t_code` VALUES ('6-6-02', '中苑', 0, '');
-INSERT INTO `t_code` VALUES ('6-6-02', '北苑', 0, '');
-INSERT INTO `t_code` VALUES ('6-6-02', '西苑', 0, '');
 INSERT INTO `t_code` VALUES ('6-6-20', '中苑', 0, '');
 INSERT INTO `t_code` VALUES ('6-6-20', '北苑', 0, '');
 INSERT INTO `t_code` VALUES ('6-6-20', '西苑', 0, '');
-INSERT INTO `t_code` VALUES ('6-6-03', '中苑', 0, '');
-INSERT INTO `t_code` VALUES ('6-6-03', '北苑', 0, '');
-INSERT INTO `t_code` VALUES ('6-6-03', '西苑', 0, '');
-INSERT INTO `t_code` VALUES ('6-6-04', '中苑', 0, '');
-INSERT INTO `t_code` VALUES ('6-6-04', '北苑', 0, '');
-INSERT INTO `t_code` VALUES ('6-6-04', '西苑', 0, '');
-INSERT INTO `t_code` VALUES ('6-6-05', '中苑', 0, '');
-INSERT INTO `t_code` VALUES ('6-6-05', '北苑', 0, '');
-INSERT INTO `t_code` VALUES ('6-6-05', '西苑', 0, '');
-INSERT INTO `t_code` VALUES ('6-6-06', '中苑', 0, '');
-INSERT INTO `t_code` VALUES ('6-6-06', '北苑', 0, '');
-INSERT INTO `t_code` VALUES ('6-6-06', '西苑', 0, '');
-INSERT INTO `t_code` VALUES ('6-6-07', '中苑', 0, '');
-INSERT INTO `t_code` VALUES ('6-6-07', '北苑', 0, '');
-INSERT INTO `t_code` VALUES ('6-6-07', '西苑', 0, '');
-INSERT INTO `t_code` VALUES ('6-6-08', '中苑', 0, '');
-INSERT INTO `t_code` VALUES ('6-6-08', '北苑', 0, '');
-INSERT INTO `t_code` VALUES ('6-6-08', '西苑', 0, '');
-INSERT INTO `t_code` VALUES ('6-6-09', '中苑', 0, '');
-INSERT INTO `t_code` VALUES ('6-6-09', '北苑', 0, '');
-INSERT INTO `t_code` VALUES ('6-6-09', '西苑', 0, '');
 INSERT INTO `t_code` VALUES ('7-1-01', '中苑', 0, '');
 INSERT INTO `t_code` VALUES ('7-1-01', '北苑', 0, '');
 INSERT INTO `t_code` VALUES ('7-1-01', '西苑', 0, '');
@@ -7279,46 +7278,6 @@ CREATE TABLE `t_pack`  (
 -- ----------------------------
 -- Records of t_pack
 -- ----------------------------
-INSERT INTO `t_pack` VALUES ('4311029321794', '韵达', '严晨', '13305193691', '西苑', '西苑', '1-1-03', '西苑快递员', '12345678902', 1, '2020-12-29 14:16:00', '', '');
-INSERT INTO `t_pack` VALUES ('4311029345680', '韵达', '苏秦', '17751772590', '西苑', '西苑', '1-1-06', '西苑快递员', '12345678902', 1, '2020-12-29 14:16:00', '', '');
-INSERT INTO `t_pack` VALUES ('4311029371390', '韵达', '王杰', '17751773079', '西苑', '西苑', '1-1-09', '西苑快递员', '12345678902', 1, '2020-12-29 14:16:00', '', '');
-INSERT INTO `t_pack` VALUES ('4311029401251', '韵达', '陈致远', '15305177180', '西苑', '西苑', '1-1-12', '西苑快递员', '12345678902', 1, '2020-12-29 14:16:00', '', '');
-INSERT INTO `t_pack` VALUES ('4311029438917', '韵达', '杨成', '13382053583', '西苑', '西苑', '1-1-15', '西苑快递员', '12345678902', 1, '2020-12-29 14:16:00', '', '');
-INSERT INTO `t_pack` VALUES ('75422907315890', '中通', '严晨', '13305193691', '中苑', '中苑', '1-1-01', '中苑快递员', '12345678901', 1, '2020-12-29 10:07:00', '', '');
-INSERT INTO `t_pack` VALUES ('75422907691437', '中通', '苏秦', '17751772590', '中苑', '中苑', '1-1-04', '中苑快递员', '12345678901', 1, '2020-12-29 10:07:03', '', '');
-INSERT INTO `t_pack` VALUES ('75422907719120', '中通', '王杰', '17751773079', '中苑', '中苑', '1-1-07', '中苑快递员', '12345678901', 1, '2020-12-29 10:07:06', '', '');
-INSERT INTO `t_pack` VALUES ('75422907740735', '中通', '陈致远', '15305177180', '中苑', '中苑', '1-1-10', '中苑快递员', '12345678901', 1, '2020-12-29 10:07:09', '', '');
-INSERT INTO `t_pack` VALUES ('75422907759659', '中通', '杨成', '13382053583', '中苑', '中苑', '1-1-13', '中苑快递员', '12345678901', 1, '2020-12-29 10:07:12', '', '');
-INSERT INTO `t_pack` VALUES ('773072907315890', '申通', '严晨', '13305193691', '中苑', '中苑', '1-1-02', '中苑快递员', '12345678901', 1, '2020-12-29 10:07:01', '', '');
-INSERT INTO `t_pack` VALUES ('773072907691437', '申通', '苏秦', '17751772590', '中苑', '中苑', '1-1-05', '中苑快递员', '12345678901', 1, '2020-12-29 10:07:04', '', '');
-INSERT INTO `t_pack` VALUES ('773072907719120', '申通', '王杰', '17751773079', '中苑', '中苑', '1-1-08', '中苑快递员', '12345678901', 1, '2020-12-29 10:07:07', '', '');
-INSERT INTO `t_pack` VALUES ('773072907740735', '申通', '陈致远', '15305177180', '中苑', '中苑', '1-1-11', '中苑快递员', '12345678901', 1, '2020-12-29 10:07:10', '', '');
-INSERT INTO `t_pack` VALUES ('773072907759659', '申通', '杨成', '13382053583', '中苑', '中苑', '1-1-14', '中苑快递员', '12345678901', 1, '2020-12-29 10:07:13', '', '');
-INSERT INTO `t_pack` VALUES ('88829224530342', '天天', '严晨', '13305193691', '北苑', '北苑', '1-1-01', '北苑快递员', '12345678903', 1, '2020-12-29 14:16:00', '', '');
-INSERT INTO `t_pack` VALUES ('88829224541326', '天天', '苏秦', '17751772590', '北苑', '北苑', '1-1-03', '北苑快递员', '12345678903', 1, '2020-12-29 14:16:00', '', '');
-INSERT INTO `t_pack` VALUES ('88829224552539', '天天', '王杰', '17751773079', '北苑', '北苑', '1-1-05', '北苑快递员', '12345678903', 1, '2020-12-29 14:16:00', '', '');
-INSERT INTO `t_pack` VALUES ('88829224569726', '天天', '陈致远', '15305177180', '北苑', '北苑', '1-1-07', '北苑快递员', '12345678903', 1, '2020-12-29 14:16:00', '', '');
-INSERT INTO `t_pack` VALUES ('88829224583305', '天天', '杨成', '13382053583', '北苑', '北苑', '1-1-09', '北苑快递员', '12345678903', 1, '2020-12-29 14:16:00', '', '');
-INSERT INTO `t_pack` VALUES ('EA294530342CN', 'EMS', '严晨', '13305193691', '北苑', '北苑', '1-1-02', '北苑快递员', '12345678903', 1, '2020-12-29 14:16:00', '', '');
-INSERT INTO `t_pack` VALUES ('EA294541326CN', 'EMS', '苏秦', '17751772590', '北苑', '北苑', '1-1-04', '北苑快递员', '12345678903', 1, '2020-12-29 14:16:00', '', '');
-INSERT INTO `t_pack` VALUES ('EA294552539CN', 'EMS', '王杰', '17751773079', '北苑', '北苑', '1-1-06', '北苑快递员', '12345678903', 1, '2020-12-29 14:16:00', '', '');
-INSERT INTO `t_pack` VALUES ('EA294569726CN', 'EMS', '陈致远', '15305177180', '北苑', '北苑', '1-1-08', '北苑快递员', '12345678903', 1, '2020-12-29 14:16:00', '', '');
-INSERT INTO `t_pack` VALUES ('EA294583305CN', 'EMS', '杨成', '13382053583', '北苑', '北苑', '1-1-10', '北苑快递员', '12345678903', 1, '2020-12-29 14:16:00', '', '');
-INSERT INTO `t_pack` VALUES ('JD0022924321794', '京东', '严晨', '13305193691', '西苑', '西苑', '1-1-01', '西苑快递员', '12345678902', 1, '2020-12-29 14:16:00', '', '');
-INSERT INTO `t_pack` VALUES ('JD0022924345680', '京东', '苏秦', '17751772590', '西苑', '西苑', '1-1-04', '西苑快递员', '12345678902', 1, '2020-12-29 14:16:00', '', '');
-INSERT INTO `t_pack` VALUES ('JD0022924371390', '京东', '王杰', '17751773079', '西苑', '西苑', '1-1-07', '西苑快递员', '12345678902', 1, '2020-12-29 14:16:00', '', '');
-INSERT INTO `t_pack` VALUES ('JD0022924401251', '京东', '陈致远', '15305177180', '西苑', '西苑', '1-1-10', '西苑快递员', '12345678902', 1, '2020-12-29 14:16:00', '', '');
-INSERT INTO `t_pack` VALUES ('JD0022924438917', '京东', '杨成', '13382053583', '西苑', '西苑', '1-1-13', '西苑快递员', '12345678902', 1, '2020-12-29 14:16:00', '', '');
-INSERT INTO `t_pack` VALUES ('SF1299224321794', '顺丰', '严晨', '13305193691', '西苑', '西苑', '1-1-02', '西苑快递员', '12345678902', 1, '2020-12-29 14:16:00', '', '');
-INSERT INTO `t_pack` VALUES ('SF1299224345680', '顺丰', '苏秦', '17751772590', '西苑', '西苑', '1-1-05', '西苑快递员', '12345678902', 1, '2020-12-29 14:16:00', '', '');
-INSERT INTO `t_pack` VALUES ('SF1299224371390', '顺丰', '王杰', '17751773079', '西苑', '西苑', '1-1-08', '西苑快递员', '12345678902', 1, '2020-12-29 14:16:00', '', '');
-INSERT INTO `t_pack` VALUES ('SF1299224401251', '顺丰', '陈致远', '15305177180', '西苑', '西苑', '1-1-11', '西苑快递员', '12345678902', 1, '2020-12-29 14:16:00', '', '');
-INSERT INTO `t_pack` VALUES ('SF1299224438917', '顺丰', '杨成', '13382053583', '西苑', '西苑', '1-1-14', '西苑快递员', '12345678902', 1, '2020-12-29 14:16:00', '', '');
-INSERT INTO `t_pack` VALUES ('YT2909207315890', '圆通', '严晨', '13305193691', '中苑', '中苑', '1-1-03', '中苑快递员', '12345678901', 1, '2020-12-29 10:07:02', '', '');
-INSERT INTO `t_pack` VALUES ('YT2909207691437', '圆通', '苏秦', '17751772590', '中苑', '中苑', '1-1-06', '中苑快递员', '12345678901', 1, '2020-12-29 10:07:05', '', '');
-INSERT INTO `t_pack` VALUES ('YT2909207719120', '圆通', '王杰', '17751773079', '中苑', '中苑', '1-1-09', '中苑快递员', '12345678901', 1, '2020-12-29 10:07:08', '', '');
-INSERT INTO `t_pack` VALUES ('YT2909207740735', '圆通', '陈致远', '15305177180', '中苑', '中苑', '1-1-12', '中苑快递员', '12345678901', 1, '2020-12-29 10:07:11', '', '');
-INSERT INTO `t_pack` VALUES ('YT2909207759659', '圆通', '杨成', '13382053583', '中苑', '中苑', '1-1-15', '中苑快递员', '12345678901', 1, '2020-12-29 10:07:14', '', '');
 
 -- ----------------------------
 -- Table structure for t_send
@@ -7332,11 +7291,11 @@ CREATE TABLE `t_send`  (
   `to_tel` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '收件人手机号',
   `to_addr` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '收件地址',
   `price` decimal(10, 2) NULL DEFAULT 0.00 COMMENT '运费',
-  `id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '快递单号',
+  `id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '快递单号',
   `org` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '快递公司',
   `status` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '快递状态',
   `dt` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '时间戳',
-  PRIMARY KEY (`dt`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -7361,12 +7320,105 @@ CREATE TABLE `t_user`  (
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES ('2120172167', 'e10adc3949ba59abbe56e057f20f883e', '15305177180', '陈致远', '中苑', 8, '158449034@qq.com');
-INSERT INTO `t_user` VALUES ('2120172170', 'e10adc3949ba59abbe56e057f20f883e', '17768120227', '姜大朗', '中苑', 0, '1160955460@qq.com');
-INSERT INTO `t_user` VALUES ('2120172171', 'e10adc3949ba59abbe56e057f20f883e', '13305193691', '严晨', '中苑', 8, '1204505357@qq.com');
-INSERT INTO `t_user` VALUES ('2120172172', 'e10adc3949ba59abbe56e057f20f883e', '13382053583', '杨成', '中苑', 8, '940155205@qq.com');
-INSERT INTO `t_user` VALUES ('2120172718', 'e10adc3949ba59abbe56e057f20f883e', '17751772590', '苏秦', '中苑', 8, '1055538906@qq.com');
-INSERT INTO `t_user` VALUES ('2120172942', 'e10adc3949ba59abbe56e057f20f883e', '13101360781', '唐雨豪', '中苑', 0, '562614298@qq.com');
-INSERT INTO `t_user` VALUES ('2120173738', 'e10adc3949ba59abbe56e057f20f883e', '17751773079', '王杰', '中苑', 8, '1692567805@qq.com');
+INSERT INTO `t_user` VALUES ('2120172101', 'e10adc3949ba59abbe56e057f20f883e', '12345672101', '陶卿', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172102', 'e10adc3949ba59abbe56e057f20f883e', '12345672102', '沈世兰', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172103', 'e10adc3949ba59abbe56e057f20f883e', '12345672103', '金彩菊', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172104', 'e10adc3949ba59abbe56e057f20f883e', '12345672104', '尤之念', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172105', 'e10adc3949ba59abbe56e057f20f883e', '12345672105', '张兴', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172106', 'e10adc3949ba59abbe56e057f20f883e', '12345672106', '王之山', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172107', 'e10adc3949ba59abbe56e057f20f883e', '12345672107', '李嘉', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172108', 'e10adc3949ba59abbe56e057f20f883e', '12345672108', '韩宏艳', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172109', 'e10adc3949ba59abbe56e057f20f883e', '12345672109', '赵娜', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172110', 'e10adc3949ba59abbe56e057f20f883e', '12345672110', '陶萍', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172111', 'e10adc3949ba59abbe56e057f20f883e', '12345672111', '杨凝', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172112', 'e10adc3949ba59abbe56e057f20f883e', '12345672112', '周昌玉', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172113', 'e10adc3949ba59abbe56e057f20f883e', '12345672113', '许怡', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172114', 'e10adc3949ba59abbe56e057f20f883e', '12345672114', '张丽', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172115', 'e10adc3949ba59abbe56e057f20f883e', '12345672115', '杨安琪', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172116', 'e10adc3949ba59abbe56e057f20f883e', '12345672116', '戚苑', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172117', 'e10adc3949ba59abbe56e057f20f883e', '12345672117', '姜佳玲', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172118', 'e10adc3949ba59abbe56e057f20f883e', '12345672118', '蒋惠', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172119', 'e10adc3949ba59abbe56e057f20f883e', '12345672119', '冯文涛', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172120', 'e10adc3949ba59abbe56e057f20f883e', '12345672120', '陶易梦', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172121', 'e10adc3949ba59abbe56e057f20f883e', '12345672121', '周艳', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172122', 'e10adc3949ba59abbe56e057f20f883e', '12345672122', '冯春文', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172123', 'e10adc3949ba59abbe56e057f20f883e', '12345672123', '李绮菱', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172124', 'e10adc3949ba59abbe56e057f20f883e', '12345672124', '孔灿灿', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172125', 'e10adc3949ba59abbe56e057f20f883e', '12345672125', '吴光兰', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172126', 'e10adc3949ba59abbe56e057f20f883e', '12345672126', '韩平夏', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172127', 'e10adc3949ba59abbe56e057f20f883e', '12345672127', '冯世群', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172128', 'e10adc3949ba59abbe56e057f20f883e', '12345672128', '朱美美', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172129', 'e10adc3949ba59abbe56e057f20f883e', '12345672129', '何痴梦', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172130', 'e10adc3949ba59abbe56e057f20f883e', '12345672130', '陶之念', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172131', 'e10adc3949ba59abbe56e057f20f883e', '12345672131', '郎之瑶', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172132', 'e10adc3949ba59abbe56e057f20f883e', '12345672132', '陈之瑶', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172133', 'e10adc3949ba59abbe56e057f20f883e', '12345672133', '陶杰', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172134', 'e10adc3949ba59abbe56e057f20f883e', '12345672134', '郎章洪', '中苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172135', 'e10adc3949ba59abbe56e057f20f883e', '12345672135', '蒋荷', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172136', 'e10adc3949ba59abbe56e057f20f883e', '12345672136', '严涛', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172137', 'e10adc3949ba59abbe56e057f20f883e', '12345672137', '施滢', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172138', 'e10adc3949ba59abbe56e057f20f883e', '12345672138', '陶晶', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172139', 'e10adc3949ba59abbe56e057f20f883e', '12345672139', '尤昭东', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172140', 'e10adc3949ba59abbe56e057f20f883e', '12345672140', '吴怡', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172141', 'e10adc3949ba59abbe56e057f20f883e', '12345672141', '秦春燕', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172142', 'e10adc3949ba59abbe56e057f20f883e', '12345672142', '戚思', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172143', 'e10adc3949ba59abbe56e057f20f883e', '12345672143', '尤光萍', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172144', 'e10adc3949ba59abbe56e057f20f883e', '12345672144', '杨心敏', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172145', 'e10adc3949ba59abbe56e057f20f883e', '12345672145', '韩之柔', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172146', 'e10adc3949ba59abbe56e057f20f883e', '12345672146', '朱静', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172147', 'e10adc3949ba59abbe56e057f20f883e', '12345672147', '尤雅瑄', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172148', 'e10adc3949ba59abbe56e057f20f883e', '12345672148', '严翠安', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172149', 'e10adc3949ba59abbe56e057f20f883e', '12345672149', '孙婕', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172150', 'e10adc3949ba59abbe56e057f20f883e', '12345672150', '却凯敏', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172151', 'e10adc3949ba59abbe56e057f20f883e', '12345672151', '沈花娥', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172152', 'e10adc3949ba59abbe56e057f20f883e', '12345672152', '施茜', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172153', 'e10adc3949ba59abbe56e057f20f883e', '12345672153', '张莎莎', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172154', 'e10adc3949ba59abbe56e057f20f883e', '12345672154', '吕冰彤', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172155', 'e10adc3949ba59abbe56e057f20f883e', '12345672155', '郑雅瑄', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172156', 'e10adc3949ba59abbe56e057f20f883e', '12345672156', '蒋琦', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172157', 'e10adc3949ba59abbe56e057f20f883e', '12345672157', '戚静', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172158', 'e10adc3949ba59abbe56e057f20f883e', '12345672158', '冯燕', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172159', 'e10adc3949ba59abbe56e057f20f883e', '12345672159', '曹大秀', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172160', 'e10adc3949ba59abbe56e057f20f883e', '12345672160', '褚菁', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172161', 'e10adc3949ba59abbe56e057f20f883e', '12345672161', '吕半雪', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172162', 'e10adc3949ba59abbe56e057f20f883e', '12345672162', '周丽', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172163', 'e10adc3949ba59abbe56e057f20f883e', '12345672163', '蒋柔', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172164', 'e10adc3949ba59abbe56e057f20f883e', '12345672164', '王缘双', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172165', 'e10adc3949ba59abbe56e057f20f883e', '12345672165', '孙显', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172166', 'e10adc3949ba59abbe56e057f20f883e', '12345672166', '华静欣', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172167', 'e10adc3949ba59abbe56e057f20f883e', '12345672167', '蒋佳', '西苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172168', 'e10adc3949ba59abbe56e057f20f883e', '12345672168', '沈薇', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172169', 'e10adc3949ba59abbe56e057f20f883e', '12345672169', '钱传敏', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172170', 'e10adc3949ba59abbe56e057f20f883e', '12345672170', '孙功碧', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172171', 'e10adc3949ba59abbe56e057f20f883e', '12345672171', '周韵', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172172', 'e10adc3949ba59abbe56e057f20f883e', '12345672172', '沈婷', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172173', 'e10adc3949ba59abbe56e057f20f883e', '12345672173', '张黛', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172174', 'e10adc3949ba59abbe56e057f20f883e', '12345672174', '戚婵', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172175', 'e10adc3949ba59abbe56e057f20f883e', '12345672175', '尤梦娇', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172176', 'e10adc3949ba59abbe56e057f20f883e', '12345672176', '严红', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172177', 'e10adc3949ba59abbe56e057f20f883e', '12345672177', '孙秋', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172178', 'e10adc3949ba59abbe56e057f20f883e', '12345672178', '杨婷婷', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172179', 'e10adc3949ba59abbe56e057f20f883e', '12345672179', '魏菲', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172180', 'e10adc3949ba59abbe56e057f20f883e', '12345672180', '吕青', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172181', 'e10adc3949ba59abbe56e057f20f883e', '12345672181', '韩丽', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172182', 'e10adc3949ba59abbe56e057f20f883e', '12345672182', '朱月', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172183', 'e10adc3949ba59abbe56e057f20f883e', '12345672183', '许程悦', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172184', 'e10adc3949ba59abbe56e057f20f883e', '12345672184', '朱伊萍', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172185', 'e10adc3949ba59abbe56e057f20f883e', '12345672185', '蒋胜英', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172186', 'e10adc3949ba59abbe56e057f20f883e', '12345672186', '台蓓', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172187', 'e10adc3949ba59abbe56e057f20f883e', '12345672187', '褚纨', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172188', 'e10adc3949ba59abbe56e057f20f883e', '12345672188', '蒋红恋', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172189', 'e10adc3949ba59abbe56e057f20f883e', '12345672189', '钱芸', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172190', 'e10adc3949ba59abbe56e057f20f883e', '12345672190', '柯之山', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172191', 'e10adc3949ba59abbe56e057f20f883e', '12345672191', '褚春燕', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172192', 'e10adc3949ba59abbe56e057f20f883e', '12345672192', '况勤', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172193', 'e10adc3949ba59abbe56e057f20f883e', '12345672193', '杨如霜', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172194', 'e10adc3949ba59abbe56e057f20f883e', '12345672194', '施倩', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172195', 'e10adc3949ba59abbe56e057f20f883e', '12345672195', '尤寻文', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172196', 'e10adc3949ba59abbe56e057f20f883e', '12345672196', '施虹', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172197', 'e10adc3949ba59abbe56e057f20f883e', '12345672197', '金成倩', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172198', 'e10adc3949ba59abbe56e057f20f883e', '12345672198', '凤高彭', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172199', 'e10adc3949ba59abbe56e057f20f883e', '12345672199', '吕红恋', '北苑', 0, '');
+INSERT INTO `t_user` VALUES ('2120172200', 'e10adc3949ba59abbe56e057f20f883e', '12345672200', '钱凝', '北苑', 0, '');
 
 SET FOREIGN_KEY_CHECKS = 1;

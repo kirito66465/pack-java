@@ -1,9 +1,6 @@
 package per.kirito.pack.pojo;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 
 import javax.persistence.Table;
 
@@ -15,7 +12,7 @@ import javax.persistence.Table;
  */
 @Data
 @NonNull
-@NoArgsConstructor
+@Builder
 @AllArgsConstructor
 @Table(name = "t_send")
 public class Send {

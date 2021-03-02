@@ -1,9 +1,6 @@
 package per.kirito.pack.pojo.utilPojo;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 
 /**
  * author: 严晨
@@ -13,7 +10,7 @@ import lombok.NonNull;
  */
 @Data
 @NonNull
-@NoArgsConstructor
+@Builder
 @AllArgsConstructor
 public class SendRequest {
 

@@ -37,6 +37,8 @@ spring:
 
 server:
   port: 8080
+  servlet:
+    context-path: /pack
 
 jasypt:
   # jasypt 配置项，对应 JasyptEncryptorConfigurationProperties 配置类
@@ -122,6 +124,10 @@ spring:
     port: 6379
     database: 0
     password: kirito
+
+  elasticsearch:
+    rest:
+      uris: 192.168.152.101:9200
 
 elastic:
   host-name: 192.168.152.101
