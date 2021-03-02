@@ -217,7 +217,7 @@ public class SendServiceImpl implements SendService {
 
 	/**
 	 * 分页方式获取 User 寄件集合
-	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:寄件状态}
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:寄件状态, search:搜索}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 */
 	@Override
@@ -235,12 +235,13 @@ public class SendServiceImpl implements SendService {
 		String org = TypeConversion.arrayToString(orgArray);
 		String statusArray = String.valueOf(mapParams.get("status"));
 		String status = TypeConversion.arrayToString(statusArray);
+		String search = String.valueOf(mapParams.get("search"));
 
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 user 寄件集合
-			List<Send> sends = sendMapper.getSendByUser(card, org, status);
+			List<Send> sends = sendMapper.getSendByUser(card, org, status, search);
 			if (sends != null) {
 				// 获取分页方式结果集
 				Page<Send> sendPage = SendUtil.getSendByPage(currentPage, pageSize, sends);
@@ -285,7 +286,7 @@ public class SendServiceImpl implements SendService {
 
 	/**
 	 * 分页方式获取 Admin 寄件集合
-	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, status:寄件状态}
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, status:寄件状态, search:搜索}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 */
 	@Override
@@ -301,6 +302,7 @@ public class SendServiceImpl implements SendService {
 		String token = String.valueOf(mapParams.get("token"));
 		String statusArray = String.valueOf(mapParams.get("status"));
 		String status = TypeConversion.arrayToString(statusArray);
+		String search = String.valueOf(mapParams.get("search"));
 
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
@@ -308,7 +310,7 @@ public class SendServiceImpl implements SendService {
 			String card = stringRedisTemplate.opsForValue().get(token);
 			String org = SendUtil.getSendOrg(card);
 			// 根据 org 查询出该 Admin 寄件集合
-			List<Send> sends = sendMapper.getSendByAdmin(org, status);
+			List<Send> sends = sendMapper.getSendByAdmin(org, status, search);
 			if (sends != null) {
 				// 获取分页方式结果集
 				Page<Send> sendPage = SendUtil.getSendByPage(currentPage, pageSize, sends);

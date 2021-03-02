@@ -110,6 +110,22 @@
 				)
 			</if>
 		</if>
+		<if test="search != '' and search != null">
+			AND (
+				id LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR org LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR per_name LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR per_tel LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR per_addr LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR addr LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR code LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR cont_name LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR cont_tel LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR start LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR end LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR pick LIKE CONCAT(CONCAT('%', #{search}), '%')
+			)
+		</if>
 		ORDER BY start DESC, code ASC
 	</select>
 
@@ -131,6 +147,22 @@
 			<foreach collection="org.split(',')" item="org" index="index" separator=",">
 				'${org}'
 			</foreach>
+			)
+		</if>
+		<if test="search != '' and search != null">
+			AND (
+				id LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR org LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR per_name LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR per_tel LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR per_addr LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR addr LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR code LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR cont_name LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR cont_tel LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR start LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR end LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR pick LIKE CONCAT(CONCAT('%', #{search}), '%')
 			)
 		</if>
 		ORDER BY end DESC
@@ -171,6 +203,22 @@
 				</foreach>
 				)
 			</if>
+		</if>
+		<if test="search != '' and search != null">
+			AND (
+				id LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR org LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR per_name LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR per_tel LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR per_addr LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR addr LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR code LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR cont_name LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR cont_tel LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR start LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR end LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR pick LIKE CONCAT(CONCAT('%', #{search}), '%')
+			)
 		</if>
 		ORDER BY status DESC, code ASC, start DESC
 	</select>
@@ -226,6 +274,22 @@
 				)
 			</if>
 		</if>
+		<if test="search != '' and search != null">
+			AND (
+				id LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR org LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR per_name LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR per_tel LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR per_addr LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR addr LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR code LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR cont_name LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR cont_tel LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR start LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR end LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR pick LIKE CONCAT(CONCAT('%', #{search}), '%')
+			)
+		</if>
 		ORDER BY start DESC, code ASC
 	</select>
 
@@ -247,6 +311,22 @@
 			<foreach collection="org.split(',')" item="org" index="index" separator=",">
 				'${org}'
 			</foreach>
+			)
+		</if>
+		<if test="search != '' and search != null">
+			AND (
+				id LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR org LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR per_name LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR per_tel LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR per_addr LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR addr LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR code LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR cont_name LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR cont_tel LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR start LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR end LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR pick LIKE CONCAT(CONCAT('%', #{search}), '%')
 			)
 		</if>
 		ORDER BY end DESC
@@ -281,6 +361,22 @@
 				)
 			</if>
 		</if>
+		<if test="search != '' and search != null">
+			AND (
+				id LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR org LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR per_name LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR per_tel LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR per_addr LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR addr LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR code LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR cont_name LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR cont_tel LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR start LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR end LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR pick LIKE CONCAT(CONCAT('%', #{search}), '%')
+			)
+		</if>
 		ORDER BY code ASC, start DESC
 	</select>
 
@@ -306,7 +402,9 @@
 	<!-- 根据驿站地址和货架获取当前货架的所有快递 -->
 	<select id="getShelfPack" resultType="Pack">
 		SELECT id, org, per_name
-			, per_tel, code, start
+			, per_tel, per_addr, addr
+			, code, cont_name, cont_tel
+			, status, start, end, pick
 		FROM t_pack
 		WHERE addr IN (
 			SELECT addr

@@ -140,7 +140,7 @@ public class PackController {
 
 	/**
 	 * 分页获取 User 所有的快递，包括已取出和未取出的快递；如果没有 token 令牌，则返回获取信息失败
-	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态}
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态, search:搜索}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@ApiOperation(value = "学生所有快递集", notes = "获取学生所有快递请求，如果获取成功返回分页结果集", httpMethod = "POST")
@@ -154,14 +154,14 @@ public class PackController {
 	@CrossOrigin
 	@PostMapping(value = "/getUserPackByPage")
 	public Map<String, Object> getUserPackByPage(
-			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态}")
+			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态, search:搜索}")
 			@RequestParam(value = "json") String json) {
 		return packService.getUserPackByPage(json);
 	}
 
 	/**
 	 * 分页获取 User 的已取出快递；如果没有 token 令牌，则返回获取信息失败
-	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司}
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, search:搜索}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@ApiOperation(value = "学生已取快递集", notes = "获取学生已取快递请求，如果获取成功返回分页结果集", httpMethod = "POST")
@@ -175,14 +175,14 @@ public class PackController {
 	@CrossOrigin
 	@PostMapping(value = "/getUserIsPick")
 	public Map<String, Object> getUserIsPick(
-			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司}")
+			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, search:搜索}")
 			@RequestParam(value = "json") String json) {
 		return packService.getUserIsPick(json);
 	}
 
 	/**
 	 * 分页获取 User 的未取出快递，无论其有无取件码；如果没有 token 令牌，则返回获取信息失败
-	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态}
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态, search:搜索}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@ApiOperation(value = "学生未取快递集", notes = "获取学生未取快递请求，如果获取成功返回分页结果集", httpMethod = "POST")
@@ -196,7 +196,7 @@ public class PackController {
 	@CrossOrigin
 	@PostMapping(value = "/getUserNoPick")
 	public Map<String, Object> getUserNoPick(
-			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态}")
+			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态, search:搜索}")
 			@RequestParam(value = "json") String json) {
 		return packService.getUserNoPick(json);
 	}
@@ -228,7 +228,7 @@ public class PackController {
 
 	/**
 	 * 分页获取 Admin 所有的快递，包括已取出和未取出的快递；如果没有 token 令牌，则返回获取信息失败
-	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态}
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态, search:搜索}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@ApiOperation(value = "驿站所有快递集", notes = "获取驿站所有快递请求，如果获取成功返回分页结果集", httpMethod = "POST")
@@ -242,14 +242,14 @@ public class PackController {
 	@CrossOrigin
 	@PostMapping(value = "/getAdminPacksByPage")
 	public Map<String, Object> getAdminPackByPage(
-			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态}")
+			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态, search:搜索}")
 			@RequestParam(value = "json") String json) {
 		return packService.getAdminPackByPage(json);
 	}
 
 	/**
 	 * 分页获取 Admin 的已取出快递；如果没有 token 令牌，则返回获取信息失败
-	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司}
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, search:搜索}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@ApiOperation(value = "驿站已取快递集", notes = "获取驿站已取快递请求，如果获取成功返回分页结果集", httpMethod = "POST")
@@ -263,14 +263,14 @@ public class PackController {
 	@CrossOrigin
 	@PostMapping(value = "/getAdminIsPick")
 	public Map<String, Object> getAdminIsPick(
-			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司}")
+			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, search:搜索}")
 			@RequestParam(value = "json") String json) {
 		return packService.getAdminIsPick(json);
 	}
 
 	/**
 	 * 分页获取 Admin 的未取出快递，无论其有无取件码；如果没有 token 令牌，则返回获取信息失败
-	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态}
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态, search:搜索}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@ApiOperation(value = "驿站未取快递集", notes = "获取驿站未取快递请求，如果获取成功返回分页结果集", httpMethod = "POST")
@@ -284,7 +284,7 @@ public class PackController {
 	@CrossOrigin
 	@PostMapping(value = "/getAdminNoPick")
 	public Map<String, Object> getAdminNoPick(
-			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态}")
+			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态, search:搜索}")
 			@RequestParam(value = "json") String json) {
 		return packService.getAdminNoPick(json);
 	}

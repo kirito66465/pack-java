@@ -143,7 +143,7 @@ public class SendController {
 
 	/**
 	 * 分页方式获取 User 寄件集合
-	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:寄件状态}
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:寄件状态, search:搜索}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@ApiOperation(value = "学生寄件集", notes = "获取寄件列表请求，如果成功返回分页结果集", httpMethod = "POST")
@@ -157,7 +157,7 @@ public class SendController {
 	@CrossOrigin
 	@PostMapping(value = "/getSendByUser")
 	public Map<String, Object> getSendByUser(
-			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:寄件状态}")
+			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:寄件状态, search:搜索}")
 			@RequestParam(value = "json") String json) {
 		return sendService.getSendByUser(json);
 	}
@@ -189,7 +189,7 @@ public class SendController {
 
 	/**
 	 * 分页方式获取 Admin 寄件集合
-	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, status:寄件状态}
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, status:寄件状态, search:搜索}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@ApiOperation(value = "驿站寄件集", notes = "获取驿站所属寄件列表请求，如果成功返回分页结果集", httpMethod = "POST")
@@ -203,7 +203,7 @@ public class SendController {
 	@CrossOrigin
 	@PostMapping(value = "/getSendByAdmin")
 	public Map<String, Object> getSendByAdmin(
-			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, status:寄件状态}")
+			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, status:寄件状态, search:搜索}")
 			@RequestParam(value = "json") String json) {
 		return sendService.getSendByAdmin(json);
 	}

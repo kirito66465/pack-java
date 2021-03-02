@@ -58,6 +58,20 @@
 			</foreach>
 			)
 		</if>
+		<if test="search != '' and search != null">
+			AND (
+				from_name LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR from_tel LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR from_addr LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR to_name LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR to_tel LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR to_addr LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR id LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR org LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR status LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR dt LIKE CONCAT(CONCAT('%', #{search}), '%')
+			)
+		</if>
 		ORDER BY status ASC, dt DESC
 	</select>
 
@@ -73,6 +87,20 @@
 			<foreach collection="status.split(',')" item="status" index="index" separator=",">
 				'${status}'
 			</foreach>
+			)
+		</if>
+		<if test="search != '' and search != null">
+			AND (
+				from_name LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR from_tel LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR from_addr LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR to_name LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR to_tel LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR to_addr LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR id LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR org LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR status LIKE CONCAT(CONCAT('%', #{search}), '%')
+				OR dt LIKE CONCAT(CONCAT('%', #{search}), '%')
 			)
 		</if>
 	</select>

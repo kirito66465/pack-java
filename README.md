@@ -67,27 +67,19 @@ $ .\decrypt input="av8dLw8htTU7k5AQaoMgGzI5KLaj9Glp" password="demo-pwd" algorit
 - 2021.03.02<br>
 ```markdown
 1. 优化 Java Bean 构造模式
+2. 采用 全字段 LIKE 查询实现搜索
+TODO：换用 elasticsearch
 ```
 
 __TODO__
 ```markdown
 待完成：
 1. 优化 寄件服务协议 页面
-2. 搜索（已取根据签收人搜索，未取与全部根据收件人搜索，揽收根据寄件人搜索）
-管理员：
-- 全部：快递单号、收件人、手机号
-- 已取：快递单号、收件人、手机号、签收人
-- 未取：快递单号、收件人、手机号
-学生：
-- 全部：快递单号、入站时间
-- 已取：签收人、签收时间
-- 未取：快递单号、入站时间
-3. 页面布局优化
+2. 页面布局优化
 
 打包：
-1. Vue 项目去除大部分 console.log()
-2. Vue 项目修改 Constant 的 baseUrl 为空
-3. SpringBoot 项目去除所有 `@CrossOrigin` 注解
+1. Vue 项目修改 Constant 的 baseUrl 为空
+2. SpringBoot 项目去除所有 `@CrossOrigin` 注解
 
 熟悉：
 1. GET POST PUT DELETE，这四种请求方式区别

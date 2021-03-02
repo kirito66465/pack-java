@@ -391,7 +391,7 @@ public class PackServiceImpl implements PackService {
 
 	/**
 	 * 分页获取 User 所有的快递，包括已取出和未取出的快递；如果没有 token 令牌，则返回获取信息失败
-	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态}
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态, search:搜索}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
@@ -417,13 +417,14 @@ public class PackServiceImpl implements PackService {
 		} else {
 			status = TypeConversion.stringToIntegerArray(statusStr);
 		}
+		String search = String.valueOf(mapParams.get("search"));
 
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
 			// 取出 User 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 User 已取快递集合
-			List<Pack> packs = packMapper.getUserPacks(card, org, addr, status);
+			List<Pack> packs = packMapper.getUserPacks(card, org, addr, status, search);
 			List<PackResult> packResultList = PackUtil.getPackResult(packs);
 			// 获取分页方式的结果集
 			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
@@ -436,7 +437,7 @@ public class PackServiceImpl implements PackService {
 
 	/**
 	 * 分页获取 User 已取出的快递；如果没有 token 令牌，则返回获取信息失败
-	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司}
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, search:搜索}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
@@ -452,13 +453,14 @@ public class PackServiceImpl implements PackService {
 		String token = String.valueOf(mapParams.get("token"));
 		String orgArray = String.valueOf(mapParams.get("org"));
 		String org = TypeConversion.arrayToString(orgArray);
+		String search = String.valueOf(mapParams.get("search"));
 
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
 			// 取出 User 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 User 已取快递集合
-			List<Pack> packs = packMapper.getUserIsPick(card, org);
+			List<Pack> packs = packMapper.getUserIsPick(card, org, search);
 			List<PackResult> packResultList = PackUtil.getPackResult(packs);
 			// 获取分页方式的结果集
 			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
@@ -471,7 +473,7 @@ public class PackServiceImpl implements PackService {
 
 	/**
 	 * 分页获取 User 所未取出的快递， 无论有无取件码；如果没有 token 令牌，则返回获取信息失败
-	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态}
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态, search:搜索}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
@@ -497,13 +499,14 @@ public class PackServiceImpl implements PackService {
 		} else {
 			status = TypeConversion.stringToIntegerArray(statusStr);
 		}
+		String search = String.valueOf(mapParams.get("search"));
 
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
 			// 取出 User 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 User 已取快递集合
-			List<Pack> packs = packMapper.getUserNoPick(card, org, addr, status);
+			List<Pack> packs = packMapper.getUserNoPick(card, org, addr, status, search);
 			List<PackResult> packResultList = PackUtil.getPackResult(packs);
 			// 获取分页方式的结果集
 			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
@@ -547,7 +550,7 @@ public class PackServiceImpl implements PackService {
 
 	/**
 	 * 分页获取 Admin 所有的快递，包括已取出和未取出的快递；如果没有 token 令牌，则返回获取信息失败
-	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态}
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态, search:搜索}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
@@ -571,13 +574,14 @@ public class PackServiceImpl implements PackService {
 		} else {
 			status = TypeConversion.stringToIntegerArray(statusStr);
 		}
+		String search = String.valueOf(mapParams.get("search"));
 
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
 			// 取出 Admin 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 Admin 所有快递集合
-			List<Pack> packs = packMapper.getAdminPacks(card, org, status);
+			List<Pack> packs = packMapper.getAdminPacks(card, org, status, search);
 			// int -> String 转换
 			List<PackResult> packResultList = PackUtil.getPackResult(packs);
 			// 获取分页方式的结果集
@@ -591,7 +595,7 @@ public class PackServiceImpl implements PackService {
 
 	/**
 	 * 分页获取当前驿站的已取出快递；如果没有 token 令牌，则返回获取信息失败
-	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司}
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, search:搜索}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
@@ -607,13 +611,14 @@ public class PackServiceImpl implements PackService {
 		String token = String.valueOf(mapParams.get("token"));
 		String orgArray = String.valueOf(mapParams.get("org"));
 		String org = TypeConversion.arrayToString(orgArray);
+		String search = String.valueOf(mapParams.get("search"));
 
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
 			// 取出 Admin 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 Admin 已取快递集合
-			List<Pack> packs = packMapper.getAdminIsPick(card, org);
+			List<Pack> packs = packMapper.getAdminIsPick(card, org, search);
 			List<PackResult> packResultList = PackUtil.getPackResult(packs);
 			// 获取分页方式的结果集
 			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
@@ -626,7 +631,7 @@ public class PackServiceImpl implements PackService {
 
 	/**
 	 * 分页获取当前驿站的未取出快递，无论有无取件码；如果没有 token 令牌，则返回获取信息失败
-	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态}
+	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态, search:搜索}
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@Override
@@ -650,13 +655,14 @@ public class PackServiceImpl implements PackService {
 		} else {
 			status = TypeConversion.stringToIntegerArray(statusStr);
 		}
+		String search = String.valueOf(mapParams.get("search"));
 
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
 			// 取出 Admin 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 Admin 未取快递集合
-			List<Pack> packs = packMapper.getAdminNoPick(card, org, status);
+			List<Pack> packs = packMapper.getAdminNoPick(card, org, status, search);
 			List<PackResult> packResultList = PackUtil.getPackResult(packs);
 			// 获取分页方式结果集
 			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);

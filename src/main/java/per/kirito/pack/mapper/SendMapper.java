@@ -43,17 +43,19 @@ public interface SendMapper {
 	 * @param card      学号
 	 * @param org       快递公司
 	 * @param status    寄件状态
+	 * @param search    搜索
 	 * @return java.util.List<per.kirito.pack.pojo.Send>
 	 **/
-	List<Send> getSendByUser(String card, String org, String status);
+	List<Send> getSendByUser(String card, String org, String status, String search);
 
 	/**
 	 * 获取 Admin 的寄件集合
 	 * @param org       快递公司
 	 * @param status    寄件状态
+	 * @param search    搜索
 	 * @return java.util.List<per.kirito.pack.pojo.Send>
 	 */
-	List<Send> getSendByAdmin(String org, String status);
+	List<Send> getSendByAdmin(String org, String status, String search);
 
 	/**
 	 * 传入状态，获取 User 的该状态寄件数量
