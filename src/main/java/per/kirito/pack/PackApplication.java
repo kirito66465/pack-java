@@ -1,5 +1,6 @@
 package per.kirito.pack;
 
+import cn.hutool.cron.CronUtil;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
 import org.mybatis.spring.annotation.MapperScan;
@@ -28,6 +29,7 @@ public class PackApplication {
 	public static void main(String[] args) {
 		log.info("程序启动");
 		SpringApplication.run(PackApplication.class, args);
+		CronUtil.start();
 	}
 
 	/**
