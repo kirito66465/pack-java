@@ -1,5 +1,7 @@
 package per.kirito.pack.controller;
 
+import cn.hutool.log.Log;
+import cn.hutool.log.LogFactory;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,8 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/pack")
 public class PackController {
+
+	private static Log log = LogFactory.get();
 
 	@Autowired
 	private PackService packService;
@@ -40,6 +44,7 @@ public class PackController {
 	public String addPack(
 			@ApiParam(required = true, name = "id", value = "快递单号") @RequestParam(value = "id") String id,
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
+		log.info("请求 URL[/pack/addPack]；参数[id=" + id + ", token=" + token + "]");
 		return packService.addPack(id, token);
 	}
 
@@ -62,6 +67,7 @@ public class PackController {
 	public String pickById(
 			@ApiParam(required = true, name = "ids", value = "快递单号") @RequestParam(value = "ids") String ids,
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
+		log.info("请求 URL[/pack/pickById]；参数[ids=" + ids + ", token=" + token + "]");
 		return packService.pickById(ids, token);
 	}
 
@@ -86,6 +92,7 @@ public class PackController {
 			@ApiParam(required = true, name = "addr", value = "驿站地址") @RequestParam(value = "addr") String addr,
 			@ApiParam(required = true, name = "code", value = "取件码") @RequestParam(value = "code") String code,
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
+		log.info("请求 URL[/pack/pickPackByUser]；参数[addr=" + addr + ", code=" + code + ", token=" + token + "]");
 		return packService.pickPackByUser(addr, code, token);
 	}
 
@@ -108,6 +115,7 @@ public class PackController {
 	public String pickPackByAdmin(
 			@ApiParam(required = true, name = "ids", value = "快递单号") @RequestParam(value = "ids") String ids,
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
+		log.info("请求 URL[/pack/pickPackByAdmin]；参数[ids=" + ids + ", token=" + token + "]");
 		return packService.pickPackByAdmin(ids, token);
 	}
 
@@ -130,6 +138,7 @@ public class PackController {
 	public String deletePacks(
 			@ApiParam(required = true, name = "ids", value = "快递单号") @RequestParam(value = "ids") String ids,
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
+		log.info("请求 URL[/pack/deletePacks]；参数[ids=" + ids + ", token=" + token + "]");
 		return packService.deletePacksById(ids, token);
 	}
 
@@ -156,6 +165,7 @@ public class PackController {
 	public Map<String, Object> getUserPackByPage(
 			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态, search:搜索}")
 			@RequestParam(value = "json") String json) {
+		log.info("请求 URL[/pack/getUserPackByPage]；参数[json=" + json + "]");
 		return packService.getUserPackByPage(json);
 	}
 
@@ -177,6 +187,7 @@ public class PackController {
 	public Map<String, Object> getUserIsPick(
 			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, search:搜索}")
 			@RequestParam(value = "json") String json) {
+		log.info("请求 URL[/pack/getUserIsPick]；参数[json=" + json + "]");
 		return packService.getUserIsPick(json);
 	}
 
@@ -198,6 +209,7 @@ public class PackController {
 	public Map<String, Object> getUserNoPick(
 			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态, search:搜索}")
 			@RequestParam(value = "json") String json) {
+		log.info("请求 URL[/pack/getUserNoPick]；参数[json=" + json + "]");
 		return packService.getUserNoPick(json);
 	}
 
@@ -218,6 +230,7 @@ public class PackController {
 	@PostMapping(value = "/getUserTotalNum")
 	public Map<String, Object> getUserTotalNum(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
+		log.info("请求 URL[/pack/getUserTotalNum]；参数[token=" + token + "]");
 		return packService.getUserTotalNum(token);
 	}
 
@@ -244,6 +257,7 @@ public class PackController {
 	public Map<String, Object> getAdminPackByPage(
 			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态, search:搜索}")
 			@RequestParam(value = "json") String json) {
+		log.info("请求 URL[/pack/getAdminPacksByPage]；参数[json=" + json + "]");
 		return packService.getAdminPackByPage(json);
 	}
 
@@ -265,6 +279,7 @@ public class PackController {
 	public Map<String, Object> getAdminIsPick(
 			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, search:搜索}")
 			@RequestParam(value = "json") String json) {
+		log.info("请求 URL[/pack/getAdminIsPick]；参数[json=" + json + "]");
 		return packService.getAdminIsPick(json);
 	}
 
@@ -286,6 +301,7 @@ public class PackController {
 	public Map<String, Object> getAdminNoPick(
 			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态, search:搜索}")
 			@RequestParam(value = "json") String json) {
+		log.info("请求 URL[/pack/getAdminNoPick]；参数[json=" + json + "]");
 		return packService.getAdminNoPick(json);
 	}
 
@@ -306,6 +322,7 @@ public class PackController {
 	@PostMapping(value = "/getAdminTotalNum")
 	public Map<String, Object> getAdminTotalNum(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
+		log.info("请求 URL[/pack/getAdminTotalNum]；参数[token=" + token + "]");
 		return packService.getAdminTotalNum(token);
 	}
 
@@ -328,6 +345,7 @@ public class PackController {
 	public Map<String, Object> getShelfPack(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
 			@ApiParam(required = true, name = "shelf", value = "货架") @RequestParam(value = "shelf") String shelf) {
+		log.info("请求 URL[/pack/getShelfPack]；参数[token=" + token + ", shelf=" + shelf + "]");
 		return packService.getShelfPack(token, shelf);
 	}
 

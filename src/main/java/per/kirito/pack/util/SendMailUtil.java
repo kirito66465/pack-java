@@ -1,5 +1,7 @@
 package per.kirito.pack.util;
 
+import cn.hutool.log.Log;
+import cn.hutool.log.LogFactory;
 import com.sun.mail.util.MailSSLSocketFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,6 +27,8 @@ import javax.mail.internet.MimeMessage;
  */
 @Component
 public class SendMailUtil {
+
+	private static Log log = LogFactory.get();
 
 	@Autowired
 	private MailProperties mailProperties;
@@ -81,7 +85,7 @@ public class SendMailUtil {
 		// 发送消息
 		Transport.send(message);
 		String dt = TypeConversion.getTime();
-		System.out.println(dt + "\tfrom: " + senderMail + "\tto: " + mail + "\tsub: " + sub + "\ttext: " + text + "\tSend message successfully....");
+		log.info("发送邮件：" + dt + "\tfrom: " + senderMail + "\tto: " + mail + "\tsub: " + sub + "\ttext: " + text + "\tSend message successfully....");
 	}
 
 }

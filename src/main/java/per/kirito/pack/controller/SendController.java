@@ -1,5 +1,7 @@
 package per.kirito.pack.controller;
 
+import cn.hutool.log.Log;
+import cn.hutool.log.LogFactory;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,9 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/send")
 public class SendController {
+
+	private static Log log = LogFactory.get();
+
 	@Autowired
 	private SendService sendService;
 
@@ -44,6 +49,7 @@ public class SendController {
 	@PostMapping(value = "/getSendInfo")
 	public Map<String, Object> getSendInfo(
 			@ApiParam(required = true, name = "request", value = "寄件表单实体") @RequestBody SendRequest request) {
+		log.info("请求 URL[/send/getSendInfo]；参数[request=" + request + "]");
 		return sendService.sendPack(request);
 	}
 
@@ -66,6 +72,7 @@ public class SendController {
 	public String pay(
 			@ApiParam(required = true, name = "id", value = "快递单号") @RequestParam(value = "id") String id,
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
+		log.info("请求 URL[/send/pay]；参数[id=" + id + ", token=" + token + "]");
 		return sendService.sendPay(id, token);
 	}
 
@@ -88,6 +95,7 @@ public class SendController {
 	public String confirm(
 			@ApiParam(required = true, name = "ids", value = "快递单号") @RequestParam(value = "ids") String ids,
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
+		log.info("请求 URL[/send/confirm]；参数[ids=" + ids + ", token=" + token + "]");
 		return sendService.sendConfirm(ids, token);
 	}
 
@@ -110,6 +118,7 @@ public class SendController {
 	public String out(
 			@ApiParam(required = true, name = "ids", value = "快递单号") @RequestParam(value = "ids") String ids,
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
+		log.info("请求 URL[/send/out]；参数[ids=" + ids + ", token=" + token + "]");
 		return sendService.sendOut(ids, token);
 	}
 
@@ -132,6 +141,7 @@ public class SendController {
 	public String cancel(
 			@ApiParam(required = true, name = "ids", value = "快递单号") @RequestParam(value = "ids") String ids,
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
+		log.info("请求 URL[/send/cancel]；参数[ids=" + ids + ", token=" + token + "]");
 		return sendService.sendCancel(ids, token);
 	}
 
@@ -159,6 +169,7 @@ public class SendController {
 	public Map<String, Object> getSendByUser(
 			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:寄件状态, search:搜索}")
 			@RequestParam(value = "json") String json) {
+		log.info("请求 URL[/send/getSendByUser]；参数[json=" + json + "]");
 		return sendService.getSendByUser(json);
 	}
 
@@ -179,6 +190,7 @@ public class SendController {
 	@PostMapping(value = "/getTotalByUser")
 	public Map<String, Object> getTotalByUser(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
+		log.info("请求 URL[/send/getTotalByUser]；参数[token=" + token + "]");
 		return sendService.getTotalByUser(token);
 	}
 
@@ -205,6 +217,7 @@ public class SendController {
 	public Map<String, Object> getSendByAdmin(
 			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, status:寄件状态, search:搜索}")
 			@RequestParam(value = "json") String json) {
+		log.info("请求 URL[/send/getSendByAdmin]；参数[json=" + json + "]");
 		return sendService.getSendByAdmin(json);
 	}
 
@@ -225,6 +238,7 @@ public class SendController {
 	@PostMapping(value = "/getTotalByAdmin")
 	public Map<String, Object> getTotalByAdmin(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
+		log.info("请求 URL[/send/getTotalByAdmin]；参数[token=" + token + "]");
 		return sendService.getTotalByAdmin(token);
 	}
 

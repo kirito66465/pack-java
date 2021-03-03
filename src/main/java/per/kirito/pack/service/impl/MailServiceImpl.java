@@ -1,5 +1,7 @@
 package per.kirito.pack.service.impl;
 
+import cn.hutool.log.Log;
+import cn.hutool.log.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,8 @@ import java.util.Objects;
  */
 @Service
 public class MailServiceImpl implements MailService {
+
+	private static Log log = LogFactory.get();
 
 	@Autowired
 	private UserMapper userMapper;
@@ -73,6 +77,7 @@ public class MailServiceImpl implements MailService {
 			}
 			return map;
 		} catch (MessagingException | GeneralSecurityException e) {
+			log.error("error: {}", e.getMessage(), e);
 			e.printStackTrace();
 			map.put("result", DO_FAIL);
 			return map;

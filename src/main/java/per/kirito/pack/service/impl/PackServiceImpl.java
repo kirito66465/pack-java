@@ -1,5 +1,7 @@
 package per.kirito.pack.service.impl;
 
+import cn.hutool.log.Log;
+import cn.hutool.log.LogFactory;
 import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -28,6 +30,8 @@ import java.util.*;
  */
 @Service
 public class PackServiceImpl implements PackService {
+
+	private static Log log = LogFactory.get();
 
 	@Autowired
 	private PackMapper packMapper;
@@ -138,6 +142,7 @@ public class PackServiceImpl implements PackService {
 				userMapper.updateCountPlusByPackId(id);
 				return INTO_SUCCESS;
 			} catch (Exception e) {
+				log.error("error: {}", e.getMessage(), e);
 				// 有异常，返回入站失败
 				e.printStackTrace();
 				return INTO_FAIL;
@@ -212,6 +217,7 @@ public class PackServiceImpl implements PackService {
 			}
 			return msg;
 		} catch (Exception e) {
+			log.error("error: {}", e.getMessage(), e);
 			e.printStackTrace();
 			// 取件失败
 			return PICK_FAIL;
@@ -282,6 +288,7 @@ public class PackServiceImpl implements PackService {
 			}
 			return msg;
 		} catch (Exception e) {
+			log.error("error: {}", e.getMessage(), e);
 			e.printStackTrace();
 			// 取件失败
 			return PICK_FAIL;
@@ -346,6 +353,7 @@ public class PackServiceImpl implements PackService {
 				return msg;
 			}
 		} catch (Exception e) {
+			log.error("error: {}", e.getMessage(), e);
 			e.printStackTrace();
 			return PICK_FAIL;
 		}
@@ -379,6 +387,7 @@ public class PackServiceImpl implements PackService {
 			}
 			return DO_SUCCESS;
 		} catch (Exception e) {
+			log.error("error: {}", e.getMessage(), e);
 			e.printStackTrace();
 			return DO_FAIL;
 		}
@@ -399,7 +408,7 @@ public class PackServiceImpl implements PackService {
 		Map mapTypes = JSON.parseObject(json);
 		Map<String, Object> mapParams = new HashMap<>();
 		for (Object obj : mapTypes.keySet()){
-			System.out.println("key为: " + obj + "值为: "+ mapTypes.get(obj));
+			log.info("key为: " + obj + "值为: "+ mapTypes.get(obj));
 			mapParams.put(String.valueOf(obj), mapTypes.get(obj));
 		}
 		int currentPage = (int) mapParams.get("currentPage");
@@ -445,7 +454,7 @@ public class PackServiceImpl implements PackService {
 		Map mapTypes = JSON.parseObject(json);
 		Map<String, Object> mapParams = new HashMap<>();
 		for (Object obj : mapTypes.keySet()){
-			System.out.println("key为: " + obj + "值为: "+ mapTypes.get(obj));
+			log.info("key为: " + obj + "值为: "+ mapTypes.get(obj));
 			mapParams.put(String.valueOf(obj), mapTypes.get(obj));
 		}
 		int currentPage = (int) mapParams.get("currentPage");
@@ -481,7 +490,7 @@ public class PackServiceImpl implements PackService {
 		Map mapTypes = JSON.parseObject(json);
 		Map<String, Object> mapParams = new HashMap<>();
 		for (Object obj : mapTypes.keySet()){
-			System.out.println("key为: " + obj + "值为: "+ mapTypes.get(obj));
+			log.info("key为: " + obj + "值为: "+ mapTypes.get(obj));
 			mapParams.put(String.valueOf(obj), mapTypes.get(obj));
 		}
 		int currentPage = (int) mapParams.get("currentPage");
@@ -558,7 +567,7 @@ public class PackServiceImpl implements PackService {
 		Map mapTypes = JSON.parseObject(json);
 		Map<String, Object> mapParams = new HashMap<>();
 		for (Object obj : mapTypes.keySet()){
-			System.out.println("key为: " + obj + "值为: "+ mapTypes.get(obj));
+			log.info("key为: " + obj + "值为: "+ mapTypes.get(obj));
 			mapParams.put(String.valueOf(obj), mapTypes.get(obj));
 		}
 		int currentPage = (int) mapParams.get("currentPage");
@@ -603,7 +612,7 @@ public class PackServiceImpl implements PackService {
 		Map mapTypes = JSON.parseObject(json);
 		Map<String, Object> mapParams = new HashMap<>();
 		for (Object obj : mapTypes.keySet()){
-			System.out.println("key为: " + obj + "值为: "+ mapTypes.get(obj));
+			log.info("key为: " + obj + "值为: "+ mapTypes.get(obj));
 			mapParams.put(String.valueOf(obj), mapTypes.get(obj));
 		}
 		int currentPage = (int) mapParams.get("currentPage");
@@ -639,7 +648,7 @@ public class PackServiceImpl implements PackService {
 		Map mapTypes = JSON.parseObject(json);
 		Map<String, Object> mapParams = new HashMap<>();
 		for (Object obj : mapTypes.keySet()){
-			System.out.println("key为: " + obj + "值为: "+ mapTypes.get(obj));
+			log.info("key为: " + obj + "值为: "+ mapTypes.get(obj));
 			mapParams.put(String.valueOf(obj), mapTypes.get(obj));
 		}
 		int currentPage = (int) mapParams.get("currentPage");

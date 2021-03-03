@@ -1,5 +1,7 @@
 package per.kirito.pack.service.impl;
 
+import cn.hutool.log.Log;
+import cn.hutool.log.LogFactory;
 import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -28,6 +30,8 @@ import java.util.Map;
  */
 @Service
 public class SendServiceImpl implements SendService {
+
+	private static Log log = LogFactory.get();
 
 	@Autowired
 	private UserMapper userMapper;
@@ -92,6 +96,7 @@ public class SendServiceImpl implements SendService {
 				sendMapper.addSend(send);
 				map.put("result", DO_SUCCESS);
 			} catch (Exception e) {
+				log.error("error: {}", e.getMessage(), e);
 				map.put("result", DO_FAIL);
 				e.printStackTrace();
 			}
@@ -119,6 +124,7 @@ public class SendServiceImpl implements SendService {
 			sendMapper.updateSend(id, SEND_STATUS_1, dt);
 			return DO_SUCCESS;
 		} catch (Exception e) {
+			log.error("error: {}", e.getMessage(), e);
 			e.printStackTrace();
 			return DO_FAIL;
 		}
@@ -149,6 +155,7 @@ public class SendServiceImpl implements SendService {
 				return "";
 			}
 		} catch (Exception e) {
+			log.error("error: {}", e.getMessage(), e);
 			e.printStackTrace();
 			return DO_FAIL;
 		}
@@ -179,6 +186,7 @@ public class SendServiceImpl implements SendService {
 				return "";
 			}
 		} catch (Exception e) {
+			log.error("error: {}", e.getMessage(), e);
 			e.printStackTrace();
 			return DO_FAIL;
 		}
@@ -205,6 +213,7 @@ public class SendServiceImpl implements SendService {
 			}
 			return DO_SUCCESS;
 		} catch (Exception e) {
+			log.error("error: {}", e.getMessage(), e);
 			e.printStackTrace();
 			return DO_FAIL;
 		}
@@ -225,7 +234,7 @@ public class SendServiceImpl implements SendService {
 		Map mapTypes = JSON.parseObject(json);
 		Map<String, Object> mapParams = new HashMap<>();
 		for (Object obj : mapTypes.keySet()){
-			System.out.println("key为: " + obj + "值为: "+ mapTypes.get(obj));
+			log.info("key为: " + obj + "值为: "+ mapTypes.get(obj));
 			mapParams.put(String.valueOf(obj), mapTypes.get(obj));
 		}
 		int currentPage = (int) mapParams.get("currentPage");
@@ -294,7 +303,7 @@ public class SendServiceImpl implements SendService {
 		Map mapTypes = JSON.parseObject(json);
 		Map<String, Object> mapParams = new HashMap<>();
 		for (Object obj : mapTypes.keySet()){
-			System.out.println("key为: " + obj + "值为: "+ mapTypes.get(obj));
+			log.info("key为: " + obj + "值为: "+ mapTypes.get(obj));
 			mapParams.put(String.valueOf(obj), mapTypes.get(obj));
 		}
 		int currentPage = (int) mapParams.get("currentPage");

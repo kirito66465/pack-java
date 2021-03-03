@@ -1,5 +1,7 @@
 package per.kirito.pack.controller;
 
+import cn.hutool.log.Log;
+import cn.hutool.log.LogFactory;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,6 +22,8 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/admin")
 public class AdminController {
+
+	private static Log log = LogFactory.get();
 
 	@Qualifier("adminServiceImpl")
 	@Autowired
@@ -44,6 +48,7 @@ public class AdminController {
 	public Map<String, String> adminLogin(
 			@ApiParam(required = true, name = "card", value = "驿站编号") @RequestParam(value = "card") String card,
 			@ApiParam(required = true, name = "password", value = "密码") @RequestParam(value = "password") String password) {
+		log.info("请求 URL[/admin/login]；参数[card=" + card + ", password=" + password + "]");
 		return accountService.login(card, password);
 	}
 
@@ -64,6 +69,7 @@ public class AdminController {
 	@PostMapping(value = "/logout")
 	public String adminLogout(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
+		log.info("请求 URL[/admin/logout]；参数[token=" + token + "]");
 		return accountService.logout(token);
 	}
 
@@ -84,6 +90,7 @@ public class AdminController {
 	@PostMapping(value = "/getInfo")
 	public Map<String, Object> getAdminInfo(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
+		log.info("请求 URL[/admin/getInfo]；参数[token=" + token + "]");
 		return accountService.getInfo(token);
 	}
 
@@ -112,6 +119,8 @@ public class AdminController {
 			@ApiParam(required = true, name = "newPwd", value = "新密码") @RequestParam(value = "newPwd") String newPwd,
 			@ApiParam(required = true, name = "checkCode", value = "验证码") @RequestParam(value = "checkCode") String checkCode,
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
+		log.info("请求 URL[/admin/resetPwd]；参数[card=" + card + ", oldPwd" + oldPwd + ", newPwd=" + newPwd
+				+ ", checkCode=" + checkCode + ", token=" + token + "]");
 		return accountService.resetPwd(card, oldPwd, newPwd, checkCode, token);
 	}
 
@@ -138,6 +147,8 @@ public class AdminController {
 			@ApiParam(required = true, name = "phone", value = "手机号") @RequestParam(value = "phone") String phone,
 			@ApiParam(required = true, name = "mail", value = "邮箱") @RequestParam(value = "mail") String mail,
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
+		log.info("请求 URL[/admin/updateInfo]；参数[name=" + name + ", phone" + phone + ", mail=" + mail
+				+ ", token=" + token + "]");
 		return accountService.updateInfo(name, phone, mail, token);
 	}
 
@@ -158,6 +169,7 @@ public class AdminController {
 	@PostMapping(value = "/getPackId")
 	public String getPackId(
 			@ApiParam(required = true, name = "type", value = "快递公司") @RequestParam(value = "type") String type) {
+		log.info("请求 URL[/admin/getPackId]；参数[type=" + type + "]");
 		return PackIdUtil.generate(type);
 	}
 

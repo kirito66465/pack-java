@@ -1,5 +1,7 @@
 package per.kirito.pack.controller;
 
+import cn.hutool.log.Log;
+import cn.hutool.log.LogFactory;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,8 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "mail")
 public class MailController {
+
+	private static Log log = LogFactory.get();
 	
 	@Autowired
 	private MailService mailService;
@@ -40,6 +44,7 @@ public class MailController {
 	public Map<String, String> sendMail(
 			@ApiParam(required = true, name = "ids", value = "快递单号") @RequestParam(value = "ids") String ids,
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
+		log.info("请求 URL[/mail/notice]；参数[ids=" + ids + ", token=" + token + "]");
 		return mailService.sendMail(ids, token);
 	}
 	

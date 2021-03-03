@@ -1,5 +1,7 @@
 package per.kirito.pack;
 
+import cn.hutool.log.Log;
+import cn.hutool.log.LogFactory;
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +23,10 @@ import per.kirito.pack.properties.MailProperties;
 @SpringBootApplication(scanBasePackages = "per.kirito.pack")
 public class PackApplication {
 
+	private static Log log = LogFactory.get();
+
 	public static void main(String[] args) {
+		log.info("程序启动");
 		SpringApplication.run(PackApplication.class, args);
 	}
 
@@ -41,6 +46,7 @@ public class PackApplication {
 
 		@Override
 		public void run(String... args) {
+			log.info("测试 Properties 配置类");
 			logger.info("---------- MailProperties ----------");
 			logger.info("senderMail: " + mailProperties.getSenderMail());
 			logger.info("host: " + mailProperties.getHost());

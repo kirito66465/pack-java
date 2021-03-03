@@ -1,5 +1,7 @@
 package per.kirito.pack.controller;
 
+import cn.hutool.log.Log;
+import cn.hutool.log.LogFactory;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,6 +21,8 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
+
+	private static Log log = LogFactory.get();
 
 	@Qualifier("userServiceImpl")
 	@Autowired
@@ -43,6 +47,7 @@ public class UserController {
 	public Map<String, String> login(
 			@ApiParam(required = true, name = "card", value = "学号") @RequestParam(value = "card") String card,
 			@ApiParam(required = true, name = "password", value = "密码") @RequestParam(value = "password") String password) {
+		log.info("请求 URL[/user/login]；参数[card=" + card + ", password=" + password + "]");
 		return accountService.login(card, password);
 	}
 
@@ -63,6 +68,7 @@ public class UserController {
 	@PostMapping(value = "/logout")
 	public String userLogout(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
+		log.info("请求 URL[/user/logout]；参数[token=" + token + "]");
 		return accountService.logout(token);
 	}
 
@@ -83,6 +89,7 @@ public class UserController {
 	@PostMapping(value = "/getInfo")
 	public Map<String, Object> getUserInfo(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
+		log.info("请求 URL[/user/getInfo]；参数[token=" + token + "]");
 		return accountService.getInfo(token);
 	}
 
@@ -103,6 +110,7 @@ public class UserController {
 	@PostMapping(value = "/register")
 	public Map<String, String> register(
 			@ApiParam(required = true, name = "user", value = "学生实体") @RequestBody User user) {
+		log.info("请求 URL[/user/register]；参数[user=" + user.toString() + "]");
 		return accountService.register(user);
 	}
 
@@ -127,6 +135,7 @@ public class UserController {
 			@ApiParam(required = true, name = "card", value = "学号") @RequestParam(value = "card") String card,
 			@ApiParam(required = true, name = "phone", value = "手机号") @RequestParam(value = "phone") String phone,
 			@ApiParam(required = true, name = "password", value = "密码") @RequestParam(value = "password") String password) {
+		log.info("请求 URL[/user/forgetPwd]；参数[card=" + card + ", phone" + phone + ", password=" + password + "]");
 		return accountService.forgetPwd(card, phone, password);
 	}
 
@@ -155,6 +164,8 @@ public class UserController {
 			@ApiParam(required = true, name = "newPwd", value = "新密码") @RequestParam(value = "newPwd") String newPwd,
 			@ApiParam(required = true, name = "checkCode", value = "验证码") @RequestParam(value = "checkCode") String checkCode,
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
+		log.info("请求 URL[/user/resetPwd]；参数[card=" + card + ", oldPwd" + oldPwd + ", newPwd=" + newPwd
+				+ ", checkCode=" + checkCode + ", token=" + token + "]");
 		return accountService.resetPwd(card, oldPwd, newPwd, checkCode, token);
 	}
 
@@ -181,6 +192,8 @@ public class UserController {
 			@ApiParam(required = true, name = "addr", value = "地址") @RequestParam(value = "addr") String addr,
 			@ApiParam(required = true, name = "mail", value = "邮箱") @RequestParam(value = "mail") String mail,
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
+		log.info("请求 URL[/user/updateInfo]；参数[name=" + name + ", addr" + addr + ", mail=" + mail
+				+ ", token=" + token + "]");
 		return accountService.updateInfo(name, addr, mail, token);
 	}
 

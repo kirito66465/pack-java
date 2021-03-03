@@ -70,6 +70,10 @@ $ .\decrypt input="av8dLw8htTU7k5AQaoMgGzI5KLaj9Glp" password="demo-pwd" algorit
 2. 采用 全字段 LIKE 查询实现搜索
 TODO：换用 elasticsearch
 ```
+- 2021.03.03<br>
+```markdown
+1. 添加日志记录；优化代码逻辑
+```
 
 __TODO__
 ```markdown

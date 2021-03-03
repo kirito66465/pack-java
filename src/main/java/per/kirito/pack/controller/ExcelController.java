@@ -1,6 +1,8 @@
 package per.kirito.pack.controller;
 
 import cn.hutool.core.io.IoUtil;
+import cn.hutool.log.Log;
+import cn.hutool.log.LogFactory;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import io.swagger.annotations.*;
@@ -25,6 +27,8 @@ import java.util.List;
 @RequestMapping(value = "excel")
 public class ExcelController {
 
+	private static Log log = LogFactory.get();
+
 	@Autowired
 	private PackService packService;
 
@@ -42,6 +46,7 @@ public class ExcelController {
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
 			@ApiParam(required = true, name = "type", value = "获取类型") @RequestParam(value = "type") String type,
 			HttpServletResponse response) {
+		log.info("请求 URL[/excel]；参数[token=" + token + ", type=" + type + "]");
 		// 通过工具类创建 writer
 		ExcelWriter writer = ExcelUtil.getWriter(true);
 		writer.addHeaderAlias("id", "快递单号");
@@ -90,7 +95,9 @@ public class ExcelController {
 
 			out = response.getOutputStream();
 			writer.flush(out, true);
+			log.info("生成 Excel 成功！");
 		} catch (Exception e) {
+			log.error("error: {}", e.getMessage(), e);
 			e.printStackTrace();
 		} finally {
 			// 关闭 writer，释放内存

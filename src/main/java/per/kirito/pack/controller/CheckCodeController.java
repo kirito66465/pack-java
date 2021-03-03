@@ -1,5 +1,7 @@
 package per.kirito.pack.controller;
 
+import cn.hutool.log.Log;
+import cn.hutool.log.LogFactory;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,8 @@ import java.util.Map;
 @Api(tags = {"验证码"}, description = "验证码", produces = "application/json", consumes = "application/json")
 @RestController
 public class CheckCodeController {
+
+	private static Log log = LogFactory.get();
 
 	@Autowired
 	private CheckCodeService checkCodeService;
@@ -37,6 +41,7 @@ public class CheckCodeController {
 	@PostMapping(value = "/getCheckCode")
 	public Map<String, String> getCheckCode(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
+		log.info("请求 URL[/getCheckCode]；参数[token=" + token + "]");
 		return checkCodeService.getCheckCode(token);
 	}
 

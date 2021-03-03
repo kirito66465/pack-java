@@ -35,6 +35,8 @@
 		<junit.version>4.12</junit.version>
 		<elasticsearch.version>7.11.1</elasticsearch.version>
 		<elasticsearch>7.11.1</elasticsearch>
+		<log4j.version>1.2.17</log4j.version>
+		<commons-logging.version>1.2</commons-logging.version>
 	</properties>
 
 	<dependencies>
@@ -108,6 +110,13 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<!-- 去除日志依赖 -->
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-boot-starter-logging</artifactId>
+					<groupId>org.springframework.boot</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- MyBatis 启动器 -->
@@ -209,6 +218,20 @@
 			<groupId>com.github.xiaoymin</groupId>
 			<artifactId>swagger-bootstrap-ui</artifactId>
 			<version>1.9.6</version>
+		</dependency>
+
+		<!-- 日志 依赖 -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>${commons-logging.version}</version>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 
