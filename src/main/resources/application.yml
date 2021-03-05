@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: aorus
+    active: redmi
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     # Druid 扩展属性配置
@@ -49,6 +49,13 @@ jasypt:
 logging:
   level:
     root: debug
+  file:
+    name: D:/pack/pack.log
+  pattern:
+    # 修改在控制台输出的日志格式
+    console: "%d{yyyy-MM-dd HH:mm:ss} %clr(%5p) [%thread] %clr(%logger){cyan}: %msg%n"
+    # 修改输出到文件的日志格式
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger: %msg%n"
 
 mybatis:
   config-location: classpath:conf/mybatis-config.xml    # MyBatis 配置文件路径
@@ -74,8 +81,9 @@ mail:
 ---
 # aorus 开发时配置
 spring:
-  profiles:
-    aorus
+  config:
+    activate:
+      on-profile: aorus
   datasource:
     # Druid 扩展属性配置
     druid:
@@ -103,8 +111,9 @@ elastic:
 ---
 # redmi 开发时配置
 spring:
-  profiles:
-    redmi
+  config:
+    activate:
+      on-profile: redmi
   datasource:
     # Druid 扩展属性配置
     druid:

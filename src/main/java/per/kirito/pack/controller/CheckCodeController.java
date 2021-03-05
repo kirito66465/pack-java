@@ -1,8 +1,7 @@
 package per.kirito.pack.controller;
 
-import cn.hutool.log.Log;
-import cn.hutool.log.LogFactory;
 import io.swagger.annotations.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import per.kirito.pack.service.inter.CheckCodeService;
@@ -15,11 +14,10 @@ import java.util.Map;
  * time: 16:26
  * 验证码的 controller 层
  */
+@Slf4j
 @Api(tags = {"验证码"}, description = "验证码", produces = "application/json", consumes = "application/json")
 @RestController
 public class CheckCodeController {
-
-	private static Log log = LogFactory.get();
 
 	@Autowired
 	private CheckCodeService checkCodeService;

@@ -1,8 +1,7 @@
 package per.kirito.pack.controller;
 
-import cn.hutool.log.Log;
-import cn.hutool.log.LogFactory;
 import io.swagger.annotations.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +16,11 @@ import java.util.Map;
  * time: 21:04
  * User 的 Controller 层
  */
+@Slf4j
 @Api(tags = {"学生管理"}, description = "学生管理", produces = "application/json", consumes = "application/json")
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
-
-	private static Log log = LogFactory.get();
 
 	@Qualifier("userServiceImpl")
 	@Autowired

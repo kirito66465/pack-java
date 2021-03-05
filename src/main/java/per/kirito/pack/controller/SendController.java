@@ -1,8 +1,7 @@
 package per.kirito.pack.controller;
 
-import cn.hutool.log.Log;
-import cn.hutool.log.LogFactory;
 import io.swagger.annotations.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import per.kirito.pack.pojo.utilPojo.SendRequest;
@@ -16,12 +15,11 @@ import java.util.Map;
  * time: 15:51
  * 寄件 Send 的 controller 层
  */
+@Slf4j
 @Api(tags = {"寄件管理"}, description = "寄件管理", produces = "application/json", consumes = "application/json")
 @RestController
 @RequestMapping(value = "/send")
 public class SendController {
-
-	private static Log log = LogFactory.get();
 
 	@Autowired
 	private SendService sendService;

@@ -1,11 +1,10 @@
 package per.kirito.pack.controller;
 
 import cn.hutool.core.io.IoUtil;
-import cn.hutool.log.Log;
-import cn.hutool.log.LogFactory;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import io.swagger.annotations.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import per.kirito.pack.pojo.utilPojo.PackResult;
@@ -22,12 +21,11 @@ import java.util.List;
  * time: 9:38
  * Excel 的 Controller 层
  */
+@Slf4j
 @Api(tags = {"Excel"}, description = "Excel 生成导出")
 @RestController
 @RequestMapping(value = "excel")
 public class ExcelController {
-
-	private static Log log = LogFactory.get();
 
 	@Autowired
 	private PackService packService;

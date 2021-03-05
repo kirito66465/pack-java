@@ -1,8 +1,7 @@
 package per.kirito.pack.service.impl;
 
-import cn.hutool.log.Log;
-import cn.hutool.log.LogFactory;
 import com.alibaba.fastjson.JSON;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -28,10 +27,9 @@ import java.util.*;
  * time: 15:36
  * Pack 的 Service 层，PackService 接口的实现类
  */
+@Slf4j
 @Service
 public class PackServiceImpl implements PackService {
-
-	private static Log log = LogFactory.get();
 
 	@Autowired
 	private PackMapper packMapper;

@@ -74,12 +74,15 @@ TODO：换用 elasticsearch
 ```markdown
 1. 添加日志记录；添加定时任务；优化代码逻辑
 ```
+- 2021.03.03<br>
+```markdown
+1. 优化日志
+```
 
 __TODO__
 ```markdown
 待完成：
-1. 优化 寄件服务协议 页面
-2. 页面布局优化
+1. 页面布局优化
 
 打包：
 1. Vue 项目修改 Constant 的 baseUrl 为空

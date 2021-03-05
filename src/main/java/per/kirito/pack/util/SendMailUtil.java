@@ -1,8 +1,7 @@
 package per.kirito.pack.util;
 
-import cn.hutool.log.Log;
-import cn.hutool.log.LogFactory;
 import com.sun.mail.util.MailSSLSocketFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import per.kirito.pack.properties.MailProperties;
@@ -25,10 +24,9 @@ import javax.mail.internet.MimeMessage;
  * time: 14:17
  * 发送邮件工具类
  */
+@Slf4j
 @Component
 public class SendMailUtil {
-
-	private static Log log = LogFactory.get();
 
 	@Autowired
 	private MailProperties mailProperties;

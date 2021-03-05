@@ -1,7 +1,6 @@
 package per.kirito.pack.service.impl;
 
-import cn.hutool.log.Log;
-import cn.hutool.log.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -23,10 +22,9 @@ import java.util.concurrent.TimeUnit;
  * time: 16:02
  * Admin 的 Service 层，是 AccountService 的泛型接口实现
  */
+@Slf4j
 @Service
 public class AdminServiceImpl<E> implements AccountService<E> {
-
-	private static Log log = LogFactory.get();
 
 	@Autowired
 	private AdminMapper adminMapper;

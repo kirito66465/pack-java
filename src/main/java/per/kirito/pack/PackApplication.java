@@ -1,8 +1,7 @@
 package per.kirito.pack;
 
 import cn.hutool.cron.CronUtil;
-import cn.hutool.log.Log;
-import cn.hutool.log.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,11 +19,10 @@ import per.kirito.pack.properties.MailProperties;
  * time: 20:37
  * Spring Boot 项目启动类
  */
+@Slf4j
 @MapperScan(basePackages = "per.kirito.pack.mapper")
 @SpringBootApplication(scanBasePackages = "per.kirito.pack")
 public class PackApplication {
-
-	private static Log log = LogFactory.get();
 
 	public static void main(String[] args) {
 		log.info("程序启动");
@@ -49,13 +47,13 @@ public class PackApplication {
 		@Override
 		public void run(String... args) {
 			log.info("测试 Properties 配置类");
-			logger.info("---------- MailProperties ----------");
-			logger.info("senderMail: " + mailProperties.getSenderMail());
-			logger.info("host: " + mailProperties.getHost());
-			logger.info("password: " + mailProperties.getPassword());
-			logger.info("---------- ElasticProperties ----------");
-			logger.info("hostName: " + elasticProperties.getHostName());
-			logger.info("port: " + elasticProperties.getPort());
+			log.info("---------- MailProperties ----------");
+			log.info("senderMail: " + mailProperties.getSenderMail());
+			log.info("host: " + mailProperties.getHost());
+			log.info("password: " + mailProperties.getPassword());
+			log.info("---------- ElasticProperties ----------");
+			log.info("hostName: " + elasticProperties.getHostName());
+			log.info("port: " + elasticProperties.getPort());
 		}
 
 	}

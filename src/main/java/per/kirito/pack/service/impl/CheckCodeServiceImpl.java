@@ -1,7 +1,6 @@
 package per.kirito.pack.service.impl;
 
-import cn.hutool.log.Log;
-import cn.hutool.log.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -20,10 +19,9 @@ import java.util.concurrent.TimeUnit;
  * time: 16:28
  * 验证码的 Service 实现类
  */
+@Slf4j
 @Service
 public class CheckCodeServiceImpl implements CheckCodeService {
-
-	private static Log log = LogFactory.get();
 
 	@Autowired
 	private StringRedisTemplate stringRedisTemplate;

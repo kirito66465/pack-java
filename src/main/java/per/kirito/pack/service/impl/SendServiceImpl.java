@@ -1,8 +1,7 @@
 package per.kirito.pack.service.impl;
 
-import cn.hutool.log.Log;
-import cn.hutool.log.LogFactory;
 import com.alibaba.fastjson.JSON;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -28,10 +27,9 @@ import java.util.Map;
  * time: 15:53
  * 寄件 Send 的Service 层
  */
+@Slf4j
 @Service
 public class SendServiceImpl implements SendService {
-
-	private static Log log = LogFactory.get();
 
 	@Autowired
 	private UserMapper userMapper;

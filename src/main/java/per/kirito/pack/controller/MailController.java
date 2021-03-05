@@ -1,8 +1,7 @@
 package per.kirito.pack.controller;
 
-import cn.hutool.log.Log;
-import cn.hutool.log.LogFactory;
 import io.swagger.annotations.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import per.kirito.pack.service.inter.MailService;
@@ -15,12 +14,11 @@ import java.util.Map;
  * time: 14:54
  * Mail 的 Controller 层
  */
+@Slf4j
 @Api(tags = {"发送邮件"}, description = "发送邮件", produces = "application/json", consumes = "application/json")
 @RestController
 @RequestMapping(value = "mail")
 public class MailController {
-
-	private static Log log = LogFactory.get();
 	
 	@Autowired
 	private MailService mailService;
