@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: aorus
+    active: redmi
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     # Druid 扩展属性配置
@@ -34,6 +34,9 @@ spring:
       web-stat-filter:
         enabled: true
         exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+
+  jpa:
+    open-in-view: false
 
 server:
   port: 8080
