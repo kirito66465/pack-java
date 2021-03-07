@@ -1,7 +1,6 @@
 package per.kirito.pack.mapper;
 
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 import per.kirito.pack.pojo.Send;
 
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.List;
  * time: 11:14
  * Send 的 Mapper 层接口
  */
-@Repository
 public interface SendMapper {
 
 	/**

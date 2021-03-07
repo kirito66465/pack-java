@@ -1,1 +1,4 @@
-<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>校园快递管理系统</title><link rel="shortcut icon" href=/favicon.ico><link href=/static/css/app.a00ad0279664f7785dfc918585bc2c64.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=/static/js/manifest.2ae2e69a05c33dfc65f8.js></script><script type=text/javascript src=/static/js/vendor.01078f12f27def5f9b55.js></script><script type=text/javascript src=/static/js/app.a30964075497e60d9468.js></script></body></html>
+<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>校园快递管理系统</title><link rel="shortcut icon" href=./favicon.ico><link href=./static/css/app.980314fe64dc0228ee9c4c67be19a6c2.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=./static/js/manifest.3ad1d5771e9b13dbdad2.js></script><script type=text/javascript src=./static/js/vendor.01078f12f27def5f9b55.js></script><script type=text/javascript src=./static/js/app.ad5bc206a566646e8605.js></script></body><style>body{
+      margin:0;
+      padding:0;
+    }</style></html>

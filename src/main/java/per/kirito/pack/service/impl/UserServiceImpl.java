@@ -131,8 +131,10 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 		try {
 			String result = "";
 			String card = entity.getCard();
-			int isDo = userMapper.register(entity);
-			if (isDo == 1) {
+
+			User user = userMapper.getUserById(card);
+			if (user == null) {
+				userMapper.register(entity);
 				// 生成唯一令牌 token
 				String token = UUID.randomUUID().toString();
 				// 如果 Redis 中已存储，则先删除此键

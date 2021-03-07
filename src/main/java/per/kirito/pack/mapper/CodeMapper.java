@@ -1,6 +1,5 @@
 package per.kirito.pack.mapper;
 
-import org.springframework.stereotype.Repository;
 import per.kirito.pack.pojo.Code;
 
 /**
@@ -9,7 +8,6 @@ import per.kirito.pack.pojo.Code;
  * time: 17:21
  * Code 的 Mapper 层接口
  */
-@Repository
 public interface CodeMapper {
 
 	/**

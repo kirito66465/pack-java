@@ -3,14 +3,11 @@ package per.kirito.pack;
 import cn.hutool.cron.CronUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Component;
-import per.kirito.pack.properties.ElasticProperties;
 import per.kirito.pack.properties.MailProperties;
 
 /**
@@ -36,13 +33,8 @@ public class PackApplication {
 	@Component
 	public static class OrderPropertiesCommandLineRunner implements CommandLineRunner {
 
-		private final Logger logger = LoggerFactory.getLogger(getClass());
-
 		@Autowired
 		private MailProperties mailProperties;
-
-		@Autowired
-		private ElasticProperties elasticProperties;
 
 		@Override
 		public void run(String... args) {
@@ -51,9 +43,6 @@ public class PackApplication {
 			log.info("senderMail: " + mailProperties.getSenderMail());
 			log.info("host: " + mailProperties.getHost());
 			log.info("password: " + mailProperties.getPassword());
-			log.info("---------- ElasticProperties ----------");
-			log.info("hostName: " + elasticProperties.getHostName());
-			log.info("port: " + elasticProperties.getPort());
 		}
 
 	}

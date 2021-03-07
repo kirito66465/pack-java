@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: redmi
+    active: aorus
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     # Druid 扩展属性配置
@@ -47,15 +47,7 @@ jasypt:
     password: kirito # 加密秘钥
 
 logging:
-  level:
-    root: debug
-  file:
-    name: D:/pack/pack.log
-  pattern:
-    # 修改在控制台输出的日志格式
-    console: "%d{yyyy-MM-dd HH:mm:ss} %clr(%5p) [%thread] %clr(%logger){cyan}: %msg%n"
-    # 修改输出到文件的日志格式
-    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger: %msg%n"
+  config: classpath:logback.xml
 
 mybatis:
   config-location: classpath:conf/mybatis-config.xml    # MyBatis 配置文件路径
@@ -104,10 +96,6 @@ spring:
     database: 0
     password: kirito
 
-elastic:
-  host-name: 192.168.32.102
-  port: 9200
-
 ---
 # redmi 开发时配置
 spring:
@@ -134,10 +122,22 @@ spring:
     database: 0
     password: kirito
 
-  elasticsearch:
-    rest:
-      uris: 192.168.152.101:9200
+---
+# wj 开发时配置
+spring:
+  config:
+    activate:
+      on-profile: wj
+  datasource:
+    # Druid 扩展属性配置
+    druid:
+      # 本地
+      url: jdbc:mysql://localhost:3306/pack?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+      username: root
+      password: qwe12345
 
-elastic:
-  host-name: 192.168.152.101
-  port: 9200
+  redis:
+    # redmi 虚拟机
+    host: localhost
+    port: 6379
+    database: 0

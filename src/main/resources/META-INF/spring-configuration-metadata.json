@@ -1,29 +1,12 @@
 {
   "groups": [
     {
-      "name": "elastic",
-      "type": "per.kirito.pack.properties.ElasticProperties",
-      "sourceType": "per.kirito.pack.properties.ElasticProperties"
-    },
-    {
       "name": "mail",
       "type": "per.kirito.pack.properties.MailProperties",
       "sourceType": "per.kirito.pack.properties.MailProperties"
     }
   ],
   "properties": [
-    {
-      "name": "elastic.host-name",
-      "type": "java.lang.String",
-      "description": "主机名",
-      "sourceType": "per.kirito.pack.properties.ElasticProperties"
-    },
-    {
-      "name": "elastic.port",
-      "type": "java.lang.Integer",
-      "description": "端口",
-      "sourceType": "per.kirito.pack.properties.ElasticProperties"
-    },
     {
       "name": "mail.host",
       "type": "java.lang.String",

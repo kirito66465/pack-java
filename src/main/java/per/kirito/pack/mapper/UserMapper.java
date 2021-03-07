@@ -1,7 +1,6 @@
 package per.kirito.pack.mapper;
 
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 import per.kirito.pack.pojo.User;
 
 import java.util.Map;
@@ -12,7 +11,6 @@ import java.util.Map;
  * time: 21:00
  * User 的 Mapper 层接口
  */
-@Repository
 public interface UserMapper {
 
 	/**

@@ -1,7 +1,6 @@
 package per.kirito.pack.mapper;
 
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 import per.kirito.pack.pojo.Pack;
 
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.List;
  * time: 15:24
  * Pack 的 Mapper 接口
  */
-@Repository
 public interface PackMapper {
 
 	/**

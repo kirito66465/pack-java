@@ -1,7 +1,6 @@
 package per.kirito.pack.mapper;
 
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 import per.kirito.pack.pojo.Admin;
 
 /**
@@ -10,7 +9,6 @@ import per.kirito.pack.pojo.Admin;
  * time: 19:54
  * Admin 的 Mapper 层接口
  */
-@Repository
 public interface AdminMapper {
 
 	/**
