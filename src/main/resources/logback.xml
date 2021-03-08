@@ -52,7 +52,7 @@
 	<logger name="per.kirito.pack.controller" level="INFO">
 		<appender-ref ref="syslog" />
 	</logger>
-	<logger name="per.kirito.pack.service.impl" level="ERROR">
+	<logger name="per.kirito.pack.service.impl" level="INFO">
 		<appender-ref ref="syslog" />
 	</logger>
 	<logger name="per.kirito.pack.mapper" level="DEBUG">
