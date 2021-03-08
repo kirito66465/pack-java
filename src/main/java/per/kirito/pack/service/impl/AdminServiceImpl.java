@@ -80,6 +80,7 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 			map.put("token", token);
 			map.put("result", LOGIN_SUCCESS);
 		} else {
+			log.info("card: " + card + " 登录失败，因为该驿站管理员不存在！");
 			map.put("result", LOGIN_FAIL);
 		}
 		return map;
@@ -113,6 +114,7 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 			map.put("admin", admin);
 			result = INFO_SUCCESS;
 		} else {
+			log.info("token: " + token + " 获取该驿站管理员信息失败，因为登录状态失效！");
 			result = INFO_FAIL;
 		}
 		map.put("result", result);
@@ -168,23 +170,28 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 							map.put("result", PWD_SUCCESS);
 						} else {
 							// 原密码错误，导致成功执行条数不为1
+							log.info("card: " + card + " 修改密码失败，因为原密码输入错误！");
 							map.put("result", PWD_ERR);
 						}
 					} else {
 						// 验证码不正确
+						log.info("card: " + card + " 修改密码失败，因为验证码输入错误！");
 						map.put("result", CODE_ERR);
 					}
 				} else {
 					// 验证码已过期
+					log.info("card: " + card + " 修改密码失败，因为验证码已过期！");
 					map.put("result", CODE_INVALID);
 				}
 			} else {
 				// 登录状态失效
+				log.info("card: " + card + " 修改密码失败，因为登录状态失效！");
 				map.put("result", LOGIN_TO_DO);
 			}
 			return map;
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
+			log.info("card: " + card + " 修改密码失败，因为发生了异常！");
 			e.printStackTrace();
 			map.put("result", DO_FAIL);
 			return map;
@@ -210,11 +217,13 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 				map.put("result", DO_SUCCESS);
 			} else {
 				// 登录状态失效
+				log.info("token: " + token + " 更新信息失败，因为登录状态失效！");
 				map.put("result", LOGIN_TO_DO);
 			}
 			return map;
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
+			log.info("token: " + token + " 更新信息失败，因为发生了异常！");
 			e.printStackTrace();
 			map.put("result", DO_FAIL);
 			return map;

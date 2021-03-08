@@ -56,11 +56,13 @@ public class CheckCodeServiceImpl implements CheckCodeService {
 				System.out.println("code: " + code);
 				map.put("result", INFO_SUCCESS);
 			} else {
+				log.info("token: " + token + " 获取验证码失败，因为登录状态失效！");
 				map.put("result", LOGIN_TO_DO);
 			}
 			return map;
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
+			log.info("token: " + token + " 获取验证码失败，因为发生了异常！");
 			e.printStackTrace();
 			map.put("result", INFO_FAIL);
 			return map;

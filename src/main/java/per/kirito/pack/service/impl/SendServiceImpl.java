@@ -95,11 +95,13 @@ public class SendServiceImpl implements SendService {
 				map.put("result", DO_SUCCESS);
 			} catch (Exception e) {
 				log.error("error: {}", e.getMessage(), e);
+				log.info("token: " + token + " 寄件下单失败，因为发生了异常！");
 				map.put("result", DO_FAIL);
 				e.printStackTrace();
 			}
 			return map;
 		} else {
+			log.info("token: " + token + " 寄件下单失败，因为登录状态失效！");
 			map.put("result", LOGIN_TO_DO);
 			return map;
 		}
@@ -123,6 +125,7 @@ public class SendServiceImpl implements SendService {
 			return DO_SUCCESS;
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
+			log.info("token: " + token + " 学生支付寄件失败，因为发生了异常！");
 			e.printStackTrace();
 			return DO_FAIL;
 		}
@@ -154,6 +157,7 @@ public class SendServiceImpl implements SendService {
 			}
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
+			log.info("token: " + token + " 驿站管理员确认件失败，因为发生了异常！");
 			e.printStackTrace();
 			return DO_FAIL;
 		}
@@ -185,6 +189,7 @@ public class SendServiceImpl implements SendService {
 			}
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
+			log.info("token: " + token + " 驿站管理员发出寄件失败，因为发生了异常！");
 			e.printStackTrace();
 			return DO_FAIL;
 		}
@@ -212,6 +217,7 @@ public class SendServiceImpl implements SendService {
 			return DO_SUCCESS;
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
+			log.info("token: " + token + " 学生取消寄件失败，因为发生了异常！");
 			e.printStackTrace();
 			return DO_FAIL;
 		}
@@ -254,9 +260,11 @@ public class SendServiceImpl implements SendService {
 				Page<Send> sendPage = SendUtil.getSendByPage(currentPage, pageSize, sends);
 				map.put("result", sendPage);
 			} else {
+				log.info("token: " + token + " 获取学生寄件集失败，因为筛选过后无数据！");
 				map.put("result", NOT_EXIST);
 			}
 		} else {
+			log.info("token: " + token + " 获取学生寄件集失败，因为登录状态失效！");
 			map.put("result", INFO_FAIL);
 		}
 		return map;
@@ -281,6 +289,7 @@ public class SendServiceImpl implements SendService {
 			map.put("sendConfirm", confirm);
 			map.put("sendOut", out);
 		} else {
+			log.info("token: " + token + " 获取学生寄件数量失败，因为登录状态失效！");
 			map.put("result", INFO_FAIL);
 		}
 		return map;
@@ -323,9 +332,11 @@ public class SendServiceImpl implements SendService {
 				Page<Send> sendPage = SendUtil.getSendByPage(currentPage, pageSize, sends);
 				map.put("result", sendPage);
 			} else {
+				log.info("token: " + token + " 获取驿站管理员寄件集失败，因为筛选过后无数据！");
 				map.put("result", NOT_EXIST);
 			}
 		} else {
+			log.info("token: " + token + " 获取驿站管理员寄件集失败，因为登录状态失效！");
 			map.put("result", INFO_FAIL);
 		}
 		return map;
@@ -352,6 +363,7 @@ public class SendServiceImpl implements SendService {
 			map.put("sendConfirm", confirm);
 			map.put("sendOut", out);
 		} else {
+			log.info("token: " + token + " 获取驿站管理员寄件数量失败，因为登录状态失效！");
 			map.put("result", INFO_FAIL);
 		}
 		return map;

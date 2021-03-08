@@ -1,4 +1,18 @@
 # 基于web的校园快递管理系统
+
+## 调试运行步骤
+1. 所需环境：JDK1.8、MySQL 5.x.x、Redis、Maven、IDEA
+1. MySQL 5.x.x 版本 导入 `./database/pack-dev-2400.sql` SQL文件；
+2. 修改 `application.yml` 配置文件中的数据库 `url`、`username`、`password`；
+3. 修改 `application.yml` 配置文件中的 Redis 的 `host`、`port`、`password`（Redis 密码可选项）；
+4. 如果 `8080` 端口被占用，修改 `application.yml` 配置文件中的 `server.port`；
+5. SpringBoot 项目选择 `PackApplication` 进行调试运行；
+6. 浏览器输入 `127.0.0.1:8080/pack` 访问 `基于 Web 的校园快递管理系统`；  
+学生账号（用户名：2120172171  密码：123456）  
+驿站管理员账号1：（用户名：2101   密码：admin）  
+驿站管理员账号2：（用户名：2102   密码：admin）  
+驿站管理员账号3：（用户名：2103   密码：admin）
+
 ## 进度记录
 - 2020.12.29<br>
 ```markdown
@@ -82,15 +96,15 @@ TODO：换用 elasticsearch
 ```markdown
 1. 优化代码逻辑；container 高度铺满
 ```
+- 2021.03.08<br>
+```markdown
+1. 添加 Jasypt 测试类；优化页面布局；优化日志记录
+```
 
 __TODO__
 ```markdown
-待完成：
-1. 页面布局优化
-
 打包：
-1. Vue 项目修改 Constant 的 baseUrl 为空
-2. SpringBoot 项目去除所有 `@CrossOrigin` 注解
+1. SpringBoot 项目去除所有 `@CrossOrigin` 注解
 
 熟悉：
 1. GET POST PUT DELETE，这四种请求方式区别
@@ -131,9 +145,7 @@ WHERE status = -1;
 导致结果不正确。
 
 ## 打包上线
-1. Vue 项目的 Constant 的 baseUrl 域名设置为虚拟机 IP
-2. 虚拟机数据库开放本地 demo 用户连接权限
-3. java -jar [jar包] 命令运行 SpringBoot 项目
+1. java -jar [jar包] --server.port=[端口]
 
 ## 请求响应类型
 produces：它的作用是指定返回值类型，不但可以设置返回值类型还可以设定返回值的字符编码；
