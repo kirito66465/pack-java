@@ -47,6 +47,7 @@
 	<root level="info">
 		<appender-ref ref="STDOUT" />
 	</root>
+
 	<!-- 指定项目中某个包，当有日志操作行为时的日志记录级别 -->
 	<!-- 级别依次为【从高到低】：FATAL > ERROR > WARN > INFO > DEBUG > TRACE  -->
 	<logger name="per.kirito.pack.controller" level="INFO">
@@ -56,6 +57,9 @@
 		<appender-ref ref="syslog" />
 	</logger>
 	<logger name="per.kirito.pack.mapper" level="DEBUG">
+		<appender-ref ref="syslog" />
+	</logger>
+	<logger name="per.kirito.pack.util" level="INFO">
 		<appender-ref ref="syslog" />
 	</logger>
 </configuration>
