@@ -1,5 +1,6 @@
 package per.kirito.pack.util;
 
+import lombok.extern.slf4j.Slf4j;
 import per.kirito.pack.myEnum.Express;
 import per.kirito.pack.myEnum.Status;
 import per.kirito.pack.pojo.Pack;
@@ -9,12 +10,15 @@ import per.kirito.pack.pojo.utilPojo.Page;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.awt.SystemColor.info;
+
 /**
  * author: 严晨
  * date: 2020/12/23
  * time: 15:48
  * 包裹信息完善:自动生成取件码、更新取件状态、添加地址信息
  */
+@Slf4j
 public class PackUtil {
 
 	private static final int PACK_CODE_1 = Status.PACK_STATUS_1.getCode();
@@ -119,11 +123,11 @@ public class PackUtil {
 		// 添加驿站联系方式信息
 		pack.setCont_tel(contTel);
 		// 添加快递状态信息
-		pack = updateStatus(pack, "入站");
+		Pack newPack = updateStatus(pack, "入站");
 		String time = TypeConversion.getTime();
 		// 添加快递入站时间
-		pack.setStart(time);
-		return pack;
+		newPack.setStart(time);
+		return newPack;
 	}
 
 	/**
@@ -133,7 +137,6 @@ public class PackUtil {
 	 * @return per.kirito.pack.pojo.Pack
 	 */
 	public static Pack updateStatus(Pack pack, String operate) {
-		int status = pack.getStatus();
 		if ("取件".equals(operate)) {
 			pack.setStatus(PACK_CODE_0);
 		} else if ("入站".equals(operate)) {
