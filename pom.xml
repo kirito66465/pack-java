@@ -21,8 +21,6 @@
 		<mysql-connector-java.version>8.0.21</mysql-connector-java.version>
 		<mybatis-spring-boot-starter.version>2.1.3</mybatis-spring-boot-starter.version>
 		<mapper-spring-boot-starter.version>2.1.5</mapper-spring-boot-starter.version>
-		<pagehelper-spring-boot-starter.version>1.3.0</pagehelper-spring-boot-starter.version>
-		<pagehelper.version>5.2.0</pagehelper.version>
 		<druid.version>1.2.4</druid.version>
 		<druid-spring-boot-starter.version>1.1.17</druid-spring-boot-starter.version>
 		<spring-boot-maven-plugin.version>2.4.1</spring-boot-maven-plugin.version>
@@ -33,8 +31,6 @@
 		<hutool.version>5.5.7</hutool.version>
 		<poi-ooxml.version>4.1.2</poi-ooxml.version>
 		<junit.version>4.12</junit.version>
-		<!--<elasticsearch.version>7.11.1</elasticsearch.version>-->
-		<!--<elasticsearch>7.11.1</elasticsearch>-->
 	</properties>
 
 	<dependencies>
@@ -68,12 +64,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web-services</artifactId>
 		</dependency>
-
-		<!-- elasticsearch 依赖 -->
-		<!--<dependency>-->
-		<!--	<groupId>org.springframework.boot</groupId>-->
-		<!--	<artifactId>spring-boot-starter-data-elasticsearch</artifactId>-->
-		<!--</dependency>-->
 
 		<!-- Spring Boot 配置处理器 -->
 		<dependency>
@@ -120,18 +110,6 @@
 			<groupId>tk.mybatis</groupId>
 			<artifactId>mapper-spring-boot-starter</artifactId>
 			<version>${mapper-spring-boot-starter.version}</version>
-		</dependency>
-
-		<!-- 分页依赖 -->
-		<dependency>
-			<groupId>com.github.pagehelper</groupId>
-			<artifactId>pagehelper-spring-boot-starter</artifactId>
-			<version>${pagehelper-spring-boot-starter.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.github.pagehelper</groupId>
-			<artifactId>pagehelper</artifactId>
-			<version>${pagehelper.version}</version>
 		</dependency>
 
 		<!-- Redis 启动器 -->

@@ -126,7 +126,7 @@
 				OR pick LIKE CONCAT(CONCAT('%', #{search}), '%')
 			)
 		</if>
-		ORDER BY start DESC, code ASC
+		ORDER BY start ASC, code ASC
 	</select>
 
 	<!-- 根据 User 学号查询出该 User 已取快递集合 -->
