@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import per.kirito.pack.pojo.utilPojo.PackResult;
 import per.kirito.pack.service.inter.PackService;
+import per.kirito.pack.util.IpAddressUtil;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,13 @@ public class ExcelController {
 	@Autowired
 	private PackService packService;
 
+	/**
+	 * 导出 Excel 到输出流
+	 * @param token     令牌
+	 * @param type      快递类型
+	 * @param response  http 响应
+	 * @param request   http 请求
+	 **/
 	@ApiOperation(value = "下载 Excel", notes = "生成对应 Excel，返回输出流", httpMethod = "POST")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "响应成功"),
@@ -43,8 +52,10 @@ public class ExcelController {
 	public void download(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
 			@ApiParam(required = true, name = "type", value = "获取类型") @RequestParam(value = "type") String type,
-			HttpServletResponse response) {
-		log.info("请求 URL[/excel]；参数[token=" + token + ", type=" + type + "]");
+			HttpServletResponse response,
+			HttpServletRequest request) {
+		log.info("请求 URL[/excel]；参数[token={}, type={}]", token, type);
+		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		// 通过工具类创建 writer
 		ExcelWriter writer = ExcelUtil.getWriter(true);
 		writer.addHeaderAlias("id", "快递单号");

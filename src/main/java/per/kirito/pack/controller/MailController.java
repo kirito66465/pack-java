@@ -5,7 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import per.kirito.pack.service.inter.MailService;
+import per.kirito.pack.util.IpAddressUtil;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -27,6 +29,7 @@ public class MailController {
 	 * 根据快递单号查询出收件人邮箱并发送取件通知邮件
 	 * @param ids       快递单号
 	 * @param token     令牌
+	 * @param request   http 请求
 	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	@ApiOperation(value = "邮件通知", notes = "发送邮件请求，返回发送成功与否", httpMethod = "POST")
@@ -41,8 +44,10 @@ public class MailController {
 	@PostMapping(value = "/notice")
 	public Map<String, String> sendMail(
 			@ApiParam(required = true, name = "ids", value = "快递单号") @RequestParam(value = "ids") String ids,
-			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
-		log.info("请求 URL[/mail/notice]；参数[ids=" + ids + ", token=" + token + "]");
+			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
+			HttpServletRequest request) {
+		log.info("请求 URL[/mail/notice]；参数[ids={}, token={}]", ids, token);
+		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return mailService.sendMail(ids, token);
 	}
 	

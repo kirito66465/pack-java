@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import per.kirito.pack.pojo.Admin;
 import per.kirito.pack.service.inter.AccountService;
+import per.kirito.pack.util.IpAddressUtil;
 import per.kirito.pack.util.PackIdUtil;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -31,6 +33,7 @@ public class AdminController {
 	 * Admin 登录
 	 * @param card      编号
 	 * @param password  密码
+	 * @param request   http 请求
 	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	@ApiOperation(value = "登录", notes = "登录请求，返回登录成功与否", httpMethod = "PUT")
@@ -45,14 +48,17 @@ public class AdminController {
 	@PostMapping(value = "/login")
 	public Map<String, String> adminLogin(
 			@ApiParam(required = true, name = "card", value = "驿站编号") @RequestParam(value = "card") String card,
-			@ApiParam(required = true, name = "password", value = "密码") @RequestParam(value = "password") String password) {
-		log.info("请求 URL[/admin/login]；参数[card=" + card + ", password=" + password + "]");
+			@ApiParam(required = true, name = "password", value = "密码") @RequestParam(value = "password") String password,
+			HttpServletRequest request) {
+		log.info("请求 URL[/admin/login]；参数[card={}, password={}]", card, password);
+		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return accountService.login(card, password);
 	}
 
 	/**
 	 * Admin 退出登录
-	 * @param token 令牌
+	 * @param token     令牌
+	 * @param request   http 请求
 	 * @return java.lang.String
 	 **/
 	@ApiOperation(value = "退出登录", notes = "退出登录请求，返回退出成功与否", httpMethod = "POST")
@@ -66,14 +72,17 @@ public class AdminController {
 	@CrossOrigin
 	@PostMapping(value = "/logout")
 	public String adminLogout(
-			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
-		log.info("请求 URL[/admin/logout]；参数[token=" + token + "]");
+			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
+			HttpServletRequest request) {
+		log.info("请求 URL[/admin/logout]；参数[token={}]", token);
+		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return accountService.logout(token);
 	}
 
 	/**
 	 * 获取 Admin 信息
-	 * @param token 令牌
+	 * @param token     令牌
+	 * @param request   http 请求
 	 * @return java.util.Map<java.lang.String,java.lang.Object>
 	 **/
 	@ApiOperation(value = "获取驿站信息", notes = "获取信息，如果获取成功返回账号信息，如果失败返回失败原因", httpMethod = "POST")
@@ -87,8 +96,10 @@ public class AdminController {
 	@CrossOrigin
 	@PostMapping(value = "/getInfo")
 	public Map<String, Object> getAdminInfo(
-			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
-		log.info("请求 URL[/admin/getInfo]；参数[token=" + token + "]");
+			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
+			HttpServletRequest request) {
+		log.info("请求 URL[/admin/getInfo]；参数[token={}]", token);
+		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return accountService.getInfo(token);
 	}
 
@@ -99,6 +110,7 @@ public class AdminController {
 	 * @param newPwd    新密码
 	 * @param checkCode 验证码
 	 * @param token     令牌
+	 * @param request   http 请求
 	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	@ApiOperation(value = "修改密码", notes = "修改密码请求，返回修改密码成功与否", httpMethod = "PUT")
@@ -116,9 +128,10 @@ public class AdminController {
 			@ApiParam(required = true, name = "oldPwd", value = "原密码") @RequestParam(value = "oldPwd") String oldPwd,
 			@ApiParam(required = true, name = "newPwd", value = "新密码") @RequestParam(value = "newPwd") String newPwd,
 			@ApiParam(required = true, name = "checkCode", value = "验证码") @RequestParam(value = "checkCode") String checkCode,
-			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
-		log.info("请求 URL[/admin/resetPwd]；参数[card=" + card + ", oldPwd" + oldPwd + ", newPwd=" + newPwd
-				+ ", checkCode=" + checkCode + ", token=" + token + "]");
+			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
+			HttpServletRequest request) {
+		log.info("请求 URL[/admin/resetPwd]；参数[card={}, oldPwd={}, newPwd={}, checkCode={}, token={}]", card, oldPwd, newPwd, checkCode, token);
+		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return accountService.resetPwd(card, oldPwd, newPwd, checkCode, token);
 	}
 
@@ -128,6 +141,7 @@ public class AdminController {
 	 * @param phone     手机号
 	 * @param mail      邮箱
 	 * @param token     令牌
+	 * @param request   http 请求
 	 * @return java.util.Map<java.lang.String,java.lang.String>
 	 **/
 	@ApiOperation(value = "更新驿站信息", notes = "更新信息请求，返回更新成功与否", httpMethod = "PUT")
@@ -144,15 +158,17 @@ public class AdminController {
 			@ApiParam(required = true, name = "name", value = "驿站编号") @RequestParam(value = "name") String name,
 			@ApiParam(required = true, name = "phone", value = "手机号") @RequestParam(value = "phone") String phone,
 			@ApiParam(required = true, name = "mail", value = "邮箱") @RequestParam(value = "mail") String mail,
-			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token) {
-		log.info("请求 URL[/admin/updateInfo]；参数[name=" + name + ", phone" + phone + ", mail=" + mail
-				+ ", token=" + token + "]");
+			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
+			HttpServletRequest request) {
+		log.info("请求 URL[/admin/updateInfo]；参数[name={}, phone={}, mail={}, token={}]", name, phone, mail, token);
+		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return accountService.updateInfo(name, phone, mail, token);
 	}
 
 	/**
 	 * 生成快递单号
-	 * @param type  快递所属公司
+	 * @param type      快递所属公司
+	 * @param request   http 请求
 	 * @return java.lang.String
 	 */
 	@ApiOperation(value = "生成快递单号", notes = "生成指定快递的单号请求，返回快递单号", httpMethod = "POST")
@@ -166,8 +182,10 @@ public class AdminController {
 	@CrossOrigin
 	@PostMapping(value = "/getPackId")
 	public String getPackId(
-			@ApiParam(required = true, name = "type", value = "快递公司") @RequestParam(value = "type") String type) {
-		log.info("请求 URL[/admin/getPackId]；参数[type=" + type + "]");
+			@ApiParam(required = true, name = "type", value = "快递公司") @RequestParam(value = "type") String type,
+			HttpServletRequest request) {
+		log.info("请求 URL[/admin/getPackId]；参数[type={}]", type);
+		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return PackIdUtil.generate(type);
 	}
 
