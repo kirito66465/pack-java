@@ -59,14 +59,6 @@ mybatis:
 #  configuration:
 #    map-underscore-to-camel-case: true                  # 开启驼峰转换
 
-pagehelper:
-  # 配置使用的数据库语言
-  helper-dialect: mysql
-  # 开启分页参数合理化功能
-  reasonable: true
-  # 支持通过Mapper接口参数来传递分页参数
-  support-methods-arguments: true
-
 # 发送邮件邮箱配置
 mail:
   sender-mail: ENC(QrLyPQolo1eloonEfX9W4YbUdWDQjWfXA/iYMexdn+I=)    # 发件人邮箱
