@@ -6,7 +6,7 @@
 2. 修改 `application.yml` 配置文件中的数据库 `url`、`username`、`password`；
 3. 修改 `application.yml` 配置文件中的 Redis 的 `host`、`port`、`password`（Redis 密码可选项）；
 4. 如果 `8080` 端口被占用，修改 `application.yml` 配置文件中的 `server.port`；
-5. SpringBoot 项目选择 `PackApplication` 进行调试运行；
+5. SpringBoot 项目选择 `PackApplication` ，带参数[--jasypt.encryptor.password=${JASYPT_PASSWORD}]进行调试运行；
 6. 浏览器输入 `127.0.0.1:8080/pack` 访问 `基于 Web 的校园快递管理系统`；  
 学生账号（用户名：2120172171  密码：123456）  
 驿站管理员账号1：（用户名：2101   密码：admin）  
