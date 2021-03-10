@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import per.kirito.pack.properties.MailProperties;
 
 /**
- * author: 严晨
+ * author: kirito
  * date: 2020/12/4
  * time: 20:37
  * Spring Boot 项目启动类
@@ -40,9 +40,9 @@ public class PackApplication {
 		public void run(String... args) {
 			log.info("测试 Properties 配置类");
 			log.info("---------- MailProperties ----------");
-			log.info("senderMail: " + mailProperties.getSenderMail());
-			log.info("host: " + mailProperties.getHost());
-			log.info("password: " + mailProperties.getPassword());
+			log.info("senderMail: {}", mailProperties.getSenderMail());
+			log.info("host: {}", mailProperties.getHost());
+			log.info("password: {}", mailProperties.getPassword());
 		}
 
 	}

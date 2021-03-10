@@ -4,7 +4,7 @@ import lombok.*;
 import per.kirito.pack.pojo.Pack;
 
 /**
- * author: 严晨
+ * author: kirito
  * date: 2020/12/29
  * time: 10:32
  * 快递信息转换结果：jdbcType(Integer) -> javaType(String)

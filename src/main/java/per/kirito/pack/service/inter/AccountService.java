@@ -3,7 +3,7 @@ package per.kirito.pack.service.inter;
 import java.util.Map;
 
 /**
- * author: 严晨
+ * author: kirito
  * date: 2020/12/28
  * time: 15:21
  * 账户管理相关泛型接口

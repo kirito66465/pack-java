@@ -1,7 +1,7 @@
 package per.kirito.pack.myEnum;
 
 /**
- * author: 严晨
+ * author: kirito
  * date: 2020/12/24
  * time: 10:30
  * 状态码与值枚举类

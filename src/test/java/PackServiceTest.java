@@ -8,7 +8,7 @@ import per.kirito.pack.PackApplication;
 import per.kirito.pack.service.inter.PackService;
 
 /**
- * author: 严晨
+ * author: kirito
  * date: 2021/2/23
  * time: 9:29
  */

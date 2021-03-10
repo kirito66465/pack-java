@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * author: 严晨
+ * author: kirito
  * date: 2021/1/12
  * time: 14:09
  * Mail 的 Service 层，MailService 接口的实现类
@@ -66,19 +66,19 @@ public class MailServiceImpl implements MailService {
 				}
 				if (noExistCount > 0) {
 					String result = "有 " + noExistCount + " 件快递通知取件失败，因为快递所属学生账号没有绑定邮箱！";
-					log.info("token: " + token + " " + result);
+					log.info("token: {} {}", token, result);
 					map.put("result", result);
 				} else {
 					map.put("result", DO_SUCCESS);
 				}
 			} else {
-				log.info("token: " + token + " 发送通知邮件失败，因为登录状态失效！");
+				log.info("token: {} 发送通知邮件失败，因为登录状态失效！", token);
 				map.put("result", LOGIN_TO_DO);
 			}
 			return map;
 		} catch (MessagingException | GeneralSecurityException e) {
 			log.error("error: {}", e.getMessage(), e);
-			log.info("token: " + token + " 发送通知邮件失败，因为发生了异常！");
+			log.info("token: {} 发送通知邮件失败，因为发生了异常！", token);
 			e.printStackTrace();
 			map.put("result", DO_FAIL);
 			return map;

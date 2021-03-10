@@ -6,7 +6,7 @@ import per.kirito.pack.pojo.Pack;
 import java.util.List;
 
 /**
- * author: 严晨
+ * author: kirito
  * date: 2020/12/23
  * time: 15:24
  * Pack 的 Mapper 接口

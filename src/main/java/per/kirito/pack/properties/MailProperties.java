@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * author: 严晨
+ * author: kirito
  * date: 2021/1/22
  * time: 11:22
  * 发送邮件配置参数类

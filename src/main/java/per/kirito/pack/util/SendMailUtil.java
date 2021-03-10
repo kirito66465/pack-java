@@ -19,7 +19,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 /**
- * author: 严晨
+ * author: kirito
  * date: 2021/1/12
  * time: 14:17
  * 发送邮件工具类
@@ -83,7 +83,7 @@ public class SendMailUtil {
 		// 发送消息
 		Transport.send(message);
 		String dt = TypeConversion.getTime();
-		log.info("发送邮件：" + dt + "\tfrom: " + senderMail + "\tto: " + mail + "\tsub: " + sub + "\ttext: " + text + "\tSend message successfully....");
+		log.info("发送邮件：{}\tfrom: {}\tto: {}\tsub: {}\ttext: {}\tSend message successfully....", dt, senderMail, mail, sub, text);
 	}
 
 }

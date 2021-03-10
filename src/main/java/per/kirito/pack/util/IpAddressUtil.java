@@ -27,7 +27,7 @@ public class IpAddressUtil {
 			}
 		}
 		ip = request.getHeader("X-Real-IP");
-		if (ip != null && !ip.equals("") && !"unKnown".equalsIgnoreCase(ip)) {
+		if (ip != null && !"".equals(ip) && !"unKnown".equalsIgnoreCase(ip)) {
 			return ip;
 		}
 		return request.getRemoteAddr();

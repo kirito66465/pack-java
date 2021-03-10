@@ -3,7 +3,7 @@ package per.kirito.pack.mapper;
 import per.kirito.pack.pojo.Code;
 
 /**
- * author: 严晨
+ * author: kirito
  * date: 2020/12/23
  * time: 17:21
  * Code 的 Mapper 层接口

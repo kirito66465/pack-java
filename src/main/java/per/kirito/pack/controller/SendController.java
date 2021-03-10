@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
- * author: 严晨
+ * author: kirito
  * date: 2021/1/4
  * time: 15:51
  * 寄件 Send 的 controller 层

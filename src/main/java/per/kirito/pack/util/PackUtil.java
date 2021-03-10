@@ -1,6 +1,5 @@
 package per.kirito.pack.util;
 
-import lombok.extern.slf4j.Slf4j;
 import per.kirito.pack.myEnum.Express;
 import per.kirito.pack.myEnum.Status;
 import per.kirito.pack.pojo.Pack;
@@ -10,15 +9,12 @@ import per.kirito.pack.pojo.utilPojo.Page;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.awt.SystemColor.info;
-
 /**
- * author: 严晨
+ * author: kirito
  * date: 2020/12/23
  * time: 15:48
  * 包裹信息完善:自动生成取件码、更新取件状态、添加地址信息
  */
-@Slf4j
 public class PackUtil {
 
 	private static final int PACK_CODE_1 = Status.PACK_STATUS_1.getCode();

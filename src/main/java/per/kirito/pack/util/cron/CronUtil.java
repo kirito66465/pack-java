@@ -1,9 +1,8 @@
 package per.kirito.pack.util.cron;
 
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.log.Log;
-import cn.hutool.log.LogFactory;
 import cn.hutool.system.SystemUtil;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * author: kirito
@@ -11,9 +10,8 @@ import cn.hutool.system.SystemUtil;
  * time: 21:36
  * description: 定时任务
  */
+@Slf4j
 public class CronUtil {
-
-	private static Log log = LogFactory.get();
 
 	/**
 	 * 定时输出细腻系

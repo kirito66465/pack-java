@@ -17,7 +17,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
- * author: 严晨
+ * author: kirito
  * date: 2020/12/28
  * time: 15:24
  * User 的 Service 层，是 AccountService 的泛型接口实现
@@ -80,7 +80,7 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 			map.put("token", token);
 			map.put("result", LOGIN_SUCCESS);
 		} else {
-			log.info("card: " + card + " 登录失败，因为该学生不存在！");
+			log.info("card: {} 登录失败，因为该学生不存在！", card);
 			map.put("result", LOGIN_FAIL);
 		}
 		return map;
@@ -114,7 +114,7 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 			map.put("user", user);
 			result = INFO_SUCCESS;
 		} else {
-			log.info("token: " + token + " 获取该学生信息失败，因为登录状态失效！");
+			log.info("token: {} 获取该学生信息失败，因为登录状态失效！", token);
 			result = INFO_FAIL;
 		}
 		map.put("result", result);
@@ -148,14 +148,14 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 				map.put("name", entity.getName());
 				result = REGISTER_SUCCESS;
 			} else {
-				log.info("card: " + entity.getCard() + " 注册失败，因为该学生已存在！");
+				log.info("card: {} 注册失败，因为该学生已存在！", entity.getCard());
 				result = IS_EXIST;
 			}
 			map.put("result", result);
 			return map;
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
-			log.info("card: " + entity.getCard() + " 注册失败，因为发生了异常！");
+			log.info("card: {} 注册失败，因为发生了异常！", entity.getCard());
 			e.printStackTrace();
 			map.put("result", REGISTER_FAIL);
 			return map;
@@ -190,14 +190,14 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 				map.put("name", user.getName());
 				result = PWD_SUCCESS;
 			} else {
-				log.info("card: " + card + " 忘记密码失败，因为根据输入的学号和手机号无法匹配相应的学生！");
+				log.info("card: {} 忘记密码失败，因为根据输入的学号和手机号无法匹配相应的学生！", card);
 				result = NOT_EXIST;
 			}
 			map.put("result", result);
 			return map;
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
-			log.info("card: " + card + " 忘记密码失败，因为发生了异常！");
+			log.info("card: {} 忘记密码失败，因为发生了异常！", card);
 			e.printStackTrace();
 			map.put("result", PWD_FAIL);
 			return map;
@@ -229,28 +229,28 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 							map.put("result", PWD_SUCCESS);
 						} else {
 							// 原密码错误，导致成功执行条数不为1
-							log.info("card: " + card + " 修改密码失败，因为原密码输入错误！");
+							log.info("card: {} 修改密码失败，因为原密码输入错误！", card);
 							map.put("result", PWD_ERR);
 						}
 					} else {
 						// 验证码不正确
-						log.info("card: " + card + " 修改密码失败，因为验证码输入错误！");
+						log.info("card: {} 修改密码失败，因为验证码输入错误！", card);
 						map.put("result", CODE_ERR);
 					}
 				} else {
 					// 验证码已过期
-					log.info("card: " + card + " 修改密码失败，因为验证码已过期！");
+					log.info("card: {} 修改密码失败，因为验证码已过期！", card);
 					map.put("result", CODE_INVALID);
 				}
 			} else {
 				// 登录状态失效
-				log.info("card: " + card + " 修改密码失败，因为登录状态失效！");
+				log.info("card: {} 修改密码失败，因为登录状态失效！", card);
 				map.put("result", LOGIN_TO_DO);
 			}
 			return map;
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
-			log.info("card: " + card + " 修改密码失败，因为发生了异常！");
+			log.info("card: {} 修改密码失败，因为发生了异常！", card);
 			e.printStackTrace();
 			map.put("result", DO_FAIL);
 			return map;
@@ -276,13 +276,13 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 				map.put("result", DO_SUCCESS);
 			} else {
 				// 登录状态失效
-				log.info("token: " + token + " 更新信息失败，因为登录状态失效！");
+				log.info("token: {} 更新信息失败，因为登录状态失效！", token);
 				map.put("result", LOGIN_TO_DO);
 			}
 			return map;
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
-			log.info("token: " + token + " 更新信息失败，因为发生了异常！");
+			log.info("token: {} 更新信息失败，因为发生了异常！", token);
 			e.printStackTrace();
 			map.put("result", DO_FAIL);
 			return map;

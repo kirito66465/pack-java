@@ -1,7 +1,7 @@
 package per.kirito.pack.util;
 
 /**
- * author: 严晨
+ * author: kirito
  * date: 2021/2/24
  * time: 17:10
  * 常量类

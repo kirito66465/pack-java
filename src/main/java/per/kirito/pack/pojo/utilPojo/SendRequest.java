@@ -3,7 +3,7 @@ package per.kirito.pack.pojo.utilPojo;
 import lombok.*;
 
 /**
- * author: 严晨
+ * author: kirito
  * date: 2021/1/4
  * time: 15:35
  * 前端 User 进行寄件的请求参数

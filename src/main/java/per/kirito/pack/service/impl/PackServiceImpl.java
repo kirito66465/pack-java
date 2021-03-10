@@ -22,7 +22,7 @@ import per.kirito.pack.service.inter.PackService;
 import java.util.*;
 
 /**
- * author: 严晨
+ * author: kirito
  * date: 2020/12/23
  * time: 15:36
  * Pack 的 Service 层，PackService 接口的实现类
@@ -140,13 +140,13 @@ public class PackServiceImpl implements PackService {
 				return INTO_SUCCESS;
 			} catch (Exception e) {
 				log.error("error: {}", e.getMessage(), e);
-				log.info("token: " + token + " 添加快递入站失败，因为发生了异常！");
+				log.info("token: {} 添加快递入站失败，因为发生了异常！", token);
 				// 有异常，返回入站失败
 				e.printStackTrace();
 				return INTO_FAIL;
 			}
 		} else {
-			log.info("token: " + token + " 添加快递入站失败，因为登录状态失效！");
+			log.info("token: {} 添加快递入站失败，因为登录状态失效！", token);
 			return LOGIN_TO_DO;
 		}
 	}
@@ -209,17 +209,17 @@ public class PackServiceImpl implements PackService {
 					msg = PICK_SUCCESS;
 				} else {
 					msg = "有 " + noExistCount + " 件快递取件失败，因为不存在！";
-					log.info("token: " + token + " " + msg);
+					log.info("token: {} {}", token, msg);
 				}
 			} else {
 				// 请登录再操作
-				log.info("token: " + token + " 学生取件失败，因为登录状态失效！");
+				log.info("token: {} 学生取件失败，因为登录状态失效！", token);
 				msg = LOGIN_TO_DO;
 			}
 			return msg;
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
-			log.info("token: " + token + " 学生取件失败，因为发生了异常！");
+			log.info("token: {} 学生取件失败，因为发生了异常！", token);
 			e.printStackTrace();
 			// 取件失败
 			return PICK_FAIL;
@@ -282,18 +282,18 @@ public class PackServiceImpl implements PackService {
 					}
 				} else {
 					// 该快递不存在
-					log.info("token: " + token + " 学生取件失败，因为根据驿站地址和取件码，该快递不存在！");
+					log.info("token: {} 学生取件失败，因为根据驿站地址和取件码，该快递不存在！", token);
 					msg = NOT_EXIST;
 				}
 			} else {
 				// 请登录再操作
-				log.info("token: " + token + " 学生取件失败，因为登录状态失效！");
+				log.info("token: {} 学生取件失败，因为登录状态失效！", token);
 				msg = LOGIN_TO_DO;
 			}
 			return msg;
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
-			log.info("token: " + token + " 学生取件失败，因为发生了异常！");
+			log.info("token: {} 学生取件失败，因为发生了异常！", token);
 			e.printStackTrace();
 			// 取件失败
 			return PICK_FAIL;
@@ -355,12 +355,12 @@ public class PackServiceImpl implements PackService {
 				return PICK_SUCCESS;
 			} else {
 				String msg = "有 " + noExistCount + " 件快递取件失败，因为不存在！";
-				log.info("token: " + token + " " + msg);
+				log.info("token: {} {}", token, msg);
 				return msg;
 			}
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
-			log.info("token: " + token + " 驿站管理员取件失败，因为发生了异常！");
+			log.info("token: {} 驿站管理员取件失败，因为发生了异常！", token);
 			e.printStackTrace();
 			return PICK_FAIL;
 		}
@@ -395,7 +395,7 @@ public class PackServiceImpl implements PackService {
 			return DO_SUCCESS;
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
-			log.info("token: " + token + " 删除快递失败，因为发生了异常！");
+			log.info("token: {} 删除快递失败，因为发生了异常！", token);
 			e.printStackTrace();
 			return DO_FAIL;
 		}
@@ -447,7 +447,7 @@ public class PackServiceImpl implements PackService {
 			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
 			map.put("pack_result", resultPage);
 		} else {
-			log.info("token: " + token + " 获取学生快递集失败，因为登录状态失效！");
+			log.info("token: {} 获取学生快递集失败，因为登录状态失效！", token);
 			map.put("fail", INFO_FAIL);
 		}
 		return map;
@@ -484,7 +484,7 @@ public class PackServiceImpl implements PackService {
 			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
 			map.put("pack_result", resultPage);
 		} else {
-			log.info("token: " + token + " 获取学生已取快递集失败，因为登录状态失效！");
+			log.info("token: {} 获取学生已取快递集失败，因为登录状态失效！", token);
 			map.put("fail", INFO_FAIL);
 		}
 		return map;
@@ -531,7 +531,7 @@ public class PackServiceImpl implements PackService {
 			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
 			map.put("pack_result", resultPage);
 		} else {
-			log.info("token: " + token + " 获取学生未取快递集失败，因为登录状态失效！");
+			log.info("token: {} 获取学生未取快递集失败，因为登录状态失效！", token);
 			map.put("fail", INFO_FAIL);
 		}
 		return map;
@@ -558,7 +558,7 @@ public class PackServiceImpl implements PackService {
 			map.put("noTotal", noTotal);
 			map.put("result", INFO_SUCCESS);
 		} else {
-			log.info("token: " + token + " 获取学生快递数量失败，因为登录状态失效！");
+			log.info("token: {} 获取学生快递数量失败，因为登录状态失效！", token);
 			map.put("result", INFO_FAIL);
 		}
 		return map;
@@ -609,7 +609,7 @@ public class PackServiceImpl implements PackService {
 			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
 			map.put("pack_result", resultPage);
 		} else {
-			log.info("token: " + token + " 获取驿站管理员快递集失败，因为登录状态失效！");
+			log.info("token: {} 获取驿站管理员快递集失败，因为登录状态失效！", token);
 			map.put("fail", INFO_FAIL);
 		}
 		return map;
@@ -646,7 +646,7 @@ public class PackServiceImpl implements PackService {
 			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
 			map.put("pack_result", resultPage);
 		} else {
-			log.info("token: " + token + " 获取驿站管理员已取快递集失败，因为登录状态失效！");
+			log.info("token: {} 获取驿站管理员已取快递集失败，因为登录状态失效！", token);
 			map.put("fail", INFO_FAIL);
 		}
 		return map;
@@ -691,7 +691,7 @@ public class PackServiceImpl implements PackService {
 			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
 			map.put("pack_result", resultPage);
 		} else {
-			log.info("token: " + token + " 获取驿站管理员未取快递集失败，因为登录状态失效！");
+			log.info("token: {} 获取驿站管理员未取快递集失败，因为登录状态失效！", token);
 			map.put("fail", INFO_FAIL);
 		}
 		return map;
@@ -726,7 +726,7 @@ public class PackServiceImpl implements PackService {
 			map.put("noTotal", noTotal);
 			map.put("result", INFO_SUCCESS);
 		} else {
-			log.info("token: " + token + " 获取驿站管理员快递数量失败，因为登录状态失效！");
+			log.info("token: {} 获取驿站管理员快递数量失败，因为登录状态失效！", token);
 			map.put("result", INFO_FAIL);
 		}
 		return map;
@@ -747,7 +747,7 @@ public class PackServiceImpl implements PackService {
 			map.put("packs", packs);
 			map.put("result", INFO_SUCCESS);
 		} else {
-			log.info("token: " + token + " 根据货架获取驿站管理员快递集失败，因为登录状态失效！");
+			log.info("token: {} 根据货架获取驿站管理员快递集失败，因为登录状态失效！", token);
 			map.put("result", INFO_FAIL);
 		}
 		return map;

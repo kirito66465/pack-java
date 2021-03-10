@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * author: 严晨
+ * author: kirito
  * date: 2020/12/28
  * time: 14:48
  * 分页实体类

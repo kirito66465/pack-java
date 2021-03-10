@@ -7,7 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * author: 严晨
+ * author: kirito
  * date: 2020/12/23
  * time: 13:39
  * 校园快递，单号规则仅供参考，不完全与实际相符！
@@ -100,40 +100,6 @@ public class PackIdUtil {
 				break;
 		}
 		return UUID;
-	}
-
-	/**
-	 * 传入快递类型和生成数量，把生成的快递单号写入文件
-	 * @param type  快递类型
-	 * @param count 生成数量
-	 */
-	public static void writeToFile(String type, int count) throws InterruptedException {
-		System.out.println("==========开始生成 " + type + " 的快递单号==========");
-		System.out.println(DateUtil.now());
-		long start = System.currentTimeMillis();
-		FileWriter writer = new FileWriter("D://data/" + type +".txt");
-		for (int i = 0; i < count; i++) {
-			String id = generate(type);
-			writer.append(id + ",");
-			Thread.sleep(100);
-		}
-		long end = System.currentTimeMillis();
-		System.out.println("耗时: " + (end - start) + "ms");
-		System.out.println(DateUtil.now());
-		System.out.println("==========生成结束==========");
-	}
-
-	public static void main(String[] args) throws InterruptedException {
-		int count = 800;
-		writeToFile("ZTO", count);
-		writeToFile("STO", count);
-		writeToFile("YTO", count);
-		writeToFile("JD", count);
-		writeToFile("SF", count);
-		writeToFile("YD", count);
-		count = 1200;
-		writeToFile("TT", count);
-		writeToFile("EMS", count);
 	}
 
 }

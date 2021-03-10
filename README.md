@@ -107,6 +107,7 @@ TODO：换用 elasticsearch
 - 2021.03.10<br>
 ```markdown
 1. 优化代码逻辑；添加请求 IP 获取；页面走马灯添加图片
+2. 优化日志记录；添加快递单号生成单元测试；优化配置文件
 ```
 
 
@@ -115,6 +116,7 @@ __TODO__
 ```markdown
 打包：
 1. SpringBoot 项目去除所有 `@CrossOrigin` 注解
+2. 去除 Console 日志打印
 
 熟悉：
 1. GET POST PUT DELETE，这四种请求方式区别
@@ -159,7 +161,10 @@ WHERE status = -1;
 导致结果不正确。
 
 ## 打包上线
-1. java -jar [jar包] --server.port=[端口]
+1. 配置环境变量
+JASYPT_PASSWORD=[密钥]
+export JASYPT_PASSWORD
+2. java -jar [jar包] --server.port=[端口] --jasypt.encryptor.password=${JASYPT_PASSWORD}
 
 ## 请求响应类型
 produces：它的作用是指定返回值类型，不但可以设置返回值类型还可以设定返回值的字符编码；

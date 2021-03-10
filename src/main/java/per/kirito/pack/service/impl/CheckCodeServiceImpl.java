@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
- * author: 严晨
+ * author: kirito
  * date: 2021/1/8
  * time: 16:28
  * 验证码的 Service 实现类
@@ -53,16 +53,16 @@ public class CheckCodeServiceImpl implements CheckCodeService {
 				// 将验证码存入 Redis，并设置有效期2分钟
 				stringRedisTemplate.opsForValue().set(tokenCode, code, Constant.VERIFY_VALID_MINUTE, TimeUnit.MINUTES);
 				map.put("codePic", pic);
-				System.out.println("code: " + code);
+				log.info("token: {}, code: {}", token, code);
 				map.put("result", INFO_SUCCESS);
 			} else {
-				log.info("token: " + token + " 获取验证码失败，因为登录状态失效！");
+				log.info("token: {} 获取验证码失败，因为登录状态失效！", token);
 				map.put("result", LOGIN_TO_DO);
 			}
 			return map;
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
-			log.info("token: " + token + " 获取验证码失败，因为发生了异常！");
+			log.info("token: {} 获取验证码失败，因为发生了异常！", token);
 			e.printStackTrace();
 			map.put("result", INFO_FAIL);
 			return map;

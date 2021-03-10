@@ -5,7 +5,7 @@ import lombok.*;
 import javax.persistence.Table;
 
 /**
- * author: 严晨
+ * author: kirito
  * date: 2020/12/6
  * time: 16:08
  * 寄件实体类

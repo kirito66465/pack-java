@@ -3,7 +3,7 @@ package per.kirito.pack.service.inter;
 import java.util.Map;
 
 /**
- * author: 严晨
+ * author: kirito
  * date: 2021/1/12
  * time: 14:08
  * Mail 的 Service 层接口

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
- * author: 严晨
+ * author: kirito
  * date: 2021/1/8
  * time: 16:26
  * 验证码的 controller 层

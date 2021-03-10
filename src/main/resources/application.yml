@@ -47,7 +47,6 @@ jasypt:
   # jasypt 配置项，对应 JasyptEncryptorConfigurationProperties 配置类
   encryptor:
     algorithm: PBEWithMD5AndDES # 加密算法
-    password: kirito # 加密秘钥
 
 logging:
   config: classpath:logback.xml
@@ -116,23 +115,3 @@ spring:
     port: 6379
     database: 0
     password: kirito
-
----
-# wj 开发时配置
-spring:
-  config:
-    activate:
-      on-profile: wj
-  datasource:
-    # Druid 扩展属性配置
-    druid:
-      # 本地
-      url: jdbc:mysql://localhost:3306/pack?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
-      username: root
-      password: qwe12345
-
-  redis:
-    # redmi 虚拟机
-    host: localhost
-    port: 6379
-    database: 0
