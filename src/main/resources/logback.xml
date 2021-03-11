@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-	<!--<property name="PATH" value="D:/pack/logs/%d/"/>-->
-	<property name="PATH" value="/data/pack/logs/%d/"/>
+	<property name="PATH" value="D:/pack/logs/%d/"/>
+	<!--<property name="PATH" value="/data/pack/logs/%d/"/>-->
 
 	<!-- %m输出的信息, %p日志级别, %t线程名, %d日期, %c类的全名, %i索引 -->
 	<!-- appender 是 configuration 的子节点,是负责写日志的组件 -->

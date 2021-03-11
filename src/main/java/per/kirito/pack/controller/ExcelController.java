@@ -26,7 +26,7 @@ import java.util.List;
 @Slf4j
 @Api(tags = {"Excel"}, description = "Excel 生成导出")
 @RestController
-@RequestMapping(value = "excel")
+@RequestMapping(value = "/excel")
 public class ExcelController {
 
 	@Autowired

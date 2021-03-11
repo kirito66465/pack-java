@@ -19,7 +19,7 @@ import java.util.Map;
 @Slf4j
 @Api(tags = {"发送邮件"}, description = "发送邮件", produces = "application/json", consumes = "application/json")
 @RestController
-@RequestMapping(value = "mail")
+@RequestMapping(value = "/mail")
 public class MailController {
 	
 	@Autowired

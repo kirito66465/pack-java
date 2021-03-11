@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: aorus
+    active: redmi
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     # Druid 扩展属性配置
@@ -74,14 +74,14 @@ spring:
     # Druid 扩展属性配置
     druid:
       # 本地
-#      url: ENC(XIJ9qpE+IiX+LtR5NDTJKslOt+EZ66KNlzO9gexwQf0DWQZb0lZJWN7KUzv8QXWNP/M30UoYS2lZavAcjF3jwerEPngaKQYbAZ7mYK9izRrJT+OITBfpQKm3KnHQnIJyau5vIabcH6s=)
-#      username: ENC(10VxmuDM9NQpaK876a7FMA==)
-#      password: ENC(ebx9tXeDRfnrZ+FisGAANOQxJ1OgLKwt)
+      url: ENC(XIJ9qpE+IiX+LtR5NDTJKslOt+EZ66KNlzO9gexwQf0DWQZb0lZJWN7KUzv8QXWNP/M30UoYS2lZavAcjF3jwerEPngaKQYbAZ7mYK9izRrJT+OITBfpQKm3KnHQnIJyau5vIabcH6s=)
+      username: ENC(10VxmuDM9NQpaK876a7FMA==)
+      password: ENC(ebx9tXeDRfnrZ+FisGAANOQxJ1OgLKwt)
 
       # aorus 虚拟机
-      url: jdbc:mysql://localhost:3306/pack?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
-      username: demo
-      password: demo
+#      url: jdbc:mysql://localhost:3306/pack?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+#      username: demo
+#      password: demo
 
   redis:
     # aorus 虚拟机
