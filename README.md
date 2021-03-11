@@ -2,7 +2,7 @@
 
 ## 调试运行步骤
 1. 所需环境：JDK1.8、MySQL 5.x.x、Redis、Maven、IDEA
-1. MySQL 5.x.x 版本 导入 `./database/pack-dev-2400.sql` SQL文件；
+1. MySQL 5.x.x 版本 导入 `./database/pack-prod-2400.sql` SQL文件；
 2. 修改 `application.yml` 配置文件中的数据库 `url`、`username`、`password`；
 3. 修改 `application.yml` 配置文件中的 Redis 的 `host`、`port`、`password`（Redis 密码可选项）；
 4. 如果 `8080` 端口被占用，修改 `application.yml` 配置文件中的 `server.port`；
