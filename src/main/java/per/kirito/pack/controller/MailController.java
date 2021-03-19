@@ -21,16 +21,17 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/mail")
 public class MailController {
-	
+
 	@Autowired
 	private MailService mailService;
 
 	/**
 	 * 根据快递单号查询出收件人邮箱并发送取件通知邮件
-	 * @param ids       快递单号
-	 * @param token     令牌
-	 * @param request   http 请求
-	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 *
+	 * @param ids     快递单号
+	 * @param token   令牌
+	 * @param request http 请求
+	 * @return java.util.Map<java.lang.String, java.lang.String>
 	 **/
 	@ApiOperation(value = "邮件通知", notes = "发送邮件请求，返回发送成功与否", httpMethod = "POST")
 	@ApiResponses(value = {
@@ -50,5 +51,5 @@ public class MailController {
 		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return mailService.sendMail(ids, token);
 	}
-	
+
 }

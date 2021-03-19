@@ -60,9 +60,10 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 
 	/**
 	 * Admin 登录
-	 * @param card      编号
-	 * @param password  密码
-	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 *
+	 * @param card     编号
+	 * @param password 密码
+	 * @return java.util.Map<java.lang.String, java.lang.String>
 	 **/
 	@Override
 	public Map<String, String> login(String card, String password) {
@@ -88,6 +89,7 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 
 	/**
 	 * 退出登录
+	 *
 	 * @param token 令牌
 	 * @return java.lang.String
 	 **/
@@ -100,8 +102,9 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 
 	/**
 	 * 获取 Admin 信息
+	 *
 	 * @param token 令牌
-	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 * @return java.util.Map<java.lang.String, java.lang.Object>
 	 **/
 	@Override
 	public Map<String, Object> getInfo(String token) {
@@ -123,8 +126,9 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 
 	/**
 	 * 注册（不实现该功能）
-	 * @param entity    账户实体信息
-	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 *
+	 * @param entity 账户实体信息
+	 * @return java.util.Map<java.lang.String, java.lang.String>
 	 **/
 	@Override
 	public Map<String, String> register(E entity) {
@@ -134,10 +138,11 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 
 	/**
 	 * 忘记密码（不实现该功能）
-	 * @param card      编号
-	 * @param phone     手机号
-	 * @param password  新密码
-	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 *
+	 * @param card     编号
+	 * @param phone    手机号
+	 * @param password 新密码
+	 * @return java.util.Map<java.lang.String, java.lang.String>
 	 **/
 	@Override
 	public Map<String, String> forgetPwd(String card, String phone, String password) {
@@ -147,12 +152,13 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 
 	/**
 	 * 修改密码
+	 *
 	 * @param card      编号
 	 * @param oldPwd    原密码
 	 * @param newPwd    新密码
 	 * @param checkCode 验证码
 	 * @param token     令牌
-	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 * @return java.util.Map<java.lang.String, java.lang.String>
 	 **/
 	@Transactional(rollbackFor = Exception.class)
 	@Override
@@ -200,11 +206,12 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 
 	/**
 	 * 更新 Admin 信息
+	 *
 	 * @param name  姓名
 	 * @param phone 手机号
 	 * @param mail  邮箱
 	 * @param token 令牌
-	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 * @return java.util.Map<java.lang.String, java.lang.String>
 	 **/
 	@Transactional(rollbackFor = Exception.class)
 	@Override

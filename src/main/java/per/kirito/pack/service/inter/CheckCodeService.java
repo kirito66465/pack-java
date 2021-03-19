@@ -12,8 +12,9 @@ public interface CheckCodeService {
 
 	/**
 	 * 获取验证码字符串和图片
+	 *
 	 * @param token 令牌
-	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 * @return java.util.Map<java.lang.String, java.lang.String>
 	 **/
 	Map<String, String> getCheckCode(String token);
 

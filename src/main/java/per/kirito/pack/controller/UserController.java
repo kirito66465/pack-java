@@ -30,10 +30,11 @@ public class UserController {
 
 	/**
 	 * User 登录
-	 * @param card      学号
-	 * @param password  密码
-	 * @param request   http 请求
-	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 *
+	 * @param card     学号
+	 * @param password 密码
+	 * @param request  http 请求
+	 * @return java.util.Map<java.lang.String, java.lang.String>
 	 **/
 	@ApiOperation(value = "登录", notes = "登录请求，返回登录成功与否", httpMethod = "POST")
 	@ApiResponses(value = {
@@ -56,8 +57,9 @@ public class UserController {
 
 	/**
 	 * User 退出登录
-	 * @param token     令牌
-	 * @param request   http 请求
+	 *
+	 * @param token   令牌
+	 * @param request http 请求
 	 * @return java.lang.String
 	 **/
 	@ApiOperation(value = "退出登录", notes = "退出登录请求，返回退出成功与否", httpMethod = "POST")
@@ -80,9 +82,10 @@ public class UserController {
 
 	/**
 	 * 获取 User 信息
-	 * @param token     令牌
-	 * @param request   http 请求
-	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 *
+	 * @param token   令牌
+	 * @param request http 请求
+	 * @return java.util.Map<java.lang.String, java.lang.Object>
 	 **/
 	@ApiOperation(value = "获取学生信息", notes = "获取信息，如果获取成功返回账号信息，如果失败返回失败原因", httpMethod = "POST")
 	@ApiResponses(value = {
@@ -104,9 +107,10 @@ public class UserController {
 
 	/**
 	 * User 注册
-	 * @param user      用户信息
-	 * @param request   http 请求
-	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 *
+	 * @param user    用户信息
+	 * @param request http 请求
+	 * @return java.util.Map<java.lang.String, java.lang.String>
 	 **/
 	@ApiOperation(value = "注册", notes = "注册请求，返回注册成功与否", httpMethod = "POST")
 	@ApiResponses(value = {
@@ -128,11 +132,12 @@ public class UserController {
 
 	/**
 	 * User 忘记密码
-	 * @param card      学号
-	 * @param phone     手机号
-	 * @param password  新密码
-	 * @param request   http 请求
-	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 *
+	 * @param card     学号
+	 * @param phone    手机号
+	 * @param password 新密码
+	 * @param request  http 请求
+	 * @return java.util.Map<java.lang.String, java.lang.String>
 	 **/
 	@ApiOperation(value = "忘记密码", notes = "忘记密码请求，如果学生存在返回操作成功与否，如果不存在返回学生不存在信息", httpMethod = "PUT")
 	@ApiResponses(value = {
@@ -156,13 +161,14 @@ public class UserController {
 
 	/**
 	 * 修改密码
+	 *
 	 * @param card      学号
 	 * @param oldPwd    原密码
 	 * @param newPwd    新密码
 	 * @param checkCode 验证码
 	 * @param token     令牌
 	 * @param request   http 请求
-	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 * @return java.util.Map<java.lang.String, java.lang.String>
 	 **/
 	@ApiOperation(value = "修改密码", notes = "修改密码请求，返回修改密码成功与否", httpMethod = "PUT")
 	@ApiResponses(value = {
@@ -188,12 +194,13 @@ public class UserController {
 
 	/**
 	 * 更新用户信息
-	 * @param name      姓名
-	 * @param addr      地址
-	 * @param mail      邮箱
-	 * @param token     令牌
-	 * @param request   http 请求
-	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 *
+	 * @param name    姓名
+	 * @param addr    地址
+	 * @param mail    邮箱
+	 * @param token   令牌
+	 * @param request http 请求
+	 * @return java.util.Map<java.lang.String, java.lang.String>
 	 **/
 	@ApiOperation(value = "更新学生信息", notes = "更新信息请求，返回更新成功与否", httpMethod = "PUT")
 	@ApiResponses(value = {

@@ -58,8 +58,9 @@ public class SendServiceImpl implements SendService {
 
 	/**
 	 * User 寄件下单
-	 * @param request   寄件请求实体
-	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 *
+	 * @param request 寄件请求实体
+	 * @return java.util.Map<java.lang.String, java.lang.Object>
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
@@ -109,6 +110,7 @@ public class SendServiceImpl implements SendService {
 
 	/**
 	 * User 支付寄件
+	 *
 	 * @param id    学号
 	 * @param token 令牌
 	 * @return java.lang.String
@@ -133,6 +135,7 @@ public class SendServiceImpl implements SendService {
 
 	/**
 	 * Admin 确认寄件
+	 *
 	 * @param ids   快递单号
 	 * @param token 令牌
 	 * @return java.lang.String
@@ -165,6 +168,7 @@ public class SendServiceImpl implements SendService {
 
 	/**
 	 * Admin 发出寄件
+	 *
 	 * @param ids   快递单号
 	 * @param token 令牌
 	 * @return java.lang.String
@@ -197,6 +201,7 @@ public class SendServiceImpl implements SendService {
 
 	/**
 	 * User 取消寄件
+	 *
 	 * @param ids   快递单号
 	 * @param token 令牌
 	 * @return java.lang.String
@@ -230,15 +235,16 @@ public class SendServiceImpl implements SendService {
 
 	/**
 	 * 分页方式获取 User 寄件集合
-	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:寄件状态, search:搜索}
-	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 *
+	 * @param json 参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:寄件状态, search:搜索}
+	 * @return java.util.Map<java.lang.String, java.lang.Object>
 	 */
 	@Override
 	public Map<String, Object> getSendByUser(String json) {
 		Map mapTypes = JSON.parseObject(json);
 		Map<String, Object> mapParams = new HashMap<>();
-		for (Object obj : mapTypes.keySet()){
-			log.info("key为: " + obj + "值为: "+ mapTypes.get(obj));
+		for (Object obj : mapTypes.keySet()) {
+			log.info("key为: " + obj + "值为: " + mapTypes.get(obj));
 			mapParams.put(String.valueOf(obj), mapTypes.get(obj));
 		}
 		int currentPage = (int) mapParams.get("currentPage");
@@ -272,8 +278,9 @@ public class SendServiceImpl implements SendService {
 
 	/**
 	 * 获取 User 寄件数量
+	 *
 	 * @param token 令牌
-	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 * @return java.util.Map<java.lang.String, java.lang.Object>
 	 */
 	@Override
 	public Map<String, Object> getTotalByUser(String token) {
@@ -302,15 +309,16 @@ public class SendServiceImpl implements SendService {
 
 	/**
 	 * 分页方式获取 Admin 寄件集合
-	 * @param json  参数{currentPage:当前页, pageSize:每页大小, token:令牌, status:寄件状态, search:搜索}
-	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 *
+	 * @param json 参数{currentPage:当前页, pageSize:每页大小, token:令牌, status:寄件状态, search:搜索}
+	 * @return java.util.Map<java.lang.String, java.lang.Object>
 	 */
 	@Override
 	public Map<String, Object> getSendByAdmin(String json) {
 		Map mapTypes = JSON.parseObject(json);
 		Map<String, Object> mapParams = new HashMap<>();
-		for (Object obj : mapTypes.keySet()){
-			log.info("key为: " + obj + "值为: "+ mapTypes.get(obj));
+		for (Object obj : mapTypes.keySet()) {
+			log.info("key为: " + obj + "值为: " + mapTypes.get(obj));
 			mapParams.put(String.valueOf(obj), mapTypes.get(obj));
 		}
 		int currentPage = (int) mapParams.get("currentPage");
@@ -344,8 +352,9 @@ public class SendServiceImpl implements SendService {
 
 	/**
 	 * 获取 Admin 寄件数量
+	 *
 	 * @param token 令牌
-	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 * @return java.util.Map<java.lang.String, java.lang.Object>
 	 */
 	@Override
 	public Map<String, Object> getTotalByAdmin(String token) {

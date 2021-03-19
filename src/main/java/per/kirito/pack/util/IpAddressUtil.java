@@ -12,7 +12,8 @@ public class IpAddressUtil {
 
 	/**
 	 * 获取发送请求的客户端地址
-	 * @param request   http 请求对象
+	 *
+	 * @param request http 请求对象
 	 * @return java.lang.String
 	 **/
 	public static String getIpAddress(HttpServletRequest request) {

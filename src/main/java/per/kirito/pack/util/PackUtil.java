@@ -48,7 +48,8 @@ public class PackUtil {
 
 	/**
 	 * 添加入站信息(入站时只有快递单号这一条信息)
-	 * @param pack  入站快递实体
+	 *
+	 * @param pack 入站快递实体
 	 * @return per.kirito.pack.pojo.Pack
 	 */
 	public static Pack addInfo(Pack pack) {
@@ -108,7 +109,8 @@ public class PackUtil {
 				contPer = CONT_BY;
 				contTel = TEL_BY;
 				break;
-			default: break;
+			default:
+				break;
 		}
 		// 添加快递公司信息
 		pack.setOrg(org);
@@ -128,8 +130,9 @@ public class PackUtil {
 
 	/**
 	 * 仅更新快递状态
-	 * @param pack      快递实体
-	 * @param operate   操作码
+	 *
+	 * @param pack    快递实体
+	 * @param operate 操作码
 	 * @return per.kirito.pack.pojo.Pack
 	 */
 	public static Pack updateStatus(Pack pack, String operate) {
@@ -143,7 +146,8 @@ public class PackUtil {
 
 	/**
 	 * 抽取出来的获取结果集方法，主要对status进行类型转换：jdbcType/Integer -> java/String
-	 * @param packList  Pack 结果集
+	 *
+	 * @param packList Pack 结果集
 	 * @return java.util.List<per.kirito.pack.pojo.utilPojo.PackResult>
 	 */
 	public static List<PackResult> getPackResult(List<Pack> packList) {
@@ -158,9 +162,10 @@ public class PackUtil {
 
 	/**
 	 * 抽取出来的分页方法，仅需传入当前页码、每页条数、快递结果集
-	 * @param currentPage       当前页码
-	 * @param pageSize          每页条数
-	 * @param packResultList    快递结果集
+	 *
+	 * @param currentPage    当前页码
+	 * @param pageSize       每页条数
+	 * @param packResultList 快递结果集
 	 * @return per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.utilPojo.PackResult>
 	 */
 	public static Page<PackResult> getPackByPage(int currentPage, int pageSize, List<PackResult> packResultList) {

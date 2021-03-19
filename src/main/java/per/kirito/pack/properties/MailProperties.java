@@ -28,7 +28,8 @@ public class MailProperties {
 	 */
 	private String password;
 
-	public MailProperties() { }
+	public MailProperties() {
+	}
 
 	public String getSenderMail() {
 		return senderMail;
@@ -53,4 +54,5 @@ public class MailProperties {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 }

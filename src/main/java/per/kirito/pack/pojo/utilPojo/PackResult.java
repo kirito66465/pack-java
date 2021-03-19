@@ -15,31 +15,69 @@ import per.kirito.pack.pojo.Pack;
 @AllArgsConstructor
 public class PackResult {
 
-	/** 快递单号 */
+	/**
+	 * 快递单号
+	 */
 	private String id;
-	/** 快递公司 */
+
+	/**
+	 * 快递公司
+	 */
 	private String org;
-	/** 收件人 */
+
+	/**
+	 * 收件人
+	 */
 	private String perName;
-	/** 收件手机号 */
+
+	/**
+	 * 收件手机号
+	 */
 	private String perTel;
-	/** 收件地址 */
+
+	/**
+	 * 收件地址
+	 */
 	private String perAddr;
-	/** 所在驿站 */
+
+	/**
+	 * 所在驿站
+	 */
 	private String addr;
-	/** 取件码 */
+
+	/**
+	 * 取件码
+	 */
 	private String code;
-	/** 驿站联系人 */
+
+	/**
+	 * 驿站联系人
+	 */
 	private String contName;
-	/** 驿站联系方式 */
+
+	/**
+	 * 驿站联系方式
+	 */
 	private String contTel;
-	/** 快递状态 */
+
+	/**
+	 * 快递状态
+	 */
 	private String status;
-	/** 入站时间 */
+
+	/**
+	 * 入站时间
+	 */
 	private String start;
-	/** 取件时间 */
+
+	/**
+	 * 取件时间
+	 */
 	private String end;
-	/** 签收人 */
+
+	/**
+	 * 签收人
+	 */
 	private String pick;
 
 	public PackResult(Pack pack) {

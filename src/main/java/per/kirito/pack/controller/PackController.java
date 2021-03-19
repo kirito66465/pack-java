@@ -27,9 +27,10 @@ public class PackController {
 
 	/**
 	 * 驿站管理员添加快递入站
-	 * @param id        快递单号
-	 * @param token     令牌
-	 * @param request   http 请求
+	 *
+	 * @param id      快递单号
+	 * @param token   令牌
+	 * @param request http 请求
 	 * @return java.lang.String
 	 **/
 	@ApiOperation(value = "快递入站", notes = "驿站添加快递入站请求，返回入站成功与否", httpMethod = "POST")
@@ -53,9 +54,10 @@ public class PackController {
 
 	/**
 	 * User 进行取件请求，仅传入快递单号和 token
-	 * @param ids       快递单号
-	 * @param token     令牌
-	 * @param request   http 请求
+	 *
+	 * @param ids     快递单号
+	 * @param token   令牌
+	 * @param request http 请求
 	 * @return java.lang.String
 	 */
 	@ApiOperation(value = "学生取件（快递单号 + token）", notes = "学生根据快递单号进行取件请求，返回取件成功与否", httpMethod = "PUT")
@@ -79,10 +81,11 @@ public class PackController {
 
 	/**
 	 * User 进行取件请求，必须传入驿站地址和取件码
-	 * @param addr      驿站地址
-	 * @param code      取件码
-	 * @param token     令牌
-	 * @param request   http 请求
+	 *
+	 * @param addr    驿站地址
+	 * @param code    取件码
+	 * @param token   令牌
+	 * @param request http 请求
 	 * @return java.lang.String
 	 **/
 	@ApiOperation(value = "学生取件（驿站地址 + 取件码）", notes = "学生根据驿站和取件码进行取件请求，返回取件成功与否", httpMethod = "PUT")
@@ -107,9 +110,10 @@ public class PackController {
 
 	/**
 	 * Admin 进行取件请求，仅传入快递单号即可
-	 * @param ids       快递单号
-	 * @param token     令牌
-	 * @param request   http 请求
+	 *
+	 * @param ids     快递单号
+	 * @param token   令牌
+	 * @param request http 请求
 	 * @return java.lang.String
 	 **/
 	@ApiOperation(value = "管理员取件", notes = "驿站根据快递单号进行取件请求，返回取件成功与否", httpMethod = "PUT")
@@ -133,9 +137,10 @@ public class PackController {
 
 	/**
 	 * 根据快递单号删除此快递
-	 * @param ids       快递单号
-	 * @param token     令牌
-	 * @param request   http 请求
+	 *
+	 * @param ids     快递单号
+	 * @param token   令牌
+	 * @param request http 请求
 	 * @return java.lang.String
 	 **/
 	@ApiOperation(value = "删除快递", notes = "学生根据快递单号进行删除请求，返回删除成功与否", httpMethod = "DELETE")
@@ -164,9 +169,10 @@ public class PackController {
 
 	/**
 	 * 分页获取 User 所有的快递，包括已取出和未取出的快递；如果没有 token 令牌，则返回获取信息失败
-	 * @param json      参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态, search:搜索}
-	 * @param request   http 请求
-	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 *
+	 * @param json    参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态, search:搜索}
+	 * @param request http 请求
+	 * @return java.util.Map<java.lang.String, java.lang.Object>
 	 **/
 	@ApiOperation(value = "学生所有快递集", notes = "获取学生所有快递请求，如果获取成功返回分页结果集", httpMethod = "POST")
 	@ApiResponses(value = {
@@ -189,9 +195,10 @@ public class PackController {
 
 	/**
 	 * 分页获取 User 的已取出快递；如果没有 token 令牌，则返回获取信息失败
-	 * @param json      参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, search:搜索}
-	 * @param request   http 请求
-	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 *
+	 * @param json    参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, search:搜索}
+	 * @param request http 请求
+	 * @return java.util.Map<java.lang.String, java.lang.Object>
 	 **/
 	@ApiOperation(value = "学生已取快递集", notes = "获取学生已取快递请求，如果获取成功返回分页结果集", httpMethod = "POST")
 	@ApiResponses(value = {
@@ -214,9 +221,10 @@ public class PackController {
 
 	/**
 	 * 分页获取 User 的未取出快递，无论其有无取件码；如果没有 token 令牌，则返回获取信息失败
-	 * @param json      参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态, search:搜索}
-	 * @param request   http 请求
-	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 *
+	 * @param json    参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态, search:搜索}
+	 * @param request http 请求
+	 * @return java.util.Map<java.lang.String, java.lang.Object>
 	 **/
 	@ApiOperation(value = "学生未取快递集", notes = "获取学生未取快递请求，如果获取成功返回分页结果集", httpMethod = "POST")
 	@ApiResponses(value = {
@@ -239,9 +247,10 @@ public class PackController {
 
 	/**
 	 * 获取 User 所有快递总数、已取快递数量、未取快递数量
-	 * @param token     令牌
-	 * @param request   http 请求
-	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 *
+	 * @param token   令牌
+	 * @param request http 请求
+	 * @return java.util.Map<java.lang.String, java.lang.Object>
 	 **/
 	@ApiOperation(value = "学生快递数量", notes = "获取学生快递数量请求，返回各个状态的快递数量", httpMethod = "POST")
 	@ApiResponses(value = {
@@ -268,9 +277,10 @@ public class PackController {
 
 	/**
 	 * 分页获取 Admin 所有的快递，包括已取出和未取出的快递；如果没有 token 令牌，则返回获取信息失败
-	 * @param json      参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态, search:搜索}
-	 * @param request   http 请求
-	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 *
+	 * @param json    参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态, search:搜索}
+	 * @param request http 请求
+	 * @return java.util.Map<java.lang.String, java.lang.Object>
 	 **/
 	@ApiOperation(value = "驿站所有快递集", notes = "获取驿站所有快递请求，如果获取成功返回分页结果集", httpMethod = "POST")
 	@ApiResponses(value = {
@@ -293,9 +303,10 @@ public class PackController {
 
 	/**
 	 * 分页获取 Admin 的已取出快递；如果没有 token 令牌，则返回获取信息失败
-	 * @param json      参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, search:搜索}
-	 * @param request   http 请求
-	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 *
+	 * @param json    参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, search:搜索}
+	 * @param request http 请求
+	 * @return java.util.Map<java.lang.String, java.lang.Object>
 	 **/
 	@ApiOperation(value = "驿站已取快递集", notes = "获取驿站已取快递请求，如果获取成功返回分页结果集", httpMethod = "POST")
 	@ApiResponses(value = {
@@ -318,9 +329,10 @@ public class PackController {
 
 	/**
 	 * 分页获取 Admin 的未取出快递，无论其有无取件码；如果没有 token 令牌，则返回获取信息失败
-	 * @param json      参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态, search:搜索}
-	 * @param request   http 请求
-	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 *
+	 * @param json    参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态, search:搜索}
+	 * @param request http 请求
+	 * @return java.util.Map<java.lang.String, java.lang.Object>
 	 **/
 	@ApiOperation(value = "驿站未取快递集", notes = "获取驿站未取快递请求，如果获取成功返回分页结果集", httpMethod = "POST")
 	@ApiResponses(value = {
@@ -343,9 +355,10 @@ public class PackController {
 
 	/**
 	 * 获取 Admin 所有快递总数、已取快递数量、未取快递数量
-	 * @param token     令牌
-	 * @param request   http 请求
-	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 *
+	 * @param token   令牌
+	 * @param request http 请求
+	 * @return java.util.Map<java.lang.String, java.lang.Object>
 	 **/
 	@ApiOperation(value = "驿站快递数量", notes = "获取驿站快递数量请求，返回各个状态的快递数量", httpMethod = "POST")
 	@ApiResponses(value = {
@@ -367,10 +380,11 @@ public class PackController {
 
 	/**
 	 * 根据驿站地址和货架获取当前货架的所有快递
-	 * @param token     令牌
-	 * @param shelf     货架
-	 * @param request   http 请求
-	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 *
+	 * @param token   令牌
+	 * @param shelf   货架
+	 * @param request http 请求
+	 * @return java.util.Map<java.lang.String, java.lang.Object>
 	 **/
 	@ApiOperation(value = "驿站货架快递集", notes = "根据货架获取驿站快递请求，如果获取成功返回分页结果集", httpMethod = "POST")
 	@ApiResponses(value = {

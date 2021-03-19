@@ -28,8 +28,8 @@ spring:
         enabled: true # 是否开启 StatViewServlet
         # 允许所有 IP 访问
         allow:
-        login-username: kirito # 账号
-        login-password: kirito # 密码
+        login-username: ENC(GuvZlNx3H+Wklc7oN10Gvg==) # 账号
+        login-password: ENC(GuvZlNx3H+Wklc7oN10Gvg==) # 密码
       # web url 请求监控
       web-stat-filter:
         enabled: true
@@ -39,7 +39,6 @@ spring:
     open-in-view: false
 
 server:
-  port: 8080
   servlet:
     context-path: /pack
 
@@ -73,12 +72,12 @@ spring:
   datasource:
     # Druid 扩展属性配置
     druid:
-      # 本地
+      # 本地运行
       url: ENC(XIJ9qpE+IiX+LtR5NDTJKslOt+EZ66KNlzO9gexwQf0DWQZb0lZJWN7KUzv8QXWNP/M30UoYS2lZavAcjF3jwerEPngaKQYbAZ7mYK9izRrJT+OITBfpQKm3KnHQnIJyau5vIabcH6s=)
       username: ENC(10VxmuDM9NQpaK876a7FMA==)
       password: ENC(ebx9tXeDRfnrZ+FisGAANOQxJ1OgLKwt)
 
-      # aorus 虚拟机
+      # aorus 虚拟机 打包
 #      url: jdbc:mysql://localhost:3306/pack?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
 #      username: demo
 #      password: demo
@@ -88,7 +87,10 @@ spring:
     host: 192.168.32.101
     port: 6379
     database: 0
-    password: kirito
+    password: ENC(GuvZlNx3H+Wklc7oN10Gvg==)
+
+server:
+  port: 8080
 
 ---
 # redmi 开发时配置
@@ -99,12 +101,12 @@ spring:
   datasource:
     # Druid 扩展属性配置
     druid:
-      # 本地
+      # 本地运行
       url: ENC(XIJ9qpE+IiX+LtR5NDTJKslOt+EZ66KNlzO9gexwQf0DWQZb0lZJWN7KUzv8QXWNP/M30UoYS2lZavAcjF3jwerEPngaKQYbAZ7mYK9izRrJT+OITBfpQKm3KnHQnIJyau5vIabcH6s=)
       username: ENC(10VxmuDM9NQpaK876a7FMA==)
       password: ENC(ebx9tXeDRfnrZ+FisGAANOQxJ1OgLKwt)
 
-      # redmi 虚拟机
+      # redmi 虚拟机 打包
 #      url: jdbc:mysql://localhost:3306/pack?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
 #      username: demo
 #      password: demo
@@ -114,4 +116,29 @@ spring:
     host: 192.168.152.100
     port: 6379
     database: 0
-    password: kirito
+    password: ENC(GuvZlNx3H+Wklc7oN10Gvg==)
+
+server:
+  port: 8888
+
+---
+# 阿里云 上线时配置
+spring:
+  config:
+    activate:
+      on-profile: aliyun
+  datasource:
+    # Druid 扩展属性配置
+    druid:
+      url: ENC(sgaiUuuc2zSjY0lbfLS4LZjhHjMV59gLYYymdgb2qwKRwYCe+hWEu4CEgK3YiBtlP64sHUJSdBGmoQqKGGhMUdDspkEbf3ZjIQ/D3XFIADGqAl75hicDYse3FFbL/N17Eh3tnXIlKHK/hXWKn+xlPg==)
+      username: ENC(UslRlW0JeiMnvdBqFgJVKw==)
+      password: ENC(hi2Rf8lyV6yS1Lmobtg2pOlrtgFss91EPyxkngJNmaE=)
+
+  redis:
+    host: ENC(4ETL9BRRKsLENtf8X78r7NJFwK9kgpdg)
+    port: 6379
+    database: 0
+    password: ENC(fSj8ksT+W6V31qQo7jQjXtY98PrTnA8PJfZGjnWD6Wc=)
+
+server:
+  port: 15000

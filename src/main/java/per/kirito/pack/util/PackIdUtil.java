@@ -42,7 +42,8 @@ public class PackIdUtil {
 
 	/**
 	 * 根据当前日期获取前两位数字
-	 * @param date  当前日期
+	 *
+	 * @param date 当前日期
 	 * @return java.lang.String
 	 **/
 	public static String getTwoId(Date date) {
@@ -53,6 +54,7 @@ public class PackIdUtil {
 
 	/**
 	 * 根据索引值截取13位时间戳以获取剩余数字
+	 *
 	 * @param index 索引位置
 	 * @return java.lang.String
 	 **/
@@ -63,7 +65,8 @@ public class PackIdUtil {
 
 	/**
 	 * 传入快递公司生成取件码
-	 * @param type  快递公司
+	 *
+	 * @param type 快递公司
 	 * @return java.lang.String
 	 **/
 	public static String generate(String type) {

@@ -17,27 +17,59 @@ import javax.persistence.Table;
 @Table(name = "t_send")
 public class Send {
 
-	/** 寄件人姓名 */
+	/**
+	 * 寄件人姓名
+	 */
 	private String from_name;
-	/** 寄件人手机号 */
+
+	/**
+	 * 寄件人手机号
+	 */
 	private String from_tel;
-	/** 寄件人地址 */
+
+	/**
+	 * 寄件人地址
+	 */
 	private String from_addr;
-	/** 收件人姓名 */
+
+	/**
+	 * 收件人姓名
+	 */
 	private String to_name;
-	/** 收件人手机号 */
+
+	/**
+	 * 收件人手机号
+	 */
 	private String to_tel;
-	/** 收件人地址 */
+
+	/**
+	 * 收件人地址
+	 */
 	private String to_addr;
-	/** 运费 */
+
+	/**
+	 * 运费
+	 */
 	private Double price;
-	/** 快递单号 */
+
+	/**
+	 * 快递单号
+	 */
 	private String id;
-	/** 快递公司 */
+
+	/**
+	 * 快递公司
+	 */
 	private String org;
-	/** 快递状态 */
+
+	/**
+	 * 快递状态
+	 */
 	private String status;
-	/** 时间戳 */
+
+	/**
+	 * 时间戳
+	 */
 	private String dt;
 
 }

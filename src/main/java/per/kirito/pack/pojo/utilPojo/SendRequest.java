@@ -14,21 +14,44 @@ import lombok.*;
 @AllArgsConstructor
 public class SendRequest {
 
-	/** 驿站选择 */
+	/**
+	 * 驿站选择
+	 */
 	private String admin;
-	/** 收件人姓名 */
+
+	/**
+	 * 收件人姓名
+	 */
 	private String name;
-	/** 收件人联系方式 */
+
+	/**
+	 * 收件人联系方式
+	 */
 	private String phone;
-	/** 收件人地址，省/市/区 */
+
+	/**
+	 * 收件人地址，省/市/区
+	 */
 	private String addr;
-	/** 物品信息 */
+
+	/**
+	 * 物品信息
+	 */
 	private String info;
-	/** 物品重量 */
+
+	/**
+	 * 物品重量
+	 */
 	private Integer weight;
-	/** 运费 */
+
+	/**
+	 * 运费
+	 */
 	private Double price;
-	/** 登录状态令牌 */
+
+	/**
+	 * 登录状态令牌
+	 */
 	private String token;
 
 }

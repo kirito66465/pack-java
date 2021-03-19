@@ -12,9 +12,10 @@ public interface MailService {
 
 	/**
 	 * 根据快递单号查询出收件人邮箱并发送取件通知邮件
+	 *
 	 * @param ids   快递单号
 	 * @param token 令牌
-	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 * @return java.util.Map<java.lang.String, java.lang.String>
 	 **/
 	Map<String, String> sendMail(String ids, String token);
 

@@ -34,10 +34,11 @@ public class ExcelController {
 
 	/**
 	 * 导出 Excel 到输出流
-	 * @param token     令牌
-	 * @param type      快递类型
-	 * @param response  http 响应
-	 * @param request   http 请求
+	 *
+	 * @param token    令牌
+	 * @param type     快递类型
+	 * @param response http 响应
+	 * @param request  http 请求
 	 **/
 	@ApiOperation(value = "下载 Excel", notes = "生成对应 Excel，返回输出流", httpMethod = "POST")
 	@ApiResponses(value = {
@@ -100,7 +101,7 @@ public class ExcelController {
 
 			response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8");
 			// 弹出下载对话框的文件名，不能为中文，中文需要二次编码
-			response.setHeader("Content-Disposition","attachment;filename=" + type + ".xlsx");
+			response.setHeader("Content-Disposition", "attachment;filename=" + type + ".xlsx");
 
 			out = response.getOutputStream();
 			writer.flush(out, true);

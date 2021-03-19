@@ -17,6 +17,7 @@ public class PickCodeUtil {
 
 	/**
 	 * 根据驿站已有包裹数生成取件码
+	 *
 	 * @param count 快递入站前，驿站未取快递总数
 	 * @return java.lang.String
 	 **/

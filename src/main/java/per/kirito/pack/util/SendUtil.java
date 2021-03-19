@@ -27,9 +27,10 @@ public class SendUtil {
 
 	/**
 	 * 抽取出来的分页方法，仅需传入当前页面、每页条数、快递结果集
-	 * @param currentPage   当前页
-	 * @param pageSize      每页大小
-	 * @param sendList      寄件快递结果集
+	 *
+	 * @param currentPage 当前页
+	 * @param pageSize    每页大小
+	 * @param sendList    寄件快递结果集
 	 * @return per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.Send>
 	 **/
 	public static Page<Send> getSendByPage(int currentPage, int pageSize, List<Send> sendList) {
@@ -59,8 +60,9 @@ public class SendUtil {
 
 	/**
 	 * 生成寄件的快递单号和快递公司
-	 * @param postAddr  驿站地址
-	 * @return java.util.Map<java.lang.String,java.lang.String>
+	 *
+	 * @param postAddr 驿站地址
+	 * @return java.util.Map<java.lang.String, java.lang.String>
 	 **/
 	public static Map<String, String> getSendIdAndOrg(String postAddr) {
 		Map<String, String> map = new HashMap<>();
@@ -79,7 +81,8 @@ public class SendUtil {
 				id = PackIdUtil.generate(EMS_TYPE);
 				org = EMS;
 				break;
-			default: break;
+			default:
+				break;
 		}
 		map.put("id", id);
 		map.put("org", org);
@@ -88,7 +91,8 @@ public class SendUtil {
 
 	/**
 	 * 抽取出来的传入驿站编号，返回寄件快递公司/种类方法
-	 * @param card  驿站编号
+	 *
+	 * @param card 驿站编号
 	 * @return java.lang.String
 	 **/
 	public static String getSendOrg(String card) {
@@ -103,7 +107,8 @@ public class SendUtil {
 			case "2103":
 				org = EMS;
 				break;
-			default: break;
+			default:
+				break;
 		}
 		return org;
 	}

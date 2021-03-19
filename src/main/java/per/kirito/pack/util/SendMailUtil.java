@@ -33,10 +33,11 @@ public class SendMailUtil {
 
 	/**
 	 * 发送邮件
-	 * @param mail  收件人邮箱
-	 * @param addr  驿站地址
-	 * @param code  取件码
-	 * @param org   快递公司
+	 *
+	 * @param mail 收件人邮箱
+	 * @param addr 驿站地址
+	 * @param code 取件码
+	 * @param org  快递公司
 	 **/
 	public void sendMail(String mail, String addr, String code, String org) throws MessagingException, GeneralSecurityException {
 		String senderMail = mailProperties.getSenderMail();         // 发件人电子邮箱
@@ -58,8 +59,7 @@ public class SendMailUtil {
 		Session session = Session.getDefaultInstance(properties, new Authenticator() {
 
 			@Override
-			public PasswordAuthentication getPasswordAuthentication()
-			{
+			public PasswordAuthentication getPasswordAuthentication() {
 				//发件人邮件用户名、授权码
 				return new PasswordAuthentication(senderMail, password);
 			}

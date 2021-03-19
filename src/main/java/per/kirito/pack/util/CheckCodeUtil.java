@@ -23,8 +23,9 @@ public class CheckCodeUtil {
 
 	/**
 	 * 获取随机颜色
-	 * @param fc    最小值
-	 * @param bc    最大色
+	 *
+	 * @param fc 最小值
+	 * @param bc 最大色
 	 * @return java.awt.Color
 	 **/
 	private static Color getRandColor(int fc, int bc) {
@@ -42,6 +43,7 @@ public class CheckCodeUtil {
 
 	/**
 	 * 获取随机颜色的整型值
+	 *
 	 * @return int
 	 **/
 	private static int getRandomIntColor() {
@@ -56,6 +58,7 @@ public class CheckCodeUtil {
 
 	/**
 	 * 获取随机颜色的 RGB 值
+	 *
 	 * @return int[]
 	 **/
 	private static int[] getRandomRgb() {
@@ -68,6 +71,7 @@ public class CheckCodeUtil {
 
 	/**
 	 * 图片扭曲
+	 *
 	 * @param g     图形
 	 * @param w1    横轴扭曲像素
 	 * @param h1    纵轴扭曲像素
@@ -80,6 +84,7 @@ public class CheckCodeUtil {
 
 	/**
 	 * x 轴方向扭曲
+	 *
 	 * @param g     图形
 	 * @param w1    横轴扭曲像素
 	 * @param h1    纵轴扭曲像素
@@ -104,6 +109,7 @@ public class CheckCodeUtil {
 
 	/**
 	 * y 轴方向扭曲
+	 *
 	 * @param g     图形
 	 * @param w1    横轴扭曲像素
 	 * @param h1    纵轴扭曲像素
@@ -128,7 +134,8 @@ public class CheckCodeUtil {
 
 	/**
 	 * 生成指定长度的随机数字和字母
-	 * @param length    验证码长度
+	 *
+	 * @param length 验证码长度
 	 * @return java.lang.String
 	 **/
 	public static String getStringRandom(int length) {
@@ -153,9 +160,10 @@ public class CheckCodeUtil {
 
 	/**
 	 * 获取 Base64 编码的验证码图片
-	 * @param w     图片宽度
-	 * @param h     图片高度
-	 * @param code  验证码
+	 *
+	 * @param w    图片宽度
+	 * @param h    图片高度
+	 * @param code 验证码
 	 * @return java.lang.String
 	 **/
 	public static String imageToBase64(int w, int h, String code) throws Exception {
@@ -165,8 +173,8 @@ public class CheckCodeUtil {
 		Graphics2D g2 = image.createGraphics();
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		Color[] colors = new Color[5];
-		Color[] colorSpaces = new Color[] { Color.WHITE, Color.CYAN, Color.GRAY, Color.LIGHT_GRAY, Color.MAGENTA,
-				Color.ORANGE, Color.PINK, Color.YELLOW };
+		Color[] colorSpaces = new Color[]{Color.WHITE, Color.CYAN, Color.GRAY, Color.LIGHT_GRAY, Color.MAGENTA,
+				Color.ORANGE, Color.PINK, Color.YELLOW};
 		float[] fractions = new float[colors.length];
 		for (int i = 0; i < colors.length; i++) {
 			colors[i] = colorSpaces[rand.nextInt(colorSpaces.length)];
@@ -224,7 +232,8 @@ public class CheckCodeUtil {
 
 	/**
 	 * 将 Base64 位编码的图片进行解码，并保存到指定目录
-	 * @param base64    Base64 编码的验证码图片
+	 *
+	 * @param base64 Base64 编码的验证码图片
 	 **/
 	public static void base64ToImage(String base64) {
 		BASE64Decoder decoder = new BASE64Decoder();

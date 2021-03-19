@@ -17,19 +17,39 @@ import javax.persistence.Table;
 @Table(name = "t_user")
 public class User {
 
-	/** 学号 */
+	/**
+	 * 学号
+	 */
 	private String card;
-	/** 密码 */
+
+	/**
+	 * 密码
+	 */
 	private String password;
-	/** 手机号 */
+
+	/**
+	 * 手机号
+	 */
 	private String phone;
-	/** 姓名 */
+
+	/**
+	 * 姓名
+	 */
 	private String name;
-	/** 收货地址 */
+
+	/**
+	 * 收货地址
+	 */
 	private String addr;
-	/** 包裹件数 */
+
+	/**
+	 * 包裹件数
+	 */
 	private Integer count;
-	/** 电子邮箱 */
+
+	/**
+	 * 电子邮箱
+	 */
 	private String mail;
 
 }

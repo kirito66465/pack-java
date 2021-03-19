@@ -8,10 +8,14 @@ package per.kirito.pack.util;
  */
 public class Constant {
 
-	/** 登录有效时间，单位分钟 */
+	/**
+	 * 登录有效时间，单位分钟
+	 */
 	public static Long LOGIN_VALID_MINUTE = 30L;
 
-	/** 验证码有效时间，单位分钟 */
+	/**
+	 * 验证码有效时间，单位分钟
+	 */
 	public static Long VERIFY_VALID_MINUTE = 2L;
 
 }
