@@ -116,7 +116,7 @@ spring:
     host: 192.168.152.100
     port: 6379
     database: 0
-    password: kirito
+    password: ENC(GuvZlNx3H+Wklc7oN10Gvg==)
 
 server:
   port: 8080

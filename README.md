@@ -120,6 +120,7 @@ TODO：换用 elasticsearch
 - 2021.03.28<br>
 ```markdown
 1. 添加取件 Echarts 图使用
+2. 添加 live2d 看板娘
 ```
 
 
