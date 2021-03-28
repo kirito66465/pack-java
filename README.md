@@ -113,10 +113,13 @@ TODO：换用 elasticsearch
 ```markdown
 1. 优化前台表单验证
 ```
-
 - 2021.03.19<br>
 ```markdown
 1. 添加加载 loading；优化代码结构
+```
+- 2021.03.28<br>
+```markdown
+1. 添加取件 Echarts 图使用
 ```
 
 

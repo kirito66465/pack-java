@@ -1,13 +1,16 @@
 package per.kirito.pack.service.impl;
 
+import cn.hutool.core.date.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import per.kirito.pack.mapper.AdminMapper;
+import per.kirito.pack.mapper.EchartsMapper;
 import per.kirito.pack.myEnum.Status;
 import per.kirito.pack.pojo.Admin;
+import per.kirito.pack.pojo.Echarts;
 import per.kirito.pack.service.inter.AccountService;
 import per.kirito.pack.util.Constant;
 
@@ -28,6 +31,9 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 
 	@Autowired
 	private AdminMapper adminMapper;
+
+	@Autowired
+	private EchartsMapper echartsMapper;
 
 	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
@@ -80,6 +86,13 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 			stringRedisTemplate.opsForValue().set(token, card, Constant.LOGIN_VALID_MINUTE, TimeUnit.MINUTES);
 			map.put("token", token);
 			map.put("result", LOGIN_SUCCESS);
+
+			// echarts 统计
+			String today = DateUtil.today();
+			Echarts echarts = echartsMapper.getData(today, card);
+			if (echarts == null) {
+				echartsMapper.initData(today, card);
+			}
 		} else {
 			log.info("card: {} 登录失败，因为该驿站管理员不存在！", card);
 			map.put("result", LOGIN_FAIL);

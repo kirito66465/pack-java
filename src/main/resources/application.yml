@@ -116,10 +116,10 @@ spring:
     host: 192.168.152.100
     port: 6379
     database: 0
-    password: ENC(GuvZlNx3H+Wklc7oN10Gvg==)
+    password: kirito
 
 server:
-  port: 8888
+  port: 8080
 
 ---
 # 阿里云 上线时配置

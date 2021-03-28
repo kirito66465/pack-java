@@ -1,11 +1,17 @@
 package per.kirito.pack.util;
 
+import per.kirito.pack.pojo.Echarts;
+import per.kirito.pack.pojo.utilPojo.EchartsDO;
+import per.kirito.pack.pojo.utilPojo.EchartsVO;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 /**
  * @author kirito
@@ -80,6 +86,85 @@ public class TypeConversion {
 			status[i] = Integer.valueOf(array[i]);
 		}
 		return status;
+	}
+
+	/**
+	 * Echarts 数据库实体 -> 页面所需数据
+	 * @param echarts   Echarts 实体
+	 * @return per.kirito.pack.pojo.utilPojo.EchartsVO
+	 */
+	public static EchartsVO getData(Echarts echarts) {
+		EchartsVO echartsVO;
+
+		EchartsDO echartsDO;
+		List<EchartsDO> data = new ArrayList<>();
+		if (echarts.getNine() > 0) {
+			echartsDO = new EchartsDO(echarts.getNine(), "9点");
+			data.add(echartsDO);
+		}
+		if (echarts.getTen() > 0) {
+			echartsDO = new EchartsDO(echarts.getTen(), "10点");
+			data.add(echartsDO);
+		}
+		if (echarts.getEleven() > 0) {
+			echartsDO = new EchartsDO(echarts.getEleven(), "11点");
+			data.add(echartsDO);
+		}
+		if (echarts.getTwelve() > 0) {
+			echartsDO = new EchartsDO(echarts.getTwelve(), "12点");
+			data.add(echartsDO);
+		}
+		if (echarts.getThirteen() > 0) {
+			echartsDO = new EchartsDO(echarts.getThirteen(), "13点");
+			data.add(echartsDO);
+		}
+		if (echarts.getFourteen() > 0) {
+			echartsDO = new EchartsDO(echarts.getFourteen(), "14点");
+			data.add(echartsDO);
+		}
+		if (echarts.getFifteen() > 0) {
+			echartsDO = new EchartsDO(echarts.getFifteen(), "15点");
+			data.add(echartsDO);
+		}
+		if (echarts.getSixteen() > 0) {
+			echartsDO = new EchartsDO(echarts.getSixteen(), "16点");
+			data.add(echartsDO);
+		}
+		if (echarts.getSeventeen() > 0) {
+			echartsDO = new EchartsDO(echarts.getSeventeen(), "17点");
+			data.add(echartsDO);
+		}
+		if (echarts.getEighteen() > 0) {
+			echartsDO = new EchartsDO(echarts.getEighteen(), "18点");
+			data.add(echartsDO);
+		}
+		if (echarts.getNineteen() > 0) {
+			echartsDO = new EchartsDO(echarts.getNineteen(), "19点");
+			data.add(echartsDO);
+		}
+		if (data != null && data.size() == 0) {
+			echartsDO = new EchartsDO(0, "暂无人员取件");
+			data.add(echartsDO);
+		}
+
+		List<Integer> count = new ArrayList<>();
+		count.add(echarts.getNine());
+		count.add(echarts.getTen());
+		count.add(echarts.getEleven());
+		count.add(echarts.getTwelve());
+		count.add(echarts.getThirteen());
+		count.add(echarts.getFourteen());
+		count.add(echarts.getFifteen());
+		count.add(echarts.getSixteen());
+		count.add(echarts.getSeventeen());
+		count.add(echarts.getEighteen());
+		count.add(echarts.getNineteen());
+
+		echartsVO = EchartsVO.builder()
+				.data(data)
+				.count(count)
+				.build();
+		return echartsVO;
 	}
 
 	public static void main(String[] args) throws ParseException {

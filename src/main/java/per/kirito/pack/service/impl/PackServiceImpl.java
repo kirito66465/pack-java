@@ -1,15 +1,13 @@
 package per.kirito.pack.service.impl;
 
+import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import per.kirito.pack.mapper.AdminMapper;
-import per.kirito.pack.mapper.CodeMapper;
-import per.kirito.pack.mapper.PackMapper;
-import per.kirito.pack.mapper.UserMapper;
+import per.kirito.pack.mapper.*;
 import per.kirito.pack.myEnum.Status;
 import per.kirito.pack.util.PackUtil;
 import per.kirito.pack.util.PickCodeUtil;
@@ -42,6 +40,9 @@ public class PackServiceImpl implements PackService {
 
 	@Autowired
 	private CodeMapper codeMapper;
+
+	@Autowired
+	private EchartsMapper echartsMapper;
 
 	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
@@ -202,6 +203,10 @@ public class PackServiceImpl implements PackService {
 							coder.setStatus(CODE_STATUS_1);
 							codeMapper.updateCode(coder);
 						}
+
+						// Echarts 统计
+						String adminCard = admin.getCard();
+						updateEcharts(adminCard);
 					} else {
 						// 该快递不存在
 						noExistCount++;
@@ -283,6 +288,10 @@ public class PackServiceImpl implements PackService {
 						coder.setStatus(CODE_STATUS_1);
 						codeMapper.updateCode(coder);
 					}
+
+					// Echarts 统计
+					String adminCard = admin.getCard();
+					updateEcharts(adminCard);
 				} else {
 					// 该快递不存在
 					log.info("token: {} 学生取件失败，因为根据驿站地址和取件码，该快递不存在！", token);
@@ -351,6 +360,10 @@ public class PackServiceImpl implements PackService {
 							codeMapper.updateCode(coder);
 						}
 					}
+
+					// Echarts 统计
+					String adminCard = admin.getCard();
+					updateEcharts(adminCard);
 				} else {
 					noExistCount++;
 				}
@@ -825,6 +838,82 @@ public class PackServiceImpl implements PackService {
 			return packResultList;
 		}
 		return null;
+	}
+
+	/**
+	 * 更新 Echarts 数据
+	 * @param card  时间
+	 */
+	private void updateEcharts(String card) {
+		String date = DateUtil.today();
+		Echarts echarts = echartsMapper.getData(date, card);
+		Integer hour = getHour();
+		int count = 0;
+		switch (hour) {
+			case 9:
+				count = echarts.getNine();
+				echarts.setNine(count + 1);
+				break;
+			case 10:
+				count = echarts.getTen();
+				echarts.setTen(count + 1);
+				break;
+			case 11:
+				count = echarts.getEleven();
+				echarts.setEleven(count + 1);
+				break;
+			case 12:
+				count = echarts.getTwelve();
+				echarts.setTwelve(count + 1);
+				break;
+			case 13:
+				count = echarts.getThirteen();
+				echarts.setThirteen(count + 1);
+				break;
+			case 14:
+				count = echarts.getFourteen();
+				echarts.setFourteen(count + 1);
+				break;
+			case 15:
+				count = echarts.getFifteen();
+				echarts.setFifteen(count + 1);
+				break;
+			case 16:
+				count = echarts.getSixteen();
+				echarts.setSixteen(count + 1);
+				break;
+			case 17:
+				count = echarts.getSeventeen();
+				echarts.setSeventeen(count + 1);
+				break;
+			case 18:
+				count = echarts.getEighteen();
+				echarts.setEighteen(count + 1);
+				break;
+			case 19:
+				count = echarts.getNineteen();
+				echarts.setNineteen(count + 1);
+				break;
+			default: break;
+		}
+		echartsMapper.updateData(echarts);
+	}
+
+	/**
+	 * 获取所需范围的小时值（9-19）
+	 * @return java.lang.Integer
+	 */
+	private Integer getHour() {
+		int now = DateUtil.hour(DateUtil.date(), true);
+		int hour;
+		if (now < 9) {
+			hour = 9;
+		} else if (now > 19) {
+			hour = 19;
+		} else {
+			hour = now;
+		}
+		return hour;
 	}
 
 }

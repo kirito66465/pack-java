@@ -17,6 +17,7 @@
 		<typeAlias alias="Send" type="per.kirito.pack.pojo.Send"/>
 		<typeAlias alias="User" type="per.kirito.pack.pojo.User"/>
 		<typeAlias alias="Send" type="per.kirito.pack.pojo.Send"/>
+		<typeAlias alias="Echarts" type="per.kirito.pack.pojo.Echarts"/>
 	</typeAliases>
 
 </configuration>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="per.kirito.pack.mapper.EchartsMapper">
+
+	<sql id="FIELDS">
+        datee, card, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen
+    </sql>
+
+	<!-- 获取数据 -->
+	<select id="getData" parameterType="String" resultType="Echarts">
+		SELECT datee, card, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen
+		FROM t_echarts
+		WHERE datee = #{datee}
+		AND card = #{card}
+	</select>
+
+	<!-- 更新数据 -->
+	<update id="updateData" parameterType="Echarts">
+		UPDATE t_echarts
+		SET nine = #{nine}, ten = ${ten}, eleven = #{eleven}, twelve = #{tewlve}
+			, thirteen = #{thirteen}, fourteen = #{fourteen}, fifteen = #{fifteen}, sixteen = #{sixteen}
+			, seventeen = #{seventeen}, eighteen = #{eighteen}, nineteen #{nineteen}
+		WHERE datee = #{datee}
+		AND card = #{card}
+	</update>
+
+	<!-- 新增初始化数据 -->
+	<insert id="initData" parameterType="String">
+		INSERT INTO t_echarts (
+			datee, card, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen
+		) VALUES (
+			#{datee}, #{card}, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		)
+
+	</insert>
+
+</mapper>
