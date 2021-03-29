@@ -14,13 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
- * author: kirito
- * date: 2020/12/11
- * time: 20:11
+ * @author kirito
+ * @date 2020/12/11
+ * @time 20:11
  * Admin 的 Controller 层
  */
 @Slf4j
-@Api(tags = {"管理员管理"}, description = "管理员管理", produces = "application/json", consumes = "application/json")
+@Api(tags = {"管理员管理"}, produces = "application/json", consumes = "application/json")
 @RestController
 @RequestMapping(value = "/admin")
 public class AdminController {

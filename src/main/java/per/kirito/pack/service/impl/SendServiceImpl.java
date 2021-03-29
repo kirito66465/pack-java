@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import per.kirito.pack.mapper.SendMapper;
 import per.kirito.pack.mapper.UserMapper;
-import per.kirito.pack.myEnum.Status;
+import per.kirito.pack.myenum.Status;
 import per.kirito.pack.util.SendUtil;
 import per.kirito.pack.util.TypeConversion;
 import per.kirito.pack.pojo.Send;
 import per.kirito.pack.pojo.User;
-import per.kirito.pack.pojo.utilPojo.Page;
-import per.kirito.pack.pojo.utilPojo.SendRequest;
+import per.kirito.pack.pojo.utilpojo.Page;
+import per.kirito.pack.pojo.utilpojo.SendRequest;
 import per.kirito.pack.service.inter.SendService;
 
 import java.util.HashMap;
@@ -22,9 +22,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * author: kirito
- * date: 2021/1/4
- * time: 15:53
+ * @author kirito
+ * @date 2021/1/4
+ * @time 15:53
  * 寄件 Send 的Service 层
  */
 @Slf4j

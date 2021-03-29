@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
- * author: kirito
- * date: 2021/3/28
- * time: 17:27
+ * @author kirito
+ * @date 2021/3/28
+ * @time 17:27
  * Echarts 的 Controller 层
  */
 @Slf4j
-@Api(tags = {"Echarts"}, description = "Echarts 数据")
+@Api(tags = {"Echarts"})
 @RestController
 @RequestMapping(value = "/echarts")
 public class EchartsController {

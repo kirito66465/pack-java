@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import per.kirito.pack.mapper.EchartsMapper;
-import per.kirito.pack.myEnum.Status;
+import per.kirito.pack.myenum.Status;
 import per.kirito.pack.pojo.Echarts;
-import per.kirito.pack.pojo.utilPojo.EchartsVO;
+import per.kirito.pack.pojo.utilpojo.EchartsVO;
 import per.kirito.pack.service.inter.EchartsService;
 import per.kirito.pack.util.TypeConversion;
 
@@ -16,9 +16,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * author: kirito
- * date: 2021/3/28
- * time: 17:36
+ * @author kirito
+ * @date 2021/3/28
+ * @time 17:36
  * Echarts 的 Service 层
  */
 @Slf4j

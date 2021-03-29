@@ -6,7 +6,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import per.kirito.pack.mapper.UserMapper;
-import per.kirito.pack.myEnum.Status;
+import per.kirito.pack.myenum.Status;
 import per.kirito.pack.pojo.User;
 import per.kirito.pack.service.inter.AccountService;
 import per.kirito.pack.util.Constant;
@@ -17,9 +17,9 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
- * author: kirito
- * date: 2020/12/28
- * time: 15:24
+ * @author kirito
+ * @date 2020/12/28
+ * @time 15:24
  * User 的 Service 层，是 AccountService 的泛型接口实现
  */
 @Slf4j

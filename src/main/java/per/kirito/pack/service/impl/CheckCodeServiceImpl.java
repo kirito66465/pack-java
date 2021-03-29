@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
-import per.kirito.pack.myEnum.Status;
+import per.kirito.pack.myenum.Status;
 import per.kirito.pack.util.CheckCodeUtil;
 import per.kirito.pack.service.inter.CheckCodeService;
 import per.kirito.pack.util.Constant;
@@ -14,9 +14,9 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
- * author: kirito
- * date: 2021/1/8
- * time: 16:28
+ * @author kirito
+ * @date 2021/1/8
+ * @time 16:28
  * 验证码的 Service 实现类
  */
 @Slf4j

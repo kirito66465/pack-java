@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
- * author: kirito
- * date: 2021/1/8
- * time: 16:26
+ * @author kirito
+ * @date 2021/1/8
+ * @time 16:26
  * 验证码的 controller 层
  */
 @Slf4j
-@Api(tags = {"验证码"}, description = "验证码", produces = "application/json", consumes = "application/json")
+@Api(tags = {"验证码"}, produces = "application/json", consumes = "application/json")
 @RestController
 public class CheckCodeController {
 

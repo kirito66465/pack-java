@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
- * author: kirito
- * date: 2020/12/23
- * time: 15:19
+ * @author kirito
+ * @date 2020/12/23
+ * @time 15:19
  * Pack 的 Controller 层
  */
 @Slf4j
-@Api(tags = {"快递管理"}, description = "快递管理", produces = "application/json", consumes = "application/json")
+@Api(tags = {"快递管理"}, produces = "application/json", consumes = "application/json")
 @RestController
 @RequestMapping(value = "/pack")
 public class PackController {

@@ -6,9 +6,9 @@ import per.kirito.pack.pojo.Pack;
 import java.util.List;
 
 /**
- * author: kirito
- * date: 2020/12/23
- * time: 15:24
+ * @author kirito
+ * @date 2020/12/23
+ * @time 15:24
  * Pack 的 Mapper 接口
  */
 public interface PackMapper {

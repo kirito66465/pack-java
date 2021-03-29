@@ -5,10 +5,10 @@ import cn.hutool.system.SystemUtil;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * author: kirito
- * date: 2021/3/3
- * time: 21:36
- * description: 定时任务
+ * @author kirito
+ * @date 2021/3/3
+ * @time 21:36
+ * 定时任务
  */
 @Slf4j
 public class CronUtil {

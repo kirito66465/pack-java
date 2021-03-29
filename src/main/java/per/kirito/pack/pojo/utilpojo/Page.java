@@ -1,17 +1,18 @@
-package per.kirito.pack.pojo.utilPojo;
+package per.kirito.pack.pojo.utilpojo;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
- * author: kirito
- * date: 2020/12/28
- * time: 14:48
+ * @author kirito
+ * @date 2020/12/28
+ * @time 14:48
  * 分页实体类
  */
 @Data
-public class Page<T> {
+public class Page<T> implements Serializable {
 
 	/**
 	 * 当前页数

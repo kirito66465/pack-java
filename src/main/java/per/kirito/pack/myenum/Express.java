@@ -1,9 +1,9 @@
-package per.kirito.pack.myEnum;
+package per.kirito.pack.myenum;
 
 /**
- * author: kirito
- * date: 2020/12/23
- * time: 15:13
+ * @author kirito
+ * @date 2020/12/23
+ * @time 15:13
  * 快递名字枚举类
  */
 public enum Express {

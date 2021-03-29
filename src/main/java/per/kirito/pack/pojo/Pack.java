@@ -3,11 +3,12 @@ package per.kirito.pack.pojo;
 import lombok.*;
 
 import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
- * author: kirito
- * date: 2020/12/4
- * time: 20:41
+ * @author kirito
+ * @date 2020/12/4
+ * @time 20:41
  * 快递实体类
  */
 @Data
@@ -15,7 +16,7 @@ import javax.persistence.Table;
 @Builder
 @AllArgsConstructor
 @Table(name = "t_pack")
-public class Pack {
+public class Pack implements Serializable {
 
 	/**
 	 * 快递单号

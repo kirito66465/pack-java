@@ -3,10 +3,10 @@ package per.kirito.pack.util;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * author: kirito
- * date: 2021/3/9
- * time: 22:37
- * description: IP 地址 工具类
+ * @author kirito
+ * @date 2021/3/9
+ * @time 22:37
+ * IP 地址 工具类
  */
 public class IpAddressUtil {
 

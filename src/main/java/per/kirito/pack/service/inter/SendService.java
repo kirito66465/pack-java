@@ -1,13 +1,13 @@
 package per.kirito.pack.service.inter;
 
-import per.kirito.pack.pojo.utilPojo.SendRequest;
+import per.kirito.pack.pojo.utilpojo.SendRequest;
 
 import java.util.Map;
 
 /**
- * author: kirito
- * date: 2021/1/4
- * time: 15:52
+ * @author kirito
+ * @date 2021/1/4
+ * @time 15:52
  * 寄件 Send 的 Service 层接口
  */
 public interface SendService {

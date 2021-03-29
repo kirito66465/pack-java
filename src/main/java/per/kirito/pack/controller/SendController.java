@@ -4,7 +4,7 @@ import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import per.kirito.pack.pojo.utilPojo.SendRequest;
+import per.kirito.pack.pojo.utilpojo.SendRequest;
 import per.kirito.pack.service.inter.SendService;
 import per.kirito.pack.util.IpAddressUtil;
 
@@ -12,13 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
- * author: kirito
- * date: 2021/1/4
- * time: 15:51
+ * @author kirito
+ * @date 2021/1/4
+ * @time 15:51
  * 寄件 Send 的 controller 层
  */
 @Slf4j
-@Api(tags = {"寄件管理"}, description = "寄件管理", produces = "application/json", consumes = "application/json")
+@Api(tags = {"寄件管理"}, produces = "application/json", consumes = "application/json")
 @RestController
 @RequestMapping(value = "/send")
 public class SendController {

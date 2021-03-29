@@ -1,9 +1,9 @@
-package per.kirito.pack.myEnum;
+package per.kirito.pack.myenum;
 
 /**
- * author: kirito
- * date: 2020/12/24
- * time: 10:30
+ * @author kirito
+ * @date 2020/12/24
+ * @time 10:30
  * 状态码与值枚举类
  */
 public enum Status {

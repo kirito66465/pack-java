@@ -1,9 +1,9 @@
 package per.kirito.pack.util;
 
 /**
- * author: kirito
- * date: 2021/2/24
- * time: 17:10
+ * @author kirito
+ * @date 2021/2/24
+ * @time 17:10
  * 常量类
  */
 public class Constant {

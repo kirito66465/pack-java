@@ -8,21 +8,21 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import per.kirito.pack.mapper.*;
-import per.kirito.pack.myEnum.Status;
+import per.kirito.pack.myenum.Status;
 import per.kirito.pack.util.PackUtil;
 import per.kirito.pack.util.PickCodeUtil;
 import per.kirito.pack.util.TypeConversion;
 import per.kirito.pack.pojo.*;
-import per.kirito.pack.pojo.utilPojo.PackResult;
-import per.kirito.pack.pojo.utilPojo.Page;
+import per.kirito.pack.pojo.utilpojo.PackResult;
+import per.kirito.pack.pojo.utilpojo.Page;
 import per.kirito.pack.service.inter.PackService;
 
 import java.util.*;
 
 /**
- * author: kirito
- * date: 2020/12/23
- * time: 15:36
+ * @author kirito
+ * @date 2020/12/23
+ * @time 15:36
  * Pack 的 Service 层，PackService 接口的实现类
  */
 @Slf4j
@@ -784,7 +784,7 @@ public class PackServiceImpl implements PackService {
 	 * 获取不筛选不分页的驿站所有快递集合，以便生成 Excel
 	 *
 	 * @param token 令牌
-	 * @return java.util.List<per.kirito.pack.pojo.utilPojo.PackResult>
+	 * @return java.util.List<per.kirito.pack.pojo.utilpojo.PackResult>
 	 */
 	@Override
 	public List<PackResult> getAllPacksByExcelOfAdmin(String token) {
@@ -804,7 +804,7 @@ public class PackServiceImpl implements PackService {
 	 * 获取不筛选不分页的驿站已取快递集合，以便生成 Excel
 	 *
 	 * @param token 令牌
-	 * @return java.util.List<per.kirito.pack.pojo.utilPojo.PackResult>
+	 * @return java.util.List<per.kirito.pack.pojo.utilpojo.PackResult>
 	 */
 	@Override
 	public List<PackResult> getIsPacksByExcelOfAdmin(String token) {
@@ -824,7 +824,7 @@ public class PackServiceImpl implements PackService {
 	 * 获取不筛选不分页的驿站未取快递集合，以便生成 Excel
 	 *
 	 * @param token 令牌
-	 * @return java.util.List<per.kirito.pack.pojo.utilPojo.PackResult>
+	 * @return java.util.List<per.kirito.pack.pojo.utilpojo.PackResult>
 	 */
 	@Override
 	public List<PackResult> getNoPacksByExcelOfAdmin(String token) {

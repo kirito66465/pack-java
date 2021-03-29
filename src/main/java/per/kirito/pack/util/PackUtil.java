@@ -1,18 +1,18 @@
 package per.kirito.pack.util;
 
-import per.kirito.pack.myEnum.Express;
-import per.kirito.pack.myEnum.Status;
+import per.kirito.pack.myenum.Express;
+import per.kirito.pack.myenum.Status;
 import per.kirito.pack.pojo.Pack;
-import per.kirito.pack.pojo.utilPojo.PackResult;
-import per.kirito.pack.pojo.utilPojo.Page;
+import per.kirito.pack.pojo.utilpojo.PackResult;
+import per.kirito.pack.pojo.utilpojo.Page;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * author: kirito
- * date: 2020/12/23
- * time: 15:48
+ * @author kirito
+ * @date 2020/12/23
+ * @time 15:48
  * 包裹信息完善:自动生成取件码、更新取件状态、添加地址信息
  */
 public class PackUtil {
@@ -148,7 +148,7 @@ public class PackUtil {
 	 * 抽取出来的获取结果集方法，主要对status进行类型转换：jdbcType/Integer -> java/String
 	 *
 	 * @param packList Pack 结果集
-	 * @return java.util.List<per.kirito.pack.pojo.utilPojo.PackResult>
+	 * @return java.util.List<per.kirito.pack.pojo.utilpojo.PackResult>
 	 */
 	public static List<PackResult> getPackResult(List<Pack> packList) {
 		List<PackResult> packResultList = new ArrayList<>();
@@ -166,7 +166,7 @@ public class PackUtil {
 	 * @param currentPage    当前页码
 	 * @param pageSize       每页条数
 	 * @param packResultList 快递结果集
-	 * @return per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.utilPojo.PackResult>
+	 * @return per.kirito.pack.pojo.utilpojo.Page<per.kirito.pack.pojo.utilpojo.PackResult>
 	 */
 	public static Page<PackResult> getPackByPage(int currentPage, int pageSize, List<PackResult> packResultList) {
 		Page<PackResult> resultPage = new Page<>();

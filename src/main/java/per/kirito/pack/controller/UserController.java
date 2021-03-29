@@ -13,13 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
- * author: kirito
- * date: 2020/12/4
- * time: 21:04
+ * @author kirito
+ * @date 2020/12/4
+ * @time 21:04
  * User 的 Controller 层
  */
 @Slf4j
-@Api(tags = {"学生管理"}, description = "学生管理", produces = "application/json", consumes = "application/json")
+@Api(tags = {"学生管理"}, produces = "application/json", consumes = "application/json")
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {

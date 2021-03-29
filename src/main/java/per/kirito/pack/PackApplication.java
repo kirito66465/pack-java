@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 import per.kirito.pack.properties.MailProperties;
 
 /**
- * author: kirito
- * date: 2020/12/4
- * time: 20:37
+ * @author kirito
+ * @date 2020/12/4
+ * @time 20:37
  * Spring Boot 项目启动类
  */
 @Slf4j
@@ -24,6 +24,7 @@ public class PackApplication {
 	public static void main(String[] args) {
 		log.info("程序启动");
 		SpringApplication.run(PackApplication.class, args);
+		per.kirito.pack.util.cron.CronUtil.printInfo();
 		CronUtil.start();
 	}
 

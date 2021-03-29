@@ -1,8 +1,8 @@
 package per.kirito.pack.util;
 
-import per.kirito.pack.myEnum.Express;
+import per.kirito.pack.myenum.Express;
 import per.kirito.pack.pojo.Send;
-import per.kirito.pack.pojo.utilPojo.Page;
+import per.kirito.pack.pojo.utilpojo.Page;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * author: kirito
- * date: 2021/1/5
- * time: 17:15
+ * @author kirito
+ * @date 2021/1/5
+ * @time 17:15
  * 寄件工具类
  */
 public class SendUtil {
@@ -31,7 +31,7 @@ public class SendUtil {
 	 * @param currentPage 当前页
 	 * @param pageSize    每页大小
 	 * @param sendList    寄件快递结果集
-	 * @return per.kirito.pack.pojo.utilPojo.Page<per.kirito.pack.pojo.Send>
+	 * @return per.kirito.pack.pojo.utilpojo.Page<per.kirito.pack.pojo.Send>
 	 **/
 	public static Page<Send> getSendByPage(int currentPage, int pageSize, List<Send> sendList) {
 		Page<Send> sendPage = new Page<>();

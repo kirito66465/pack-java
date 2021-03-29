@@ -6,11 +6,12 @@ import lombok.Data;
 import lombok.NonNull;
 
 import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
- * author: kirito
- * date: 2021/3/28
- * time: 17:07
+ * @author kirito
+ * @date 2021/3/28
+ * @time 17:07
  * Echarts 数据统计实体类
  */
 @Data
@@ -18,7 +19,7 @@ import javax.persistence.Table;
 @Builder
 @AllArgsConstructor
 @Table(name = "t_echarts")
-public class Echarts {
+public class Echarts implements Serializable {
 
 	/**
 	 * 快递单号

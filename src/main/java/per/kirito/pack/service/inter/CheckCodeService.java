@@ -3,9 +3,9 @@ package per.kirito.pack.service.inter;
 import java.util.Map;
 
 /**
- * author: kirito
- * date: 2021/1/8
- * time: 16:27
+ * @author kirito
+ * @date 2021/1/8
+ * @time 16:27
  * 验证码的 Service 层接口
  */
 public interface CheckCodeService {

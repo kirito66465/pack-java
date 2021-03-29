@@ -1,13 +1,11 @@
 package per.kirito.pack.service.inter;
 
-import per.kirito.pack.pojo.utilPojo.EchartsVO;
-
 import java.util.Map;
 
 /**
- * author: kirito
- * date: 2021/3/28
- * time: 17:29
+ * @author kirito
+ * @date 2021/3/28
+ * @time 17:29
  * Mail 的 Service 层接口
  */
 public interface EchartsService {

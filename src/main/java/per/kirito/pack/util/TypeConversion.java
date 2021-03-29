@@ -1,8 +1,8 @@
 package per.kirito.pack.util;
 
 import per.kirito.pack.pojo.Echarts;
-import per.kirito.pack.pojo.utilPojo.EchartsDO;
-import per.kirito.pack.pojo.utilPojo.EchartsVO;
+import per.kirito.pack.pojo.utilpojo.EchartsDO;
+import per.kirito.pack.pojo.utilpojo.EchartsVO;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -15,9 +15,9 @@ import java.util.List;
 
 /**
  * @author kirito
- * @version 1.0
- * @date 2020/11/17 11:02
- * @description: 类型转换
+ * @date 2020/11/17
+ * @time 11:02
+ * 类型转换
  */
 public class TypeConversion {
 
@@ -91,7 +91,7 @@ public class TypeConversion {
 	/**
 	 * Echarts 数据库实体 -> 页面所需数据
 	 * @param echarts   Echarts 实体
-	 * @return per.kirito.pack.pojo.utilPojo.EchartsVO
+	 * @return per.kirito.pack.pojo.utilpojo.EchartsVO
 	 */
 	public static EchartsVO getData(Echarts echarts) {
 		EchartsVO echartsVO;

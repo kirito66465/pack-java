@@ -1,14 +1,14 @@
 package per.kirito.pack.service.inter;
 
-import per.kirito.pack.pojo.utilPojo.PackResult;
+import per.kirito.pack.pojo.utilpojo.PackResult;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * author: kirito
- * date: 2020/12/23
- * time: 15:35
+ * @author kirito
+ * @date 2020/12/23
+ * @time 15:35
  * Pack 的 Service 层接口
  */
 public interface PackService {
@@ -146,7 +146,7 @@ public interface PackService {
 	 * 获取不筛选不分页的驿站所有快递集合
 	 *
 	 * @param token 令牌
-	 * @return java.util.List<per.kirito.pack.pojo.utilPojo.PackResult>
+	 * @return java.util.List<per.kirito.pack.pojo.utilpojo.PackResult>
 	 */
 	List<PackResult> getAllPacksByExcelOfAdmin(String token);
 
@@ -154,7 +154,7 @@ public interface PackService {
 	 * 获取不筛选不分页的驿站已取快递集合
 	 *
 	 * @param token 令牌
-	 * @return java.util.List<per.kirito.pack.pojo.utilPojo.PackResult>
+	 * @return java.util.List<per.kirito.pack.pojo.utilpojo.PackResult>
 	 */
 	List<PackResult> getIsPacksByExcelOfAdmin(String token);
 
@@ -162,7 +162,7 @@ public interface PackService {
 	 * 获取不筛选不分页的驿站未取快递集合
 	 *
 	 * @param token 令牌
-	 * @return java.util.List<per.kirito.pack.pojo.utilPojo.PackResult>
+	 * @return java.util.List<per.kirito.pack.pojo.utilpojo.PackResult>
 	 */
 	List<PackResult> getNoPacksByExcelOfAdmin(String token);
 

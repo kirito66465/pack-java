@@ -7,7 +7,7 @@ import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import per.kirito.pack.pojo.utilPojo.PackResult;
+import per.kirito.pack.pojo.utilpojo.PackResult;
 import per.kirito.pack.service.inter.PackService;
 import per.kirito.pack.util.IpAddressUtil;
 
@@ -18,13 +18,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * author: kirito
- * date: 2021/2/26
- * time: 9:38
+ * @author kirito
+ * @date 2021/2/26
+ * @time 9:38
  * Excel 的 Controller 层
  */
 @Slf4j
-@Api(tags = {"Excel"}, description = "Excel 生成导出")
+@Api(tags = {"Excel"})
 @RestController
 @RequestMapping(value = "/excel")
 public class ExcelController {

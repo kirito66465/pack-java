@@ -3,9 +3,9 @@ package per.kirito.pack.mapper;
 import per.kirito.pack.pojo.Echarts;
 
 /**
- * author: kirito
- * date: 2021/3/28
- * time: 17:12
+ * @author kirito
+ * @date 2021/3/28
+ * @time 17:12
  * Echarts 的 Mapper 层接口
  */
 public interface EchartsMapper {

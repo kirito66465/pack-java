@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import per.kirito.pack.mapper.AdminMapper;
 import per.kirito.pack.mapper.EchartsMapper;
-import per.kirito.pack.myEnum.Status;
+import per.kirito.pack.myenum.Status;
 import per.kirito.pack.pojo.Admin;
 import per.kirito.pack.pojo.Echarts;
 import per.kirito.pack.service.inter.AccountService;
@@ -20,9 +20,9 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
- * author: kirito
- * date: 2020/12/28
- * time: 16:02
+ * @author kirito
+ * @date 2020/12/28
+ * @time 16:02
  * Admin 的 Service 层，是 AccountService 的泛型接口实现
  */
 @Slf4j

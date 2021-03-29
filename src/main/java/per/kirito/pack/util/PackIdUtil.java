@@ -1,15 +1,12 @@
 package per.kirito.pack.util;
 
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.io.file.FileWriter;
-
 import java.util.Calendar;
 import java.util.Date;
 
 /**
- * author: kirito
- * date: 2020/12/23
- * time: 13:39
+ * @author kirito
+ * @date 2020/12/23
+ * @time 13:39
  * 校园快递，单号规则仅供参考，不完全与实际相符！
  * 中苑：中通、申通、圆通
  * 西苑：京东、顺丰、韵达

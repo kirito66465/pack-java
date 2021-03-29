@@ -6,9 +6,9 @@ import per.kirito.pack.pojo.Send;
 import java.util.List;
 
 /**
- * author: kirito
- * date: 2021/1/5
- * time: 11:14
+ * @author kirito
+ * @date 2021/1/5
+ * @time 11:14
  * Send 的 Mapper 层接口
  */
 public interface SendMapper {

@@ -6,9 +6,9 @@ import per.kirito.pack.pojo.User;
 import java.util.Map;
 
 /**
- * author: kirito
- * date: 2020/12/4
- * time: 21:00
+ * @author kirito
+ * @date 2020/12/4
+ * @time 21:00
  * User 的 Mapper 层接口
  */
 public interface UserMapper {

@@ -19,9 +19,9 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 /**
- * author: kirito
- * date: 2021/1/12
- * time: 14:17
+ * @author kirito
+ * @date 2021/1/12
+ * @time 14:17
  * 发送邮件工具类
  */
 @Slf4j

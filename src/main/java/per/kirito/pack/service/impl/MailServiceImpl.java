@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import per.kirito.pack.mapper.UserMapper;
-import per.kirito.pack.myEnum.Status;
+import per.kirito.pack.myenum.Status;
 import per.kirito.pack.util.SendMailUtil;
 import per.kirito.pack.service.inter.MailService;
 
@@ -16,9 +16,9 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * author: kirito
- * date: 2021/1/12
- * time: 14:09
+ * @author kirito
+ * @date 2021/1/12
+ * @time 14:09
  * Mail 的 Service 层，MailService 接口的实现类
  */
 @Slf4j

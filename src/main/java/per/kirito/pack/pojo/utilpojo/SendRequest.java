@@ -1,18 +1,20 @@
-package per.kirito.pack.pojo.utilPojo;
+package per.kirito.pack.pojo.utilpojo;
 
 import lombok.*;
 
+import java.io.Serializable;
+
 /**
- * author: kirito
- * date: 2021/1/4
- * time: 15:35
+ * @author kirito
+ * @date 2021/1/4
+ * @time 15:35
  * 前端 User 进行寄件的请求参数
  */
 @Data
 @NonNull
 @Builder
 @AllArgsConstructor
-public class SendRequest {
+public class SendRequest implements Serializable {
 
 	/**
 	 * 驿站选择

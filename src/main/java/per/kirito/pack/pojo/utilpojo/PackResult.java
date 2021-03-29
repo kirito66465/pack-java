@@ -1,19 +1,21 @@
-package per.kirito.pack.pojo.utilPojo;
+package per.kirito.pack.pojo.utilpojo;
 
 import lombok.*;
 import per.kirito.pack.pojo.Pack;
 
+import java.io.Serializable;
+
 /**
- * author: kirito
- * date: 2020/12/29
- * time: 10:32
+ * @author kirito
+ * @date 2020/12/29
+ * @time 10:32
  * 快递信息转换结果：jdbcType(Integer) -> javaType(String)
  */
 @Data
 @NonNull
 @Builder
 @AllArgsConstructor
-public class PackResult {
+public class PackResult implements Serializable {
 
 	/**
 	 * 快递单号

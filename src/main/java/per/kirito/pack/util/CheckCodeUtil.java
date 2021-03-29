@@ -12,9 +12,9 @@ import java.util.Arrays;
 import java.util.Random;
 
 /**
- * author: kirito
- * date: 2021/1/8
- * time: 10:51
+ * @author kirito
+ * @date 2021/1/8
+ * @time 10:51
  * 验证码工具类
  */
 public class CheckCodeUtil {

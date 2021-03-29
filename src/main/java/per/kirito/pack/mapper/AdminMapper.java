@@ -4,9 +4,9 @@ import org.apache.ibatis.annotations.Param;
 import per.kirito.pack.pojo.Admin;
 
 /**
- * author: kirito
- * date: 2020/12/11
- * time: 19:54
+ * @author kirito
+ * @date 2020/12/11
+ * @time 19:54
  * Admin 的 Mapper 层接口
  */
 public interface AdminMapper {
