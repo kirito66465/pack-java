@@ -12,9 +12,10 @@ public interface EchartsService {
 
 	/**
 	 * 获取数据
-	 * @param datee     日期
-	 * @param token     令牌
-	 * @return java.util.Map<java.lang.String,java.lang.Object>
+	 *
+	 * @param datee 日期
+	 * @param token 令牌
+	 * @return java.util.Map<java.lang.String, java.lang.Object>
 	 */
 	Map<String, Object> getData(String datee, String token);
 

@@ -15,11 +15,42 @@
 	</select>
 
 	<!-- 更新数据 -->
-	<update id="updateData" parameterType="Echarts">
+	<update id="updateData" parameterType="Map">
 		UPDATE t_echarts
-		SET nine = #{nine}, ten = ${ten}, eleven = #{eleven}, twelve = #{tewlve}
-			, thirteen = #{thirteen}, fourteen = #{fourteen}, fifteen = #{fifteen}, sixteen = #{sixteen}
-			, seventeen = #{seventeen}, eighteen = #{eighteen}, nineteen #{nineteen}
+		SET card = #{card}
+			<if test="nine != null and nine != 0">
+				, nine = #{nine}
+			</if>
+			<if test="ten != null and ten != 0">
+				, ten = #{ten}
+			</if>
+			<if test="eleven != null and eleven != 0">
+				, eleven = #{eleven}
+			</if>
+			<if test="twelve != null and twelve != 0">
+				, twelve = #{twelve}
+			</if>
+			<if test="thirteen != null and thirteen != 0">
+				, thirteen = #{thirteen}
+			</if>
+			<if test="fourteen != null and fourteen != 0">
+				, fourteen = #{fourteen}
+			</if>
+			<if test="fifteen != null and fifteen != 0">
+				, fifteen = #{fifteen}
+			</if>
+			<if test="sixteen != null and sixteen != 0">
+				, sixteen = #{sixteen}
+			</if>
+			<if test="seventeen != null and seventeen != 0">
+				, seventeen = #{seventeen}
+			</if>
+			<if test="eighteen != null and eighteen != 0">
+				, eighteen = #{eighteen}
+			</if>
+			<if test="nineteen != null and nineteen != 0">
+				, nineteen = #{nineteen}
+			</if>
 		WHERE datee = #{datee}
 		AND card = #{card}
 	</update>

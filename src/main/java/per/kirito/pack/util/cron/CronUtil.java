@@ -19,8 +19,8 @@ public class CronUtil {
 	public static void printInfo() {
 		log.info("==============================================================");
 		log.info(DateUtil.now());
-		log.info(String.valueOf(SystemUtil.getOsInfo()));
-		log.info(String.valueOf(SystemUtil.getRuntimeInfo()));
+		log.info("\n{}", String.valueOf(SystemUtil.getOsInfo()));
+		log.info("\n{}", String.valueOf(SystemUtil.getRuntimeInfo()));
 		log.info("==============================================================");
 	}
 

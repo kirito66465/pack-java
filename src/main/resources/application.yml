@@ -1,6 +1,8 @@
 spring:
   profiles:
     active: redmi
+  application:
+    name: pack
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     # Druid 扩展属性配置

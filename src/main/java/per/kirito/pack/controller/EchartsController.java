@@ -27,8 +27,9 @@ public class EchartsController {
 
 	/**
 	 * 获取 Echarts 数据
-	 * @param datee     日期
-	 * @param token     令牌
+	 *
+	 * @param datee 日期
+	 * @param token 令牌
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
 	 */
 	@ApiOperation(value = "获取 Echarts 数据", notes = "获取 Echarts 数据，包括饼图和平滑折线图所需数据", httpMethod = "POST")

@@ -2,6 +2,8 @@ package per.kirito.pack.mapper;
 
 import per.kirito.pack.pojo.Echarts;
 
+import java.util.Map;
+
 /**
  * @author kirito
  * @date 2021/3/28
@@ -12,22 +14,25 @@ public interface EchartsMapper {
 
 	/**
 	 * 获取数据
-	 * @param datee     日期
-	 * @param card      编号
+	 *
+	 * @param datee 日期
+	 * @param card  编号
 	 * @return per.kirito.pack.pojo.Echarts
 	 */
 	Echarts getData(String datee, String card);
 
 	/**
 	 * 更新数据
-	 * @param echarts   数据对象
+	 *
+	 * @param map 数据
 	 */
-	void updateData(Echarts echarts);
+	void updateData(Map map);
 
 	/**
 	 * 新增初始化数据
-	 * @param datee     日期
-	 * @param card      编号
+	 *
+	 * @param datee 日期
+	 * @param card  编号
 	 */
 	void initData(String datee, String card);
 

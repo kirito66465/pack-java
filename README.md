@@ -122,6 +122,11 @@ TODO：换用 elasticsearch
 1. 添加取件 Echarts 图使用
 2. 添加 live2d 看板娘
 ```
+- 2021.03.29<br>
+```markdown
+1. 优化路由结构
+2. 修复 Echarts 数据更新 BUG
+```
 
 
 

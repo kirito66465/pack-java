@@ -844,59 +844,68 @@ public class PackServiceImpl implements PackService {
 	 * 更新 Echarts 数据
 	 * @param card  时间
 	 */
-	private void updateEcharts(String card) {
+	@Transactional(rollbackFor = Exception.class)
+	public void updateEcharts(String card) {
+		Map map = new HashMap();
 		String date = DateUtil.today();
+		map.put("datee", date);
+		map.put("card", card);
 		Echarts echarts = echartsMapper.getData(date, card);
 		Integer hour = getHour();
 		int count = 0;
 		switch (hour) {
 			case 9:
 				count = echarts.getNine();
-				echarts.setNine(count + 1);
+				map.put("nine", count + 1);
 				break;
 			case 10:
 				count = echarts.getTen();
-				echarts.setTen(count + 1);
+				map.put("ten", count + 1);
 				break;
 			case 11:
 				count = echarts.getEleven();
-				echarts.setEleven(count + 1);
+				map.put("eleven", count + 1);
 				break;
 			case 12:
 				count = echarts.getTwelve();
-				echarts.setTwelve(count + 1);
+				map.put("twelve", count + 1);
 				break;
 			case 13:
 				count = echarts.getThirteen();
-				echarts.setThirteen(count + 1);
+				map.put("thirteen", count + 1);
 				break;
 			case 14:
 				count = echarts.getFourteen();
-				echarts.setFourteen(count + 1);
+				map.put("fourteen", count + 1);
 				break;
 			case 15:
 				count = echarts.getFifteen();
-				echarts.setFifteen(count + 1);
+				map.put("fifteen", count + 1);
 				break;
 			case 16:
 				count = echarts.getSixteen();
-				echarts.setSixteen(count + 1);
+				map.put("sixteen", count + 1);
 				break;
 			case 17:
 				count = echarts.getSeventeen();
-				echarts.setSeventeen(count + 1);
+				map.put("seventeen", count + 1);
 				break;
 			case 18:
 				count = echarts.getEighteen();
-				echarts.setEighteen(count + 1);
+				map.put("eighteen", count + 1);
 				break;
 			case 19:
 				count = echarts.getNineteen();
-				echarts.setNineteen(count + 1);
+				map.put("nineteen", count + 1);
 				break;
 			default: break;
 		}
-		echartsMapper.updateData(echarts);
+		try {
+			echartsMapper.updateData(map);
+		} catch (Exception e) {
+			log.error("error: {}", e.getMessage(), e);
+			log.info("adminCard: {} 更新 Echarts 表失败，因为发生了异常！", card);
+		}
 	}
 
 	/**
