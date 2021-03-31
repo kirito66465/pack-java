@@ -160,10 +160,9 @@ public class TypeConversion {
 		count.add(echarts.getEighteen());
 		count.add(echarts.getNineteen());
 
-		echartsVO = EchartsVO.builder()
-				.data(data)
-				.count(count)
-				.build();
+		echartsVO = new EchartsVO();
+		echartsVO.setData(data);
+		echartsVO.setCount(count);
 		return echartsVO;
 	}
 

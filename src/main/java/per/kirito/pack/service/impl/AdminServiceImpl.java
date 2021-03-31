@@ -1,6 +1,7 @@
 package per.kirito.pack.service.impl;
 
 import cn.hutool.core.date.DateUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -75,7 +76,9 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 	public Map<String, String> login(String card, String password) {
 		Map<String, String> map = new HashMap<>();
 		// 根据 card 和 password 查询出该 Admin 是否存在
-		int flag = adminMapper.login(card, password);
+		QueryWrapper<Admin> queryWrapper = new QueryWrapper<>();
+		queryWrapper.eq("card", card).eq("password", password);
+		int flag = adminMapper.selectCount(queryWrapper);
 		if (flag == LOGIN_CODE) {
 			// 生成唯一令牌 token
 			String token = UUID.randomUUID().toString();
@@ -89,9 +92,25 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 
 			// echarts 统计
 			String today = DateUtil.today();
-			Echarts echarts = echartsMapper.getData(today, card);
+			QueryWrapper<Echarts> echartsQueryWrapper = new QueryWrapper<>();
+			echartsQueryWrapper.eq("datee", today).eq("card", card);
+			Echarts echarts = echartsMapper.selectOne(echartsQueryWrapper);
 			if (echarts == null) {
-				echartsMapper.initData(today, card);
+				echarts = new Echarts();
+				echarts.setDatee(today);
+				echarts.setCard(card);
+				echarts.setNine(0);
+				echarts.setTen(0);
+				echarts.setEleven(0);
+				echarts.setTwelve(0);
+				echarts.setThirteen(0);
+				echarts.setFourteen(0);
+				echarts.setFifteen(0);
+				echarts.setSixteen(0);
+				echarts.setSeventeen(0);
+				echarts.setEighteen(0);
+				echarts.setNineteen(0);
+				echartsMapper.insert(echarts);
 			}
 		} else {
 			log.info("card: {} 登录失败，因为该驿站管理员不存在！", card);
@@ -126,7 +145,7 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 		boolean isLogin = stringRedisTemplate.hasKey(token);
 		if (isLogin) {
 			String card = stringRedisTemplate.opsForValue().get(token);
-			Admin admin = adminMapper.getAdminById(card);
+			Admin admin = adminMapper.selectById(card);
 			map.put("admin", admin);
 			result = INFO_SUCCESS;
 		} else {
@@ -184,8 +203,13 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 					// Redis 中存有验证码，且未过期
 					String code = stringRedisTemplate.opsForValue().get(token + "-code");
 					if (code.equals(checkCode)) {
-						int flag = adminMapper.resetPwd(card, oldPwd, newPwd);
+						QueryWrapper<Admin> queryWrapper = new QueryWrapper<>();
+						queryWrapper.eq("card", card).eq("password", oldPwd);
+						int flag = adminMapper.selectCount(queryWrapper);
 						if (flag == 1) {
+							Admin admin = adminMapper.selectById(card);
+							admin.setPassword(newPwd);
+							adminMapper.updateById(admin);
 							map.put("result", PWD_SUCCESS);
 						} else {
 							// 原密码错误，导致成功执行条数不为1
@@ -233,7 +257,10 @@ public class AdminServiceImpl<E> implements AccountService<E> {
 		try {
 			if (stringRedisTemplate.hasKey(token)) {
 				String card = stringRedisTemplate.opsForValue().get(token);
-				adminMapper.updateInfo(card, name, phone);
+				Admin admin = adminMapper.selectById(card);
+				admin.setName(name);
+				admin.setPhone(phone);
+				adminMapper.updateById(admin);
 				map.put("result", DO_SUCCESS);
 			} else {
 				// 登录状态失效

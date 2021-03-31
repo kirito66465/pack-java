@@ -1,6 +1,7 @@
 package per.kirito.pack.service.impl;
 
 import cn.hutool.core.date.DateUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -48,12 +49,14 @@ public class EchartsServiceImpl implements EchartsService {
 			// 取出 Admin 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
 			String date = "";
-			if (datee == null || datee == "") {
+			if (datee == null || "".equals(datee)) {
 				date = DateUtil.today();
 			} else {
 				date = datee;
 			}
-			Echarts echarts = echartsMapper.getData(date, card);
+			QueryWrapper<Echarts> echartsQueryWrapper = new QueryWrapper<>();
+			echartsQueryWrapper.eq("datee", date).eq("card", card);
+			Echarts echarts = echartsMapper.selectOne(echartsQueryWrapper);
 			if (echarts == null) {
 				map.put("fail", NOT_EXIST);
 				log.info("date: {}, card: {}, 此日暂无人员取件！", date, card);

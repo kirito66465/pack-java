@@ -6,69 +6,6 @@
         card, password, phone, name, addr, count, mail
     </sql>
 
-	<!-- 根据学号和密码查询用户是否存在以进行登录判断 -->
-	<select id="login" resultType="Integer">
-		SELECT count(*)
-		FROM t_user
-		WHERE card = #{card}
-		AND password = #{password}
-	</select>
-
-	<!-- 根据学号和手机号判断用户是否存在 -->
-	<select id="isExistByCardAndPhone" parameterType="String" resultType="Integer">
-		SELECT count(*)
-		FROM t_user
-		WHERE card = #{card}
-		AND phone = #{phone}
-	</select>
-
-	<!-- 根据 card 查询出该 User 信息 -->
-	<select id="getUserById" parameterType="String" resultType="User">
-		SELECT t.card, t.password, t.phone, t.name, t.addr, t.count, t.mail
-		FROM t_user t
-		WHERE card = #{card}
-	</select>
-
-	<!-- 根据 phone 查询出该 User 信息 -->
-	<select id="getUserByPhone" parameterType="String" resultType="User">
-		SELECT t.card, t.password, t.phone, t.name, t.addr, t.count, t.mail
-		FROM t_user t
-		WHERE phone = #{phone}
-	</select>
-
-	<!-- User 注册 -->
-	<insert id="register" parameterType="User">
-		INSERT INTO t_user (
-			card, password, phone, name, addr, count, mail
-		) VALUES (
-			#{card}, #{password}, #{phone}, #{name}, #{addr}, #{count}, #{mail}
-		)
-	</insert>
-
-	<!-- User 忘记密码以进行密码重置 -->
-	<update id="forgetPwd">
-		UPDATE t_user
-		SET password = #{password}
-		WHERE card = #{card}
-	</update>
-
-	<!-- User 修改密码 -->
-	<update id="resetPwd">
-		UPDATE t_user
-		SET password = #{newPwd}
-		WHERE card = #{card}
-		AND password = #{oldPwd}
-	</update>
-
-	<!-- User 更新信息 -->
-	<update id="updateInfo">
-		UPDATE t_user
-		SET name = #{name}
-			, addr = #{addr}
-			, mail = #{mail}
-		WHERE card = #{card}
-	</update>
-
 	<!-- 随机获取一个 User 信息 -->
 	<select id="getUserByRand" resultType="User">
 		SELECT card, password, phone, name, addr, count, mail

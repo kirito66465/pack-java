@@ -3,31 +3,13 @@
 <mapper namespace="per.kirito.pack.mapper.CodeMapper">
 
 	<sql id="FIELDS">
-        code, addr, status, free
+        id, code, addr, status, free
     </sql>
 
 	<!-- 查询所在驿站最大取件码状态是否为未使用，且从未被使用过 -->
-	<select id="findMaxCode" parameterType="Code" resultType="Integer">
-		SELECT count(*)
-		FROM t_code
-		WHERE code = #{code}
-		AND addr = #{addr}
-		AND status = 0
-		AND free = ""
-	</select>
-
-	<!-- 更新 Code -->
-	<update id="updateCode" parameterType="Code">
-		UPDATE t_code
-		SET status = #{status}
-			, free = #{free}
-		WHERE code = #{code}
-		AND addr = #{addr}
-	</update>
-
 	<!-- 当最大取件码被使用过时，根据驿站地址查询出当前最早被释放的取件码 -->
 	<select id="findCodeFreeMin" parameterType="String" resultType="Code">
-		SELECT code, addr, status, free
+		SELECT id, code, addr, status, free
 		FROM t_code
 		WHERE addr = #{addr}
 		AND status = 0

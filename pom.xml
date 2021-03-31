@@ -19,7 +19,6 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<mysql-connector-java.version>8.0.21</mysql-connector-java.version>
-		<mybatis-spring-boot-starter.version>2.1.3</mybatis-spring-boot-starter.version>
 		<mapper-spring-boot-starter.version>2.1.5</mapper-spring-boot-starter.version>
 		<druid.version>1.2.4</druid.version>
 		<druid-spring-boot-starter.version>1.1.17</druid-spring-boot-starter.version>
@@ -31,6 +30,8 @@
 		<hutool.version>5.5.7</hutool.version>
 		<poi-ooxml.version>4.1.2</poi-ooxml.version>
 		<junit.version>4.12</junit.version>
+		<mybatis-plus-boot-starter.version>3.4.2</mybatis-plus-boot-starter.version>
+		<p6spy.version>3.8.7</p6spy.version>
 	</properties>
 
 	<dependencies>
@@ -100,16 +101,18 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-		<!-- MyBatis 启动器 -->
+		<!-- MyBatis-plus 启动器 -->
 		<dependency>
-			<groupId>org.mybatis.spring.boot</groupId>
-			<artifactId>mybatis-spring-boot-starter</artifactId>
-			<version>${mybatis-spring-boot-starter.version}</version>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-boot-starter</artifactId>
+			<version>${mybatis-plus-boot-starter.version}</version>
 		</dependency>
+
+		<!-- SQL 分析打印 -->
 		<dependency>
-			<groupId>tk.mybatis</groupId>
-			<artifactId>mapper-spring-boot-starter</artifactId>
-			<version>${mapper-spring-boot-starter.version}</version>
+			<groupId>p6spy</groupId>
+			<artifactId>p6spy</artifactId>
+			<version>${p6spy.version}</version>
 		</dependency>
 
 		<!-- Redis 启动器 -->

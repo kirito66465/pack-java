@@ -42,12 +42,12 @@ public class PackController {
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
 	@CrossOrigin
-	@PostMapping(value = "/addPack")
+	@PostMapping(value = "/add-pack")
 	public String addPack(
 			@ApiParam(required = true, name = "id", value = "快递单号") @RequestParam(value = "id") String id,
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
 			HttpServletRequest request) {
-		log.info("请求 URL[/pack/addPack]；参数[id={}, token={}]", id, token);
+		log.info("请求 URL[/pack/add-pack]；参数[id={}, token={}]", id, token);
 		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return packService.addPack(id, token);
 	}
@@ -69,12 +69,12 @@ public class PackController {
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
 	@CrossOrigin
-	@PutMapping(value = "/pickById")
+	@PutMapping(value = "/pick-by-id")
 	public String pickById(
 			@ApiParam(required = true, name = "ids", value = "快递单号") @RequestParam(value = "ids") String ids,
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
 			HttpServletRequest request) {
-		log.info("请求 URL[/pack/pickById]；参数[ids={}, token={}]", ids, token);
+		log.info("请求 URL[/pack/pick-by-id]；参数[ids={}, token={}]", ids, token);
 		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return packService.pickById(ids, token);
 	}
@@ -97,13 +97,13 @@ public class PackController {
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
 	@CrossOrigin
-	@PutMapping(value = "/pickPackByUser")
+	@PutMapping(value = "/pick-by-code")
 	public String pickPackByUser(
 			@ApiParam(required = true, name = "addr", value = "驿站地址") @RequestParam(value = "addr") String addr,
 			@ApiParam(required = true, name = "code", value = "取件码") @RequestParam(value = "code") String code,
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
 			HttpServletRequest request) {
-		log.info("请求 URL[/pack/pickPackByUser]；参数[addr={}, code={}, token={}]", addr, code, token);
+		log.info("请求 URL[/pack/pick-by-code]；参数[addr={}, code={}, token={}]", addr, code, token);
 		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return packService.pickPackByUser(addr, code, token);
 	}
@@ -125,12 +125,12 @@ public class PackController {
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
 	@CrossOrigin
-	@PutMapping(value = "/pickPackByAdmin")
+	@PutMapping(value = "/pick-by-admin")
 	public String pickPackByAdmin(
 			@ApiParam(required = true, name = "ids", value = "快递单号") @RequestParam(value = "ids") String ids,
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
 			HttpServletRequest request) {
-		log.info("请求 URL[/pack/pickPackByAdmin]；参数[ids=" + ids + ", token=" + token + "]");
+		log.info("请求 URL[/pack/pick-by-admin]；参数[ids=" + ids + ", token=" + token + "]");
 		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return packService.pickPackByAdmin(ids, token);
 	}
@@ -152,12 +152,12 @@ public class PackController {
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
 	@CrossOrigin
-	@DeleteMapping(value = "/deletePacks")
+	@DeleteMapping(value = "/delete-pack")
 	public String deletePacks(
 			@ApiParam(required = true, name = "ids", value = "快递单号") @RequestParam(value = "ids") String ids,
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
 			HttpServletRequest request) {
-		log.info("请求 URL[/pack/deletePacks]；参数[ids={}, token={}]", ids, token);
+		log.info("请求 URL[/pack/delete-pack]；参数[ids={}, token={}]", ids, token);
 		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return packService.deletePacksById(ids, token);
 	}
@@ -183,12 +183,12 @@ public class PackController {
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
 	@CrossOrigin
-	@PostMapping(value = "/getUserPackByPage")
+	@PostMapping(value = "/user-all-pack")
 	public Map<String, Object> getUserPackByPage(
 			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态, search:搜索}")
 			@RequestParam(value = "json") String json,
 			HttpServletRequest request) {
-		log.info("请求 URL[/pack/getUserPackByPage]；参数[json={}]", json);
+		log.info("请求 URL[/pack/user-all-pack]；参数[json={}]", json);
 		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return packService.getUserPackByPage(json);
 	}
@@ -209,12 +209,12 @@ public class PackController {
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
 	@CrossOrigin
-	@PostMapping(value = "/getUserIsPick")
+	@PostMapping(value = "/user-is-pack")
 	public Map<String, Object> getUserIsPick(
 			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, search:搜索}")
 			@RequestParam(value = "json") String json,
 			HttpServletRequest request) {
-		log.info("请求 URL[/pack/getUserIsPick]；参数[json={}]", json);
+		log.info("请求 URL[/pack/user-is-pack]；参数[json={}]", json);
 		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return packService.getUserIsPick(json);
 	}
@@ -235,12 +235,12 @@ public class PackController {
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
 	@CrossOrigin
-	@PostMapping(value = "/getUserNoPick")
+	@PostMapping(value = "/user-no-pack")
 	public Map<String, Object> getUserNoPick(
 			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态, search:搜索}")
 			@RequestParam(value = "json") String json,
 			HttpServletRequest request) {
-		log.info("请求 URL[/pack/getUserNoPick]；参数[json={}]", json);
+		log.info("请求 URL[/pack/user-no-pack]；参数[json={}]", json);
 		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return packService.getUserNoPick(json);
 	}
@@ -261,11 +261,11 @@ public class PackController {
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
 	@CrossOrigin
-	@PostMapping(value = "/getUserTotalNum")
+	@PostMapping(value = "/user-count")
 	public Map<String, Object> getUserTotalNum(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
 			HttpServletRequest request) {
-		log.info("请求 URL[/pack/getUserTotalNum]；参数[token={}]", token);
+		log.info("请求 URL[/pack/user-count]；参数[token={}]", token);
 		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return packService.getUserTotalNum(token);
 	}
@@ -291,12 +291,12 @@ public class PackController {
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
 	@CrossOrigin
-	@PostMapping(value = "/getAdminPacksByPage")
+	@PostMapping(value = "/admin-all-pack")
 	public Map<String, Object> getAdminPackByPage(
 			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态, search:搜索}")
 			@RequestParam(value = "json") String json,
 			HttpServletRequest request) {
-		log.info("请求 URL[/pack/getAdminPacksByPage]；参数[json={}]", json);
+		log.info("请求 URL[/pack/admin-all-pack]；参数[json={}]", json);
 		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return packService.getAdminPackByPage(json);
 	}
@@ -317,12 +317,12 @@ public class PackController {
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
 	@CrossOrigin
-	@PostMapping(value = "/getAdminIsPick")
+	@PostMapping(value = "/admin-is-pack")
 	public Map<String, Object> getAdminIsPick(
 			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, search:搜索}")
 			@RequestParam(value = "json") String json,
 			HttpServletRequest request) {
-		log.info("请求 URL[/pack/getAdminIsPick]；参数[json={}]", json);
+		log.info("请求 URL[/pack/admin-is-pack]；参数[json={}]", json);
 		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return packService.getAdminIsPick(json);
 	}
@@ -343,12 +343,12 @@ public class PackController {
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
 	@CrossOrigin
-	@PostMapping(value = "/getAdminNoPick")
+	@PostMapping(value = "/admin-no-pack")
 	public Map<String, Object> getAdminNoPick(
 			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态, search:搜索}")
 			@RequestParam(value = "json") String json,
 			HttpServletRequest request) {
-		log.info("请求 URL[/pack/getAdminNoPick]；参数[json={}]", json);
+		log.info("请求 URL[/pack/admin-no-pack]；参数[json={}]", json);
 		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return packService.getAdminNoPick(json);
 	}
@@ -369,11 +369,11 @@ public class PackController {
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
 	@CrossOrigin
-	@PostMapping(value = "/getAdminTotalNum")
+	@PostMapping(value = "/admin-count")
 	public Map<String, Object> getAdminTotalNum(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
 			HttpServletRequest request) {
-		log.info("请求 URL[/pack/getAdminTotalNum]；参数[token={}]", token);
+		log.info("请求 URL[/pack/admin-count]；参数[token={}]", token);
 		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return packService.getAdminTotalNum(token);
 	}
@@ -395,12 +395,12 @@ public class PackController {
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
 	@CrossOrigin
-	@PostMapping(value = "/getShelfPack")
+	@PostMapping(value = "/shelf-pack")
 	public Map<String, Object> getShelfPack(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
 			@ApiParam(required = true, name = "shelf", value = "货架") @RequestParam(value = "shelf") String shelf,
 			HttpServletRequest request) {
-		log.info("请求 URL[/pack/getShelfPack]；参数[token={}, shelf={}]", token, shelf);
+		log.info("请求 URL[/pack/shelf-pack]；参数[token={}, shelf={}]", token, shelf);
 		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return packService.getShelfPack(token, shelf);
 	}

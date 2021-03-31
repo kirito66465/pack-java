@@ -1,5 +1,6 @@
 package per.kirito.pack.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -69,7 +70,9 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 	public Map<String, String> login(String card, String password) {
 		Map<String, String> map = new HashMap<>();
 		// 根据 card 和 password 查询出该 User 是否存在
-		int flag = userMapper.login(card, password);
+		QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+		queryWrapper.eq("card", card).eq("password", password);
+		int flag = userMapper.selectCount(queryWrapper);
 		if (flag == LOGIN_CODE) {
 			// 生成唯一令牌 token
 			String token = UUID.randomUUID().toString();
@@ -113,7 +116,7 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 		boolean isLogin = stringRedisTemplate.hasKey(token);
 		if (isLogin) {
 			String card = stringRedisTemplate.opsForValue().get(token);
-			User user = userMapper.getUserById(card);
+			User user = userMapper.selectById(card);
 			map.put("user", user);
 			result = INFO_SUCCESS;
 		} else {
@@ -137,10 +140,13 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 		try {
 			String result = "";
 			String card = entity.getCard();
-
-			User user = userMapper.getUserById(card);
-			if (user == null) {
-				userMapper.register(entity);
+			String phone = entity.getPhone();
+			QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
+			userQueryWrapper.eq("card", card).or(i -> i.eq("phone", phone));
+			int count = userMapper.selectCount(userQueryWrapper);
+			User user;
+			if (count == 0) {
+				userMapper.insert(entity);
 				// 生成唯一令牌 token
 				String token = UUID.randomUUID().toString();
 				// 如果 Redis 中已存储，则先删除此键
@@ -152,7 +158,7 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 				map.put("name", entity.getName());
 				result = REGISTER_SUCCESS;
 			} else {
-				log.info("card: {} 注册失败，因为该学生已存在！", entity.getCard());
+				log.info("card: {} 注册失败，因为该学生已存在，学号或手机号已被注册！", entity.getCard());
 				result = IS_EXIST;
 			}
 			map.put("result", result);
@@ -180,10 +186,13 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 		Map<String, String> map = new HashMap<>();
 		try {
 			String result = "";
-			int isDo = userMapper.isExistByCardAndPhone(card, phone);
+			QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+			queryWrapper.eq("card", card).eq("phone", phone);
+			int isDo = userMapper.selectCount(queryWrapper);
 			if (isDo == 1) {
-				userMapper.forgetPwd(card, password);
-				User user = userMapper.getUserById(card);
+				User user = userMapper.selectById(card);
+				user.setPassword(password);
+				userMapper.updateById(user);
 				// 生成唯一令牌 token
 				String token = UUID.randomUUID().toString();
 				// 如果 Redis 中已存储，则先删除此键
@@ -230,8 +239,13 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 					// Redis 中存有验证码，且未过期
 					String code = stringRedisTemplate.opsForValue().get(token + "-code");
 					if (code.equals(checkCode)) {
-						int flag = userMapper.resetPwd(card, oldPwd, newPwd);
+						QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+						queryWrapper.eq("card", card).eq("password", oldPwd);
+						int flag = userMapper.selectCount(queryWrapper);
 						if (flag == 1) {
+							User user = userMapper.selectById(card);
+							user.setPassword(newPwd);
+							userMapper.updateById(user);
 							map.put("result", PWD_SUCCESS);
 						} else {
 							// 原密码错误，导致成功执行条数不为1
@@ -279,7 +293,11 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 		try {
 			if (stringRedisTemplate.hasKey(token)) {
 				String card = stringRedisTemplate.opsForValue().get(token);
-				userMapper.updateInfo(card, name, addr, mail);
+				User user = userMapper.selectById(card);
+				user.setName(name);
+				user.setAddr(addr);
+				user.setMail(mail);
+				userMapper.updateById(user);
 				map.put("result", DO_SUCCESS);
 			} else {
 				// 登录状态失效

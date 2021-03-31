@@ -1,8 +1,13 @@
 package per.kirito.pack.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
+import per.kirito.pack.annotation.Comment;
+import per.kirito.pack.myenum.PackStatusEnum;
 
-import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
@@ -13,74 +18,61 @@ import java.io.Serializable;
  */
 @Data
 @NonNull
-@Builder
+@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "t_pack")
+@TableName(value = "t_pack")
 public class Pack implements Serializable {
 
-	/**
-	 * 快递单号
-	 */
+	@Comment(msg = "快递单号")
+	@TableId(value = "id", type = IdType.NONE)
 	private String id;
 
-	/**
-	 * 快递公司
-	 */
+	@Comment(msg = "快递公司")
+	@TableField(value = "org")
 	private String org;
 
-	/**
-	 * 收件人
-	 */
-	private String per_name;
+	@Comment(msg = "收件人")
+	@TableField(value = "per_name")
+	private String perName;
 
-	/**
-	 * 收件手机号
-	 */
-	private String per_tel;
+	@Comment(msg = "收件手机号")
+	@TableField(value = "per_tel")
+	private String perTel;
 
-	/**
-	 * 收件地址
-	 */
-	private String per_addr;
+	@Comment(msg = "收件地址")
+	@TableField(value = "per_addr")
+	private String perAddr;
 
-	/**
-	 * 所在驿站
-	 */
+	@Comment(msg = "所在驿站")
+	@TableField(value = "addr")
 	private String addr;
 
-	/**
-	 * 取件码
-	 */
+	@Comment(msg = "取件码")
+	@TableField(value = "code")
 	private String code;
 
-	/**
-	 * 驿站联系人
-	 */
-	private String cont_name;
+	@Comment(msg = "驿站联系人")
+	@TableField(value = "cont_name")
+	private String contName;
 
-	/**
-	 * 驿站联系方式
-	 */
-	private String cont_tel;
+	@Comment(msg = "驿站联系方式")
+	@TableField(value = "cont_tel")
+	private String contTel;
 
-	/**
-	 * 快递状态
-	 */
-	private Integer status;
+	@Comment(msg = "快递状态")
+	@TableField(value = "status")
+	private PackStatusEnum status;
 
-	/**
-	 * 入站时间
-	 */
+	@Comment(msg = "入站时间")
+	@TableField(value = "start")
 	private String start;
 
-	/**
-	 * 取件时间
-	 */
+	@Comment(msg = "取件时间")
+	@TableField(value = "end")
 	private String end;
 
-	/**
-	 * 取件人
-	 */
+	@Comment(msg = "取件人")
+	@TableField(value = "pick")
 	private String pick;
 
 }

@@ -1,6 +1,9 @@
 package per.kirito.pack.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -13,7 +16,6 @@ import per.kirito.pack.util.SendUtil;
 import per.kirito.pack.util.TypeConversion;
 import per.kirito.pack.pojo.Send;
 import per.kirito.pack.pojo.User;
-import per.kirito.pack.pojo.utilpojo.Page;
 import per.kirito.pack.pojo.utilpojo.SendRequest;
 import per.kirito.pack.service.inter.SendService;
 
@@ -69,19 +71,19 @@ public class SendServiceImpl implements SendService {
 		String token = request.getToken();
 		if (stringRedisTemplate.hasKey(token)) {
 			try {
-				Send send = Send.builder().build();
+				Send send = new Send();
 				String card = stringRedisTemplate.opsForValue().get(token);
-				User user = userMapper.getUserById(card);
+				User user = userMapper.selectById(card);
 				// 设置寄件人信息
-				send.setFrom_name(user.getName());
-				send.setFrom_tel(user.getPhone());
+				send.setFromName(user.getName());
+				send.setFromTel(user.getPhone());
 				String postAddr = request.getAdmin();
-				send.setFrom_addr("江苏省南京市栖霞区南京财经大学" + postAddr);
+				send.setFromAddr("江苏省南京市栖霞区南京财经大学" + postAddr);
 				// 设置收件人信息
-				send.setTo_name(request.getName());
-				send.setTo_tel(request.getPhone());
+				send.setToName(request.getName());
+				send.setToTel(request.getPhone());
 				String toAddr = request.getAddr();
-				send.setTo_addr(toAddr);
+				send.setToAddr(toAddr);
 				// 生成快递单号和快递公司
 				String id = SendUtil.getSendIdAndOrg(postAddr).get("id");
 				String org = SendUtil.getSendIdAndOrg(postAddr).get("org");
@@ -92,7 +94,7 @@ public class SendServiceImpl implements SendService {
 				send.setDt(dt);
 				send.setPrice(request.getPrice());
 				// 向 t_send 表中插入这条数据
-				sendMapper.addSend(send);
+				sendMapper.insert(send);
 				map.put("result", DO_SUCCESS);
 			} catch (Exception e) {
 				log.error("error: {}", e.getMessage(), e);
@@ -123,7 +125,10 @@ public class SendServiceImpl implements SendService {
 		}
 		try {
 			String dt = TypeConversion.getTime();
-			sendMapper.updateSend(id, SEND_STATUS_1, dt);
+			Send send = sendMapper.selectById(id);
+			send.setStatus(SEND_STATUS_1);
+			send.setDt(dt);
+			sendMapper.updateById(send);
 			return DO_SUCCESS;
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
@@ -152,7 +157,10 @@ public class SendServiceImpl implements SendService {
 				String dt = "";
 				for (String id : idArr) {
 					dt = TypeConversion.getTime();
-					sendMapper.updateSend(id, SEND_STATUS_2, dt);
+					Send send = sendMapper.selectById(id);
+					send.setStatus(SEND_STATUS_2);
+					send.setDt(dt);
+					sendMapper.updateById(send);
 				}
 				return DO_SUCCESS;
 			} else {    // 传入的 ids 为空字符串时
@@ -185,7 +193,10 @@ public class SendServiceImpl implements SendService {
 				String dt = "";
 				for (String id : idArr) {
 					dt = TypeConversion.getTime();
-					sendMapper.updateSend(id, SEND_STATUS_3, dt);
+					Send send = sendMapper.selectById(id);
+					send.setStatus(SEND_STATUS_3);
+					send.setDt(dt);
+					sendMapper.updateById(send);
 				}
 				return DO_SUCCESS;
 			} else {    // 传入的 ids 为空字符串时
@@ -216,7 +227,7 @@ public class SendServiceImpl implements SendService {
 			if ("".equals(ids)) {
 				String[] idArr = ids.split(",");
 				for (String id : idArr) {
-					sendMapper.deleteSend(id);
+					sendMapper.deleteById(id);
 				}
 			}
 			return DO_SUCCESS;
@@ -258,13 +269,44 @@ public class SendServiceImpl implements SendService {
 
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
-			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 user 寄件集合
-			List<Send> sends = sendMapper.getSendByUser(card, org, status, search);
-			if (sends != null) {
+			String card = stringRedisTemplate.opsForValue().get(token);
+			User user = userMapper.selectById(card);
+			String phone = user.getPhone();
+			QueryWrapper<Send> sendQueryWrapper = new QueryWrapper<>();
+			sendQueryWrapper.in("from_tel", phone);
+			if (org != null && org.length() > 0) {
+				String[] orgs = org.split(",");
+				sendQueryWrapper.in("org", orgs);
+			}
+			if (status != null && status.length() > 0) {
+				String[] statuses = status.split(",");
+				sendQueryWrapper.in("status", statuses);
+			}
+			if (search != null && !"".equals(search)) {
+				sendQueryWrapper.like("from_name", search)
+						.like("from_tel", search)
+						.like("from_addr", search)
+						.like("to_name", search)
+						.like("to_tel", search)
+						.like("to_addr", search)
+						.like("id", search)
+						.like("org", search)
+						.like("status", search)
+						.like("dt", search);
+			}
+			sendQueryWrapper.orderBy(true, false, "status", "dt");
+			IPage<Send> sendPage = new Page<>(currentPage, pageSize);
+			IPage<Send> sends = sendMapper.selectPage(sendPage, sendQueryWrapper);
+			List<Send> sendsList = sends.getRecords();
+			if (sendsList != null) {
 				// 获取分页方式结果集
-				Page<Send> sendPage = SendUtil.getSendByPage(currentPage, pageSize, sends);
-				map.put("result", sendPage);
+				per.kirito.pack.pojo.utilpojo.Page<Send> result = new per.kirito.pack.pojo.utilpojo.Page<Send>();
+				result.setCurrentPage(currentPage);
+				result.setPageSize(pageSize);
+				result.setTotal(sends.getTotal());
+				result.setList(sendsList);
+				map.put("result", result);
 			} else {
 				log.info("token: {} 获取学生寄件集失败，因为筛选过后无数据！", token);
 				map.put("result", NOT_EXIST);
@@ -330,15 +372,40 @@ public class SendServiceImpl implements SendService {
 
 		Map<String, Object> map = new HashMap<>();
 		if (stringRedisTemplate.hasKey(token)) {
+			// 根据 org 查询出该 Admin 寄件集合
 			// 获取所在驿站的寄件快递种类/公司
 			String card = stringRedisTemplate.opsForValue().get(token);
 			String org = SendUtil.getSendOrg(card);
-			// 根据 org 查询出该 Admin 寄件集合
-			List<Send> sends = sendMapper.getSendByAdmin(org, status, search);
-			if (sends != null) {
+			QueryWrapper<Send> sendQueryWrapper = new QueryWrapper<>();
+			sendQueryWrapper.eq("org", org);
+			if (status != null && status.length() > 0) {
+				String[] statuses = status.split(",");
+				sendQueryWrapper.in("status", statuses);
+			}
+			if (search != null && !"".equals(search)) {
+				sendQueryWrapper.like("from_name", search)
+						.like("from_tel", search)
+						.like("from_addr", search)
+						.like("to_name", search)
+						.like("to_tel", search)
+						.like("to_addr", search)
+						.like("id", search)
+						.like("org", search)
+						.like("status", search)
+						.like("dt", search);
+			}
+			sendQueryWrapper.orderBy(true, false, "status", "dt");
+			IPage<Send> sendPage = new Page<>(currentPage, pageSize);
+			IPage<Send> sends = sendMapper.selectPage(sendPage, sendQueryWrapper);
+			List<Send> sendsList = sends.getRecords();
+			if (sendsList != null) {
 				// 获取分页方式结果集
-				Page<Send> sendPage = SendUtil.getSendByPage(currentPage, pageSize, sends);
-				map.put("result", sendPage);
+				per.kirito.pack.pojo.utilpojo.Page<Send> result = new per.kirito.pack.pojo.utilpojo.Page<Send>();
+				result.setCurrentPage(currentPage);
+				result.setPageSize(pageSize);
+				result.setTotal(sends.getTotal());
+				result.setList(sendsList);
+				map.put("result", result);
 			} else {
 				log.info("token: {} 获取驿站管理员寄件集失败，因为筛选过后无数据！", token);
 				map.put("result", NOT_EXIST);

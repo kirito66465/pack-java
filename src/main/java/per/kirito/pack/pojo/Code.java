@@ -1,8 +1,12 @@
 package per.kirito.pack.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
+import per.kirito.pack.annotation.Comment;
 
-import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
@@ -13,29 +17,29 @@ import java.io.Serializable;
  */
 @Data
 @NonNull
-@Builder
+@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "t_code")
+@TableName(value = "t_code")
 public class Code implements Serializable {
 
-	/**
-	 * 取件码
-	 */
+	@Comment(msg = "ID")
+	@TableId(value = "ID", type = IdType.AUTO)
+	private Integer id;
+
+	@Comment(msg = "取件码")
+	@TableField(value = "code")
 	private String code;
 
-	/**
-	 * 所在驿站
-	 */
+	@Comment(msg = "所在驿站")
+	@TableField(value = "addr")
 	private String addr;
 
-	/**
-	 * 状态，0：未被使用，1：已被使用
-	 */
+	@Comment(msg = "状态，0：未被使用，1：已被使用")
+	@TableField(value = "status")
 	private Integer status;
 
-	/**
-	 * 释放时间
-	 */
+	@Comment(msg = "释放时间")
+	@TableField(value = "free")
 	private String free;
 
 }

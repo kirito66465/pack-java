@@ -6,33 +6,6 @@
         from_name, from_tel, from_addr, to_name, to_tel, to_addr, price, id, org, status, dt
     </sql>
 
-	<!-- 添加寄件 -->
-	<insert id="addSend" parameterType="Send">
-		INSERT INTO t_send (
-			from_name, from_tel, from_addr
-			, to_name, to_tel, to_addr, price
-			, id, org, status, dt
-		) VALUES (
-			#{from_name}, #{from_tel}, #{from_addr}
-			, #{to_name}, #{to_tel}, #{to_addr}, #{price}
-			, #{id}, #{org}, #{status}, #{dt}
-		)
-	</insert>
-
-	<!-- 删除寄件 -->
-	<delete id="deleteSend" parameterType="String">
-		DELETE FROM t_send
-		WHERE id = #{id}
-	</delete>
-
-	<!-- 更新寄件状态 -->
-	<update id="updateSend">
-		UPDATE t_send
-		SET status = #{status}
-			, dt = #{dt}
-		WHERE id = #{id}
-	</update>
-
 	<!-- 获取 User 的寄件集合 -->
 	<select id="getSendByUser" resultType="Send">
 		SELECT from_name, from_tel, from_addr

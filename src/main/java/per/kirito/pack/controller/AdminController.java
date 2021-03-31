@@ -97,11 +97,11 @@ public class AdminController {
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
 	@CrossOrigin
-	@PostMapping(value = "/getInfo")
+	@PostMapping(value = "/get-info")
 	public Map<String, Object> getAdminInfo(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
 			HttpServletRequest request) {
-		log.info("请求 URL[/admin/getInfo]；参数[token={}]", token);
+		log.info("请求 URL[/admin/get-info]；参数[token={}]", token);
 		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return accountService.getInfo(token);
 	}
@@ -126,7 +126,7 @@ public class AdminController {
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
 	@CrossOrigin
-	@PutMapping(value = "/resetPwd")
+	@PutMapping(value = "/reset-pwd")
 	public Map<String, String> resetPwd(
 			@ApiParam(required = true, name = "card", value = "驿站编号") @RequestParam(value = "card") String card,
 			@ApiParam(required = true, name = "oldPwd", value = "原密码") @RequestParam(value = "oldPwd") String oldPwd,
@@ -134,7 +134,7 @@ public class AdminController {
 			@ApiParam(required = true, name = "checkCode", value = "验证码") @RequestParam(value = "checkCode") String checkCode,
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
 			HttpServletRequest request) {
-		log.info("请求 URL[/admin/resetPwd]；参数[card={}, oldPwd={}, newPwd={}, checkCode={}, token={}]", card, oldPwd, newPwd, checkCode, token);
+		log.info("请求 URL[/admin/reset-pwd]；参数[card={}, oldPwd={}, newPwd={}, checkCode={}, token={}]", card, oldPwd, newPwd, checkCode, token);
 		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return accountService.resetPwd(card, oldPwd, newPwd, checkCode, token);
 	}
@@ -158,14 +158,14 @@ public class AdminController {
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
 	@CrossOrigin
-	@PutMapping(value = "/updateInfo")
+	@PutMapping(value = "/update-info")
 	public Map<String, String> updateInfo(
 			@ApiParam(required = true, name = "name", value = "驿站编号") @RequestParam(value = "name") String name,
 			@ApiParam(required = true, name = "phone", value = "手机号") @RequestParam(value = "phone") String phone,
-			@ApiParam(required = true, name = "mail", value = "邮箱") @RequestParam(value = "mail") String mail,
+			@ApiParam(required = false, name = "mail", value = "邮箱") String mail,
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
 			HttpServletRequest request) {
-		log.info("请求 URL[/admin/updateInfo]；参数[name={}, phone={}, mail={}, token={}]", name, phone, mail, token);
+		log.info("请求 URL[/admin/update-info]；参数[name={}, phone={}, token={}]", name, phone, token);
 		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return accountService.updateInfo(name, phone, mail, token);
 	}
@@ -186,11 +186,11 @@ public class AdminController {
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
 	@CrossOrigin
-	@PostMapping(value = "/getPackId")
+	@PostMapping(value = "/pack-id")
 	public String getPackId(
 			@ApiParam(required = true, name = "type", value = "快递公司") @RequestParam(value = "type") String type,
 			HttpServletRequest request) {
-		log.info("请求 URL[/admin/getPackId]；参数[type={}]", type);
+		log.info("请求 URL[/admin/pack-id]；参数[type={}]", type);
 		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return PackIdUtil.generate(type);
 	}

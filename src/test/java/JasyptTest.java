@@ -15,7 +15,7 @@ public class JasyptTest {
 		EnvironmentPBEConfig config = new EnvironmentPBEConfig();
 
 		config.setAlgorithm("PBEWithMD5AndDES");          // 加密的算法，这个算法是默认的
-		config.setPassword("xxx");                     // 加密的密钥
+		config.setPassword("xxx");                        // 加密的密钥
 		standardPBEStringEncryptor.setConfig(config);
 		String plainText = "xxx";
 		String encryptedText = standardPBEStringEncryptor.encrypt(plainText);

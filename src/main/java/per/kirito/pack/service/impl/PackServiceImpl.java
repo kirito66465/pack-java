@@ -2,19 +2,20 @@ package per.kirito.pack.service.impl;
 
 import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import per.kirito.pack.mapper.*;
+import per.kirito.pack.myenum.PackStatusEnum;
 import per.kirito.pack.myenum.Status;
 import per.kirito.pack.util.PackUtil;
 import per.kirito.pack.util.PickCodeUtil;
 import per.kirito.pack.util.TypeConversion;
 import per.kirito.pack.pojo.*;
-import per.kirito.pack.pojo.utilpojo.PackResult;
-import per.kirito.pack.pojo.utilpojo.Page;
 import per.kirito.pack.service.inter.PackService;
 
 import java.util.*;
@@ -77,8 +78,6 @@ public class PackServiceImpl implements PackService {
 	// 驿站已有取件码的最大快递数量
 	private static final int MAX_PACKS = 2400;
 
-	private static Code MAX_CODE_UNUSED = new Code("20-6-20", "", NOT_USE, "");
-
 	/**
 	 * 驿站管理员添加快递入站
 	 *
@@ -92,27 +91,31 @@ public class PackServiceImpl implements PackService {
 		if (stringRedisTemplate.hasKey(token)) {
 			try {
 				// 随机获取一个用户，用于绑定快递的收件信息
-				Pack pack = Pack.builder().build();
-				pack.setId(id);
 				User user = userMapper.getUserByRand();
-				pack.setPer_name(user.getName());
-				pack.setPer_tel(user.getPhone());
-				pack.setPer_addr(user.getAddr());
+				Pack pack = new Pack();
+				pack.setId(id);
+				pack.setPerName(user.getName());
+				pack.setPerTel(user.getPhone());
+				pack.setPerAddr(user.getAddr());
 				// 根据快递单号 id 获取驿站相关信息
 				pack = PackUtil.addInfo(pack);
 				String addr = pack.getAddr();
 				// 取出目前驿站信息
-				Admin admin = adminMapper.getAdminByAddr(addr);
+				Admin admin = getAdminByAddr(addr);
 				int count = admin.getCount();
 				// 查询最大取件码有无被使用，值为1说明状态为未使用且释放时间为空字符串即从未被使用过
-				MAX_CODE_UNUSED.setAddr(addr);
-				int isUse = codeMapper.findMaxCode(MAX_CODE_UNUSED);
+				QueryWrapper<Code> codeQueryWrapper = new QueryWrapper<>();
+				codeQueryWrapper.eq("code", "20-6-20")
+						.eq("addr", addr)
+						.eq("status", 0)
+						.eq("free", "");
+				int isUse = codeMapper.selectCount(codeQueryWrapper);
 				String code = "";
 				// 驿站现存快递数量小于能有取件码的快递数量
 				if (count < MAX_PACKS) {
 					// 此入站快递能有取件码
-					Code coder = Code.builder().build();
-					pack.setStatus(PACK_CODE_1);
+					Code coder = new Code();
+					pack.setStatus(PackStatusEnum.PACK_STATUS_1);
 					// 判断取件码有无被使用
 					if (isUse == USE_CODE) {
 						// 最大取件码未被使用，此时按照该驿站该快递未入站之前的快递数量生成取件码
@@ -127,14 +130,16 @@ public class PackServiceImpl implements PackService {
 					coder.setCode(code);
 					coder.setStatus(IS_USE);
 					// 更新取件码信息
-					codeMapper.updateCode(coder);
+					codeQueryWrapper = new QueryWrapper<>();
+					codeQueryWrapper.eq("code", code).eq("addr", addr);
+					codeMapper.update(coder, codeQueryWrapper);
 				} else {
 					// 该快递没法有取件码
-					pack.setStatus(PACK_CODE__1);
+					pack.setStatus(PackStatusEnum.PACK_STATUS__1);
 					code = "";
 				}
 				pack.setCode(code);
-				packMapper.addPack(pack);
+				packMapper.insert(pack);
 				// 更新 Admin 的 count 数
 				adminMapper.updateCountPlusByPackId(id);
 				// 更新 User 的 count 数
@@ -170,38 +175,42 @@ public class PackServiceImpl implements PackService {
 				String[] idArr = ids.split(",");
 				int noExistCount = 0;
 				for (String id : idArr) {
-					Pack pack = packMapper.getPackById(id);
+					Pack pack = packMapper.selectById(id);
 					String card = stringRedisTemplate.opsForValue().get(token);
-					User user = userMapper.getUserById(card);
+					User user = userMapper.selectById(card);
 					String name = user.getName();
 					if (pack != null) {
 						String addr = pack.getAddr();
 						String code = pack.getCode();
 						// 更新管理员信息
-						Admin admin = adminMapper.getAdminByAddr(addr);
+						Admin admin = getAdminByAddr(addr);
 						adminMapper.updateCountLessByPackId(pack.getId());
 						// 更新用户信息
 						userMapper.updateCountLessByPackId(pack.getId());
-						pack.setStatus(PACK_CODE_0);
+						pack.setStatus(PackStatusEnum.PACK_STATUS_0);
 						String time = TypeConversion.getTime();
 						pack.setEnd(time);
 						// 更新签收人
 						pack.setPick(name);
 						// 更新包裹状态、取件时间
-						packMapper.updatePack(pack);
+						packMapper.updateById(pack);
 						// 更新取件码使用状态与释放时间
-						Code coder = new Code(code, addr, CODE_STATUS_0, time);
-						codeMapper.updateCode(coder);
+						QueryWrapper<Code> codeQueryWrapper = new QueryWrapper<>();
+						codeQueryWrapper.eq("code", code).eq("addr", addr);
+						Code coder = getCodeById(codeQueryWrapper);
+						coder.setStatus(CODE_STATUS_0);
+						coder.setFree(time);
+						codeMapper.update(coder,codeQueryWrapper);
 						int count = admin.getCount() - 1;
 						if (count >= MAX_PACKS) {
 							// 当前快递取出后，驿站剩余未取快递数大于等于2400，则需要为未有取件码的快递根据最早入站时间赋予取件码
 							pack = packMapper.getPackByStartMin(addr);
 							pack.setCode(code);
-							pack.setStatus(PACK_CODE_1);
-							packMapper.updatePack(pack);
+							pack.setStatus(PackStatusEnum.PACK_STATUS_1);
+							packMapper.updateById(pack);
 							// 重新设置该 code 为使用状态
 							coder.setStatus(CODE_STATUS_1);
-							codeMapper.updateCode(coder);
+							codeMapper.update(coder, codeQueryWrapper);
 						}
 
 						// Echarts 统计
@@ -248,45 +257,53 @@ public class PackServiceImpl implements PackService {
 		try {
 			// 如果 token 令牌存在
 			if (stringRedisTemplate.hasKey(token)) {
-				Pack pack = packMapper.getPackByAddrAndCode(addr, code);
+				QueryWrapper<Pack> packQueryWrapper = new QueryWrapper<>();
+				packQueryWrapper.eq("addr", addr).eq("code", code).eq("status", PackStatusEnum.PACK_STATUS_1);
+				Pack pack = packMapper.selectOne(packQueryWrapper);
 				String card = stringRedisTemplate.opsForValue().get(token);
-				User user = userMapper.getUserById(card);
+				User user = userMapper.selectById(card);
 				String name = user.getName();
 				if (pack != null) {
 					// 更新管理员信息
-					Admin admin = adminMapper.getAdminByAddr(addr);
+					Admin admin = getAdminByAddr(addr);
 					adminMapper.updateCountLessByPackId(pack.getId());
 					// 如果为本人签收
-					if (pack.getPer_tel().equals(user.getPhone())) {
+					if (pack.getPerTel().equals(user.getPhone())) {
 						// 本人签收
 						msg = PICK_SUCCESS;
 					} else {
 						// 他人代取
-						user = userMapper.getUserByPhone(pack.getPer_tel());
+						QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
+						userQueryWrapper.eq("phone", pack.getPerTel());
+						user = userMapper.selectOne(userQueryWrapper);
 						msg = TAKE_SUCCESS;
 					}
 					// 更新用户信息
 					userMapper.updateCountLessByPackId(pack.getId());
-					pack.setStatus(PACK_CODE_0);
+					pack.setStatus(PackStatusEnum.PACK_STATUS_0);
 					String time = TypeConversion.getTime();
 					pack.setEnd(time);
 					// 更新签收人
 					pack.setPick(name);
 					// 更新包裹状态、取件时间
-					packMapper.updatePack(pack);
+					packMapper.updateById(pack);
 					// 更新取件码使用状态与释放时间
-					Code coder = new Code(code, addr, CODE_STATUS_0, time);
-					codeMapper.updateCode(coder);
+					QueryWrapper<Code> codeQueryWrapper = new QueryWrapper<>();
+					codeQueryWrapper.eq("code", code).eq("addr", addr);
+					Code coder = getCodeById(codeQueryWrapper);
+					coder.setStatus(CODE_STATUS_0);
+					coder.setFree(time);
+					codeMapper.update(coder,codeQueryWrapper);
 					int count = admin.getCount() - 1;
 					if (count >= MAX_PACKS) {
 						// 当前快递取出后，驿站剩余未取快递数大于等于2400，则需要为未有取件码的快递根据最早入站时间赋予取件码
 						pack = packMapper.getPackByStartMin(addr);
 						pack.setCode(code);
-						pack.setStatus(PACK_CODE_1);
-						packMapper.updatePack(pack);
+						pack.setStatus(PackStatusEnum.PACK_STATUS_1);
+						packMapper.updateById(pack);
 						// 重新设置该 code 为使用状态
 						coder.setStatus(CODE_STATUS_1);
-						codeMapper.updateCode(coder);
+						codeMapper.update(coder, codeQueryWrapper);
 					}
 
 					// Echarts 统计
@@ -329,35 +346,39 @@ public class PackServiceImpl implements PackService {
 			String[] idArr = ids.split(",");
 			int noExistCount = 0;
 			for (String id : idArr) {
-				Pack pack = packMapper.getPackById(id);
+				Pack pack = packMapper.selectById(id);
 				if (pack != null) {
 					// 更新管理员信息
 					String addr = pack.getAddr();
-					Admin admin = adminMapper.getAdminByAddr(addr);
+					Admin admin = getAdminByAddr(addr);
 					adminMapper.updateCountLessByPackId(id);
 					// 更新用户信息
 					userMapper.updateCountLessByPackId(id);
 					// 更新包裹状态、取件时间
-					pack.setStatus(PACK_CODE_0);
+					pack.setStatus(PackStatusEnum.PACK_STATUS_0);
 					String time = TypeConversion.getTime();
 					pack.setEnd(time);
 					pack.setPick(admin.getName());
-					packMapper.updatePack(pack);
+					packMapper.updateById(pack);
 					int count = admin.getCount() - 1;
 					// 更新取件码使用状态与释放时间
 					String code = pack.getCode();
 					if (code != null && !"".equals(code)) {
-						Code coder = new Code(code, addr, CODE_STATUS_0, time);
-						codeMapper.updateCode(coder);
+						QueryWrapper<Code> codeQueryWrapper = new QueryWrapper<>();
+						codeQueryWrapper.eq("code", code).eq("addr", addr);
+						Code coder = getCodeById(codeQueryWrapper);
+						coder.setStatus(CODE_STATUS_0);
+						coder.setFree(time);
+						codeMapper.update(coder, codeQueryWrapper);
 						if (count >= MAX_PACKS) {
 							// 当前快递取出后，驿站剩余未取快递数大于等于2400，则需要为有取件码的快递根据最早入站时间赋予取件码
 							pack = packMapper.getPackByStartMin(addr);
 							pack.setCode(code);
-							pack.setStatus(PACK_CODE_1);
-							packMapper.updatePack(pack);
+							pack.setStatus(PackStatusEnum.PACK_STATUS_1);
+							packMapper.updateById(pack);
 							// 重新设置该 code 为使用状态
 							coder.setStatus(CODE_STATUS_1);
-							codeMapper.updateCode(coder);
+							codeMapper.update(coder, codeQueryWrapper);
 						}
 					}
 
@@ -399,16 +420,17 @@ public class PackServiceImpl implements PackService {
 				if (!stringRedisTemplate.hasKey(token)) {
 					return LOGIN_TO_DO;
 				}
-				int status = packMapper.getStatusById(id);
+				Pack pack = packMapper.selectById(id);
+				PackStatusEnum status = pack.getStatus();
 				// 已取快递不更新 Admin 与 User 的 count 值
-				if (status != PACK_CODE_0) {
+				if (status != PackStatusEnum.PACK_STATUS_0) {
 					// 更新 User 的 count 数
 					userMapper.updateCountLessByPackId(id);
 					// 更新 Admin 的 count 数
 					adminMapper.updateCountLessByPackId(id);
 				}
 				// 删除快递
-				packMapper.deletePackById(id);
+				packMapper.deleteById(id);
 			}
 			return DO_SUCCESS;
 		} catch (Exception e) {
@@ -460,11 +482,14 @@ public class PackServiceImpl implements PackService {
 			// 取出 User 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 User 已取快递集合
-			List<Pack> packs = packMapper.getUserPacks(card, org, addr, status, search);
-			List<PackResult> packResultList = PackUtil.getPackResult(packs);
-			// 获取分页方式的结果集
-			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
-			map.put("pack_result", resultPage);
+			Page<Pack> page = new Page<>(currentPage, pageSize);
+			Page<Pack> packs = packMapper.getUserPacks(page, card, org, addr, status, search);
+			per.kirito.pack.pojo.utilpojo.Page<Pack> result = new per.kirito.pack.pojo.utilpojo.Page<Pack>();
+			result.setCurrentPage(currentPage);
+			result.setPageSize(pageSize);
+			result.setTotal(packs.getTotal());
+			result.setList(packs.getRecords());
+			map.put("pack_result", result);
 		} else {
 			log.info("token: {} 获取学生快递集失败，因为登录状态失效！", token);
 			map.put("fail", INFO_FAIL);
@@ -498,11 +523,14 @@ public class PackServiceImpl implements PackService {
 			// 取出 User 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 User 已取快递集合
-			List<Pack> packs = packMapper.getUserIsPick(card, org, search);
-			List<PackResult> packResultList = PackUtil.getPackResult(packs);
-			// 获取分页方式的结果集
-			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
-			map.put("pack_result", resultPage);
+			Page<Pack> page = new Page<>(currentPage, pageSize);
+			Page<Pack> packs =  packMapper.getUserIsPick(page, card, org, search);
+			per.kirito.pack.pojo.utilpojo.Page<Pack> result = new per.kirito.pack.pojo.utilpojo.Page<Pack>();
+			result.setCurrentPage(currentPage);
+			result.setPageSize(pageSize);
+			result.setTotal(packs.getTotal());
+			result.setList(packs.getRecords());
+			map.put("pack_result", result);
 		} else {
 			log.info("token: {} 获取学生已取快递集失败，因为登录状态失效！", token);
 			map.put("fail", INFO_FAIL);
@@ -546,11 +574,14 @@ public class PackServiceImpl implements PackService {
 			// 取出 User 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 User 已取快递集合
-			List<Pack> packs = packMapper.getUserNoPick(card, org, addr, status, search);
-			List<PackResult> packResultList = PackUtil.getPackResult(packs);
-			// 获取分页方式的结果集
-			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
-			map.put("pack_result", resultPage);
+			Page<Pack> page = new Page<>(currentPage, pageSize);
+			Page<Pack> packs =  packMapper.getUserNoPick(page, card, org, addr, status, search);
+			per.kirito.pack.pojo.utilpojo.Page<Pack> result = new per.kirito.pack.pojo.utilpojo.Page<Pack>();
+			result.setCurrentPage(currentPage);
+			result.setPageSize(pageSize);
+			result.setTotal(packs.getTotal());
+			result.setList(packs.getRecords());
+			map.put("pack_result", result);
 		} else {
 			log.info("token: {} 获取学生未取快递集失败，因为登录状态失效！", token);
 			map.put("fail", INFO_FAIL);
@@ -570,7 +601,7 @@ public class PackServiceImpl implements PackService {
 		if (stringRedisTemplate.hasKey(token)) {
 			// 取出用户手机号
 			String card = stringRedisTemplate.opsForValue().get(token);
-			User user = userMapper.getUserById(card);
+			User user = userMapper.selectById(card);
 			String phone = user.getPhone();
 			int allTotal = packMapper.getUserAllTotalNum(phone);
 			int isTotal = packMapper.getUserIsTotalNum(phone);
@@ -625,12 +656,14 @@ public class PackServiceImpl implements PackService {
 			// 取出 Admin 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 Admin 所有快递集合
-			List<Pack> packs = packMapper.getAdminPacks(card, org, status, search);
-			// int -> String 转换
-			List<PackResult> packResultList = PackUtil.getPackResult(packs);
-			// 获取分页方式的结果集
-			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
-			map.put("pack_result", resultPage);
+			Page<Pack> page = new Page<>(currentPage, pageSize);
+			Page<Pack> packs =  packMapper.getAdminPacks(page, card, org, status, search);
+			per.kirito.pack.pojo.utilpojo.Page<Pack> result = new per.kirito.pack.pojo.utilpojo.Page<Pack>();
+			result.setCurrentPage(currentPage);
+			result.setPageSize(pageSize);
+			result.setTotal(packs.getTotal());
+			result.setList(packs.getRecords());
+			map.put("pack_result", result);
 		} else {
 			log.info("token: {} 获取驿站管理员快递集失败，因为登录状态失效！", token);
 			map.put("fail", INFO_FAIL);
@@ -664,11 +697,14 @@ public class PackServiceImpl implements PackService {
 			// 取出 Admin 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 Admin 已取快递集合
-			List<Pack> packs = packMapper.getAdminIsPick(card, org, search);
-			List<PackResult> packResultList = PackUtil.getPackResult(packs);
-			// 获取分页方式的结果集
-			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
-			map.put("pack_result", resultPage);
+			Page<Pack> page = new Page<>(currentPage, pageSize);
+			Page<Pack> packs =  packMapper.getAdminIsPick(page, card, org, search);
+			per.kirito.pack.pojo.utilpojo.Page<Pack> result = new per.kirito.pack.pojo.utilpojo.Page<Pack>();
+			result.setCurrentPage(currentPage);
+			result.setPageSize(pageSize);
+			result.setTotal(packs.getTotal());
+			result.setList(packs.getRecords());
+			map.put("pack_result", result);
 		} else {
 			log.info("token: {} 获取驿站管理员已取快递集失败，因为登录状态失效！", token);
 			map.put("fail", INFO_FAIL);
@@ -710,11 +746,14 @@ public class PackServiceImpl implements PackService {
 			// 取出 Admin 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 Admin 未取快递集合
-			List<Pack> packs = packMapper.getAdminNoPick(card, org, status, search);
-			List<PackResult> packResultList = PackUtil.getPackResult(packs);
-			// 获取分页方式结果集
-			Page<PackResult> resultPage = PackUtil.getPackByPage(currentPage, pageSize, packResultList);
-			map.put("pack_result", resultPage);
+			Page<Pack> page = new Page<>(currentPage, pageSize);
+			Page<Pack> packs = packMapper.getAdminNoPick(page, card, org, status, search);
+			per.kirito.pack.pojo.utilpojo.Page<Pack> result = new per.kirito.pack.pojo.utilpojo.Page<Pack>();
+			result.setCurrentPage(currentPage);
+			result.setPageSize(pageSize);
+			result.setTotal(packs.getTotal());
+			result.setList(packs.getRecords());
+			map.put("pack_result", result);
 		} else {
 			log.info("token: {} 获取驿站管理员未取快递集失败，因为登录状态失效！", token);
 			map.put("fail", INFO_FAIL);
@@ -734,7 +773,7 @@ public class PackServiceImpl implements PackService {
 		if (stringRedisTemplate.hasKey(token)) {
 			// 取出驿站地址
 			String card = stringRedisTemplate.opsForValue().get(token);
-			Admin admin = adminMapper.getAdminById(card);
+			Admin admin = adminMapper.selectById(card);
 			String addr = admin.getAddr();
 			int allTotal = packMapper.getAdminAllTotalNum(addr);
 			int isTotal = packMapper.getAdminIsTotalNum(addr);
@@ -784,18 +823,16 @@ public class PackServiceImpl implements PackService {
 	 * 获取不筛选不分页的驿站所有快递集合，以便生成 Excel
 	 *
 	 * @param token 令牌
-	 * @return java.util.List<per.kirito.pack.pojo.utilpojo.PackResult>
+	 * @return java.util.List<per.kirito.pack.pojo.Pack>
 	 */
 	@Override
-	public List<PackResult> getAllPacksByExcelOfAdmin(String token) {
+	public List<Pack> getAllPacksByExcelOfAdmin(String token) {
 		if (stringRedisTemplate.hasKey(token)) {
 			// 取出 Admin 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 Admin 所有快递集合
 			List<Pack> packs = packMapper.getAllPacksByExcelOfAdmin(card);
-			// int -> String 转换
-			List<PackResult> packResultList = PackUtil.getPackResult(packs);
-			return packResultList;
+			return packs;
 		}
 		return null;
 	}
@@ -804,18 +841,16 @@ public class PackServiceImpl implements PackService {
 	 * 获取不筛选不分页的驿站已取快递集合，以便生成 Excel
 	 *
 	 * @param token 令牌
-	 * @return java.util.List<per.kirito.pack.pojo.utilpojo.PackResult>
+	 * @return java.util.List<per.kirito.pack.pojo.Pack>
 	 */
 	@Override
-	public List<PackResult> getIsPacksByExcelOfAdmin(String token) {
+	public List<Pack> getIsPacksByExcelOfAdmin(String token) {
 		if (stringRedisTemplate.hasKey(token)) {
 			// 取出 Admin 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 Admin 已取快递集合
 			List<Pack> packs = packMapper.getIsPacksByExcelOfAdmin(card);
-			// int -> String 转换
-			List<PackResult> packResultList = PackUtil.getPackResult(packs);
-			return packResultList;
+			return packs;
 		}
 		return null;
 	}
@@ -824,18 +859,16 @@ public class PackServiceImpl implements PackService {
 	 * 获取不筛选不分页的驿站未取快递集合，以便生成 Excel
 	 *
 	 * @param token 令牌
-	 * @return java.util.List<per.kirito.pack.pojo.utilpojo.PackResult>
+	 * @return java.util.List<per.kirito.pack.pojo.Pack>
 	 */
 	@Override
-	public List<PackResult> getNoPacksByExcelOfAdmin(String token) {
+	public List<Pack> getNoPacksByExcelOfAdmin(String token) {
 		if (stringRedisTemplate.hasKey(token)) {
 			// 取出 Admin 登录的 card
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 Admin 未取快递集合
 			List<Pack> packs = packMapper.getNoPacksByExcelOfAdmin(card);
-			// int -> String 转换
-			List<PackResult> packResultList = PackUtil.getPackResult(packs);
-			return packResultList;
+			return packs;
 		}
 		return null;
 	}
@@ -846,62 +879,77 @@ public class PackServiceImpl implements PackService {
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	public void updateEcharts(String card) {
-		Map map = new HashMap();
 		String date = DateUtil.today();
-		map.put("datee", date);
-		map.put("card", card);
-		Echarts echarts = echartsMapper.getData(date, card);
+		QueryWrapper<Echarts> echartsQueryWrapper = new QueryWrapper<>();
+		echartsQueryWrapper.eq("datee", date).eq("card", card);
+		Echarts echarts = echartsMapper.selectOne(echartsQueryWrapper);
+		if (echarts == null) {
+			echarts = new Echarts();
+			echarts.setDatee(date);
+			echarts.setCard(card);
+			echarts.setNine(0);
+			echarts.setTen(0);
+			echarts.setEleven(0);
+			echarts.setTwelve(0);
+			echarts.setThirteen(0);
+			echarts.setFourteen(0);
+			echarts.setFifteen(0);
+			echarts.setSixteen(0);
+			echarts.setSeventeen(0);
+			echarts.setEighteen(0);
+			echarts.setNineteen(0);
+		}
 		Integer hour = getHour();
 		int count = 0;
 		switch (hour) {
 			case 9:
 				count = echarts.getNine();
-				map.put("nine", count + 1);
+				echarts.setNine(count + 1);
 				break;
 			case 10:
 				count = echarts.getTen();
-				map.put("ten", count + 1);
+				echarts.setTen(count + 1);
 				break;
 			case 11:
 				count = echarts.getEleven();
-				map.put("eleven", count + 1);
+				echarts.setEleven(count + 1);
 				break;
 			case 12:
 				count = echarts.getTwelve();
-				map.put("twelve", count + 1);
+				echarts.setTwelve(count + 1);
 				break;
 			case 13:
 				count = echarts.getThirteen();
-				map.put("thirteen", count + 1);
+				echarts.setThirteen(count + 1);
 				break;
 			case 14:
 				count = echarts.getFourteen();
-				map.put("fourteen", count + 1);
+				echarts.setFourteen(count + 1);
 				break;
 			case 15:
 				count = echarts.getFifteen();
-				map.put("fifteen", count + 1);
+				echarts.setFifteen(count + 1);
 				break;
 			case 16:
 				count = echarts.getSixteen();
-				map.put("sixteen", count + 1);
+				echarts.setSixteen(count + 1);
 				break;
 			case 17:
 				count = echarts.getSeventeen();
-				map.put("seventeen", count + 1);
+				echarts.setSeventeen(count + 1);
 				break;
 			case 18:
 				count = echarts.getEighteen();
-				map.put("eighteen", count + 1);
+				echarts.setEighteen(count + 1);
 				break;
 			case 19:
 				count = echarts.getNineteen();
-				map.put("nineteen", count + 1);
+				echarts.setNineteen(count + 1);
 				break;
 			default: break;
 		}
 		try {
-			echartsMapper.updateData(map);
+			echartsMapper.update(echarts, echartsQueryWrapper);
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
 			log.info("adminCard: {} 更新 Echarts 表失败，因为发生了异常！", card);
@@ -923,6 +971,29 @@ public class PackServiceImpl implements PackService {
 			hour = now;
 		}
 		return hour;
+	}
+
+	/**
+	 * 根据驿站地址获取驿站管理员信息
+	 *
+	 * @param addr      驿站地址
+	 * @return per.kirito.pack.pojo.Admin
+	 */
+	private Admin getAdminByAddr(String addr) {
+		QueryWrapper<Admin> adminQueryWrapper = new QueryWrapper<>();
+		adminQueryWrapper.eq("addr", addr);
+		Admin admin = adminMapper.selectOne(adminQueryWrapper);
+		return admin;
+	}
+
+	/**
+	 * 根据取件码和驿站地址获取该取件码信息
+	 *
+	 * @param codeQueryWrapper      条件构造器
+	 * @return per.kirito.pack.pojo.Code
+	 */
+	public Code getCodeById(QueryWrapper<Code> codeQueryWrapper) {
+		return codeMapper.selectOne(codeQueryWrapper);
 	}
 
 }

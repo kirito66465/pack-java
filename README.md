@@ -127,17 +127,12 @@ TODO：换用 elasticsearch
 1. 优化路由结构
 2. 修复 Echarts 数据更新 BUG
 ```
-
-
-
-__TODO__
+- 2021.03.31<br>
 ```markdown
-打包：
-1. SpringBoot 项目去除所有 `@CrossOrigin` 注解
-2. 去除 Console 日志打印
-
-熟悉：
-1. GET POST PUT DELETE，这四种请求方式区别
+1. 更换 ORM 为 MyBatis-plus
+2. 优化 RequestMapping 路径
+3. 优化日志记录
+4. 添加自定义错误页面
 ```
 
 

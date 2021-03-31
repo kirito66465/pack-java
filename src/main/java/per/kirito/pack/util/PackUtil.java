@@ -1,13 +1,9 @@
 package per.kirito.pack.util;
 
 import per.kirito.pack.myenum.Express;
+import per.kirito.pack.myenum.PackStatusEnum;
 import per.kirito.pack.myenum.Status;
 import per.kirito.pack.pojo.Pack;
-import per.kirito.pack.pojo.utilpojo.PackResult;
-import per.kirito.pack.pojo.utilpojo.Page;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author kirito
@@ -117,9 +113,9 @@ public class PackUtil {
 		// 添加所在驿站信息
 		pack.setAddr(addr);
 		// 添加驿站联系人信息
-		pack.setCont_name(contPer);
+		pack.setContName(contPer);
 		// 添加驿站联系方式信息
-		pack.setCont_tel(contTel);
+		pack.setContTel(contTel);
 		// 添加快递状态信息
 		Pack newPack = updateStatus(pack, "入站");
 		String time = TypeConversion.getTime();
@@ -137,60 +133,11 @@ public class PackUtil {
 	 */
 	public static Pack updateStatus(Pack pack, String operate) {
 		if ("取件".equals(operate)) {
-			pack.setStatus(PACK_CODE_0);
+			pack.setStatus(PackStatusEnum.PACK_STATUS_0);
 		} else if ("入站".equals(operate)) {
-			pack.setStatus(PACK_CODE__1);
+			pack.setStatus(PackStatusEnum.PACK_STATUS__1);
 		}
 		return pack;
-	}
-
-	/**
-	 * 抽取出来的获取结果集方法，主要对status进行类型转换：jdbcType/Integer -> java/String
-	 *
-	 * @param packList Pack 结果集
-	 * @return java.util.List<per.kirito.pack.pojo.utilpojo.PackResult>
-	 */
-	public static List<PackResult> getPackResult(List<Pack> packList) {
-		List<PackResult> packResultList = new ArrayList<>();
-		PackResult packResult;
-		for (Pack pack : packList) {
-			packResult = new PackResult(pack);
-			packResultList.add(packResult);
-		}
-		return packResultList;
-	}
-
-	/**
-	 * 抽取出来的分页方法，仅需传入当前页码、每页条数、快递结果集
-	 *
-	 * @param currentPage    当前页码
-	 * @param pageSize       每页条数
-	 * @param packResultList 快递结果集
-	 * @return per.kirito.pack.pojo.utilpojo.Page<per.kirito.pack.pojo.utilpojo.PackResult>
-	 */
-	public static Page<PackResult> getPackByPage(int currentPage, int pageSize, List<PackResult> packResultList) {
-		Page<PackResult> resultPage = new Page<>();
-		resultPage.setCurrentPage(currentPage);
-		resultPage.setPageSize(pageSize);
-		List<PackResult> resultList = new ArrayList<>();
-		PackResult packResult;
-		int index = (currentPage - 1) * pageSize;
-		int end = currentPage * pageSize;
-		int size = packResultList.size();
-		// 当最后一页记录条数不足每页记录条数时，end置为结果集的长度
-		if (end > size) {
-			end = size;
-		}
-		// 遍历结果集，获取到当前页数下的数据集
-		for (int i = index; i < end; i++) {
-			packResult = packResultList.get(i);
-			resultList.add(packResult);
-		}
-		resultPage.setList(resultList);
-		// 获取结果集数量
-		int total = packResultList.size();
-		resultPage.setTotal(total);
-		return resultPage;
 	}
 
 }

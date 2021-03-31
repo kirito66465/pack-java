@@ -1,13 +1,15 @@
 spring:
   profiles:
     active: redmi
+
   application:
     name: pack
+
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     # Druid 扩展属性配置
     druid:
-      driver-class-name: com.mysql.cj.jdbc.Driver
+      # driver-class-name: com.mysql.cj.jdbc.Driver
       # 初始化大小，最小，最大
       initial-size: 5
       min-idle: 5
@@ -21,7 +23,7 @@ spring:
       validation-query: SELECT 1 FROM DUAL
       validation-query-timeout: 60
       # 开启 Druid 监控功能
-      filters: stat,wall
+      filters: stat
       filter:
         stat: # 配置 StatFilter ，对应文档 https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE_StatFilter
           log-slow-sql: true # 开启慢查询记录
@@ -52,12 +54,13 @@ jasypt:
 logging:
   config: classpath:logback.xml
 
-mybatis:
-  config-location: classpath:conf/mybatis-config.xml    # MyBatis 配置文件路径
-  mapper-locations: classpath:mapper/*.xml              # Mapper.xml 地址
-  type-aliases-package: per.kirito.pack.pojo            # 数据库实体类包路径
-#  configuration:
-#    map-underscore-to-camel-case: true                  # 开启驼峰转换
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**.xml                      # 自定义 SQL XML 位置
+  type-aliases-package: per.kirito.pack.pojo                      # MyBaits 别名包扫描路径
+  typeEnumsPackage: per.kirito.pack.myenum                        # 扫描通用枚举
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl         # 查看执行的 SQL 语句
+    cache-enabled: false                                          # 配置缓存，开发时关闭
 
 # 发送邮件邮箱配置
 mail:
@@ -71,13 +74,15 @@ spring:
   config:
     activate:
       on-profile: aorus
+
   datasource:
     # Druid 扩展属性配置
     druid:
       # 本地运行
-      url: ENC(XIJ9qpE+IiX+LtR5NDTJKslOt+EZ66KNlzO9gexwQf0DWQZb0lZJWN7KUzv8QXWNP/M30UoYS2lZavAcjF3jwerEPngaKQYbAZ7mYK9izRrJT+OITBfpQKm3KnHQnIJyau5vIabcH6s=)
-      username: ENC(10VxmuDM9NQpaK876a7FMA==)
-      password: ENC(ebx9tXeDRfnrZ+FisGAANOQxJ1OgLKwt)
+      url: ENC(2Wd2mbkJXAwR5i3DC7j22b7BIeDAkZqJ6cW78hApNmGu9tSeyNQ/Shmh6V5KcK1Wefbu3U4L3FAyApoyaibkS9mcIWqgvXB5+9cWxBo3NoambDjFnyFSWiryKYYxMgIuFv2CcOOC/ZIjDgttfXYvkA==)
+      username: ENC(yjWek0OXd+CjuX9pZAxLWg==)
+      password: ENC(dTuy0Gxd4KKsfCzNTUj6vxWf4QRxEEBjv)
+      driver-class-name: com.p6spy.engine.spy.P6SpyDriver
 
       # aorus 虚拟机 打包
 #      url: jdbc:mysql://localhost:3306/pack?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
@@ -100,13 +105,13 @@ spring:
   config:
     activate:
       on-profile: redmi
+
   datasource:
-    # Druid 扩展属性配置
-    druid:
-      # 本地运行
-      url: ENC(XIJ9qpE+IiX+LtR5NDTJKslOt+EZ66KNlzO9gexwQf0DWQZb0lZJWN7KUzv8QXWNP/M30UoYS2lZavAcjF3jwerEPngaKQYbAZ7mYK9izRrJT+OITBfpQKm3KnHQnIJyau5vIabcH6s=)
-      username: ENC(10VxmuDM9NQpaK876a7FMA==)
-      password: ENC(ebx9tXeDRfnrZ+FisGAANOQxJ1OgLKwt)
+    # 本地运行
+    url: ENC(2Wd2mbkJXAwR5i3DC7j22b7BIeDAkZqJ6cW78hApNmGu9tSeyNQ/Shmh6V5KcK1Wefbu3U4L3FAyApoyaibkS9mcIWqgvXB5+9cWxBo3NoambDjFnyFSWiryKYYxMgIuFv2CcOOC/ZIjDgttfXYvkA==)
+    username: ENC(yjWek0OXd+CjuX9pZAxLWg==)
+    password: ENC(gIyYN/pv3iTMmBRwsfQEbgYh1PheREBK)
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
 
       # redmi 虚拟机 打包
 #      url: jdbc:mysql://localhost:3306/pack?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
@@ -129,12 +134,14 @@ spring:
   config:
     activate:
       on-profile: aliyun
+
   datasource:
     # Druid 扩展属性配置
     druid:
-      url: ENC(sgaiUuuc2zSjY0lbfLS4LZjhHjMV59gLYYymdgb2qwKRwYCe+hWEu4CEgK3YiBtlP64sHUJSdBGmoQqKGGhMUdDspkEbf3ZjIQ/D3XFIADGqAl75hicDYse3FFbL/N17Eh3tnXIlKHK/hXWKn+xlPg==)
-      username: ENC(UslRlW0JeiMnvdBqFgJVKw==)
-      password: ENC(hi2Rf8lyV6yS1Lmobtg2pOlrtgFss91EPyxkngJNmaE=)
+      url: ENC(SifCYFg8bF3bSwmbW+7+hLuwhljNuATKsf5hhB9WGksu1WclfeQkEum9p6Q92SBh4BEIUQUUfHbTjJMpRL20KjWWIOLz0g23XUE/Q/tjYQ4k4a0F9pyZyWeaRM/arV08/XQrlmwkZob1Ow0kZTmklQ==)
+      username: ENC(1m2rfexUaIH0OobisFPkrQ==)
+      password: ENC(mo8o7YpS61JKNvbuHO/lOJ7fYa0gO0azLVDpj4EfcUI=)
+      driver-class-name: com.p6spy.engine.spy.P6SpyDriver
 
   redis:
     host: ENC(4ETL9BRRKsLENtf8X78r7NJFwK9kgpdg)

@@ -6,44 +6,6 @@
         card, password, phone, name, addr, count
     </sql>
 
-	<!-- 根据学号和密码查询用户是否存在以进行登录判断 -->
-	<select id="login" resultType="Integer">
-		SELECT count(*)
-		FROM t_admin
-		WHERE card = #{card}
-		AND password = #{password}
-	</select>
-
-	<!-- 根据 card 查询出该 Admin 信息 -->
-	<select id="getAdminById" parameterType="String" resultType="Admin">
-		SELECT t.card, t.password, t.phone, t.name, t.addr, t.count
-		FROM t_admin t
-		WHERE card = #{card}
-	</select>
-
-	<!-- 根据驿站地址查询出该 Admin 信息 -->
-	<select id="getAdminByAddr" parameterType="String" resultType="Admin">
-		SELECT t.card, t.password, t.phone, t.name, t.addr, t.count
-		FROM t_admin t
-		WHERE addr = #{addr}
-	</select>
-
-	<!-- 修改密码 -->
-	<update id="resetPwd">
-		UPDATE t_admin
-		SET password = #{newPwd}
-		WHERE card = #{card}
-		AND password = #{oldPwd}
-	</update>
-
-	<!-- 更新 Admin 信息 -->
-	<update id="updateInfo">
-		UPDATE t_admin
-		SET name = #{name}
-			, phone = #{phone}
-		WHERE card = #{card}
-	</update>
-
 	<!-- 更新 count 数-1 -->
 	<update id="updateCountLessByPackId" parameterType="String">
 		UPDATE t_admin

@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 @Data
 @NonNull
-@Builder
+@NoArgsConstructor
 @AllArgsConstructor
 public class SendRequest implements Serializable {
 

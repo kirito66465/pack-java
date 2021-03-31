@@ -1,9 +1,6 @@
 package per.kirito.pack.pojo.utilpojo;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
@@ -16,7 +13,7 @@ import java.util.List;
  */
 @Data
 @NonNull
-@Builder
+@NoArgsConstructor
 @AllArgsConstructor
 public class EchartsVO implements Serializable {
 

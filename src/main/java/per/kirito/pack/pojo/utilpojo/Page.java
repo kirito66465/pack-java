@@ -1,6 +1,7 @@
 package per.kirito.pack.pojo.utilpojo;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
  * 分页实体类
  */
 @Data
+@NoArgsConstructor
 public class Page<T> implements Serializable {
 
 	/**
@@ -27,7 +29,7 @@ public class Page<T> implements Serializable {
 	/**
 	 * 总记录条数
 	 */
-	private Integer total;
+	private Long total;
 
 	/**
 	 * 当前页的记录

@@ -2,7 +2,6 @@ package per.kirito.pack;
 
 import cn.hutool.cron.CronUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,7 +16,6 @@ import per.kirito.pack.properties.MailProperties;
  * Spring Boot 项目启动类
  */
 @Slf4j
-@MapperScan(basePackages = "per.kirito.pack.mapper")
 @SpringBootApplication(scanBasePackages = "per.kirito.pack")
 public class PackApplication {
 

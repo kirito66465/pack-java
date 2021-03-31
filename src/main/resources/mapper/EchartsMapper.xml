@@ -3,66 +3,7 @@
 <mapper namespace="per.kirito.pack.mapper.EchartsMapper">
 
 	<sql id="FIELDS">
-        datee, card, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen
+        id, datee, card, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen
     </sql>
-
-	<!-- 获取数据 -->
-	<select id="getData" parameterType="String" resultType="Echarts">
-		SELECT datee, card, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen
-		FROM t_echarts
-		WHERE datee = #{datee}
-		AND card = #{card}
-	</select>
-
-	<!-- 更新数据 -->
-	<update id="updateData" parameterType="Map">
-		UPDATE t_echarts
-		SET card = #{card}
-			<if test="nine != null and nine != 0">
-				, nine = #{nine}
-			</if>
-			<if test="ten != null and ten != 0">
-				, ten = #{ten}
-			</if>
-			<if test="eleven != null and eleven != 0">
-				, eleven = #{eleven}
-			</if>
-			<if test="twelve != null and twelve != 0">
-				, twelve = #{twelve}
-			</if>
-			<if test="thirteen != null and thirteen != 0">
-				, thirteen = #{thirteen}
-			</if>
-			<if test="fourteen != null and fourteen != 0">
-				, fourteen = #{fourteen}
-			</if>
-			<if test="fifteen != null and fifteen != 0">
-				, fifteen = #{fifteen}
-			</if>
-			<if test="sixteen != null and sixteen != 0">
-				, sixteen = #{sixteen}
-			</if>
-			<if test="seventeen != null and seventeen != 0">
-				, seventeen = #{seventeen}
-			</if>
-			<if test="eighteen != null and eighteen != 0">
-				, eighteen = #{eighteen}
-			</if>
-			<if test="nineteen != null and nineteen != 0">
-				, nineteen = #{nineteen}
-			</if>
-		WHERE datee = #{datee}
-		AND card = #{card}
-	</update>
-
-	<!-- 新增初始化数据 -->
-	<insert id="initData" parameterType="String">
-		INSERT INTO t_echarts (
-			datee, card, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen, nineteen
-		) VALUES (
-			#{datee}, #{card}, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-		)
-
-	</insert>
 
 </mapper>

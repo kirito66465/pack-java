@@ -1,5 +1,6 @@
 package per.kirito.pack.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 import per.kirito.pack.pojo.Send;
 
@@ -11,33 +12,7 @@ import java.util.List;
  * @time 11:14
  * Send 的 Mapper 层接口
  */
-public interface SendMapper {
-
-	/**
-	 * 添加寄件
-	 *
-	 * @param send 寄件实体
-	 * @return int
-	 */
-	int addSend(Send send);
-
-	/**
-	 * 删除寄件
-	 *
-	 * @param id 快递单号
-	 * @return int
-	 */
-	int deleteSend(String id);
-
-	/**
-	 * 更新寄件状态
-	 *
-	 * @param id     快递单号
-	 * @param status 状态
-	 * @param dt     时间戳
-	 * @return int
-	 */
-	int updateSend(@Param("id") String id, @Param("status") String status, @Param("dt") String dt);
+public interface SendMapper extends BaseMapper<Send> {
 
 	/**
 	 * 获取 User 的寄件集合

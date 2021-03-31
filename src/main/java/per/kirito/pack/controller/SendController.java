@@ -48,11 +48,11 @@ public class SendController {
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
 	@CrossOrigin
-	@PostMapping(value = "/getSendInfo")
+	@PostMapping(value = "/get-send")
 	public Map<String, Object> getSendInfo(
 			@ApiParam(required = true, name = "request", value = "寄件表单实体") @RequestBody SendRequest sendRequest,
 			HttpServletRequest request) {
-		log.info("请求 URL[/send/getSendInfo]；参数[request={}]", sendRequest);
+		log.info("请求 URL[/send/get-send]；参数[request={}]", sendRequest);
 		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return sendService.sendPack(sendRequest);
 	}
@@ -187,12 +187,12 @@ public class SendController {
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
 	@CrossOrigin
-	@PostMapping(value = "/getSendByUser")
+	@PostMapping(value = "/user-send")
 	public Map<String, Object> getSendByUser(
 			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:寄件状态, search:搜索}")
 			@RequestParam(value = "json") String json,
 			HttpServletRequest request) {
-		log.info("请求 URL[/send/getSendByUser]；参数[json={}]", json);
+		log.info("请求 URL[/send/user-send]；参数[json={}]", json);
 		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return sendService.getSendByUser(json);
 	}
@@ -213,11 +213,11 @@ public class SendController {
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
 	@CrossOrigin
-	@PostMapping(value = "/getTotalByUser")
+	@PostMapping(value = "/user-count")
 	public Map<String, Object> getTotalByUser(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
 			HttpServletRequest request) {
-		log.info("请求 URL[/send/getTotalByUser]；参数[token={}]", token);
+		log.info("请求 URL[/send/user-count]；参数[token={}]", token);
 		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return sendService.getTotalByUser(token);
 	}
@@ -243,12 +243,12 @@ public class SendController {
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
 	@CrossOrigin
-	@PostMapping(value = "/getSendByAdmin")
+	@PostMapping(value = "/admin-send")
 	public Map<String, Object> getSendByAdmin(
 			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, status:寄件状态, search:搜索}")
 			@RequestParam(value = "json") String json,
 			HttpServletRequest request) {
-		log.info("请求 URL[/send/getSendByAdmin]；参数[json={}]", json);
+		log.info("请求 URL[/send/admin-send]；参数[json={}]", json);
 		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return sendService.getSendByAdmin(json);
 	}
@@ -269,11 +269,11 @@ public class SendController {
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
 	@CrossOrigin
-	@PostMapping(value = "/getTotalByAdmin")
+	@PostMapping(value = "/admin-count")
 	public Map<String, Object> getTotalByAdmin(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
 			HttpServletRequest request) {
-		log.info("请求 URL[/send/getTotalByAdmin]；参数[token={}]", token);
+		log.info("请求 URL[/send/admin-count]；参数[token={}]", token);
 		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return sendService.getTotalByAdmin(token);
 	}

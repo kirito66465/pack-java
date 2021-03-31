@@ -1,6 +1,6 @@
 package per.kirito.pack.service.inter;
 
-import per.kirito.pack.pojo.utilpojo.PackResult;
+import per.kirito.pack.pojo.Pack;
 
 import java.util.List;
 import java.util.Map;
@@ -146,24 +146,24 @@ public interface PackService {
 	 * 获取不筛选不分页的驿站所有快递集合
 	 *
 	 * @param token 令牌
-	 * @return java.util.List<per.kirito.pack.pojo.utilpojo.PackResult>
+	 * @return java.util.List<per.kirito.pack.pojo.Pack>
 	 */
-	List<PackResult> getAllPacksByExcelOfAdmin(String token);
+	List<Pack> getAllPacksByExcelOfAdmin(String token);
 
 	/**
 	 * 获取不筛选不分页的驿站已取快递集合
 	 *
 	 * @param token 令牌
-	 * @return java.util.List<per.kirito.pack.pojo.utilpojo.PackResult>
+	 * @return java.util.List<per.kirito.pack.pojo.Pack>
 	 */
-	List<PackResult> getIsPacksByExcelOfAdmin(String token);
+	List<Pack> getIsPacksByExcelOfAdmin(String token);
 
 	/**
 	 * 获取不筛选不分页的驿站未取快递集合
 	 *
 	 * @param token 令牌
-	 * @return java.util.List<per.kirito.pack.pojo.utilpojo.PackResult>
+	 * @return java.util.List<per.kirito.pack.pojo.Pack>
 	 */
-	List<PackResult> getNoPacksByExcelOfAdmin(String token);
+	List<Pack> getNoPacksByExcelOfAdmin(String token);
 
 }

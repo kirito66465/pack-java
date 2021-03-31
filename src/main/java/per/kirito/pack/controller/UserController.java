@@ -96,11 +96,11 @@ public class UserController {
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
 	@CrossOrigin
-	@PostMapping(value = "/getInfo")
+	@PostMapping(value = "/get-info")
 	public Map<String, Object> getUserInfo(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
 			HttpServletRequest request) {
-		log.info("请求 URL[/user/getInfo]；参数[token={}]", token);
+		log.info("请求 URL[/user/get-info]；参数[token={}]", token);
 		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return accountService.getInfo(token);
 	}
@@ -148,13 +148,13 @@ public class UserController {
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
 	@CrossOrigin
-	@PutMapping(value = "/forgetPwd")
+	@PutMapping(value = "/forget-pwd")
 	public Map<String, String> forgetPwd(
 			@ApiParam(required = true, name = "card", value = "学号") @RequestParam(value = "card") String card,
 			@ApiParam(required = true, name = "phone", value = "手机号") @RequestParam(value = "phone") String phone,
 			@ApiParam(required = true, name = "password", value = "密码") @RequestParam(value = "password") String password,
 			HttpServletRequest request) {
-		log.info("请求 URL[/user/forgetPwd]；参数[card={}, phone{}, password={}]", card, phone, password);
+		log.info("请求 URL[/user/forget-pwd]；参数[card={}, phone{}, password={}]", card, phone, password);
 		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return accountService.forgetPwd(card, phone, password);
 	}
@@ -179,7 +179,7 @@ public class UserController {
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
 	@CrossOrigin
-	@PutMapping(value = "/resetPwd")
+	@PutMapping(value = "/reset-pwd")
 	public Map<String, String> resetPwd(
 			@ApiParam(required = true, name = "card", value = "学号") @RequestParam(value = "card") String card,
 			@ApiParam(required = true, name = "oldPwd", value = "原密码") @RequestParam(value = "oldPwd") String oldPwd,
@@ -187,7 +187,7 @@ public class UserController {
 			@ApiParam(required = true, name = "checkCode", value = "验证码") @RequestParam(value = "checkCode") String checkCode,
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
 			HttpServletRequest request) {
-		log.info("请求 URL[/user/resetPwd]；参数[card={}, oldPwd={}, newPwd={}, checkCode={}, token={}]", card, oldPwd, newPwd, checkCode, token);
+		log.info("请求 URL[/user/reset-pwd]；参数[card={}, oldPwd={}, newPwd={}, checkCode={}, token={}]", card, oldPwd, newPwd, checkCode, token);
 		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return accountService.resetPwd(card, oldPwd, newPwd, checkCode, token);
 	}
@@ -211,14 +211,14 @@ public class UserController {
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
 	@CrossOrigin
-	@PutMapping(value = "/updateInfo")
+	@PutMapping(value = "/update-info")
 	public Map<String, String> updateInfo(
 			@ApiParam(required = true, name = "name", value = "姓名") @RequestParam(value = "name") String name,
 			@ApiParam(required = true, name = "addr", value = "地址") @RequestParam(value = "addr") String addr,
 			@ApiParam(required = true, name = "mail", value = "邮箱") @RequestParam(value = "mail") String mail,
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
 			HttpServletRequest request) {
-		log.info("请求 URL[/user/updateInfo]；参数[name={}, addr={}, mail={}, token={}]", name, addr, mail, token);
+		log.info("请求 URL[/user/update-info]；参数[name={}, addr={}, mail={}, token={}]", name, addr, mail, token);
 		log.info("请求来源: {}", IpAddressUtil.getIpAddress(request));
 		return accountService.updateInfo(name, addr, mail, token);
 	}

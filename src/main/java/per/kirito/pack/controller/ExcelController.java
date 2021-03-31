@@ -7,7 +7,7 @@ import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import per.kirito.pack.pojo.utilpojo.PackResult;
+import per.kirito.pack.pojo.Pack;
 import per.kirito.pack.service.inter.PackService;
 import per.kirito.pack.util.IpAddressUtil;
 
@@ -49,7 +49,7 @@ public class ExcelController {
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
 	@CrossOrigin
-	@PostMapping
+	@PostMapping(value = "")
 	public void download(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
 			@ApiParam(required = true, name = "type", value = "获取类型") @RequestParam(value = "type") String type,
@@ -76,7 +76,7 @@ public class ExcelController {
 		ServletOutputStream out = null;
 		try {
 			String content = "";
-			List<PackResult> packs = new ArrayList<>();
+			List<Pack> packs = new ArrayList<>();
 			switch (type) {
 				case "all":
 					content = "全部快递";

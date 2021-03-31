@@ -1,11 +1,12 @@
 package per.kirito.pack.pojo;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NonNull;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.*;
+import per.kirito.pack.annotation.Comment;
 
-import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
@@ -16,74 +17,65 @@ import java.io.Serializable;
  */
 @Data
 @NonNull
-@Builder
+@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "t_echarts")
+@TableName(value = "t_echarts")
 public class Echarts implements Serializable {
 
-	/**
-	 * 快递单号
-	 */
+	@Comment(msg = "ID")
+	@TableId(value = "ID", type = IdType.AUTO)
+	private Integer id;
+
+	@Comment(msg = "日期")
+	@TableField(value = "datee")
 	private String datee;
 
-	/**
-	 * 快递单号
-	 */
+	@Comment(msg = "编号")
+	@TableField(value = "card")
 	private String card;
 
-	/**
-	 * 9 点数据
-	 */
+	@Comment(msg = "9 点数据")
+	@TableField(value = "nine")
 	private Integer nine;
 
-	/**
-	 * 10 点数据
-	 */
+	@Comment(msg = "10 点数据")
+	@TableField(value = "ten")
 	private Integer ten;
 
-	/**
-	 * 11 点数据
-	 */
+	@Comment(msg = "11 点数据")
+	@TableField(value = "eleven")
 	private Integer eleven;
 
-	/**
-	 * 12 点数据
-	 */
+	@Comment(msg = "12 点数据")
+	@TableField(value = "twelve")
 	private Integer twelve;
 
-	/**
-	 * 13 点数据
-	 */
+	@Comment(msg = "13 点数据")
+	@TableField(value = "thirteen")
 	private Integer thirteen;
 
-	/**
-	 * 14 点数据
-	 */
+	@Comment(msg = "14 点数据")
+	@TableField(value = "fourteen")
 	private Integer fourteen;
 
-	/**
-	 * 15 点数据
-	 */
+	@Comment(msg = "15 点数据")
+	@TableField(value = "fifteen")
 	private Integer fifteen;
 
-	/**
-	 * 16 点数据
-	 */
+	@Comment(msg = "16 点数据")
+	@TableField(value = "sixteen")
 	private Integer sixteen;
 
-	/**
-	 * 17 点数据
-	 */
+	@Comment(msg = "17 点数据")
+	@TableField(value = "seventeen")
 	private Integer seventeen;
 
-	/**
-	 * 18 点数据
-	 */
+	@Comment(msg = "18 点数据")
+	@TableField(value = "eighteen")
 	private Integer eighteen;
 
-	/**
-	 * 19 点数据
-	 */
+	@Comment(msg = "19 点数据")
+	@TableField(value = "nineteen")
 	private Integer nineteen;
 
 }

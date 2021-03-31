@@ -1,8 +1,12 @@
 package per.kirito.pack.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
+import per.kirito.pack.annotation.Comment;
 
-import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
@@ -13,39 +17,33 @@ import java.io.Serializable;
  */
 @Data
 @NonNull
-@Builder
+@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "t_admin")
+@TableName(value = "t_admin")
 public class Admin implements Serializable {
 
-	/**
-	 * 编号
-	 */
+	@Comment(msg = "编号")
+	@TableId(value = "card", type = IdType.NONE)
 	private String card;
 
-	/**
-	 * 密码
-	 */
+	@Comment(msg = "密码")
+	@TableField(value = "password")
 	private String password;
 
-	/**
-	 * 手机号
-	 */
+	@Comment(msg = "手机号")
+	@TableField(value = "phone")
 	private String phone;
 
-	/**
-	 * 姓名
-	 */
+	@Comment(msg = "姓名")
+	@TableField(value = "name")
 	private String name;
 
-	/**
-	 * 地址
-	 */
+	@Comment(msg = "地址")
+	@TableField(value = "addr")
 	private String addr;
 
-	/**
-	 * 包裹件数(仅限已入站但未取出的快递)
-	 */
+	@Comment(msg = "包裹件数(仅限已入站但未取出的快递)")
+	@TableField(value = "count")
 	private Integer count;
 
 }

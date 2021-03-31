@@ -1,8 +1,12 @@
 package per.kirito.pack.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
+import per.kirito.pack.annotation.Comment;
 
-import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
@@ -13,64 +17,53 @@ import java.io.Serializable;
  */
 @Data
 @NonNull
-@Builder
+@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "t_send")
+@TableName(value = "t_send")
 public class Send implements Serializable {
 
-	/**
-	 * 寄件人姓名
-	 */
-	private String from_name;
+	@Comment(msg = "寄件人姓名")
+	@TableField(value = "from_name")
+	private String fromName;
 
-	/**
-	 * 寄件人手机号
-	 */
-	private String from_tel;
+	@Comment(msg = "寄件人手机号")
+	@TableField(value = "from_tel")
+	private String fromTel;
 
-	/**
-	 * 寄件人地址
-	 */
-	private String from_addr;
+	@Comment(msg = "寄件人地址")
+	@TableField(value = "from_addr")
+	private String fromAddr;
 
-	/**
-	 * 收件人姓名
-	 */
-	private String to_name;
+	@Comment(msg = "收件人姓名")
+	@TableField(value = "to_name")
+	private String toName;
 
-	/**
-	 * 收件人手机号
-	 */
-	private String to_tel;
+	@Comment(msg = "收件人手机号")
+	@TableField(value = "to_tel")
+	private String toTel;
 
-	/**
-	 * 收件人地址
-	 */
-	private String to_addr;
+	@Comment(msg = "收件人地址")
+	@TableField(value = "to_addr")
+	private String toAddr;
 
-	/**
-	 * 运费
-	 */
+	@Comment(msg = "运费")
+	@TableField(value = "price")
 	private Double price;
 
-	/**
-	 * 快递单号
-	 */
+	@Comment(msg = "快递单号")
+	@TableId(value = "id", type = IdType.NONE)
 	private String id;
 
-	/**
-	 * 快递公司
-	 */
+	@Comment(msg = "快递公司")
+	@TableField(value = "org")
 	private String org;
 
-	/**
-	 * 快递状态
-	 */
+	@Comment(msg = "快递状态")
+	@TableField(value = "status")
 	private String status;
 
-	/**
-	 * 时间戳
-	 */
+	@Comment(msg = "时间戳")
+	@TableField(value = "dt")
 	private String dt;
 
 }
