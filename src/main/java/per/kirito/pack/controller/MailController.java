@@ -18,6 +18,7 @@ import java.util.Map;
  */
 @Slf4j
 @Api(tags = {"发送邮件"}, produces = "application/json", consumes = "application/json")
+// @CrossOrigin
 @RestController
 @RequestMapping(value = "/mail")
 public class MailController {
@@ -41,7 +42,6 @@ public class MailController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PostMapping(value = "/notice")
 	public Map<String, String> sendMail(
 			@ApiParam(required = true, name = "ids", value = "快递单号") @RequestParam(value = "ids") String ids,

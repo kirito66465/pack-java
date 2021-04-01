@@ -20,6 +20,7 @@ import java.util.Map;
  */
 @Slf4j
 @Api(tags = {"学生管理"}, produces = "application/json", consumes = "application/json")
+// @CrossOrigin
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
@@ -44,7 +45,6 @@ public class UserController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PostMapping(value = "/login")
 	public Map<String, String> login(
 			@ApiParam(required = true, name = "card", value = "学号") @RequestParam(value = "card") String card,
@@ -70,7 +70,6 @@ public class UserController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PostMapping(value = "/logout")
 	public String userLogout(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
@@ -95,7 +94,6 @@ public class UserController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PostMapping(value = "/get-info")
 	public Map<String, Object> getUserInfo(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
@@ -120,7 +118,6 @@ public class UserController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PostMapping(value = "/register")
 	public Map<String, String> register(
 			@ApiParam(required = true, name = "user", value = "学生实体") @RequestBody User user,
@@ -147,7 +144,6 @@ public class UserController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PutMapping(value = "/forget-pwd")
 	public Map<String, String> forgetPwd(
 			@ApiParam(required = true, name = "card", value = "学号") @RequestParam(value = "card") String card,
@@ -178,7 +174,6 @@ public class UserController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PutMapping(value = "/reset-pwd")
 	public Map<String, String> resetPwd(
 			@ApiParam(required = true, name = "card", value = "学号") @RequestParam(value = "card") String card,
@@ -210,7 +205,6 @@ public class UserController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PutMapping(value = "/update-info")
 	public Map<String, String> updateInfo(
 			@ApiParam(required = true, name = "name", value = "姓名") @RequestParam(value = "name") String name,

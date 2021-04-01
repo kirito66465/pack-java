@@ -21,6 +21,7 @@ import java.util.Map;
  */
 @Slf4j
 @Api(tags = {"管理员管理"}, produces = "application/json", consumes = "application/json")
+// @CrossOrigin
 @RestController
 @RequestMapping(value = "/admin")
 public class AdminController {
@@ -45,7 +46,6 @@ public class AdminController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PostMapping(value = "/login")
 	public Map<String, String> adminLogin(
 			@ApiParam(required = true, name = "card", value = "驿站编号") @RequestParam(value = "card") String card,
@@ -71,7 +71,6 @@ public class AdminController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PostMapping(value = "/logout")
 	public String adminLogout(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
@@ -96,7 +95,6 @@ public class AdminController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PostMapping(value = "/get-info")
 	public Map<String, Object> getAdminInfo(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
@@ -125,7 +123,6 @@ public class AdminController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PutMapping(value = "/reset-pwd")
 	public Map<String, String> resetPwd(
 			@ApiParam(required = true, name = "card", value = "驿站编号") @RequestParam(value = "card") String card,
@@ -157,7 +154,6 @@ public class AdminController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PutMapping(value = "/update-info")
 	public Map<String, String> updateInfo(
 			@ApiParam(required = true, name = "name", value = "驿站编号") @RequestParam(value = "name") String name,
@@ -185,7 +181,6 @@ public class AdminController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PostMapping(value = "/pack-id")
 	public String getPackId(
 			@ApiParam(required = true, name = "type", value = "快递公司") @RequestParam(value = "type") String type,

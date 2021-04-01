@@ -18,6 +18,7 @@ import java.util.Map;
  */
 @Slf4j
 @Api(tags = {"快递管理"}, produces = "application/json", consumes = "application/json")
+// @CrossOrigin
 @RestController
 @RequestMapping(value = "/pack")
 public class PackController {
@@ -41,7 +42,6 @@ public class PackController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PostMapping(value = "/add-pack")
 	public String addPack(
 			@ApiParam(required = true, name = "id", value = "快递单号") @RequestParam(value = "id") String id,
@@ -68,7 +68,6 @@ public class PackController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PutMapping(value = "/pick-by-id")
 	public String pickById(
 			@ApiParam(required = true, name = "ids", value = "快递单号") @RequestParam(value = "ids") String ids,
@@ -96,7 +95,6 @@ public class PackController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PutMapping(value = "/pick-by-code")
 	public String pickPackByUser(
 			@ApiParam(required = true, name = "addr", value = "驿站地址") @RequestParam(value = "addr") String addr,
@@ -124,7 +122,6 @@ public class PackController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PutMapping(value = "/pick-by-admin")
 	public String pickPackByAdmin(
 			@ApiParam(required = true, name = "ids", value = "快递单号") @RequestParam(value = "ids") String ids,
@@ -151,7 +148,6 @@ public class PackController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@DeleteMapping(value = "/delete-pack")
 	public String deletePacks(
 			@ApiParam(required = true, name = "ids", value = "快递单号") @RequestParam(value = "ids") String ids,
@@ -182,7 +178,6 @@ public class PackController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PostMapping(value = "/user-all-pack")
 	public Map<String, Object> getUserPackByPage(
 			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态, search:搜索}")
@@ -208,7 +203,6 @@ public class PackController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PostMapping(value = "/user-is-pack")
 	public Map<String, Object> getUserIsPick(
 			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, search:搜索}")
@@ -234,7 +228,6 @@ public class PackController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PostMapping(value = "/user-no-pack")
 	public Map<String, Object> getUserNoPick(
 			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态, search:搜索}")
@@ -260,7 +253,6 @@ public class PackController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PostMapping(value = "/user-count")
 	public Map<String, Object> getUserTotalNum(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
@@ -290,7 +282,6 @@ public class PackController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PostMapping(value = "/admin-all-pack")
 	public Map<String, Object> getAdminPackByPage(
 			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态, search:搜索}")
@@ -316,7 +307,6 @@ public class PackController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PostMapping(value = "/admin-is-pack")
 	public Map<String, Object> getAdminIsPick(
 			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, search:搜索}")
@@ -342,7 +332,6 @@ public class PackController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PostMapping(value = "/admin-no-pack")
 	public Map<String, Object> getAdminNoPick(
 			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态, search:搜索}")
@@ -368,7 +357,6 @@ public class PackController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PostMapping(value = "/admin-count")
 	public Map<String, Object> getAdminTotalNum(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
@@ -394,7 +382,6 @@ public class PackController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PostMapping(value = "/shelf-pack")
 	public Map<String, Object> getShelfPack(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,

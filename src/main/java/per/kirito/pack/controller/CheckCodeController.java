@@ -18,6 +18,7 @@ import java.util.Map;
  */
 @Slf4j
 @Api(tags = {"验证码"}, produces = "application/json", consumes = "application/json")
+// @CrossOrigin
 @RestController
 @RequestMapping(value = "/get-check-code")
 public class CheckCodeController {
@@ -40,7 +41,6 @@ public class CheckCodeController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PostMapping(value = "")
 	public Map<String, String> getCheckCode(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,

@@ -18,6 +18,7 @@ import java.util.Map;
  */
 @Slf4j
 @Api(tags = {"Echarts"})
+// @CrossOrigin
 @RestController
 @RequestMapping(value = "/echarts")
 public class EchartsController {
@@ -40,7 +41,6 @@ public class EchartsController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PostMapping(value = "/get-data")
 	public Map<String, Object> getData(
 			@ApiParam(required = false, name = "datee", value = "日期") String datee,

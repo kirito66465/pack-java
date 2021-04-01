@@ -7,6 +7,7 @@ import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -33,12 +34,14 @@ public class SwaggerConfiguration {
 	}
 
 	private ApiInfo apiInfo() {
+		Contact contact = new Contact("kirito", "https://github.com/kirito66465", "kirito1204505357@gmail.com");
 		return new ApiInfoBuilder()
 				.title("APIs 接口文档")
 				.description("swagger-bootstrap-ui")
 				.termsOfServiceUrl("http://localhost:5050/")
-				.contact("kirito1204505357@gmail.com")
+				.contact(contact)
 				.version("1.0")
+				.license("Apache License")
 				.build();
 	}
 

@@ -25,6 +25,7 @@ import java.util.List;
  */
 @Slf4j
 @Api(tags = {"Excel"})
+// @CrossOrigin
 @RestController
 @RequestMapping(value = "/excel")
 public class ExcelController {
@@ -48,7 +49,6 @@ public class ExcelController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PostMapping(value = "")
 	public void download(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,

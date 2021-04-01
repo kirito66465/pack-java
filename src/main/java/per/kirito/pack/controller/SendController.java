@@ -19,6 +19,7 @@ import java.util.Map;
  */
 @Slf4j
 @Api(tags = {"寄件管理"}, produces = "application/json", consumes = "application/json")
+// @CrossOrigin
 @RestController
 @RequestMapping(value = "/send")
 public class SendController {
@@ -47,7 +48,6 @@ public class SendController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PostMapping(value = "/get-send")
 	public Map<String, Object> getSendInfo(
 			@ApiParam(required = true, name = "request", value = "寄件表单实体") @RequestBody SendRequest sendRequest,
@@ -73,7 +73,6 @@ public class SendController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PutMapping(value = "/pay")
 	public String pay(
 			@ApiParam(required = true, name = "id", value = "快递单号") @RequestParam(value = "id") String id,
@@ -100,7 +99,6 @@ public class SendController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PutMapping(value = "/confirm")
 	public String confirm(
 			@ApiParam(required = true, name = "ids", value = "快递单号") @RequestParam(value = "ids") String ids,
@@ -127,7 +125,6 @@ public class SendController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PutMapping(value = "/out")
 	public String out(
 			@ApiParam(required = true, name = "ids", value = "快递单号") @RequestParam(value = "ids") String ids,
@@ -154,7 +151,6 @@ public class SendController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@DeleteMapping(value = "/cancel")
 	public String cancel(
 			@ApiParam(required = true, name = "ids", value = "快递单号") @RequestParam(value = "ids") String ids,
@@ -186,7 +182,6 @@ public class SendController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PostMapping(value = "/user-send")
 	public Map<String, Object> getSendByUser(
 			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:寄件状态, search:搜索}")
@@ -212,7 +207,6 @@ public class SendController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PostMapping(value = "/user-count")
 	public Map<String, Object> getTotalByUser(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
@@ -242,7 +236,6 @@ public class SendController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PostMapping(value = "/admin-send")
 	public Map<String, Object> getSendByAdmin(
 			@ApiParam(required = true, name = "json", value = "{currentPage:当前页, pageSize:每页大小, token:令牌, status:寄件状态, search:搜索}")
@@ -268,7 +261,6 @@ public class SendController {
 			@ApiResponse(code = 403, message = "请求被拒绝"),
 			@ApiResponse(code = 404, message = "资源不存在")
 	})
-	@CrossOrigin
 	@PostMapping(value = "/admin-count")
 	public Map<String, Object> getTotalByAdmin(
 			@ApiParam(required = true, name = "token", value = "token 令牌") @RequestParam(value = "token") String token,
