@@ -16,7 +16,6 @@ public class CronUtil {
 	 * 定时输出系统信息
 	 */
 	public static void printInfo() {
-		log.info("\n{}", String.valueOf(SystemUtil.getOsInfo()));
 		log.info("\n{}", String.valueOf(SystemUtil.getRuntimeInfo()));
 	}
 

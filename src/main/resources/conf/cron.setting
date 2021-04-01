@@ -1,2 +1,0 @@
-[per.kirito.pack.util.cron]
-CronUtil.printInfo = */10 * * * *

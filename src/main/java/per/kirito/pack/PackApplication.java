@@ -1,6 +1,7 @@
 package per.kirito.pack;
 
 import cn.hutool.cron.CronUtil;
+import cn.hutool.system.SystemUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -21,8 +22,10 @@ public class PackApplication {
 
 	public static void main(String[] args) {
 		log.info("程序启动");
+		log.info("\n{}", String.valueOf(SystemUtil.getOsInfo()));
 		SpringApplication.run(PackApplication.class, args);
 		per.kirito.pack.util.cron.CronUtil.printInfo();
+		CronUtil.setCronSetting("cron.setting");
 		CronUtil.start();
 	}
 
