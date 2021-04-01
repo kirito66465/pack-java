@@ -1,6 +1,7 @@
 package per.kirito.pack.pojo.utilpojo;
 
 import lombok.*;
+import per.kirito.pack.annotation.Comment;
 
 import java.io.Serializable;
 
@@ -12,18 +13,13 @@ import java.io.Serializable;
  */
 @Data
 @NonNull
-@NoArgsConstructor
 @AllArgsConstructor
 public class EchartsDO implements Serializable {
 
-	/*
-	 * 时间点对应的数量
-	 */
+	@Comment(msg = "时间点对应的数量")
 	private Integer value;
 
-	/*
-	 * 时间点
-	 */
+	@Comment(msg = "时间点")
 	private String name;
 
 }

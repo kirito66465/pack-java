@@ -15,7 +15,7 @@ public class IpAddressUtil {
 	 *
 	 * @param request http 请求对象
 	 * @return java.lang.String
-	 **/
+	 */
 	public static String getIpAddress(HttpServletRequest request) {
 		String ip = request.getHeader("X-Forwarded-For");
 		if (ip != null && !ip.equals("") && !"unKnown".equalsIgnoreCase(ip)) {

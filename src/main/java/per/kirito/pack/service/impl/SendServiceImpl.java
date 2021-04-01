@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import per.kirito.pack.annotation.Comment;
 import per.kirito.pack.mapper.SendMapper;
 import per.kirito.pack.mapper.UserMapper;
 import per.kirito.pack.myenum.Status;
@@ -56,7 +57,7 @@ public class SendServiceImpl implements SendService {
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
 	 * 流程相关
-	 **/
+	 */
 
 	/**
 	 * User 寄件下单
@@ -99,7 +100,6 @@ public class SendServiceImpl implements SendService {
 			} catch (Exception e) {
 				log.error("error: {}", e.getMessage(), e);
 				log.info("token: {} 寄件下单失败，因为发生了异常！", token);
-				map.put("result", DO_FAIL);
 				e.printStackTrace();
 			}
 			return map;
@@ -133,7 +133,6 @@ public class SendServiceImpl implements SendService {
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
 			log.info("token: {} 学生支付寄件失败，因为发生了异常！", token);
-			e.printStackTrace();
 			return DO_FAIL;
 		}
 	}
@@ -169,7 +168,6 @@ public class SendServiceImpl implements SendService {
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
 			log.info("token: {} 驿站管理员确认件失败，因为发生了异常！", token);
-			e.printStackTrace();
 			return DO_FAIL;
 		}
 	}
@@ -205,7 +203,6 @@ public class SendServiceImpl implements SendService {
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
 			log.info("token: {} 驿站管理员发出寄件失败，因为发生了异常！", token);
-			e.printStackTrace();
 			return DO_FAIL;
 		}
 	}
@@ -234,7 +231,6 @@ public class SendServiceImpl implements SendService {
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
 			log.info("token: {} 学生取消寄件失败，因为发生了异常！", token);
-			e.printStackTrace();
 			return DO_FAIL;
 		}
 	}
@@ -242,16 +238,18 @@ public class SendServiceImpl implements SendService {
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
 	 * User 相关
-	 **/
+	 */
 
 	/**
 	 * 分页方式获取 User 寄件集合
 	 *
-	 * @param json 参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:寄件状态, search:搜索}
+	 * @param json 参数
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
 	 */
 	@Override
-	public Map<String, Object> getSendByUser(String json) {
+	public Map<String, Object> getSendByUser(
+			@Comment(detail = {"currentPage:当前页", "pageSize:每页大小", "token:令牌", "org:快递公司", "status:寄件状态", "search:搜索"})
+					String json) {
 		Map mapTypes = JSON.parseObject(json);
 		Map<String, Object> mapParams = new HashMap<>();
 		for (Object obj : mapTypes.keySet()) {
@@ -271,33 +269,8 @@ public class SendServiceImpl implements SendService {
 		if (stringRedisTemplate.hasKey(token)) {
 			// 根据 card 查询出该 user 寄件集合
 			String card = stringRedisTemplate.opsForValue().get(token);
-			User user = userMapper.selectById(card);
-			String phone = user.getPhone();
-			QueryWrapper<Send> sendQueryWrapper = new QueryWrapper<>();
-			sendQueryWrapper.in("from_tel", phone);
-			if (org != null && org.length() > 0) {
-				String[] orgs = org.split(",");
-				sendQueryWrapper.in("org", orgs);
-			}
-			if (status != null && status.length() > 0) {
-				String[] statuses = status.split(",");
-				sendQueryWrapper.in("status", statuses);
-			}
-			if (search != null && !"".equals(search)) {
-				sendQueryWrapper.like("from_name", search)
-						.like("from_tel", search)
-						.like("from_addr", search)
-						.like("to_name", search)
-						.like("to_tel", search)
-						.like("to_addr", search)
-						.like("id", search)
-						.like("org", search)
-						.like("status", search)
-						.like("dt", search);
-			}
-			sendQueryWrapper.orderBy(true, false, "status", "dt");
 			IPage<Send> sendPage = new Page<>(currentPage, pageSize);
-			IPage<Send> sends = sendMapper.selectPage(sendPage, sendQueryWrapper);
+			IPage<Send> sends = sendMapper.getSendByUser(sendPage, card, org, status, search);
 			List<Send> sendsList = sends.getRecords();
 			if (sendsList != null) {
 				// 获取分页方式结果集
@@ -347,16 +320,18 @@ public class SendServiceImpl implements SendService {
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
 	 * Admin 相关
-	 **/
+	 */
 
 	/**
 	 * 分页方式获取 Admin 寄件集合
 	 *
-	 * @param json 参数{currentPage:当前页, pageSize:每页大小, token:令牌, status:寄件状态, search:搜索}
+	 * @param json      参数
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
 	 */
 	@Override
-	public Map<String, Object> getSendByAdmin(String json) {
+	public Map<String, Object> getSendByAdmin(
+			@Comment(detail = {"currentPage:当前页", "pageSize:每页大小", "token:令牌", "status:寄件状态", "search:搜索"})
+					String json) {
 		Map mapTypes = JSON.parseObject(json);
 		Map<String, Object> mapParams = new HashMap<>();
 		for (Object obj : mapTypes.keySet()) {
@@ -376,27 +351,8 @@ public class SendServiceImpl implements SendService {
 			// 获取所在驿站的寄件快递种类/公司
 			String card = stringRedisTemplate.opsForValue().get(token);
 			String org = SendUtil.getSendOrg(card);
-			QueryWrapper<Send> sendQueryWrapper = new QueryWrapper<>();
-			sendQueryWrapper.eq("org", org);
-			if (status != null && status.length() > 0) {
-				String[] statuses = status.split(",");
-				sendQueryWrapper.in("status", statuses);
-			}
-			if (search != null && !"".equals(search)) {
-				sendQueryWrapper.like("from_name", search)
-						.like("from_tel", search)
-						.like("from_addr", search)
-						.like("to_name", search)
-						.like("to_tel", search)
-						.like("to_addr", search)
-						.like("id", search)
-						.like("org", search)
-						.like("status", search)
-						.like("dt", search);
-			}
-			sendQueryWrapper.orderBy(true, false, "status", "dt");
 			IPage<Send> sendPage = new Page<>(currentPage, pageSize);
-			IPage<Send> sends = sendMapper.selectPage(sendPage, sendQueryWrapper);
+			IPage<Send> sends = sendMapper.getSendByAdmin(sendPage, org, status, search);
 			List<Send> sendsList = sends.getRecords();
 			if (sendsList != null) {
 				// 获取分页方式结果集

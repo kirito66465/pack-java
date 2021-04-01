@@ -35,7 +35,7 @@ public class CheckCodeServiceImpl implements CheckCodeService {
 	 *
 	 * @param token 令牌
 	 * @return java.util.Map<java.lang.String, java.lang.String>
-	 **/
+	 */
 	@Override
 	public Map<String, String> getCheckCode(String token) {
 		Map<String, String> map = new HashMap<>();
@@ -64,7 +64,6 @@ public class CheckCodeServiceImpl implements CheckCodeService {
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
 			log.info("token: {} 获取验证码失败，因为发生了异常！", token);
-			e.printStackTrace();
 			map.put("result", INFO_FAIL);
 			return map;
 		}

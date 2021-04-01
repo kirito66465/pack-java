@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import per.kirito.pack.annotation.Comment;
 import per.kirito.pack.mapper.*;
 import per.kirito.pack.myenum.PackStatusEnum;
 import per.kirito.pack.myenum.Status;
@@ -48,17 +49,10 @@ public class PackServiceImpl implements PackService {
 	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
 
-	private static final int INTO_CODE = Status.INTO_SUCCESS.getCode();
-	private static final int PICK_CODE = Status.PICK_SUCCESS.getCode();
-	private static final int INFO_CODE = Status.INFO_SUCCESS.getCode();
-	private static final int DO_CODE = Status.DO_SUCCESS.getCode();
+	// 取件码使用状态
 	private static final int IS_USE = Status.IS_USE.getCode();
-	private static final int NOT_USE = Status.NOT_USE.getCode();
 	// 快递状态
 	private static final int USE_CODE = Status.IS_USE.getCode();
-	private static final int PACK_CODE_1 = Status.PACK_STATUS_1.getCode();
-	private static final int PACK_CODE_0 = Status.PACK_STATUS_0.getCode();
-	private static final int PACK_CODE__1 = Status.PACK_STATUS__1.getCode();
 	// 取件码使用状态
 	private static final int CODE_STATUS_1 = Status.CODE_STATUS_1.getCode();
 	private static final int CODE_STATUS_0 = Status.CODE_STATUS_0.getCode();
@@ -84,7 +78,7 @@ public class PackServiceImpl implements PackService {
 	 * @param id    快递单号
 	 * @param token 令牌
 	 * @return java.lang.String
-	 **/
+	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public String addPack(String id, String token) {
@@ -149,7 +143,6 @@ public class PackServiceImpl implements PackService {
 				log.error("error: {}", e.getMessage(), e);
 				log.info("token: {} 添加快递入站失败，因为发生了异常！", token);
 				// 有异常，返回入站失败
-				e.printStackTrace();
 				return INTO_FAIL;
 			}
 		} else {
@@ -200,7 +193,7 @@ public class PackServiceImpl implements PackService {
 						Code coder = getCodeById(codeQueryWrapper);
 						coder.setStatus(CODE_STATUS_0);
 						coder.setFree(time);
-						codeMapper.update(coder,codeQueryWrapper);
+						codeMapper.update(coder, codeQueryWrapper);
 						int count = admin.getCount() - 1;
 						if (count >= MAX_PACKS) {
 							// 当前快递取出后，驿站剩余未取快递数大于等于2400，则需要为未有取件码的快递根据最早入站时间赋予取件码
@@ -236,7 +229,6 @@ public class PackServiceImpl implements PackService {
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
 			log.info("token: {} 学生取件失败，因为发生了异常！", token);
-			e.printStackTrace();
 			// 取件失败
 			return PICK_FAIL;
 		}
@@ -249,7 +241,7 @@ public class PackServiceImpl implements PackService {
 	 * @param code  取件码
 	 * @param token 令牌
 	 * @return java.lang.String
-	 **/
+	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public String pickPackByUser(String addr, String code, String token) {
@@ -293,7 +285,7 @@ public class PackServiceImpl implements PackService {
 					Code coder = getCodeById(codeQueryWrapper);
 					coder.setStatus(CODE_STATUS_0);
 					coder.setFree(time);
-					codeMapper.update(coder,codeQueryWrapper);
+					codeMapper.update(coder, codeQueryWrapper);
 					int count = admin.getCount() - 1;
 					if (count >= MAX_PACKS) {
 						// 当前快递取出后，驿站剩余未取快递数大于等于2400，则需要为未有取件码的快递根据最早入站时间赋予取件码
@@ -323,7 +315,6 @@ public class PackServiceImpl implements PackService {
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
 			log.info("token: {} 学生取件失败，因为发生了异常！", token);
-			e.printStackTrace();
 			// 取件失败
 			return PICK_FAIL;
 		}
@@ -335,7 +326,7 @@ public class PackServiceImpl implements PackService {
 	 * @param ids   快递单号
 	 * @param token 令牌
 	 * @return java.lang.String
-	 **/
+	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public String pickPackByAdmin(String ids, String token) {
@@ -399,7 +390,6 @@ public class PackServiceImpl implements PackService {
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
 			log.info("token: {} 驿站管理员取件失败，因为发生了异常！", token);
-			e.printStackTrace();
 			return PICK_FAIL;
 		}
 	}
@@ -410,7 +400,7 @@ public class PackServiceImpl implements PackService {
 	 * @param ids   快递单号
 	 * @param token 令牌
 	 * @return java.lang.String
-	 **/
+	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public String deletePacksById(String ids, String token) {
@@ -436,7 +426,6 @@ public class PackServiceImpl implements PackService {
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
 			log.info("token: {} 删除快递失败，因为发生了异常！", token);
-			e.printStackTrace();
 			return DO_FAIL;
 		}
 	}
@@ -444,16 +433,18 @@ public class PackServiceImpl implements PackService {
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
 	 * User 相关
-	 **/
+	 */
 
 	/**
 	 * 分页获取 User 所有的快递，包括已取出和未取出的快递；如果没有 token 令牌，则返回获取信息失败
 	 *
-	 * @param json 参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态, search:搜索}
+	 * @param json 参数
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
-	 **/
+	 */
 	@Override
-	public Map<String, Object> getUserPackByPage(String json) {
+	public Map<String, Object> getUserPackByPage(
+			@Comment(detail = {"currentPage:当前页", "pageSize:每页大小", "token:令牌", "org:快递公司", "addr:驿站地址", "status:快递状态", "search:搜索"})
+					String json) {
 		Map mapTypes = JSON.parseObject(json);
 		Map<String, Object> mapParams = new HashMap<>();
 		for (Object obj : mapTypes.keySet()) {
@@ -500,11 +491,13 @@ public class PackServiceImpl implements PackService {
 	/**
 	 * 分页获取 User 已取出的快递；如果没有 token 令牌，则返回获取信息失败
 	 *
-	 * @param json 参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, search:搜索}
+	 * @param json 参数
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
-	 **/
+	 */
 	@Override
-	public Map<String, Object> getUserIsPick(String json) {
+	public Map<String, Object> getUserIsPick(
+			@Comment(detail = {"currentPage:当前页", "pageSize:每页大小", "token:令牌", "org:快递公司", "search:搜索"})
+					String json) {
 		Map mapTypes = JSON.parseObject(json);
 		Map<String, Object> mapParams = new HashMap<>();
 		for (Object obj : mapTypes.keySet()) {
@@ -524,7 +517,7 @@ public class PackServiceImpl implements PackService {
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 User 已取快递集合
 			Page<Pack> page = new Page<>(currentPage, pageSize);
-			Page<Pack> packs =  packMapper.getUserIsPick(page, card, org, search);
+			Page<Pack> packs = packMapper.getUserIsPick(page, card, org, search);
 			per.kirito.pack.pojo.utilpojo.Page<Pack> result = new per.kirito.pack.pojo.utilpojo.Page<Pack>();
 			result.setCurrentPage(currentPage);
 			result.setPageSize(pageSize);
@@ -541,11 +534,13 @@ public class PackServiceImpl implements PackService {
 	/**
 	 * 分页获取 User 所未取出的快递， 无论有无取件码；如果没有 token 令牌，则返回获取信息失败
 	 *
-	 * @param json 参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态, search:搜索}
+	 * @param json 参数
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
-	 **/
+	 */
 	@Override
-	public Map<String, Object> getUserNoPick(String json) {
+	public Map<String, Object> getUserNoPick(
+			@Comment(detail = {"currentPage:当前页", "pageSize:每页大小", "token:令牌", "org:快递公司", "addr:驿站地址", "status:快递状态", "search:搜索"})
+					String json) {
 		Map mapTypes = JSON.parseObject(json);
 		Map<String, Object> mapParams = new HashMap<>();
 		for (Object obj : mapTypes.keySet()) {
@@ -575,7 +570,7 @@ public class PackServiceImpl implements PackService {
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 User 已取快递集合
 			Page<Pack> page = new Page<>(currentPage, pageSize);
-			Page<Pack> packs =  packMapper.getUserNoPick(page, card, org, addr, status, search);
+			Page<Pack> packs = packMapper.getUserNoPick(page, card, org, addr, status, search);
 			per.kirito.pack.pojo.utilpojo.Page<Pack> result = new per.kirito.pack.pojo.utilpojo.Page<Pack>();
 			result.setCurrentPage(currentPage);
 			result.setPageSize(pageSize);
@@ -594,7 +589,7 @@ public class PackServiceImpl implements PackService {
 	 *
 	 * @param token 令牌
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
-	 **/
+	 */
 	@Override
 	public Map<String, Object> getUserTotalNum(String token) {
 		Map<String, Object> map = new HashMap<>();
@@ -620,16 +615,18 @@ public class PackServiceImpl implements PackService {
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
 	 * Admin 相关
-	 **/
+	 */
 
 	/**
 	 * 分页获取 Admin 所有的快递，包括已取出和未取出的快递；如果没有 token 令牌，则返回获取信息失败
 	 *
-	 * @param json 参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态, search:搜索}
+	 * @param json 参数
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
-	 **/
+	 */
 	@Override
-	public Map<String, Object> getAdminPackByPage(String json) {
+	public Map<String, Object> getAdminPackByPage(
+			@Comment(detail = {"currentPage:当前页", "pageSize:每页大小", "token:令牌", "org:快递公司", "status:快递状态", "search:搜索"})
+					String json) {
 		Map mapTypes = JSON.parseObject(json);
 		Map<String, Object> mapParams = new HashMap<>();
 		for (Object obj : mapTypes.keySet()) {
@@ -657,7 +654,7 @@ public class PackServiceImpl implements PackService {
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 Admin 所有快递集合
 			Page<Pack> page = new Page<>(currentPage, pageSize);
-			Page<Pack> packs =  packMapper.getAdminPacks(page, card, org, status, search);
+			Page<Pack> packs = packMapper.getAdminPacks(page, card, org, status, search);
 			per.kirito.pack.pojo.utilpojo.Page<Pack> result = new per.kirito.pack.pojo.utilpojo.Page<Pack>();
 			result.setCurrentPage(currentPage);
 			result.setPageSize(pageSize);
@@ -674,11 +671,13 @@ public class PackServiceImpl implements PackService {
 	/**
 	 * 分页获取当前驿站的已取出快递；如果没有 token 令牌，则返回获取信息失败
 	 *
-	 * @param json 参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, search:搜索}
+	 * @param json 参数
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
-	 **/
+	 */
 	@Override
-	public Map<String, Object> getAdminIsPick(String json) {
+	public Map<String, Object> getAdminIsPick(
+			@Comment(detail = {"currentPage:当前页", "pageSize:每页大小", "token:令牌", "org:快递公司", "search:搜索"})
+					String json) {
 		Map mapTypes = JSON.parseObject(json);
 		Map<String, Object> mapParams = new HashMap<>();
 		for (Object obj : mapTypes.keySet()) {
@@ -698,7 +697,7 @@ public class PackServiceImpl implements PackService {
 			String card = stringRedisTemplate.opsForValue().get(token);
 			// 根据 card 查询出该 Admin 已取快递集合
 			Page<Pack> page = new Page<>(currentPage, pageSize);
-			Page<Pack> packs =  packMapper.getAdminIsPick(page, card, org, search);
+			Page<Pack> packs = packMapper.getAdminIsPick(page, card, org, search);
 			per.kirito.pack.pojo.utilpojo.Page<Pack> result = new per.kirito.pack.pojo.utilpojo.Page<Pack>();
 			result.setCurrentPage(currentPage);
 			result.setPageSize(pageSize);
@@ -715,11 +714,13 @@ public class PackServiceImpl implements PackService {
 	/**
 	 * 分页获取当前驿站的未取出快递，无论有无取件码；如果没有 token 令牌，则返回获取信息失败
 	 *
-	 * @param json 参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态, search:搜索}
+	 * @param json      参数
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
-	 **/
+	 */
 	@Override
-	public Map<String, Object> getAdminNoPick(String json) {
+	public Map<String, Object> getAdminNoPick(
+			@Comment(detail = {"currentPage:当前页", "pageSize:每页大小", "token:令牌", "org:快递公司", "status:快递状态", "search:搜索"})
+					String json) {
 		Map mapTypes = JSON.parseObject(json);
 		Map<String, Object> mapParams = new HashMap<>();
 		for (Object obj : mapTypes.keySet()) {
@@ -766,7 +767,7 @@ public class PackServiceImpl implements PackService {
 	 *
 	 * @param token 令牌
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
-	 **/
+	 */
 	@Override
 	public Map<String, Object> getAdminTotalNum(String token) {
 		Map<String, Object> map = new HashMap<>();
@@ -803,7 +804,7 @@ public class PackServiceImpl implements PackService {
 	 * @param token 令牌
 	 * @param shelf 货架
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
-	 **/
+	 */
 	@Override
 	public Map<String, Object> getShelfPack(String token, String shelf) {
 		Map<String, Object> map = new HashMap<>();
@@ -875,7 +876,8 @@ public class PackServiceImpl implements PackService {
 
 	/**
 	 * 更新 Echarts 数据
-	 * @param card  时间
+	 *
+	 * @param card 时间
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	public void updateEcharts(String card) {
@@ -946,7 +948,8 @@ public class PackServiceImpl implements PackService {
 				count = echarts.getNineteen();
 				echarts.setNineteen(count + 1);
 				break;
-			default: break;
+			default:
+				break;
 		}
 		try {
 			echartsMapper.update(echarts, echartsQueryWrapper);
@@ -958,6 +961,7 @@ public class PackServiceImpl implements PackService {
 
 	/**
 	 * 获取所需范围的小时值（9-19）
+	 *
 	 * @return java.lang.Integer
 	 */
 	private Integer getHour() {
@@ -976,7 +980,7 @@ public class PackServiceImpl implements PackService {
 	/**
 	 * 根据驿站地址获取驿站管理员信息
 	 *
-	 * @param addr      驿站地址
+	 * @param addr 驿站地址
 	 * @return per.kirito.pack.pojo.Admin
 	 */
 	private Admin getAdminByAddr(String addr) {
@@ -989,7 +993,7 @@ public class PackServiceImpl implements PackService {
 	/**
 	 * 根据取件码和驿站地址获取该取件码信息
 	 *
-	 * @param codeQueryWrapper      条件构造器
+	 * @param codeQueryWrapper 条件构造器
 	 * @return per.kirito.pack.pojo.Code
 	 */
 	public Code getCodeById(QueryWrapper<Code> codeQueryWrapper) {

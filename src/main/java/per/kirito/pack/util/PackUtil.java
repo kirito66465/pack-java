@@ -13,10 +13,6 @@ import per.kirito.pack.pojo.Pack;
  */
 public class PackUtil {
 
-	private static final int PACK_CODE_1 = Status.PACK_STATUS_1.getCode();
-	private static final int PACK_CODE_0 = Status.PACK_STATUS_0.getCode();
-	private static final int PACK_CODE__1 = Status.PACK_STATUS__1.getCode();
-
 	// 快递公司的中文名与英文名
 	private static final String ZTO = String.valueOf(Express.中通);
 	private static final String STO = String.valueOf(Express.申通);

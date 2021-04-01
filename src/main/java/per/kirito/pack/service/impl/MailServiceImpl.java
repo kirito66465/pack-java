@@ -45,7 +45,7 @@ public class MailServiceImpl implements MailService {
 	 * @param ids   快递单号
 	 * @param token 令牌
 	 * @return java.util.Map<java.lang.String, java.lang.String>
-	 **/
+	 */
 	@Override
 	public Map<String, String> sendMail(String ids, String token) {
 		Map<String, String> map = new HashMap<>();
@@ -80,7 +80,6 @@ public class MailServiceImpl implements MailService {
 		} catch (MessagingException | GeneralSecurityException e) {
 			log.error("error: {}", e.getMessage(), e);
 			log.info("token: {} 发送通知邮件失败，因为发生了异常！", token);
-			e.printStackTrace();
 			map.put("result", DO_FAIL);
 			return map;
 		}

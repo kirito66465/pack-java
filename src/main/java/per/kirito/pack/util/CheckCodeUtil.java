@@ -1,5 +1,6 @@
 package per.kirito.pack.util;
 
+import lombok.extern.slf4j.Slf4j;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
@@ -17,6 +18,7 @@ import java.util.Random;
  * @time 10:51
  * 验证码工具类
  */
+@Slf4j
 public class CheckCodeUtil {
 
 	private static Random random = new Random();
@@ -27,7 +29,7 @@ public class CheckCodeUtil {
 	 * @param fc 最小值
 	 * @param bc 最大色
 	 * @return java.awt.Color
-	 **/
+	 */
 	private static Color getRandColor(int fc, int bc) {
 		if (fc > 255) {
 			fc = 255;
@@ -45,7 +47,7 @@ public class CheckCodeUtil {
 	 * 获取随机颜色的整型值
 	 *
 	 * @return int
-	 **/
+	 */
 	private static int getRandomIntColor() {
 		int[] rgb = getRandomRgb();
 		int color = 0;
@@ -60,7 +62,7 @@ public class CheckCodeUtil {
 	 * 获取随机颜色的 RGB 值
 	 *
 	 * @return int[]
-	 **/
+	 */
 	private static int[] getRandomRgb() {
 		int[] rgb = new int[3];
 		for (int i = 0; i < 3; i++) {
@@ -76,7 +78,7 @@ public class CheckCodeUtil {
 	 * @param w1    横轴扭曲像素
 	 * @param h1    纵轴扭曲像素
 	 * @param color 颜色
-	 **/
+	 */
 	private static void shear(Graphics g, int w1, int h1, Color color) {
 		shearX(g, w1, h1, color);
 		shearY(g, w1, h1, color);
@@ -89,7 +91,7 @@ public class CheckCodeUtil {
 	 * @param w1    横轴扭曲像素
 	 * @param h1    纵轴扭曲像素
 	 * @param color 颜色
-	 **/
+	 */
 	private static void shearX(Graphics g, int w1, int h1, Color color) {
 		int period = random.nextInt(2);
 		boolean borderGap = true;
@@ -114,7 +116,7 @@ public class CheckCodeUtil {
 	 * @param w1    横轴扭曲像素
 	 * @param h1    纵轴扭曲像素
 	 * @param color 颜色
-	 **/
+	 */
 	private static void shearY(Graphics g, int w1, int h1, Color color) {
 		int period = random.nextInt(40) + 10; // 50;
 		boolean borderGap = true;
@@ -137,7 +139,7 @@ public class CheckCodeUtil {
 	 *
 	 * @param length 验证码长度
 	 * @return java.lang.String
-	 **/
+	 */
 	public static String getStringRandom(int length) {
 		String val = "";
 		Random random = new Random();
@@ -165,7 +167,7 @@ public class CheckCodeUtil {
 	 * @param h    图片高度
 	 * @param code 验证码
 	 * @return java.lang.String
-	 **/
+	 */
 	public static String imageToBase64(int w, int h, String code) throws Exception {
 		int verifySize = code.length();
 		BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
@@ -233,26 +235,21 @@ public class CheckCodeUtil {
 	/**
 	 * 将 Base64 位编码的图片进行解码，并保存到指定目录
 	 *
-	 * @param base64 Base64 编码的验证码图片
-	 **/
-	public static void base64ToImage(String base64) {
+	 * @param base64   Base64 编码的验证码图片
+	 * @param fileName 指定保存目录
+	 */
+	public static void base64ToImage(String base64, String fileName) {
 		BASE64Decoder decoder = new BASE64Decoder();
 		try {
-			File file = new File("D:/test.jpg");
+			File file = new File(fileName);
 			FileOutputStream write = new FileOutputStream(file);
 			byte[] decoderBytes = decoder.decodeBuffer(base64);
 			write.write(decoderBytes);
 			write.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error("error: {}", e.getMessage(), e);
+			log.info("生成验证码图片失败，因为发生了异常！");
 		}
-	}
-
-	public static void main(String[] args) throws Exception {
-		// base64ToImage(imageToBase64(120, 40, getStringRandom(4)));
-		String code = getStringRandom(4);
-		String pic = imageToBase64(120, 40, code);
-		System.out.println(pic);
 	}
 
 }

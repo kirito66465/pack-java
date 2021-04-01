@@ -39,7 +39,7 @@ public class ExcelController {
 	 * @param type     快递类型
 	 * @param response http 响应
 	 * @param request  http 请求
-	 **/
+	 */
 	@ApiOperation(value = "下载 Excel", notes = "生成对应 Excel，返回输出流", httpMethod = "POST")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "响应成功"),

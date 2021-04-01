@@ -20,7 +20,7 @@ public class PickCodeUtil {
 	 *
 	 * @param count 快递入站前，驿站未取快递总数
 	 * @return java.lang.String
-	 **/
+	 */
 	public static String generate(int count) {
 		// 新入站的快递还未计算在 count 中
 		int all = count + 1;
@@ -56,14 +56,6 @@ public class PickCodeUtil {
 			} else {
 				return String.valueOf(code1 + "-" + code2 + "-" + code3);
 			}
-		}
-	}
-
-	public static void main(String[] args) {
-		// String code = generate(19);
-		// System.out.println(code);
-		for (int i = 0; i < 140; i++) {
-			System.out.println(generate(i));
 		}
 	}
 

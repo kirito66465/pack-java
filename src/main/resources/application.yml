@@ -113,11 +113,6 @@ spring:
     password: ENC(gIyYN/pv3iTMmBRwsfQEbgYh1PheREBK)
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
 
-      # redmi 虚拟机 打包
-#      url: jdbc:mysql://localhost:3306/pack?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
-#      username: demo
-#      password: demo
-
   redis:
     # redmi 虚拟机
     host: 192.168.152.100

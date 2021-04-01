@@ -16,7 +16,7 @@ public interface MailService {
 	 * @param ids   快递单号
 	 * @param token 令牌
 	 * @return java.util.Map<java.lang.String, java.lang.String>
-	 **/
+	 */
 	Map<String, String> sendMail(String ids, String token);
 
 }

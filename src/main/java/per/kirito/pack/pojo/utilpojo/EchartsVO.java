@@ -1,6 +1,7 @@
 package per.kirito.pack.pojo.utilpojo;
 
 import lombok.*;
+import per.kirito.pack.annotation.Comment;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,17 +15,12 @@ import java.util.List;
 @Data
 @NonNull
 @NoArgsConstructor
-@AllArgsConstructor
 public class EchartsVO implements Serializable {
 
-	/**
-	 * 饼图数据
-	 */
+	@Comment(msg = "饼图数据")
 	private List<EchartsDO> data;
 
-	/**
-	 * 折现图数据
-	 */
+	@Comment(msg = "折现图数据")
 	private List<Integer> count;
 
 }

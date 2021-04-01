@@ -87,7 +87,7 @@
 	<logger name="per.kirito.pack.util.cron" level="INFO">
 		<appender-ref ref="baselog"/>
 	</logger>
-	<logger name="com.p6spy.engine.spy.appender" level="INFO">
+	<logger name="com.p6spy.engine.spy.appender" level="DEBUG">
 		<appender-ref ref="baselog"/>
 	</logger>
 </configuration>

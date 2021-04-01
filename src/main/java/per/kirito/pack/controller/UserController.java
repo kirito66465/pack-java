@@ -35,7 +35,7 @@ public class UserController {
 	 * @param password 密码
 	 * @param request  http 请求
 	 * @return java.util.Map<java.lang.String, java.lang.String>
-	 **/
+	 */
 	@ApiOperation(value = "登录", notes = "登录请求，返回登录成功与否", httpMethod = "POST")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "响应成功"),
@@ -61,7 +61,7 @@ public class UserController {
 	 * @param token   令牌
 	 * @param request http 请求
 	 * @return java.lang.String
-	 **/
+	 */
 	@ApiOperation(value = "退出登录", notes = "退出登录请求，返回退出成功与否", httpMethod = "POST")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "响应成功"),
@@ -86,7 +86,7 @@ public class UserController {
 	 * @param token   令牌
 	 * @param request http 请求
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
-	 **/
+	 */
 	@ApiOperation(value = "获取学生信息", notes = "获取信息，如果获取成功返回账号信息，如果失败返回失败原因", httpMethod = "POST")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "响应成功"),
@@ -111,7 +111,7 @@ public class UserController {
 	 * @param user    用户信息
 	 * @param request http 请求
 	 * @return java.util.Map<java.lang.String, java.lang.String>
-	 **/
+	 */
 	@ApiOperation(value = "注册", notes = "注册请求，返回注册成功与否", httpMethod = "POST")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "响应成功"),
@@ -138,7 +138,7 @@ public class UserController {
 	 * @param password 新密码
 	 * @param request  http 请求
 	 * @return java.util.Map<java.lang.String, java.lang.String>
-	 **/
+	 */
 	@ApiOperation(value = "忘记密码", notes = "忘记密码请求，如果学生存在返回操作成功与否，如果不存在返回学生不存在信息", httpMethod = "PUT")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "响应成功"),
@@ -169,7 +169,7 @@ public class UserController {
 	 * @param token     令牌
 	 * @param request   http 请求
 	 * @return java.util.Map<java.lang.String, java.lang.String>
-	 **/
+	 */
 	@ApiOperation(value = "修改密码", notes = "修改密码请求，返回修改密码成功与否", httpMethod = "PUT")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "响应成功"),
@@ -201,7 +201,7 @@ public class UserController {
 	 * @param token   令牌
 	 * @param request http 请求
 	 * @return java.util.Map<java.lang.String, java.lang.String>
-	 **/
+	 */
 	@ApiOperation(value = "更新学生信息", notes = "更新信息请求，返回更新成功与否", httpMethod = "PUT")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "响应成功"),

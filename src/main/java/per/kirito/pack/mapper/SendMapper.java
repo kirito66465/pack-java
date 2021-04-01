@@ -1,10 +1,10 @@
 package per.kirito.pack.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
 import per.kirito.pack.pojo.Send;
-
-import java.util.List;
 
 /**
  * @author kirito
@@ -17,23 +17,25 @@ public interface SendMapper extends BaseMapper<Send> {
 	/**
 	 * 获取 User 的寄件集合
 	 *
+	 * @param page   分页
 	 * @param card   学号
 	 * @param org    快递公司
 	 * @param status 寄件状态
 	 * @param search 搜索
-	 * @return java.util.List<per.kirito.pack.pojo.Send>
-	 **/
-	List<Send> getSendByUser(String card, String org, String status, String search);
+	 * @return com.baomidou.mybatisplus.extension.plugins.pagination.Page<per.kirito.pack.pojo.Send>
+	 */
+	Page<Send> getSendByUser(IPage<Send> page, String card, String org, String status, String search);
 
 	/**
 	 * 获取 Admin 的寄件集合
 	 *
+	 * @param page   分页
 	 * @param org    快递公司
 	 * @param status 寄件状态
 	 * @param search 搜索
-	 * @return java.util.List<per.kirito.pack.pojo.Send>
+	 * @return com.baomidou.mybatisplus.extension.plugins.pagination.Page<per.kirito.pack.pojo.Send>
 	 */
-	List<Send> getSendByAdmin(String org, String status, String search);
+	Page<Send> getSendByAdmin(IPage<Send> page, String org, String status, String search);
 
 	/**
 	 * 传入状态，获取 User 的该状态寄件数量

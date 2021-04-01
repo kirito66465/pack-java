@@ -19,7 +19,7 @@ public interface PackService {
 	 * @param id    快递单号
 	 * @param token 令牌
 	 * @return java.lang.String
-	 **/
+	 */
 	String addPack(String id, String token);
 
 	/**
@@ -38,7 +38,7 @@ public interface PackService {
 	 * @param code  取件码
 	 * @param token 令牌
 	 * @return java.lang.String
-	 **/
+	 */
 	String pickPackByUser(String addr, String code, String token);
 
 	/**
@@ -47,7 +47,7 @@ public interface PackService {
 	 * @param ids   快递单号
 	 * @param token 令牌
 	 * @return java.lang.String
-	 **/
+	 */
 	String pickPackByAdmin(String ids, String token);
 
 	/**
@@ -56,20 +56,20 @@ public interface PackService {
 	 * @param ids   快递单号
 	 * @param token 令牌
 	 * @return java.lang.String
-	 **/
+	 */
 	String deletePacksById(String ids, String token);
 
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
 	 * User相关
-	 **/
+	 */
 
 	/**
 	 * 分页获取 User 所有的快递，包括已取出和未取出的快递；如果没有 token 令牌，则返回获取信息失败
 	 *
 	 * @param json 参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态, search:搜索}
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
-	 **/
+	 */
 	Map<String, Object> getUserPackByPage(String json);
 
 	/**
@@ -77,7 +77,7 @@ public interface PackService {
 	 *
 	 * @param json 参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, search:搜索}
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
-	 **/
+	 */
 	Map<String, Object> getUserIsPick(String json);
 
 	/**
@@ -85,7 +85,7 @@ public interface PackService {
 	 *
 	 * @param json 参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, addr:驿站地址, status:快递状态, search:搜索}
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
-	 **/
+	 */
 	Map<String, Object> getUserNoPick(String json);
 
 	/**
@@ -93,20 +93,20 @@ public interface PackService {
 	 *
 	 * @param token 令牌
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
-	 **/
+	 */
 	Map<String, Object> getUserTotalNum(String token);
 
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
 	 * Admin相关
-	 **/
+	 */
 
 	/**
 	 * 分页获取 Admin 所有的快递，包括已取出和未取出的快递；如果没有 token 令牌，则返回获取信息失败
 	 *
 	 * @param json 参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态, search:搜索}
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
-	 **/
+	 */
 	Map<String, Object> getAdminPackByPage(String json);
 
 	/**
@@ -114,7 +114,7 @@ public interface PackService {
 	 *
 	 * @param json 参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, search:搜索}
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
-	 **/
+	 */
 	Map<String, Object> getAdminIsPick(String json);
 
 	/**
@@ -122,7 +122,7 @@ public interface PackService {
 	 *
 	 * @param json 参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:快递状态, search:搜索}
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
-	 **/
+	 */
 	Map<String, Object> getAdminNoPick(String json);
 
 	/**
@@ -130,7 +130,7 @@ public interface PackService {
 	 *
 	 * @param token 令牌
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
-	 **/
+	 */
 	Map<String, Object> getAdminTotalNum(String token);
 
 	/**
@@ -139,7 +139,7 @@ public interface PackService {
 	 * @param token 令牌
 	 * @param shelf 货架
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
-	 **/
+	 */
 	Map<String, Object> getShelfPack(String token, String shelf);
 
 	/**

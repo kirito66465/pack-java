@@ -29,7 +29,7 @@ public class SendController {
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
 	 * 流程相关
-	 **/
+	 */
 
 	/**
 	 * 接收寄件表单中的信息
@@ -38,7 +38,7 @@ public class SendController {
 	 * @param request     http 请求
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
 	 * 返回运费和成功与否消息
-	 **/
+	 */
 	@ApiOperation(value = "接收寄件表单", notes = "接收学生寄件申请，返回写入数据库成功与否", httpMethod = "POST")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "响应成功"),
@@ -64,7 +64,7 @@ public class SendController {
 	 * @param token   令牌
 	 * @param request http 请求
 	 * @return java.lang.String
-	 **/
+	 */
 	@ApiOperation(value = "学生支付", notes = "学生支付寄件请求，返回更新状态成功与否", httpMethod = "PUT")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "响应成功"),
@@ -91,7 +91,7 @@ public class SendController {
 	 * @param token   令牌
 	 * @param request http 请求
 	 * @return java.lang.String
-	 **/
+	 */
 	@ApiOperation(value = "驿站确认", notes = "驿站确认所属寄件请求，返回更新状态成功与否", httpMethod = "PUT")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "响应成功"),
@@ -118,7 +118,7 @@ public class SendController {
 	 * @param token   令牌
 	 * @param request http 请求
 	 * @return java.lang.String
-	 **/
+	 */
 	@ApiOperation(value = "驿站发出", notes = "驿站发出所属寄件请求，返回更新状态成功与否", httpMethod = "PUT")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "响应成功"),
@@ -145,7 +145,7 @@ public class SendController {
 	 * @param token   令牌
 	 * @param request http 请求
 	 * @return java.lang.String
-	 **/
+	 */
 	@ApiOperation(value = "学生取消", notes = "学生取消寄件请求，返回取消成功与否", httpMethod = "DELETE")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "响应成功"),
@@ -169,7 +169,7 @@ public class SendController {
 	 * -----------------------------------------------------------------------------------------------------------------
 	 * User 相关
 	 *
-	 **/
+	 */
 
 	/**
 	 * 分页方式获取 User 寄件集合
@@ -177,7 +177,7 @@ public class SendController {
 	 * @param json    参数{currentPage:当前页, pageSize:每页大小, token:令牌, org:快递公司, status:寄件状态, search:搜索}
 	 * @param request http 请求
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
-	 **/
+	 */
 	@ApiOperation(value = "学生寄件集", notes = "获取寄件列表请求，如果成功返回分页结果集", httpMethod = "POST")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "响应成功"),
@@ -203,7 +203,7 @@ public class SendController {
 	 * @param token   令牌
 	 * @param request http 请求
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
-	 **/
+	 */
 	@ApiOperation(value = "学生寄件数量", notes = "获取学生寄件数量请求，返回各个状态的寄件数量", httpMethod = "POST")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "响应成功"),
@@ -225,7 +225,7 @@ public class SendController {
 	/**
 	 * -----------------------------------------------------------------------------------------------------------------
 	 * Admin 相关
-	 **/
+	 */
 
 	/**
 	 * 分页方式获取 Admin 寄件集合
@@ -233,7 +233,7 @@ public class SendController {
 	 * @param json    参数{currentPage:当前页, pageSize:每页大小, token:令牌, status:寄件状态, search:搜索}
 	 * @param request http 请求
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
-	 **/
+	 */
 	@ApiOperation(value = "驿站寄件集", notes = "获取驿站所属寄件列表请求，如果成功返回分页结果集", httpMethod = "POST")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "响应成功"),
@@ -259,7 +259,7 @@ public class SendController {
 	 * @param token   令牌
 	 * @param request http 请求
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
-	 **/
+	 */
 	@ApiOperation(value = "驿站寄件数量", notes = "获取驿站所属寄件数量请求，返回各个状态的寄件数量", httpMethod = "POST")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "响应成功"),

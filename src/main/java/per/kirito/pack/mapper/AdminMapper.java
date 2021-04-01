@@ -1,7 +1,6 @@
 package per.kirito.pack.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Param;
 import per.kirito.pack.pojo.Admin;
 
 /**

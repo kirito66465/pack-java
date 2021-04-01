@@ -22,10 +22,10 @@ import java.util.List;
 public class TypeConversion {
 
 	/**
-	 * 获取当前时间
+	 * 获取当前时间（yyyy-MM-dd HH:mm:ss）
 	 *
 	 * @return java.lang.String
-	 **/
+	 */
 	public static String getTime() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date = new Date();
@@ -38,7 +38,7 @@ public class TypeConversion {
 	 *
 	 * @param plainText 加密内容
 	 * @return java.lang.String
-	 **/
+	 */
 	public static String stringToMD5(String plainText) {
 		byte[] secretBytes = null;
 		int length = 32;
@@ -164,13 +164,6 @@ public class TypeConversion {
 		echartsVO.setData(data);
 		echartsVO.setCount(count);
 		return echartsVO;
-	}
-
-	public static void main(String[] args) throws ParseException {
-		String time = TypeConversion.getTime();
-		System.out.println("现在时间：" + time);
-		System.out.println(stringToMD5("123456"));
-		System.out.println(stringToMD5("admin"));
 	}
 
 }

@@ -31,7 +31,7 @@ public class CheckCodeController {
 	 * @param token   令牌
 	 * @param request http 请求
 	 * @return java.util.Map<java.lang.String, java.lang.String>
-	 **/
+	 */
 	@ApiOperation(value = "获取验证码字符串和图片", notes = "获取验证码请求，在登录情况下返回验证码生成成功与否", httpMethod = "POST")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "响应成功"),

@@ -26,7 +26,7 @@ public class SendUtil {
 	 *
 	 * @param postAddr 驿站地址
 	 * @return java.util.Map<java.lang.String, java.lang.String>
-	 **/
+	 */
 	public static Map<String, String> getSendIdAndOrg(String postAddr) {
 		Map<String, String> map = new HashMap<>();
 		String id = "";
@@ -57,7 +57,7 @@ public class SendUtil {
 	 *
 	 * @param card 驿站编号
 	 * @return java.lang.String
-	 **/
+	 */
 	public static String getSendOrg(String card) {
 		String org = "";
 		switch (card) {

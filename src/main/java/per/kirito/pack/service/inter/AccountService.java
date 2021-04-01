@@ -16,7 +16,7 @@ public interface AccountService<E> {
 	 * @param card     编号
 	 * @param password 密码
 	 * @return java.util.Map<java.lang.String, java.lang.String>
-	 **/
+	 */
 	Map<String, String> login(String card, String password);
 
 	/**
@@ -24,7 +24,7 @@ public interface AccountService<E> {
 	 *
 	 * @param token 令牌
 	 * @return java.lang.String
-	 **/
+	 */
 	String logout(String token);
 
 	/**
@@ -32,7 +32,7 @@ public interface AccountService<E> {
 	 *
 	 * @param token 令牌
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
-	 **/
+	 */
 	Map<String, Object> getInfo(String token);
 
 	/**
@@ -40,7 +40,7 @@ public interface AccountService<E> {
 	 *
 	 * @param entity 账户实体信息
 	 * @return java.util.Map<java.lang.String, java.lang.String>
-	 **/
+	 */
 	Map<String, String> register(E entity);
 
 	/**
@@ -50,7 +50,7 @@ public interface AccountService<E> {
 	 * @param phone    手机号
 	 * @param password 新密码
 	 * @return java.util.Map<java.lang.String, java.lang.String>
-	 **/
+	 */
 	Map<String, String> forgetPwd(String card, String phone, String password);
 
 	/**
@@ -62,7 +62,7 @@ public interface AccountService<E> {
 	 * @param checkCode 验证码
 	 * @param token     令牌
 	 * @return java.util.Map<java.lang.String, java.lang.String>
-	 **/
+	 */
 	Map<String, String> resetPwd(String card, String oldPwd, String newPwd, String checkCode, String token);
 
 	/**
@@ -73,7 +73,7 @@ public interface AccountService<E> {
 	 * @param mail  邮箱
 	 * @param token 令牌
 	 * @return java.util.Map<java.lang.String, java.lang.String>
-	 **/
+	 */
 	Map<String, String> updateInfo(String name, String addr, String mail, String token);
 
 }

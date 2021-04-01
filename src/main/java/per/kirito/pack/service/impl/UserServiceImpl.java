@@ -34,11 +34,6 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 	private StringRedisTemplate stringRedisTemplate;
 
 	private static final int LOGIN_CODE = Status.LOGIN_SUCCESS.getCode();
-	private static final int EXIT_CODE = Status.EXIT_SUCCESS.getCode();
-	private static final int INFO_CODE = Status.INFO_SUCCESS.getCode();
-	private static final int REGISTER_CODE = Status.REGISTER_SUCCESS.getCode();
-	private static final int EXIST_CODE = Status.IS_EXIST.getCode();
-	private static final int PWD_CODE = Status.PWD_SUCCESS.getCode();
 
 	private static final String LOGIN_SUCCESS = Status.LOGIN_SUCCESS.getEnMsg();
 	private static final String LOGIN_FAIL = Status.LOGIN_FAIL.getEnMsg();
@@ -65,7 +60,7 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 	 * @param card     编号
 	 * @param password 密码
 	 * @return java.util.Map<java.lang.String, java.lang.String>
-	 **/
+	 */
 	@Override
 	public Map<String, String> login(String card, String password) {
 		Map<String, String> map = new HashMap<>();
@@ -95,7 +90,7 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 	 *
 	 * @param token 令牌
 	 * @return java.lang.String
-	 **/
+	 */
 	@Override
 	public String logout(String token) {
 		// 退出登录时，删除 Redis 中存储的相关键值
@@ -108,7 +103,7 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 	 *
 	 * @param token 令牌
 	 * @return java.util.Map<java.lang.String, java.lang.Object>
-	 **/
+	 */
 	@Override
 	public Map<String, Object> getInfo(String token) {
 		Map<String, Object> map = new HashMap<>();
@@ -132,7 +127,7 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 	 *
 	 * @param entity 账户实体信息
 	 * @return java.util.Map<java.lang.String, java.lang.String>
-	 **/
+	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public Map<String, String> register(E entity) {
@@ -166,7 +161,6 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
 			log.info("card: {} 注册失败，因为发生了异常！", entity.getCard());
-			e.printStackTrace();
 			map.put("result", REGISTER_FAIL);
 			return map;
 		}
@@ -179,7 +173,7 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 	 * @param phone    手机号
 	 * @param password 新密码
 	 * @return java.util.Map<java.lang.String, java.lang.String>
-	 **/
+	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public Map<String, String> forgetPwd(String card, String phone, String password) {
@@ -212,7 +206,6 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
 			log.info("card: {} 忘记密码失败，因为发生了异常！", card);
-			e.printStackTrace();
 			map.put("result", PWD_FAIL);
 			return map;
 		}
@@ -227,7 +220,7 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 	 * @param checkCode 验证码
 	 * @param token     令牌
 	 * @return java.util.Map<java.lang.String, java.lang.String>
-	 **/
+	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public Map<String, String> resetPwd(String card, String oldPwd, String newPwd, String checkCode, String token) {
@@ -271,7 +264,6 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
 			log.info("card: {} 修改密码失败，因为发生了异常！", card);
-			e.printStackTrace();
 			map.put("result", DO_FAIL);
 			return map;
 		}
@@ -285,7 +277,7 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 	 * @param mail  邮箱
 	 * @param token 令牌
 	 * @return java.util.Map<java.lang.String, java.lang.String>
-	 **/
+	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public Map<String, String> updateInfo(String name, String addr, String mail, String token) {
@@ -308,7 +300,6 @@ public class UserServiceImpl<E extends User> implements AccountService<E> {
 		} catch (Exception e) {
 			log.error("error: {}", e.getMessage(), e);
 			log.info("token: {} 更新信息失败，因为发生了异常！", token);
-			e.printStackTrace();
 			map.put("result", DO_FAIL);
 			return map;
 		}

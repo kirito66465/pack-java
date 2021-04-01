@@ -17,8 +17,6 @@ import java.io.Serializable;
  */
 @Data
 @NonNull
-@NoArgsConstructor
-@AllArgsConstructor
 @TableName(value = "t_admin")
 public class Admin implements Serializable {
 

@@ -28,7 +28,7 @@ public class PackApplication {
 
 	/**
 	 * 测试 Properties 配置类
-	 **/
+	 */
 	@Component
 	public static class OrderPropertiesCommandLineRunner implements CommandLineRunner {
 

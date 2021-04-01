@@ -32,7 +32,7 @@ public class MailController {
 	 * @param token   令牌
 	 * @param request http 请求
 	 * @return java.util.Map<java.lang.String, java.lang.String>
-	 **/
+	 */
 	@ApiOperation(value = "邮件通知", notes = "发送邮件请求，返回发送成功与否", httpMethod = "POST")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "响应成功"),
