@@ -3,7 +3,7 @@
 
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
     <!-- 格式化输出：%date表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度 %msg：日志消息，%n是换行符-->
-    <property name="GTC_PATTERN" value="%date{HH:mm:ss.SSS} - %msg%n" />
+    <property name="GTC_PATTERN" value="%date{yyyy-MM-dd HH:mm:ss:SSS} %-5level %thread %logger %msg%n" />
 
     <!-- 定义日志存储的路径，不要配置相对路径 -->
     <springProperty scope="context" name="appName" source="spring.application.name" defaultValue="application"/>
