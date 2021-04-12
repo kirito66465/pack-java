@@ -52,7 +52,7 @@ jasypt:
     algorithm: PBEWithMD5AndDES # 加密算法
 
 logging:
-  config: classpath:logback.xml
+  config: classpath:logback-spring.xml
 
 mybatis-plus:
   mapper-locations: classpath:/mapper/**.xml                      # 自定义 SQL XML 位置
@@ -67,6 +67,13 @@ mail:
   sender-mail: ENC(QrLyPQolo1eloonEfX9W4YbUdWDQjWfXA/iYMexdn+I=)    # 发件人邮箱
   host: ENC(SbfpF4J7vqp29+QQKaneMlh29HtqedMP)                       # 发件邮箱主机
   password: ENC(SMS8MgNusP4+3pwqrWxBd8wECHz9FKOeyiW01VxSOj0=)       # 发件邮箱密钥授权码
+
+desc:
+  version: V1.0.0
+  title: 基于Web的校园快递管理系统
+  author: kirito
+  mail: chen.yan17@foxmail.com
+  license:  Apache License
 
 ---
 # aorus 开发时配置

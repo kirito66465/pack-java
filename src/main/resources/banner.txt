@@ -1,0 +1,13 @@
+ __  ___  __  .______   __  .___________. ______
+|  |/  / |  | |   _  \ |  | |           |/  __  \
+|  '  /  |  | |  |_)  ||  | `---|  |----|  |  |  |
+|    <   |  | |      / |  |     |  |    |  |  |  |
+|  .  \  |  | |  |\  \-|  |     |  |    |  `--'  |
+|__|\__\ |__| | _| `._||__|     |__|     \______/
+::
+:: ${spring.application.name} ${desc.title}  ${desc.version}
+:: Java Version : ${java.version} ${java.vm.vendor}
+:: Spring Boot  : (${spring-boot.version})
+:: Author       : ${desc.author}  ${desc.mail}
+:: License      : ${desc.license}
+::

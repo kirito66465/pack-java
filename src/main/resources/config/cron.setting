@@ -1,2 +1,2 @@
 [per.kirito.pack.util.cron]
-CronUtil.printInfo = * */1 * * *
+CronUtil.printInfo = 0 0 12 * * ?
