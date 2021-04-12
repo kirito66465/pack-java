@@ -9,7 +9,7 @@
     <springProperty scope="context" name="appName" source="spring.application.name" defaultValue="application"/>
 
     <property name="PATH" value="D:/logs/${appName}/%d"/>
-    <property name="PATH" value="/usr/webapps/pack/logs/%d"/>
+    <!--<property name="PATH" value="/usr/webapps/pack/logs/%d"/>-->
 
     <!-- 控制台输出 -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
